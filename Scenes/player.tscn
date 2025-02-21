@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3 uid="uid://cl8bnr0dkpief"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_surch"]
+[ext_resource type="Script" path="res://Scripts/trajectory.gd" id="2_xwwox"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sj3dd"]
+radius = 9.0
+height = 32.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_phb53"]
+polygon = PackedVector2Array(-5, -16, 5, -16, 8, -12, 8, 13, 5, 16, -5, 16, -8, 13, -8, -12)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bh0hx"]
+radius = 3.0
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 18
+slide_on_ceiling = false
+floor_constant_speed = true
+floor_block_on_wall = false
+safe_margin = 0.03
+script = ExtResource("1_surch")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-5, -16, -8, -11.8694, -8, 13, -5, 16, 5, 16, 8, 13, 8, -11.9578, 5, -16)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape2D_sj3dd")
+
+[node name="Hand" type="Polygon2D" parent="."]
+rotation = 0.698132
+polygon = PackedVector2Array(14, -4, 14, -1, 12, 0, 10, -1, 10, -4, 12, -5)
+
+[node name="HoldSpot" type="Marker2D" parent="Hand"]
+position = Vector2(12, -3)
+rotation = 0.785397
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
+occluder = SubResource("OccluderPolygon2D_phb53")
+
+[node name="ShadowShotCollision" type="StaticBody2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+collision_layer = 0
+collision_mask = 128
+
+[node name="ShadowShotCollisionShape" type="CollisionShape2D" parent="ShadowShotCollision"]
+shape = SubResource("CircleShape2D_bh0hx")
+debug_color = Color(0.368714, 0.587983, 0.516904, 0.42)
+
+[node name="TrajectoryLine" type="Line2D" parent="."]
+visible = false
+width = 2.0
+joint_mode = 2
+end_cap_mode = 2
+script = ExtResource("2_xwwox")
+
+[node name="GrabCastTop" type="RayCast2D" parent="."]
+target_position = Vector2(0, -21)
+collision_mask = 128
+
+[node name="GrabCastRight" type="RayCast2D" parent="."]
+target_position = Vector2(12, 0)
+collision_mask = 128
+
+[node name="GrabCastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-12, 0)
+collision_mask = 128
+
+[node name="GrabCastDown" type="RayCast2D" parent="."]
+target_position = Vector2(0, 20)
+collision_mask = 0

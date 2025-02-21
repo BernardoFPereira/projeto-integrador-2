@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://but7tgienano3"]
+
+[ext_resource type="Script" path="res://Scripts/vent.gd" id="1_hp35x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qreke"]
+size = Vector2(48, 16)
+
+[node name="Vent" type="Node2D"]
+script = ExtResource("1_hp35x")
+on_wall = null
+is_exit = null
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.617455, 0.617455, 0.617455, 1)
+polygon = PackedVector2Array(-16, 0, -16, -8, 16, -8, 16, 0)
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_qreke")
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(-18, 1, -18, -10, 18, -10, 18, 1)
+closed = true
+width = 3.09
+default_color = Color(1, 0.780392, 0, 1)
+
+[connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

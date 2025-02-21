@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm5psujfwcom2"]
+
+[ext_resource type="Script" path="res://Scripts/stairs.gd" id="1_eb2qj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yo2mt"]
+size = Vector2(32, 56)
+
+[node name="Stairs" type="Node2D"]
+script = ExtResource("1_eb2qj")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.2484, 0.2484, 0.2484, 1)
+polygon = PackedVector2Array(-16, -56, 16, -56, 16, 0, -16, 0)
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(0, -28)
+shape = SubResource("RectangleShape2D_yo2mt")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -32)
+
+[connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

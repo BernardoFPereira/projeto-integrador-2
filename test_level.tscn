@@ -1,0 +1,357 @@
+[gd_scene load_steps=24 format=4 uid="uid://dm66ss38qnk10"]
+
+[ext_resource type="Script" path="res://Scripts/test_level.gd" id="1_amwyw"]
+[ext_resource type="PackedScene" uid="uid://cj8t1p5jgvvre" path="res://Scenes/room_left.tscn" id="1_kvodm"]
+[ext_resource type="PackedScene" uid="uid://bsity1r2v0dnm" path="res://Scenes/room_left-right.tscn" id="2_jl8t8"]
+[ext_resource type="PackedScene" uid="uid://24rhu4b5txft" path="res://Scenes/room_right.tscn" id="3_qg868"]
+[ext_resource type="PackedScene" uid="uid://cl8bnr0dkpief" path="res://Scenes/player.tscn" id="4_r7d6u"]
+[ext_resource type="PackedScene" uid="uid://boef7hhs8e8g2" path="res://Scenes/door.tscn" id="5_yie72"]
+[ext_resource type="PackedScene" uid="uid://cfcysmdx4fwtk" path="res://Scenes/light_switch.tscn" id="7_cuven"]
+[ext_resource type="PackedScene" uid="uid://cm5psujfwcom2" path="res://Scenes/stairs.tscn" id="7_gjgwm"]
+[ext_resource type="Texture2D" uid="uid://byda2r2h7eih8" path="res://neon sign seta sheet.png" id="8_ub42o"]
+[ext_resource type="PackedScene" uid="uid://dvnbwjdh3h32x" path="res://Scenes/spotlight.tscn" id="9_umeoe"]
+[ext_resource type="PackedScene" uid="uid://cdcrgfq10mufy" path="res://Scenes/enemy.tscn" id="10_rxc7e"]
+[ext_resource type="PackedScene" uid="uid://7j67kmjgw7gm" path="res://Scenes/knife.tscn" id="11_nty2k"]
+[ext_resource type="Script" path="res://Scripts/duct_waypoint.gd" id="12_ligbs"]
+[ext_resource type="PackedScene" uid="uid://but7tgienano3" path="res://Scenes/vent.tscn" id="12_xih1t"]
+[ext_resource type="Texture2D" uid="uid://c4enlwadgnor0" path="res://icon.svg" id="13_nu8n6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bwvk"]
+size = Vector2(1152, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pf560"]
+atlas = ExtResource("8_ub42o")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xovo"]
+atlas = ExtResource("8_ub42o")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rwcq"]
+atlas = ExtResource("8_ub42o")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8f2ck"]
+atlas = ExtResource("8_ub42o")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_drrcs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pf560")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xovo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7rwcq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8f2ck")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ik3ln"]
+texture = ExtResource("13_nu8n6")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_4vfuu"]
+sources/0 = SubResource("TileSetAtlasSource_ik3ln")
+
+[node name="Node" type="Node"]
+script = ExtResource("1_amwyw")
+
+[node name="Debug" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Interaction" type="Label" parent="Debug"]
+layout_mode = 1
+offset_left = 32.0
+offset_top = 64.0
+offset_right = 176.0
+offset_bottom = 87.0
+text = "interaction_target:"
+
+[node name="InteractionTarget" type="Label" parent="Debug"]
+layout_mode = 1
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 132.0
+offset_bottom = 55.0
+text = "can_interact:"
+
+[node name="IsInShadow" type="Label" parent="Debug"]
+layout_mode = 1
+offset_left = 32.0
+offset_top = 92.0
+offset_right = 176.0
+offset_bottom = 115.0
+text = "is_in_shadow:"
+
+[node name="IsAiming" type="Label" parent="Debug"]
+layout_mode = 1
+offset_left = 32.0
+offset_top = 120.0
+offset_right = 176.0
+offset_bottom = 143.0
+text = "is_aiming:"
+
+[node name="State" type="Label" parent="Debug"]
+layout_mode = 1
+offset_left = 32.0
+offset_top = 148.0
+offset_right = 176.0
+offset_bottom = 171.0
+text = "state:"
+
+[node name="State2" type="Label" parent="Debug"]
+layout_mode = 1
+offset_left = 32.0
+offset_top = 176.0
+offset_right = 176.0
+offset_bottom = 199.0
+text = "last_state:"
+
+[node name="Level" type="Node" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="Level"]
+
+[node name="Polygon2D" type="Polygon2D" parent="Level/Ground"]
+color = Color(0.122252, 0.122252, 0.122252, 1)
+polygon = PackedVector2Array(0, 832, 1152, 832, 1152, 512, 0, 512)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Ground"]
+position = Vector2(576, 672)
+shape = SubResource("RectangleShape2D_4bwvk")
+
+[node name="FirstFloorRoom" parent="Level" groups=["Grabable"] instance=ExtResource("2_jl8t8")]
+position = Vector2(520, 512)
+
+[node name="FirstFloorRoom2" parent="Level" groups=["Grabable"] instance=ExtResource("1_kvodm")]
+position = Vector2(768, 512)
+
+[node name="SecondFloorRoom" parent="Level" groups=["Grabable"] instance=ExtResource("1_kvodm")]
+position = Vector2(768, 376)
+
+[node name="SecondFloorRoom2" parent="Level" groups=["Grabable"] instance=ExtResource("3_qg868")]
+position = Vector2(520, 376)
+
+[node name="ThirdFloorRoom" parent="Level" groups=["Grabable"] instance=ExtResource("3_qg868")]
+position = Vector2(520, 240)
+
+[node name="StairsFirstFloor" parent="Level" node_paths=PackedStringArray("destination") instance=ExtResource("7_gjgwm")]
+position = Vector2(824, 512)
+destination = NodePath("../StairsSecondFloorRight")
+
+[node name="StairsSecondFloorRight" parent="Level" node_paths=PackedStringArray("destination") instance=ExtResource("7_gjgwm")]
+position = Vector2(824, 376)
+destination = NodePath("../StairsFirstFloor")
+
+[node name="StairsTopFloor" parent="Level" node_paths=PackedStringArray("destination") instance=ExtResource("7_gjgwm")]
+position = Vector2(440, 240)
+destination = NodePath("../StairsSecondFloorLeft")
+
+[node name="StairsSecondFloorLeft" parent="Level" node_paths=PackedStringArray("destination") instance=ExtResource("7_gjgwm")]
+position = Vector2(440, 376)
+destination = NodePath("../StairsTopFloor")
+
+[node name="LightSwitch" parent="Level" node_paths=PackedStringArray("connected_light") instance=ExtResource("7_cuven")]
+position = Vector2(449, 479)
+connected_light = NodePath("../../Lights/PointLight2D")
+
+[node name="LightSwitch2" parent="Level" node_paths=PackedStringArray("connected_light") instance=ExtResource("7_cuven")]
+position = Vector2(863, 344)
+connected_light = NodePath("../../Lights/PointLight2D2")
+
+[node name="LightSwitch3" parent="Level" node_paths=PackedStringArray("connected_light") instance=ExtResource("7_cuven")]
+position = Vector2(481, 345)
+connected_light = NodePath("../../Lights/PointLight2D3")
+
+[node name="Doors" type="Node" parent="Level"]
+
+[node name="Door" parent="Level/Doors" instance=ExtResource("5_yie72")]
+position = Vector2(400, 448)
+rotation = 3.14159
+
+[node name="Door2" parent="Level/Doors" instance=ExtResource("5_yie72")]
+position = Vector2(648, 448)
+rotation = 3.14159
+
+[node name="Door3" parent="Level/Doors" instance=ExtResource("5_yie72")]
+position = Vector2(640, 376)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Level"]
+position = Vector2(360, 350)
+sprite_frames = SubResource("SpriteFrames_drrcs")
+autoplay = "default"
+frame_progress = 0.63058
+
+[node name="LevelDetails" type="Node" parent="."]
+
+[node name="Items" type="Node" parent="."]
+
+[node name="Knife" parent="Items" instance=ExtResource("11_nty2k")]
+position = Vector2(501, 231)
+
+[node name="Lights" type="Node" parent="."]
+
+[node name="PointLight2D" parent="Lights" instance=ExtResource("9_umeoe")]
+position = Vector2(592, 392)
+
+[node name="PointLight2D2" parent="Lights" instance=ExtResource("9_umeoe")]
+position = Vector2(756, 256)
+is_on = false
+
+[node name="PointLight2D3" parent="Lights" instance=ExtResource("9_umeoe")]
+position = Vector2(525, 256)
+
+[node name="Vents" type="Node" parent="."]
+
+[node name="Vent" parent="Vents" node_paths=PackedStringArray("entry_point") groups=["Vents"] instance=ExtResource("12_xih1t")]
+position = Vector2(999, 512)
+entry_point = NodePath("../../VentDucts/DuctWaypoint")
+is_exit = true
+
+[node name="Vent2" parent="Vents" groups=["Vents"] instance=ExtResource("12_xih1t")]
+position = Vector2(576, 284)
+on_wall = true
+is_exit = true
+
+[node name="Vent3" parent="Vents" groups=["Vents"] instance=ExtResource("12_xih1t")]
+position = Vector2(849, 284)
+on_wall = true
+is_exit = true
+
+[node name="Vent4" parent="Vents" groups=["Vents"] instance=ExtResource("12_xih1t")]
+position = Vector2(151, 512)
+on_wall = true
+is_exit = true
+
+[node name="VentDucts" type="Node2D" parent="."]
+visible = false
+
+[node name="TileMapLayer" type="TileMapLayer" parent="VentDucts"]
+tile_map_data = PackedByteArray("AAA+ACAAAAADAAIAAAA+ACEAAAAGAAEAAAA+ACIAAAAGAAEAAAA9ACIAAAAGAAEAAAA8ACIAAAAGAAEAAAA7ACIAAAAGAAEAAAA6ACIAAAAGAAEAAAA5ACIAAAAGAAEAAAA4ACIAAAAGAAEAAAA3ACIAAAAGAAEAAAA2ACIAAAAGAAEAAAA1ACIAAAAGAAEAAAA0ACIAAAAGAAEAAAAzACIAAAAGAAEAAAAyACIAAAAGAAEAAAAxACIAAAAGAAEAAAAwACIAAAAGAAEAAAAvACIAAAAGAAEAAAAuACIAAAAGAAEAAAAtACIAAAAGAAEAAAAsABEAAAADAAIAAAAsABIAAAAGAAEAAAAsABMAAAAGAAEAAAAsABQAAAAGAAEAAAAsABUAAAAGAAEAAAAsABYAAAAGAAEAAAAsABcAAAAGAAEAAAAsABgAAAAGAAEAAAAsABkAAAAGAAEAAAAsABoAAAAGAAEAAAAsABsAAAAGAAEAAAAsABwAAAAGAAEAAAAsAB0AAAAGAAEAAAAsAB4AAAAGAAEAAAAsAB8AAAAGAAEAAAAsACAAAAAGAAEAAAAsACEAAAAGAAEAAAAsACIAAAADAAIAAAArABEAAAAGAAEAAAAqABEAAAAGAAEAAAApABEAAAAGAAEAAAAoABEAAAAGAAEAAAAnABEAAAAGAAEAAAAmABEAAAAGAAEAAAAlABEAAAAGAAEAAAAkABEAAAADAAIAAAAtABEAAAAGAAEAAAAuABEAAAAGAAEAAAAvABEAAAAGAAEAAAAwABEAAAAGAAEAAAAxABEAAAAGAAEAAAAyABEAAAAGAAEAAAAzABEAAAAGAAEAAAA0ABEAAAADAAIAAAA=")
+tile_set = SubResource("TileSet_4vfuu")
+collision_enabled = false
+
+[node name="DuctWaypoint" type="Marker2D" parent="VentDucts" node_paths=PackedStringArray("way_down") groups=["VentWaypoint"]]
+position = Vector2(1000, 520)
+script = ExtResource("12_ligbs")
+way_down = NodePath("../DuctWaypoint2")
+is_exit = true
+
+[node name="DuctWaypoint2" type="Marker2D" parent="VentDucts" node_paths=PackedStringArray("way_left", "way_up") groups=["VentWaypoint"]]
+position = Vector2(1001, 553)
+script = ExtResource("12_ligbs")
+way_left = NodePath("../DuctWaypoint3")
+way_up = NodePath("../DuctWaypoint")
+
+[node name="DuctWaypoint3" type="Marker2D" parent="VentDucts" node_paths=PackedStringArray("way_right", "way_up") groups=["VentWaypoint"]]
+position = Vector2(712, 553)
+script = ExtResource("12_ligbs")
+way_right = NodePath("../DuctWaypoint2")
+way_up = NodePath("../DuctWaypoint4")
+
+[node name="DuctWaypoint4" type="Marker2D" parent="VentDucts" node_paths=PackedStringArray("way_left", "way_right", "way_down") groups=["VentWaypoint"]]
+position = Vector2(712, 281)
+script = ExtResource("12_ligbs")
+way_left = NodePath("../DuctWaypoint6")
+way_right = NodePath("../DuctWaypoint5")
+way_down = NodePath("../DuctWaypoint3")
+
+[node name="DuctWaypoint5" type="Marker2D" parent="VentDucts" node_paths=PackedStringArray("way_left") groups=["VentWaypoint"]]
+position = Vector2(840, 281)
+script = ExtResource("12_ligbs")
+way_left = NodePath("../DuctWaypoint4")
+is_exit = true
+
+[node name="DuctWaypoint6" type="Marker2D" parent="VentDucts" node_paths=PackedStringArray("way_right") groups=["VentWaypoint"]]
+position = Vector2(584, 281)
+script = ExtResource("12_ligbs")
+way_right = NodePath("../DuctWaypoint4")
+is_exit = true
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("10_rxc7e")]
+position = Vector2(882, 223)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("10_rxc7e")]
+position = Vector2(563, 358)
+
+[node name="Player" parent="." instance=ExtResource("4_r7d6u")]
+position = Vector2(194, 489)
+throw_power = 700.0
