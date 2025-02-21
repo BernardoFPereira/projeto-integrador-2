@@ -270,8 +270,8 @@ size = Vector2(30, 64)
 polygon = PackedVector2Array(0, -64, 8, -64, 8, 0, 0, 0)
 
 [node name="Door" type="StaticBody2D" node_paths=PackedStringArray("animation_player")]
-collision_layer = 145
-collision_mask = 128
+collision_layer = 80
+collision_mask = 64
 script = ExtResource("1_g4faq")
 animation_player = NodePath("AnimationPlayer")
 

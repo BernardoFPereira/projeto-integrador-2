@@ -22,9 +22,11 @@ const JUMP_VELOCITY = -400.0
 
 @onready var grab_rays = [grab_cast_top, grab_cast_right, grab_cast_left]
 
+@onready var polygon: Polygon2D = $Polygon2D
+
 var just_jumped := false
 
-var carried_weapon: Weapon
+var carried_weapon: Weapon = null
 
 enum States {
 	IDLE,
@@ -39,7 +41,12 @@ enum States {
 var last_state: States
 var state: States
 
+var player_base_shape: PackedVector2Array
+var player_shadow_shape: PackedVector2Array = [Vector2(7, 0), Vector2(0, 7), Vector2(-7, 0), Vector2(0, -7)]
+
+
 func _ready():
+	player_base_shape = polygon.polygon
 	set_state(States.IDLE)
 
 func _process(_delta: float) -> void:
@@ -122,7 +129,7 @@ func manage_states(delta) -> void:
 				var collider = ray.get_collider()
 				
 				if ray.is_colliding():
-					if collider.is_in_group("Grabable"):
+					if collider.is_in_group("Grabable") and !just_jumped:
 						velocity = Vector2.ZERO
 						set_state(States.GRAB)
 					else:
@@ -145,34 +152,18 @@ func manage_states(delta) -> void:
 				
 			if !grab_cast_top.is_colliding() and !grab_cast_right.is_colliding() and !grab_cast_left.is_colliding():
 				set_state(States.IDLE)
-			
-			
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("aim"):
-		PlayerManager.switch_aim(true)
-	if event.is_action_released("aim"):
-		hand.rotation_degrees = 40
-		PlayerManager.switch_aim(false)
-	
-	if event.is_action_pressed("shoot") and PlayerManager.is_aiming:
-		if carried_weapon:
-			match carried_weapon.weapon_type:
-				"melee":
-					throw_weapon()
-				"ranged":
-					pass
-				_:
-					print("no weapon!")
-					pass
-	
-	if event.is_action_pressed("shoot") and (state == States.PREP_SHADOW_SHOT):
-		velocity = global_position.direction_to(get_global_mouse_position()) * PlayerManager.shadowshot_speed
-		trajectory_line.visible = false
-		just_jumped = true
-		#global_position += global_position.direction_to(get_global_mouse_position()) * 25
-		set_state(States.SHADOW_SHOT)
 
-func set_state(new_state):
+func set_state(new_state: States):
+	match new_state:
+		States.SHADOW_MELD:
+			set_collision_mask_value(5, 0)
+			polygon.polygon = player_shadow_shape
+		States.SHADOW_SHOT:
+			polygon.polygon = player_shadow_shape
+		_:
+			set_collision_mask_value(5, 1)
+			polygon.polygon = player_base_shape
+
 	if new_state != state:
 		last_state = state
 		state = new_state
@@ -185,7 +176,6 @@ func throw_weapon() -> void:
 	carried_weapon.reparent(get_node("/root/Node"))
 	carried_weapon.apply_impulse(impulse)
 	carried_weapon.apply_torque(35000.0)
-	carried_weapon.was_thrown = true
 	carried_weapon = null
 	
 func _unhandled_input(event: InputEvent) -> void:
@@ -213,8 +203,29 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released("ui_accept") and is_on_floor():
 		trajectory_line.visible = false
 		#PlayerManager.can_shadowshot = false
-		set_state(last_state)
-
+		set_state(States.IDLE)
+		
+	if event.is_action_pressed("aim"):
+		PlayerManager.switch_aim(true)
+	if event.is_action_released("aim"):
+		hand.rotation_degrees = 40
+		PlayerManager.switch_aim(false)
+	
+	if event.is_action_pressed("shoot") and PlayerManager.is_aiming:
+		if carried_weapon:
+			match carried_weapon.weapon_type:
+				"melee":
+					throw_weapon()
+				"ranged":
+					pass
+				_:
+					print("no weapon!")
+	
+	if event.is_action_pressed("shoot") and (state == States.PREP_SHADOW_SHOT):
+		velocity = global_position.direction_to(get_global_mouse_position()) * PlayerManager.shadowshot_speed
+		trajectory_line.visible = false
+		just_jumped = true
+		set_state(States.SHADOW_SHOT)
 #
 #func _on_grab_area_body_entered(body: Node2D) -> void:
 	#if state == States.SHADOW_SHOT:

@@ -3,6 +3,7 @@ class_name Weapon
 
 @export_enum("melee", "ranged") var weapon_type: String
 @onready var interact_area: Area2D = $InteractArea
+#@onready var interact_highlight: Polygon2D = $InteractHighlight
 
 var was_thrown := false
 var player: Player
