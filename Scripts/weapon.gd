@@ -2,21 +2,37 @@ extends RigidBody2D
 class_name Weapon
 
 @export_enum("melee", "ranged") var weapon_type: String
+@export var max_ammo: int = 0
+
 @onready var interact_area: Area2D = $InteractArea
 #@onready var interact_highlight: Polygon2D = $InteractHighlight
 
-var was_thrown := false
 var player: Player
+var muzzle: Marker2D
+var current_ammo: int
+
+var was_thrown := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	player = get_tree().get_first_node_in_group("Player")
+	current_ammo = max_ammo
+	
+	var muz = get_node("Muzzle")
+	if muz:
+		muzzle = muz
+	else:
+		muzzle = null
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 	
 func interaction() -> void:
+	if player.carried_weapon != null:
+		drop_weapon()
+	
+	can_sleep = false
+	
 	var hand_hold_spot = player.hand.find_child("HoldSpot")
 	reparent(player.hand)
 	player.carried_weapon = self
@@ -25,6 +41,38 @@ func interaction() -> void:
 	rotation = 0.0
 	interact_area.monitoring = false
 	print(weapon_type)
+	
+func drop_weapon() -> void:
+	var weapon = player.carried_weapon
+	weapon.freeze = false
+	weapon.reparent(get_tree().root)
+	weapon.interact_area.monitoring = true
+	player.carried_weapon = null
+
+func throw() -> void:
+	var impulse = global_position.direction_to(get_global_mouse_position()) * player.throw_power
+	player.carried_weapon = null
+	freeze = false
+	was_thrown = true
+	interact_area.monitoring = true
+	reparent(get_tree().root)
+	apply_impulse(impulse)
+	apply_torque(35000.0)
+	
+func shoot() -> void:
+	if current_ammo > 0:
+		var aim_offset = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0))
+		var projectile = preload("res://Scenes/Weapons/bullet.tscn").instantiate()
+		var dir = muzzle.global_position.direction_to(get_global_mouse_position())
+
+		# Set target direction based on mouse position and apply offset
+		var targ_pos = muzzle.global_position.direction_to(get_global_mouse_position() + aim_offset)
+		projectile.global_transform = muzzle.global_transform
+		# Point projectile towards target
+		projectile.look_at(get_global_mouse_position())
+		# Spawn projectile
+		get_tree().root.add_child(projectile)
+		current_ammo -= 1
 	
 func _on_interact_area_body_entered(body: Node2D) -> void:
 	match body.get_class():

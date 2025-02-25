@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://dm66ss38qnk10"]
+[gd_scene load_steps=25 format=4 uid="uid://dm66ss38qnk10"]
 
 [ext_resource type="Script" path="res://Scripts/test_level.gd" id="1_amwyw"]
 [ext_resource type="PackedScene" uid="uid://cj8t1p5jgvvre" path="res://Scenes/room_left.tscn" id="1_kvodm"]
@@ -8,10 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://boef7hhs8e8g2" path="res://Scenes/door.tscn" id="5_yie72"]
 [ext_resource type="PackedScene" uid="uid://cfcysmdx4fwtk" path="res://Scenes/light_switch.tscn" id="7_cuven"]
 [ext_resource type="PackedScene" uid="uid://cm5psujfwcom2" path="res://Scenes/stairs.tscn" id="7_gjgwm"]
-[ext_resource type="Texture2D" uid="uid://byda2r2h7eih8" path="res://neon sign seta sheet.png" id="8_ub42o"]
+[ext_resource type="Texture2D" uid="uid://byda2r2h7eih8" path="res://Sprites/Misc/neon sign seta sheet.png" id="8_ub42o"]
 [ext_resource type="PackedScene" uid="uid://dvnbwjdh3h32x" path="res://Scenes/spotlight.tscn" id="9_umeoe"]
+[ext_resource type="PackedScene" uid="uid://cmh1hpnuj0sd5" path="res://Scenes/Weapons/Pistol.tscn" id="10_73jh8"]
 [ext_resource type="PackedScene" uid="uid://cdcrgfq10mufy" path="res://Scenes/enemy.tscn" id="10_rxc7e"]
-[ext_resource type="PackedScene" uid="uid://7j67kmjgw7gm" path="res://Scenes/knife.tscn" id="11_nty2k"]
+[ext_resource type="PackedScene" uid="uid://7j67kmjgw7gm" path="res://Scenes/Weapons/knife.tscn" id="11_nty2k"]
 [ext_resource type="Script" path="res://Scripts/duct_waypoint.gd" id="12_ligbs"]
 [ext_resource type="PackedScene" uid="uid://but7tgienano3" path="res://Scenes/vent.tscn" id="12_xih1t"]
 [ext_resource type="Texture2D" uid="uid://c4enlwadgnor0" path="res://icon.svg" id="13_nu8n6"]
@@ -180,6 +181,18 @@ offset_right = 176.0
 offset_bottom = 190.0
 text = "last_state:"
 
+[node name="AmmoCount" type="Label" parent="Debug"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 974.0
+offset_top = 34.0
+offset_right = 1080.0
+offset_bottom = 57.0
+grow_horizontal = 0
+text = "ammo_count:"
+
 [node name="Level" type="Node" parent="."]
 
 [node name="Ground" type="StaticBody2D" parent="Level"]
@@ -260,6 +273,9 @@ frame_progress = 0.63058
 
 [node name="Knife" parent="Items" instance=ExtResource("11_nty2k")]
 position = Vector2(501, 231)
+
+[node name="Pistol" parent="Items" instance=ExtResource("10_73jh8")]
+position = Vector2(266, 493)
 
 [node name="Lights" type="Node" parent="."]
 
@@ -349,5 +365,5 @@ position = Vector2(882, 223)
 position = Vector2(563, 358)
 
 [node name="Player" parent="." instance=ExtResource("4_r7d6u")]
-position = Vector2(194, 489)
+position = Vector2(220, 486)
 throw_power = 700.0

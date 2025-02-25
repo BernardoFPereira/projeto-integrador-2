@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byda2r2h7eih8"
-path="res://.godot/imported/neon sign seta sheet.png-5fc5cd0c49522eba8dd7372e4a5c3c37.ctex"
+uid="uid://dg5lpndjxou85"
+path="res://.godot/imported/impact_std.png-82cc2599258c3f7bc3a99750bb46d892.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://neon sign seta sheet.png"
-dest_files=["res://.godot/imported/neon sign seta sheet.png-5fc5cd0c49522eba8dd7372e4a5c3c37.ctex"]
+source_file="res://Sprites/FX/impact_std.png"
+dest_files=["res://.godot/imported/impact_std.png-82cc2599258c3f7bc3a99750bb46d892.ctex"]
 
 [params]
 

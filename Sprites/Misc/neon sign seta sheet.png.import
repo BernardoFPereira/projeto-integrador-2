@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://burn5ubhfm5xp"
-path="res://.godot/imported/reticulo.png-65a9cf1a931b98ef4b0ee78966f9d1e8.ctex"
+uid="uid://byda2r2h7eih8"
+path="res://.godot/imported/neon sign seta sheet.png-389a72642115355ff44410426f564f60.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://reticulo.png"
-dest_files=["res://.godot/imported/reticulo.png-65a9cf1a931b98ef4b0ee78966f9d1e8.ctex"]
+source_file="res://Sprites/Misc/neon sign seta sheet.png"
+dest_files=["res://.godot/imported/neon sign seta sheet.png-389a72642115355ff44410426f564f60.ctex"]
 
 [params]
 

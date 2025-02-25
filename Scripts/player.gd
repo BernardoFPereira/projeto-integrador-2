@@ -27,6 +27,7 @@ const JUMP_VELOCITY = -400.0
 var just_jumped := false
 
 var carried_weapon: Weapon = null
+var secondary_weapon: Weapon = null
 
 enum States {
 	IDLE,
@@ -54,8 +55,8 @@ func _process(_delta: float) -> void:
 		hand.look_at(get_global_mouse_position())
 	
 	if PlayerManager.scanning_light:
-		light_ray.enabled = true
 		var dir_to_light = global_position.distance_to(PlayerManager.light_target.global_position)
+		light_ray.enabled = true
 		light_ray.target_position.x = dir_to_light
 		light_ray.look_at(PlayerManager.light_target.light_pos_marker.global_position)
 		light_ray.force_raycast_update()
@@ -163,20 +164,10 @@ func set_state(new_state: States):
 		_:
 			set_collision_mask_value(5, 1)
 			polygon.polygon = player_base_shape
-
+	
 	if new_state != state:
 		last_state = state
 		state = new_state
-
-func throw_weapon() -> void:
-	var impulse = global_position.direction_to(get_global_mouse_position()) * throw_power
-	carried_weapon.freeze = false
-	carried_weapon.was_thrown = true
-	carried_weapon.interact_area.monitoring = true
-	carried_weapon.reparent(get_node("/root/Node"))
-	carried_weapon.apply_impulse(impulse)
-	carried_weapon.apply_torque(35000.0)
-	carried_weapon = null
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and PlayerManager.can_interact:
@@ -215,8 +206,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if carried_weapon:
 			match carried_weapon.weapon_type:
 				"melee":
-					throw_weapon()
+					carried_weapon.throw()
 				"ranged":
+					carried_weapon.shoot()
 					pass
 				_:
 					print("no weapon!")

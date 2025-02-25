@@ -22,7 +22,7 @@ VentManager="*res://vent_manager.gd"
 
 [display]
 
-mouse_cursor/custom_image="res://reticulo.png"
+mouse_cursor/custom_image="res://Sprites/UI/reticulo.png"
 mouse_cursor/custom_image_hotspot=Vector2(16, 16)
 
 [input]
