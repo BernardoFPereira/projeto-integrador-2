@@ -198,7 +198,7 @@ text = "ammo_count:"
 [node name="Ground" type="StaticBody2D" parent="Level"]
 
 [node name="Polygon2D" type="Polygon2D" parent="Level/Ground"]
-color = Color(0.122252, 0.122252, 0.122252, 1)
+color = Color(0.0646965, 0.0646965, 0.0646965, 1)
 polygon = PackedVector2Array(0, 832, 1152, 832, 1152, 512, 0, 512)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Ground"]
@@ -276,6 +276,7 @@ position = Vector2(501, 231)
 
 [node name="Pistol" parent="Items" instance=ExtResource("10_73jh8")]
 position = Vector2(266, 493)
+max_ammo = 100
 
 [node name="Lights" type="Node" parent="."]
 

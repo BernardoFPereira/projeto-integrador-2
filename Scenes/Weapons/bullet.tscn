@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bhsopagw2fwq2"]
 
-[ext_resource type="Script" path="res://Scenes/Weapons/bullet.gd" id="1_464nn"]
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_464nn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c07i8"]
 radius = 1.0

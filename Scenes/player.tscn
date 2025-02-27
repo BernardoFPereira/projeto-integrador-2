@@ -25,7 +25,7 @@ script = ExtResource("1_surch")
 [node name="Polygon2D" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(-5, -16, -8, -11.8694, -8, 13, -5, 16, 5, 16, 8, 13, 8, -11.9578, 5, -16)
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="LightRay" type="RayCast2D" parent="."]
 target_position = Vector2(0, 0)
 collision_mask = 16
 

@@ -10,7 +10,7 @@ var player: Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player = get_node("/root/Node/Player")
+	player = get_node("/root/Node/PlayerSprite")
 	if is_on:
 		switch_power()
 	if !is_on:

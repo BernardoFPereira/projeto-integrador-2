@@ -1,16 +1,17 @@
 [gd_scene load_steps=2 format=3 uid="uid://cdcrgfq10mufy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0uf4j"]
-radius = 9.0
-height = 32.0
+radius = 20.0
+height = 80.0
 
 [node name="Enemy" type="RigidBody2D" groups=["Enemy"]]
 collision_layer = 4
 collision_mask = 25
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+scale = Vector2(2.375, 2.5)
 color = Color(0.886275, 0.278431, 0.286275, 1)
-polygon = PackedVector2Array(-5, -16, -8, -11.8694, -8, 13, -5, 16, 5, 16, 8, 13, 8, -11.9578, 5, -16)
+polygon = PackedVector2Array(-5, -16, -8, -13.2923, -8, 13, -5, 16, 5, 16, 8, 13, 8, -13.0462, 5, -16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_0uf4j")

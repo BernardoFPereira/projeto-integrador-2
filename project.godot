@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Deadshade"
-run/main_scene="res://test_level.tscn"
+run/main_scene="res://tileset_level.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -24,6 +24,11 @@ VentManager="*res://vent_manager.gd"
 
 mouse_cursor/custom_image="res://Sprites/UI/reticulo.png"
 mouse_cursor/custom_image_hotspot=Vector2(16, 16)
+
+[global_group]
+
+Grabable=""
+Player=""
 
 [input]
 
@@ -76,3 +81,7 @@ activate_shadow_meld={
 [physics]
 
 common/physics_ticks_per_second=120
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.0953854, 0.123782, 0.137706, 1)

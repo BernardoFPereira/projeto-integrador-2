@@ -9,7 +9,7 @@ const JUMP_VELOCITY = -400.0
 @export var hand_left_position: Vector2
 @export var hand_right_position: Vector2
 
-@onready var light_ray: RayCast2D = $RayCast2D
+@onready var light_ray: RayCast2D = $LightRay
 @onready var hand: Polygon2D = $Hand
 @onready var hold_spot: Marker2D = $Hand/HoldSpot
 
@@ -22,7 +22,7 @@ const JUMP_VELOCITY = -400.0
 
 @onready var grab_rays = [grab_cast_top, grab_cast_right, grab_cast_left]
 
-@onready var polygon: Polygon2D = $Polygon2D
+#@onready var polygon: Polygon2D = $Polygon2D
 
 var just_jumped := false
 
@@ -47,7 +47,7 @@ var player_shadow_shape: PackedVector2Array = [Vector2(7, 0), Vector2(0, 7), Vec
 
 
 func _ready():
-	player_base_shape = polygon.polygon
+	#player_base_shape = polygon.polygon
 	set_state(States.IDLE)
 
 func _process(_delta: float) -> void:
@@ -158,12 +158,12 @@ func set_state(new_state: States):
 	match new_state:
 		States.SHADOW_MELD:
 			set_collision_mask_value(5, 0)
-			polygon.polygon = player_shadow_shape
-		States.SHADOW_SHOT:
-			polygon.polygon = player_shadow_shape
+			#polygon.polygon = player_shadow_shape
+		#States.SHADOW_SHOT:
+			#polygon.polygon = player_shadow_shape
 		_:
 			set_collision_mask_value(5, 1)
-			polygon.polygon = player_base_shape
+			#polygon.polygon = player_base_shape
 	
 	if new_state != state:
 		last_state = state

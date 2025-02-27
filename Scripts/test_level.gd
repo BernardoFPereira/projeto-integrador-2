@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 	is_aiming.text = "is_aiming: %s" % char_is_aiming
 	state.text = "state: %s" % player.States.keys()[player.state]
 	
-	if player.carried_weapon:
+	if player.carried_weapon and (player.carried_weapon.weapon_type == "ranged"):
 		var max_ammo = str(player.carried_weapon.max_ammo)
 		var current_ammo = str(player.carried_weapon.current_ammo)
 		state_2.text = "last_state: %s" % player.States.keys()[player.last_state]

@@ -5,7 +5,7 @@ var IMPACT := 250
 var targ_dir := Vector2.ZERO
 
 func _ready() -> void:
-	targ_dir = global_position.direction_to(get_global_mouse_position())
+	targ_dir = global_position.direction_to(get_global_mouse_position() + Vector2(randf_range(-10.0, 10.0), randf_range(-10.0, 10.0)))
 
 func _physics_process(delta: float) -> void:
 	var collision = move_and_collide((BULLET_SPEED * targ_dir) * delta)
@@ -18,7 +18,7 @@ func _physics_process(delta: float) -> void:
 		var collision_norm = collision.get_normal()
 		
 		collision_fx.global_transform.origin = spawn_pos
-		collision_fx.look_at(spawn_pos + collision_norm) # TODO: work on this
+		collision_fx.look_at(spawn_pos + collision_norm)
 		
 		get_tree().root.add_child(collision_fx)
 		

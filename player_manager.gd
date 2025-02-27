@@ -20,7 +20,7 @@ var is_shadow_meld
 var player: Player
 
 func _ready() -> void:
-	player = get_tree().get_first_node_in_group("Player")
+	player = get_tree().get_first_node_in_group("PlayerSprite")
 
 func switch_aim(value):
 	if is_aiming != value:

@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdktoaq21c5xd"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_uygo4"]
+[ext_resource type="Script" path="res://Scripts/trajectory.gd" id="2_l02lo"]
+[ext_resource type="Texture2D" uid="uid://cqoeoioensfbi" path="res://Sprites/purple.png" id="2_wknxl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lb867"]
+atlas = ExtResource("2_wknxl")
+region = Rect2(0, 0, 64, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h2too"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lb867")
+}],
+"loop": false,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kruvw"]
+radius = 17.0
+height = 112.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bnuy0"]
+radius = 3.0
+
+[node name="PlayerSprite" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 17
+floor_constant_speed = true
+script = ExtResource("1_uygo4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+sprite_frames = SubResource("SpriteFrames_h2too")
+
+[node name="LightRay" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_kruvw")
+
+[node name="Hand" type="Polygon2D" parent="."]
+position = Vector2(8, -20)
+rotation = 0.698132
+polygon = PackedVector2Array(34.8775, 15.1181, 33.0989, 19.2214, 28.1064, 19.4944, 25.6585, 15.0214, 28.0799, 11.6842, 31.6636, 11.2879)
+
+[node name="HoldSpot" type="Marker2D" parent="Hand"]
+position = Vector2(29.2422, 14.6251)
+rotation = 0.785397
+
+[node name="ShadowShotCollision" type="StaticBody2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+collision_layer = 0
+collision_mask = 128
+
+[node name="ShadowShotCollisionShape" type="CollisionShape2D" parent="ShadowShotCollision"]
+shape = SubResource("CircleShape2D_bnuy0")
+debug_color = Color(0.368714, 0.587983, 0.516904, 0.42)
+
+[node name="TrajectoryLine" type="Line2D" parent="."]
+visible = false
+width = 2.0
+joint_mode = 2
+end_cap_mode = 2
+script = ExtResource("2_l02lo")
+
+[node name="GrabCastTop" type="RayCast2D" parent="."]
+target_position = Vector2(0, -50)
+collision_mask = 192
+
+[node name="GrabCastRight" type="RayCast2D" parent="."]
+target_position = Vector2(20, 0)
+collision_mask = 192
+
+[node name="GrabCastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-20, 0)
+collision_mask = 192
+
+[node name="GrabCastDown" type="RayCast2D" parent="."]
+target_position = Vector2(0, 66)
+collision_mask = 0
