@@ -1,315 +1,120 @@
-[gd_scene load_steps=11 format=3 uid="uid://boef7hhs8e8g2"]
+[gd_scene load_steps=15 format=3 uid="uid://brxjw7a8jp5n3"]
 
-[ext_resource type="Script" path="res://Scripts/door.gd" id="1_g4faq"]
+[ext_resource type="Script" path="res://Scripts/door_sprite.gd" id="1_x3hqv"]
+[ext_resource type="Texture2D" uid="uid://cic2fcmp6wu34" path="res://Sprites/simple_door.png" id="2_agx5f"]
 
-[sub_resource type="Animation" id="Animation_iw6qy"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Polygon2D:polygon")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(0, -64, 8, -64, 8, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("LightOccluder2D:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("InteractArea/InteractCollision:shape:size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(30, 64)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("InteractArea/InteractCollision:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(4, -32)]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8e2d"]
+atlas = ExtResource("2_agx5f")
+region = Rect2(0, 0, 64, 128)
 
-[sub_resource type="Animation" id="Animation_rrvo8"]
-resource_name = "closed"
-length = 0.001
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LightOccluder2D:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rqw8"]
+atlas = ExtResource("2_agx5f")
+region = Rect2(128, 0, 64, 128)
 
-[sub_resource type="Animation" id="Animation_f43he"]
-resource_name = "opening"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Polygon2D:polygon")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 0.267943),
-"update": 0,
-"values": [PackedVector2Array(0, -64, 52, -64, 52, 0, 0, 0), PackedVector2Array(0, -64, 8, -64, 8, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Polygon2D:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 0.233258),
-"update": 0,
-"values": [Color(0.344991, 0.177428, 0.132806, 1), Color(0.476372, 0.256276, 0.197622, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("LightOccluder2D:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("InteractArea/InteractCollision:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(24, -32), Vector2(4, -32)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("InteractArea/InteractCollision:shape:size")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(70, 64), Vector2(30, 64)]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvkuo"]
+atlas = ExtResource("2_agx5f")
+region = Rect2(64, 0, 64, 128)
 
-[sub_resource type="Animation" id="Animation_cycbp"]
-resource_name = "open"
-length = 0.001
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Polygon2D:polygon")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(0, -64, 52, -64, 52, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("LightOccluder2D:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("InteractArea/InteractCollision:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(24, -32)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("InteractArea/InteractCollision:shape:size")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(70, 64)]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpwi8"]
+atlas = ExtResource("2_agx5f")
+region = Rect2(0, 0, 64, 128)
 
-[sub_resource type="Animation" id="Animation_4ltg1"]
-resource_name = "opening"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Polygon2D:polygon")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(0.267943, 1),
-"update": 0,
-"values": [PackedVector2Array(0, -64, 8, -64, 8, 0, 0, 0), PackedVector2Array(0, -64, 52, -64, 52, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Polygon2D:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(0.233258, 1),
-"update": 0,
-"values": [Color(0.476372, 0.256276, 0.197622, 1), Color(0.344991, 0.177428, 0.132806, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("LightOccluder2D:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("InteractArea/InteractCollision:shape:size")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(30, 64), Vector2(70, 64)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("InteractArea/InteractCollision:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(4, -32), Vector2(24, -32)]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_41rcj"]
+atlas = ExtResource("2_agx5f")
+region = Rect2(128, 0, 64, 128)
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_8pnwa"]
-_data = {
-"RESET": SubResource("Animation_iw6qy"),
-"closed": SubResource("Animation_rrvo8"),
-"closing": SubResource("Animation_f43he"),
-"open": SubResource("Animation_cycbp"),
-"opening": SubResource("Animation_4ltg1")
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_5itwr"]
+atlas = ExtResource("2_agx5f")
+region = Rect2(0, 0, 64, 128)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8au0s"]
-size = Vector2(8, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_5neiu"]
+atlas = ExtResource("2_agx5f")
+region = Rect2(64, 0, 64, 128)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iftu7"]
-size = Vector2(30, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ll1t"]
+atlas = ExtResource("2_agx5f")
+region = Rect2(128, 0, 64, 128)
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xhdsx"]
-polygon = PackedVector2Array(0, -64, 8, -64, 8, 0, 0, 0)
+[sub_resource type="SpriteFrames" id="SpriteFrames_73bqh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8e2d")
+}],
+"loop": false,
+"name": &"closed",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rqw8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvkuo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpwi8")
+}],
+"loop": false,
+"name": &"closing",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41rcj")
+}],
+"loop": false,
+"name": &"open",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5itwr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5neiu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ll1t")
+}],
+"loop": false,
+"name": &"opening",
+"speed": 6.0
+}]
 
-[node name="Door" type="StaticBody2D" node_paths=PackedStringArray("animation_player")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tjcx"]
+size = Vector2(10, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_std34"]
+size = Vector2(56, 128)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_65ee6"]
+polygon = PackedVector2Array(-5, -64, 5, -64, 5, 64, -5, 64)
+
+[node name="SpriteDoor" type="StaticBody2D"]
 collision_layer = 80
 collision_mask = 64
-script = ExtResource("1_g4faq")
-animation_player = NodePath("AnimationPlayer")
+script = ExtResource("1_x3hqv")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(0.476372, 0.256276, 0.197622, 1)
-polygon = PackedVector2Array(0, -64, 8, -64, 8, 0, 0, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_8pnwa")
-}
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(19, 0)
+sprite_frames = SubResource("SpriteFrames_73bqh")
+animation = &"closing"
 autoplay = "closed"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(4, -32)
-shape = SubResource("RectangleShape2D_8au0s")
+shape = SubResource("RectangleShape2D_6tjcx")
 
 [node name="InteractArea" type="Area2D" parent="."]
-visible = false
 collision_mask = 2
 
 [node name="InteractCollision" type="CollisionShape2D" parent="InteractArea"]
-position = Vector2(4, -32)
-shape = SubResource("RectangleShape2D_iftu7")
+shape = SubResource("RectangleShape2D_std34")
 debug_color = Color(0.622867, 0.5258, 0.251818, 0.42)
 
-[node name="Line2D" type="Line2D" parent="."]
-visible = false
-points = PackedVector2Array(9, -65, 9, 0, -1, 0, -1, -65)
-closed = true
-width = 2.63
-default_color = Color(1, 1, 0, 1)
-
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-visible = false
-occluder = SubResource("OccluderPolygon2D_xhdsx")
+occluder = SubResource("OccluderPolygon2D_65ee6")
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]
