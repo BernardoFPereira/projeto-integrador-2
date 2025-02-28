@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmh1hpnuj0sd5"]
+[gd_scene load_steps=4 format=3 uid="uid://cmh1hpnuj0sd5"]
 
 [ext_resource type="Script" path="res://Scripts/weapon.gd" id="1_vfd6i"]
 [ext_resource type="Texture2D" uid="uid://cdu12y337278k" path="res://Sprites/suppressed.png" id="2_tdg36"]
@@ -6,9 +6,6 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t08gl"]
 radius = 5.0
 height = 20.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_6ygw5"]
-radius = 163.0
 
 [node name="Pistol" type="RigidBody2D"]
 light_mask = 0
@@ -43,11 +40,6 @@ texture_filter = 3
 position = Vector2(2, -1.39114)
 scale = Vector2(2.37033, 2.45967)
 texture = ExtResource("2_tdg36")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_6ygw5")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]

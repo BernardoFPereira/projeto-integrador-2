@@ -61,15 +61,21 @@ func throw() -> void:
 	
 func shoot() -> void:
 	if current_ammo > 0:
-		var projectile = preload("res://Scenes/Weapons/bullet.tscn").instantiate()
+		var muzzle_flash_fx = preload("res://Scenes/muzzle_flash_fx.tscn").instantiate()
 		var muzzle_flash = preload("res://Scenes/muzzle_flash.tscn").instantiate()
+		var projectile = preload("res://Scenes/Weapons/bullet.tscn").instantiate()
+		
 		var dir = muzzle.global_position.direction_to(get_global_mouse_position())
-
+		
 		# Point projectile towards target
 		projectile.look_at(get_global_mouse_position())
+		#muzzle_flash_fx.look_at(get_global_mouse_position())
 		# Spawn projectile
+		muzzle_flash_fx.global_transform = muzzle.global_transform
+		muzzle_flash_fx.rotate(deg_to_rad(90))
 		muzzle_flash.global_transform = muzzle.global_transform
 		projectile.global_transform = muzzle.global_transform
+		get_tree().root.add_child(muzzle_flash_fx)
 		get_tree().root.add_child(muzzle_flash)
 		get_tree().root.add_child(projectile)
 		current_ammo -= 1

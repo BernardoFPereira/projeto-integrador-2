@@ -1,46 +1,52 @@
-[gd_scene load_steps=7 format=3 uid="uid://coem8pho2o03m"]
+[gd_scene load_steps=8 format=3 uid="uid://coem8pho2o03m"]
 
 [ext_resource type="Texture2D" uid="uid://b08hdt6eq3j86" path="res://Sprites/muzzle_light_flash.png" id="1_nm22q"]
+[ext_resource type="Script" path="res://Scripts/muzzle_flash_fx.gd" id="2_spkvi"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6fabf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qsy2"]
 atlas = ExtResource("1_nm22q")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4jjav"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xltrp"]
 atlas = ExtResource("1_nm22q")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dsr05"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdvke"]
 atlas = ExtResource("1_nm22q")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0ke4x"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_flmke"]
 atlas = ExtResource("1_nm22q")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ppcqw"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_yvqog"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6fabf")
+"texture": SubResource("AtlasTexture_5qsy2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4jjav")
+"texture": SubResource("AtlasTexture_xltrp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dsr05")
+"texture": SubResource("AtlasTexture_mdvke")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0ke4x")
+"texture": SubResource("AtlasTexture_flmke")
 }],
 "loop": false,
 "name": &"default",
 "speed": 12.0
 }]
 
-[node name="MuzzleFlashFX" type="AnimatedSprite2D"]
+[node name="MuzzleFlashFX" type="Node2D"]
 texture_filter = 3
-position = Vector2(8, 0)
-rotation = 1.5708
-sprite_frames = SubResource("SpriteFrames_ppcqw")
+rotation = 1.57079
+script = ExtResource("2_spkvi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.77701e-05, -8)
+sprite_frames = SubResource("SpriteFrames_yvqog")
 autoplay = "default"
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animation_finished"]

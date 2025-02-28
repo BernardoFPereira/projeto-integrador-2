@@ -1,9 +1,10 @@
 extends StaticBody2D
 
-@export var animation_player: AnimationPlayer
+#@export var animation_player: AnimationPlayer
+@onready var animation_player: AnimatedSprite2D = $AnimatedSprite2D
 
 @onready var collision: CollisionShape2D = $Collision
-@onready var line_2d: Line2D = $Line2D
+#@onready var line_2d: Line2D = $Line2D
 
 enum DoorState { OPEN, CLOSED }
 
@@ -47,3 +48,13 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 			animation_player.play("closed")
 		_:
 			pass
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	var occluder = $LightOccluder2D
+	
+	if animation_player.animation == "opening":
+		if animation_player.frame == 1:
+			occluder.visible = !occluder.visible
+	if animation_player.animation == "closing":
+		if animation_player.frame == 2:
+			occluder.visible = !occluder.visible

@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://brxjw7a8jp5n3"]
 
-[ext_resource type="Script" path="res://Scripts/door_sprite.gd" id="1_x3hqv"]
+[ext_resource type="Script" path="res://Scripts/door.gd" id="1_x3hqv"]
 [ext_resource type="Texture2D" uid="uid://cic2fcmp6wu34" path="res://Sprites/simple_door.png" id="2_agx5f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n8e2d"]

@@ -20,7 +20,13 @@ const JUMP_VELOCITY = -400.0
 @onready var grab_cast_left: RayCast2D = $GrabCastLeft
 @onready var grab_cast_down: RayCast2D = $GrabCastDown
 
+@onready var collision_shape: CollisionShape2D = $CollisionShape
+@onready var shadow_collision = $ShadowCollisionShape
+
 @onready var grab_rays = [grab_cast_top, grab_cast_right, grab_cast_left]
+
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 
 #@onready var polygon: Polygon2D = $Polygon2D
 
@@ -42,8 +48,8 @@ enum States {
 var last_state: States
 var state: States
 
-var player_base_shape: PackedVector2Array
-var player_shadow_shape: PackedVector2Array = [Vector2(7, 0), Vector2(0, 7), Vector2(-7, 0), Vector2(0, -7)]
+#var player_base_shape: PackedVector2Array
+#var player_shadow_shape: PackedVector2Array = [Vector2(7, 0), Vector2(0, 7), Vector2(-7, 0), Vector2(0, -7)]
 
 
 func _ready():
@@ -63,10 +69,10 @@ func _process(_delta: float) -> void:
 		
 		if light_ray.is_colliding():
 			## Debug marker spawn
-			#var col_pos = light_ray.get_collision_point()
-			#var instance = preload("res://Scenes/collision_marker.tscn").instantiate()
-			#instance.global_position = col_pos
-			#get_tree().root.add_child(instance)
+			var col_pos = light_ray.get_collision_point()
+			var instance = preload("res://Scenes/collision_marker.tscn").instantiate()
+			instance.global_position = col_pos
+			get_tree().root.add_child(instance)
 			
 			PlayerManager.set_in_shadow(true)
 			#print("In Shadows!")
@@ -157,11 +163,23 @@ func manage_states(delta) -> void:
 func set_state(new_state: States):
 	match new_state:
 		States.SHADOW_MELD:
+			collision_shape.disabled = true
+			shadow_collision.disabled = false
+			animated_sprite.play("shadow_shape")
 			set_collision_mask_value(5, 0)
 			#polygon.polygon = player_shadow_shape
-		#States.SHADOW_SHOT:
+		States.SHADOW_SHOT:
+			collision_shape.disabled = true
+			shadow_collision.disabled = false
+			animated_sprite.play("shadow_shape")
 			#polygon.polygon = player_shadow_shape
+		#States.GRAB:
+			#collision_shape.disabled = true
+			#shadow_collision.disabled = false
+			#animated_sprite.play("shadow_shape")
 		_:
+			collision_shape.disabled = false
+			animated_sprite.play("default")
 			set_collision_mask_value(5, 1)
 			#polygon.polygon = player_base_shape
 	
