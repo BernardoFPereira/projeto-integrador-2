@@ -32,7 +32,7 @@ func handle_states(delta) -> void:
 		States.SUSPICIOUS:
 			pass
 		States.CHASE:
-			var dir_to_player = global_position.direction_to(player_last_pos)
+			#var dir_to_player = global_position.direction_to(player_last_pos)
 			global_position = lerp(global_position, player_last_pos, delta * 2)
 			move_and_collide(player_last_pos)
 			pass

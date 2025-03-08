@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bitjbsel28he0"]
 
-[ext_resource type="Script" path="res://Scripts/collision_marker.gd" id="1_5ph80"]
+[ext_resource type="Script" uid="uid://deet0iytdw8pb" path="res://Scripts/collision_marker.gd" id="1_5ph80"]
 [ext_resource type="Texture2D" uid="uid://c4enlwadgnor0" path="res://icon.svg" id="1_osedo"]
 
 [node name="CollisionMarker" type="Node2D"]

@@ -24,9 +24,6 @@ func _ready() -> void:
 	else:
 		muzzle = null
 
-func _process(delta: float) -> void:
-	pass
-	
 func interaction() -> void:
 	if player.carried_weapon != null:
 		drop_weapon()

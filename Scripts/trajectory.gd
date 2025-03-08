@@ -9,7 +9,7 @@ func _ready() -> void:
 #func _draw() -> void:
 	#draw_line(position, get_local_mouse_position(), Color.GHOST_WHITE, 2.0)
 
-func update_trajectory(dir: Vector2, speed: float, gravity: float, delta: float) -> void:
+func update_trajectory(dir: Vector2, speed: float, _gravity: float, delta: float) -> void:
 	var max_points = 42
 	clear_points()
 	var pos: Vector2 = Vector2.ZERO + (position.direction_to(get_local_mouse_position()) * 18)

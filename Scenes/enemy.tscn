@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cdcrgfq10mufy"]
 
-[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_u7k1y"]
+[ext_resource type="Script" uid="uid://qkderashivba" path="res://Scripts/enemy.gd" id="1_u7k1y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0uf4j"]
 radius = 20.0

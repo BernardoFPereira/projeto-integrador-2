@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cmh1hpnuj0sd5"]
 
-[ext_resource type="Script" path="res://Scripts/weapon.gd" id="1_vfd6i"]
+[ext_resource type="Script" uid="uid://qks2gp4m58v5" path="res://Scripts/weapon.gd" id="1_vfd6i"]
 [ext_resource type="Texture2D" uid="uid://cdu12y337278k" path="res://Sprites/suppressed.png" id="2_tdg36"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t08gl"]
