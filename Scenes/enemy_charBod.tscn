@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdcrgfq10mufy"]
+[gd_scene load_steps=4 format=3 uid="uid://86dt5nfq2yny"]
 
-[ext_resource type="Script" uid="uid://qkderashivba" path="res://Scripts/enemy.gd" id="1_u7k1y"]
+[ext_resource type="Script" uid="uid://dpo0hu6jib3ol" path="res://Scripts/enemy_charBod.gd" id="1_5hljt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0uf4j"]
 radius = 20.0
@@ -9,12 +9,11 @@ height = 60.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_gfuur"]
 radius = 17.0
 
-[node name="Enemy" type="RigidBody2D" groups=["Enemy"]]
+[node name="EnemyCharBod" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 collision_mask = 25
-lock_rotation = true
-script = ExtResource("1_u7k1y")
-facing = 1
+floor_constant_speed = true
+script = ExtResource("1_5hljt")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 scale = Vector2(2.375, 2.5)

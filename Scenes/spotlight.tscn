@@ -25,7 +25,7 @@ script = ExtResource("1_dlmpy")
 
 [node name="LightDetectArea" type="Area2D" parent="."]
 collision_layer = 32
-collision_mask = 16
+collision_mask = 18
 
 [node name="LightDetectCollision" type="CollisionPolygon2D" parent="LightDetectArea"]
 polygon = PackedVector2Array(0, 0, -95, 95, -54, 121, 46, 121, 94, 96)

@@ -4,7 +4,7 @@ class_name Player
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-@export_range(200.0, 800.0) var throw_power: float = 500.0
+@export_range(500.0, 1500.0) var throw_power: float = 800.0
 
 @export var hand_left_position: Vector2
 @export var hand_right_position: Vector2
@@ -27,9 +27,6 @@ const JUMP_VELOCITY = -400.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-
-#@onready var polygon: Polygon2D = $Polygon2D
-
 var just_jumped := false
 
 var carried_weapon: Weapon = null
@@ -48,12 +45,7 @@ enum States {
 var last_state: States
 var state: States
 
-#var player_base_shape: PackedVector2Array
-#var player_shadow_shape: PackedVector2Array = [Vector2(7, 0), Vector2(0, 7), Vector2(-7, 0), Vector2(0, -7)]
-
-
 func _ready():
-	#player_base_shape = polygon.polygon
 	set_state(States.IDLE)
 
 func _process(_delta: float) -> void:
@@ -69,10 +61,10 @@ func _process(_delta: float) -> void:
 		
 		if light_ray.is_colliding():
 			## Debug marker spawn
-			var col_pos = light_ray.get_collision_point()
-			var instance = preload("res://Scenes/collision_marker.tscn").instantiate()
-			instance.global_position = col_pos
-			get_tree().root.add_child(instance)
+			#var col_pos = light_ray.get_collision_point()
+			#var instance = preload("res://Scenes/collision_marker.tscn").instantiate()
+			#instance.global_position = col_pos
+			#get_tree().root.add_child(instance)
 			
 			PlayerManager.set_in_shadow(true)
 			#print("In Shadows!")
@@ -91,11 +83,11 @@ func _physics_process(delta: float) -> void:
 		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	manage_states(delta)
+	handle_states(delta)
 	
 	move_and_slide()
 
-func manage_states(delta) -> void:
+func handle_states(delta) -> void:
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	match state:
 		States.IDLE:
@@ -105,20 +97,28 @@ func manage_states(delta) -> void:
 			velocity.x = lerpf(velocity.x, 0, delta * 6)
 			
 		States.WALK:
+			animated_sprite.play("walk")
 			if direction:
 				velocity.x = lerpf(velocity.x, direction.x * SPEED, delta)
 			else:
 				set_state(States.IDLE)
 			
+			if direction.x < 0:
+				animated_sprite.flip_h = true
+
+			elif direction.x > 0:
+				animated_sprite.flip_h = false
+			
 		States.DUCT:
 			pass
 			
 		States.SHADOW_MELD:
+			if !PlayerManager.is_in_shadow:
+				set_state(States.IDLE)
 			if direction:
 				velocity = velocity.lerp(direction * SPEED, delta)
 			else:
 				velocity = velocity.lerp(Vector2.ZERO, delta * 4)
-			pass
 			
 		States.PREP_SHADOW_SHOT:
 			velocity = velocity.lerp(Vector2.ZERO, delta * 6)
@@ -167,12 +167,12 @@ func set_state(new_state: States):
 			shadow_collision.disabled = false
 			animated_sprite.play("shadow_shape")
 			set_collision_mask_value(5, 0)
-			#polygon.polygon = player_shadow_shape
+
 		States.SHADOW_SHOT:
 			collision_shape.disabled = true
 			shadow_collision.disabled = false
 			animated_sprite.play("shadow_shape")
-			#polygon.polygon = player_shadow_shape
+
 		#States.GRAB:
 			#collision_shape.disabled = true
 			#shadow_collision.disabled = false
@@ -192,6 +192,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		PlayerManager.interact_target.interaction()
 	
 	if event.is_action_pressed("activate_shadow_meld"):
+		#if PlayerManager.is_in_shadow:
 		match state:
 			States.SHADOW_MELD:
 				set_state(States.IDLE)

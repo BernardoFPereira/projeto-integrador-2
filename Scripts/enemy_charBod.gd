@@ -1,4 +1,5 @@
-extends RigidBody2D
+extends CharacterBody2D
+class_name Enemy
 
 enum States { IDLE, SUSPICIOUS, CHASE, ATTACK, ROAMING }
 enum Facing { LEFT, RIGHT }
@@ -22,6 +23,9 @@ func _ready() -> void:
 	state = States.IDLE
 
 func _physics_process(delta: float) -> void:
+	if not is_on_floor():
+		velocity += get_gravity() * (delta * 2)
+	
 	handle_states(delta)
 	handle_facing()
 	#move_and_collide(global_position.direction_to(player_last_pos))
@@ -53,6 +57,7 @@ func handle_facing() -> void:
 			sight_area.scale.x = 1.0
 
 func handle_states(delta) -> void:
+
 	match state:
 		States.IDLE:
 			if is_player_on_sight:
@@ -62,29 +67,31 @@ func handle_states(delta) -> void:
 			pass
 		
 		States.CHASE:
-			player_last_pos = chase_target.global_position
+			target_position = chase_target.global_position
+			
 			detect_obstacles()
-			var distance_to_player = global_position.distance_to(player_last_pos)
-			if distance_to_player < 50:
-				set_state(States.ATTACK)
-			
-			global_position = lerp(global_position, player_last_pos, delta)
-			
 			if !is_player_on_sight:
 				set_state(States.ROAMING)
 			
-			move_and_collide(player_last_pos)
+			var distance_to_player = global_position.distance_to(target_position)
+			var direction_to_player = global_position.direction_to(chase_target.global_position)
+			if distance_to_player < 50:
+				set_state(States.ATTACK)
+			
+			velocity.x = lerpf(velocity.x, direction_to_player.x * speed, delta)
+			
+			move_and_slide()
 			
 		States.ATTACK:
 			pass
 			
 		States.ROAMING:
-			global_position = lerp(global_position, target_position, delta / 2)
+			velocity.x = lerpf(velocity.x, global_position.direction_to(target_position).x * speed, delta)
 			
 			if is_player_on_sight:
 				set_state(States.CHASE)
 			
-			move_and_collide(target_position)
+			move_and_slide()
 
 func detect_obstacles() -> void:
 	var target_distance = ray_cast.global_position.distance_to(chase_target.global_position)
@@ -105,7 +112,7 @@ func _on_sight_area_body_entered(body: Node2D) -> void:
 	is_player_on_sight = true
 
 func _on_roaming_timer_timeout() -> void:
-	var roaming_offset = Vector2(randf_range(-500, 500), 0)
+	var roaming_offset = Vector2(randf_range(-300, 300), 0)
 	target_position = global_position + roaming_offset
 	
 	if target_position.x > global_position.x:
