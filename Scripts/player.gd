@@ -1,10 +1,11 @@
 extends CharacterBody2D
 class_name Player
 
-const SPEED = 300.0
+const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 
 @export_range(500.0, 1500.0) var throw_power: float = 800.0
+@export_range(500, 2500.0) var shadow_jump_strength: float = 100.0
 
 @export var hand_left_position: Vector2
 @export var hand_right_position: Vector2
@@ -32,6 +33,8 @@ var just_jumped := false
 var carried_weapon: Weapon = null
 var secondary_weapon: Weapon = null
 
+var health = 2
+
 enum States {
 	IDLE,
 	WALK,
@@ -39,7 +42,8 @@ enum States {
 	SHADOW_MELD,
 	PREP_SHADOW_SHOT,
 	SHADOW_SHOT,
-	GRAB
+	GRAB,
+	DEAD
 }
 
 var last_state: States
@@ -49,6 +53,9 @@ func _ready():
 	set_state(States.IDLE)
 
 func _process(_delta: float) -> void:
+	if health <= 0:
+		set_state(States.DEAD)
+		
 	if PlayerManager.is_aiming:
 		hand.look_at(get_global_mouse_position())
 	
@@ -76,11 +83,12 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
-		if state in [States.IDLE, States.WALK, States.SHADOW_SHOT]:
+		if state in [States.IDLE, States.WALK, States.SHADOW_SHOT, States.DEAD]:
 			velocity += get_gravity() * (delta * 2)
 		if state in [States.DUCT]:
 			velocity = velocity.lerp(Vector2.ZERO, delta)
 		
+
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	handle_states(delta)
@@ -99,7 +107,7 @@ func handle_states(delta) -> void:
 		States.WALK:
 			animated_sprite.play("walk")
 			if direction:
-				velocity.x = lerpf(velocity.x, direction.x * SPEED, delta)
+				velocity.x = lerpf(velocity.x, direction.x * SPEED, delta * 8)
 			else:
 				set_state(States.IDLE)
 			
@@ -115,6 +123,7 @@ func handle_states(delta) -> void:
 		States.SHADOW_MELD:
 			if !PlayerManager.is_in_shadow:
 				set_state(States.IDLE)
+				
 			if direction:
 				velocity = velocity.lerp(direction * SPEED, delta)
 			else:
@@ -125,10 +134,14 @@ func handle_states(delta) -> void:
 			trajectory_line.update_trajectory(global_position.direction_to(get_global_mouse_position()), 100.0, 9.8, delta)
 			
 		States.SHADOW_SHOT:
+			if PlayerManager.is_in_shadow != true:
+				set_state(States.IDLE)
+				
 			var ground_ray = grab_cast_down
 			grab_cast_down.force_raycast_update()
 			
 			if is_on_floor() and !just_jumped:
+				global_position.y -= 20
 				set_state(States.IDLE)
 			
 			for ray: RayCast2D in grab_rays:
@@ -159,25 +172,37 @@ func handle_states(delta) -> void:
 				
 			if !grab_cast_top.is_colliding() and !grab_cast_right.is_colliding() and !grab_cast_left.is_colliding():
 				set_state(States.IDLE)
+			
+		States.DEAD:
+			rotation_degrees = lerp(rotation_degrees, 90.0, delta * 6)
+			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
 
 func set_state(new_state: States):
 	match new_state:
 		States.SHADOW_MELD:
+			if PlayerManager.is_in_shadow != true:
+				set_state(States.IDLE)
+				
 			collision_shape.disabled = true
 			shadow_collision.disabled = false
 			animated_sprite.play("shadow_shape")
 			set_collision_mask_value(5, 0)
-
+		
 		States.SHADOW_SHOT:
+			if PlayerManager.is_in_shadow != true:
+				set_state(States.IDLE)
+			
 			collision_shape.disabled = true
 			shadow_collision.disabled = false
 			animated_sprite.play("shadow_shape")
-
+		
 		#States.GRAB:
+			#grab_cast_top.target_position = grab_cast_top.target_position + Vector2(0, -21)
 			#collision_shape.disabled = true
 			#shadow_collision.disabled = false
 			#animated_sprite.play("shadow_shape")
 		_:
+			#grab_cast_top.target_position = grab_cast_top.target_position + Vector2(0, +21)
 			collision_shape.disabled = false
 			animated_sprite.play("default")
 			set_collision_mask_value(5, 1)
@@ -232,8 +257,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				_:
 					print("no weapon!")
 	
-	if event.is_action_pressed("shoot") and (state == States.PREP_SHADOW_SHOT):
-		velocity = global_position.direction_to(get_global_mouse_position()) * PlayerManager.shadowshot_speed
+	if event.is_action_pressed("shoot") and (state == States.PREP_SHADOW_SHOT) and PlayerManager.is_in_shadow:
+		velocity = global_position.direction_to(get_global_mouse_position()) * shadow_jump_strength
 		trajectory_line.visible = false
 		just_jumped = true
 		set_state(States.SHADOW_SHOT)

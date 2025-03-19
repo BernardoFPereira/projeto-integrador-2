@@ -34,10 +34,11 @@ func interaction() -> void:
 	reparent(player.hand)
 	player.carried_weapon = self
 	freeze = true
+	#sleeping = true
 	transform = hand_hold_spot.transform
 	rotation = 0.0
 	interact_area.monitoring = false
-	print(weapon_type)
+	#print(weapon_type)
 	
 func drop_weapon() -> void:
 	var weapon = player.carried_weapon
@@ -45,6 +46,7 @@ func drop_weapon() -> void:
 	weapon.reparent(get_tree().root)
 	weapon.interact_area.monitoring = true
 	player.carried_weapon = null
+	sleeping = false
 
 func throw() -> void:
 	var impulse = global_position.direction_to(get_global_mouse_position()) * player.throw_power
@@ -66,12 +68,13 @@ func shoot() -> void:
 		
 		# Point projectile towards target
 		projectile.look_at(get_global_mouse_position())
-		#muzzle_flash_fx.look_at(get_global_mouse_position())
+		
 		# Spawn projectile
 		muzzle_flash_fx.global_transform = muzzle.global_transform
 		muzzle_flash_fx.rotate(deg_to_rad(90))
 		muzzle_flash.global_transform = muzzle.global_transform
 		projectile.global_transform = muzzle.global_transform
+		
 		get_tree().root.add_child(muzzle_flash_fx)
 		get_tree().root.add_child(muzzle_flash)
 		get_tree().root.add_child(projectile)

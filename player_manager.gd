@@ -14,7 +14,7 @@ var is_aiming := false
 
 var can_shadowmeld := false
 var can_shadowshot := false
-var shadowshot_speed := 800
+
 var is_shadow_meld
 
 var player: Player
@@ -29,3 +29,9 @@ func switch_aim(value):
 func set_in_shadow(value):
 	if is_in_shadow != value:
 		is_in_shadow = !is_in_shadow
+
+func deal_damage(value):
+	if is_in_shadow:
+		player.health -= value
+	else:
+		player.health -= value * 2

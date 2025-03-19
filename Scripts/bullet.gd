@@ -23,7 +23,12 @@ func _physics_process(delta: float) -> void:
 		get_tree().root.add_child(collision_fx)
 		
 		var collider = collision.get_collider()
-		if collider.is_class("RigidBody2D"):
-			collider.apply_impulse(targ_dir * IMPACT)
+		if collider.is_class("CharacterBody2D"):
+			var shape = collision.get_collider_shape()
+			if shape.is_in_group("HeadCollider"):
+				collider.health_points -= 2
+			if shape.is_in_group("BodyCollider"):
+				collider.health_points -= 1
+			#collider.apply_impulse(targ_dir * IMPACT)
 		
 		self.queue_free()

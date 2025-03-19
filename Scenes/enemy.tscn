@@ -1,36 +1,58 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdcrgfq10mufy"]
+[gd_scene load_steps=7 format=3 uid="uid://86dt5nfq2yny"]
 
-[ext_resource type="Script" uid="uid://qkderashivba" path="res://Scripts/enemy.gd" id="1_u7k1y"]
+[ext_resource type="Script" uid="uid://dpo0hu6jib3ol" path="res://Scripts/enemy.gd" id="1_5hljt"]
+[ext_resource type="Texture2D" uid="uid://c85a5scrtyghu" path="res://Sprites/grunt_idlev1.png" id="2_fadq0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugr6d"]
+atlas = ExtResource("2_fadq0")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4b1w1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugr6d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0uf4j"]
-radius = 20.0
-height = 60.0
+radius = 16.0
+height = 62.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gfuur"]
-radius = 17.0
+radius = 14.0357
 
-[node name="Enemy" type="RigidBody2D" groups=["Enemy"]]
+[node name="EnemyCharBod" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
-collision_mask = 25
-lock_rotation = true
-script = ExtResource("1_u7k1y")
-facing = 1
+collision_mask = 17
+floor_constant_speed = true
+script = ExtResource("1_5hljt")
+speed = 550.0
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-scale = Vector2(2.375, 2.5)
-color = Color(0.886275, 0.278431, 0.286275, 1)
-polygon = PackedVector2Array(-5, -7.6, -8, -4, -8, 13, -5, 16, 5, 16, 8, 13, 8, -4.4, 5, -7.6)
+[node name="RoamingTimer" type="Timer" parent="."]
+process_callback = 0
 
-[node name="Head" type="Polygon2D" parent="."]
-color = Color(0.886275, 0.278431, 0.286275, 1)
-polygon = PackedVector2Array(-5, -19, 5, -19, 13, -24, 13, -45, 5, -51, -5, -51, -12, -46, -12, -24)
+[node name="SuspicionTimer" type="Timer" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 10)
+[node name="SearchLocationTimer" type="Timer" parent="."]
+
+[node name="SearchTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+position = Vector2(0, -25)
+sprite_frames = SubResource("SpriteFrames_4b1w1")
+
+[node name="BodyCollisionShape" type="CollisionShape2D" parent="." groups=["BodyCollider"]]
+position = Vector2(-2, 9)
 shape = SubResource("CapsuleShape2D_0uf4j")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, -35)
+[node name="HeadCollisionShape" type="CollisionShape2D" parent="." groups=["HeadCollider"]]
+position = Vector2(5, -33)
 shape = SubResource("CircleShape2D_gfuur")
 
 [node name="SightArea" type="Area2D" parent="."]
@@ -45,8 +67,27 @@ position = Vector2(0, -35.5)
 target_position = Vector2(0, 0)
 collision_mask = 19
 
-[node name="RoamingTimer" type="Timer" parent="."]
+[node name="HeadFacingRightPos" type="Marker2D" parent="."]
+position = Vector2(5, -33)
 
+[node name="HeadFacingLeftPos" type="Marker2D" parent="."]
+position = Vector2(-5, -33)
+
+[node name="BodyFacingRightPos" type="Marker2D" parent="."]
+position = Vector2(-2, 9)
+
+[node name="BodyFacingLeftPos" type="Marker2D" parent="."]
+position = Vector2(2, 9)
+
+[node name="AlertIcon" type="Marker2D" parent="."]
+position = Vector2(0, -79)
+
+[node name="Icon" type="Sprite2D" parent="AlertIcon"]
+texture_filter = 3
+
+[connection signal="timeout" from="RoamingTimer" to="." method="_on_roaming_timer_timeout"]
+[connection signal="timeout" from="SuspicionTimer" to="." method="_on_suspicion_timer_timeout"]
+[connection signal="timeout" from="SearchLocationTimer" to="." method="_on_search_location_timer_timeout"]
+[connection signal="timeout" from="SearchTimer" to="." method="_on_search_timer_timeout"]
 [connection signal="body_entered" from="SightArea" to="." method="_on_sight_area_body_entered"]
 [connection signal="body_exited" from="SightArea" to="." method="_on_sight_area_body_exited"]
-[connection signal="timeout" from="RoamingTimer" to="." method="_on_roaming_timer_timeout"]

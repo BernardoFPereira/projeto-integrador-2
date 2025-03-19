@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://bgs0qip30kgfc"]
+
+[ext_resource type="Texture2D" uid="uid://dsq1bde5lo60q" path="res://Sprites/slash.png" id="1_yphan"]
+[ext_resource type="Script" uid="uid://c28gmrav808e6" path="res://Scripts/enemy_slash.gd" id="2_y1oko"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1oko"]
+atlas = ExtResource("1_yphan")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mnjv"]
+atlas = ExtResource("1_yphan")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80g0e"]
+atlas = ExtResource("1_yphan")
+region = Rect2(64, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8uxu"]
+atlas = ExtResource("1_yphan")
+region = Rect2(96, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cry88"]
+atlas = ExtResource("1_yphan")
+region = Rect2(128, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnigr"]
+atlas = ExtResource("1_yphan")
+region = Rect2(160, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csh47"]
+atlas = ExtResource("1_yphan")
+region = Rect2(192, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dria0"]
+atlas = ExtResource("1_yphan")
+region = Rect2(224, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7rvf"]
+atlas = ExtResource("1_yphan")
+region = Rect2(256, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jpdd6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1oko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mnjv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80g0e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8uxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cry88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnigr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csh47")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dria0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7rvf")
+}],
+"loop": false,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="EnemySlash" type="AnimatedSprite2D"]
+texture_filter = 3
+sprite_frames = SubResource("SpriteFrames_jpdd6")
+autoplay = "default"
+frame = 8
+frame_progress = 1.0
+script = ExtResource("2_y1oko")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
