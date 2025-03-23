@@ -106,7 +106,7 @@ autoplay = "closed"
 shape = SubResource("RectangleShape2D_6tjcx")
 
 [node name="InteractArea" type="Area2D" parent="."]
-collision_mask = 2
+collision_mask = 6
 
 [node name="InteractCollision" type="CollisionShape2D" parent="InteractArea"]
 shape = SubResource("RectangleShape2D_std34")

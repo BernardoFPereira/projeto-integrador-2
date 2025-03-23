@@ -9,6 +9,19 @@ extends StaticBody2D
 enum DoorState { OPEN, CLOSED }
 
 var state := DoorState.CLOSED
+var enemy_near := false
+var enemy: Enemy
+
+func _process(delta: float) -> void:
+	if enemy_near:
+		match enemy.state:
+			enemy.States.SEARCH:
+				if state == DoorState.CLOSED:
+					open_door()
+				else:
+					return
+			_:
+				pass
 
 func interaction():
 	match state:
@@ -32,6 +45,11 @@ func _on_interact_area_body_entered(body: Node2D) -> void:
 		#line_2d.visible = true
 		PlayerManager.can_interact = true
 		PlayerManager.interact_target = self
+	
+	if body.is_in_group("Enemy"):
+		enemy_near = true
+		enemy = body
+
 
 func _on_interact_area_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
@@ -39,6 +57,10 @@ func _on_interact_area_body_exited(body: Node2D) -> void:
 		if PlayerManager.interact_target == self:
 			PlayerManager.can_interact = false
 			PlayerManager.interact_target = null
+			
+	if body.is_in_group("Enemy"):
+		enemy_near = false
+		enemy = null
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:

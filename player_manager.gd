@@ -18,6 +18,7 @@ var can_shadowshot := false
 var is_shadow_meld
 
 var player: Player
+#var is_player_dead := false
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")

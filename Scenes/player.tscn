@@ -137,7 +137,7 @@ radius = 3.0
 
 [node name="PlayerSprite" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
-collision_mask = 17
+collision_mask = 273
 floor_constant_speed = true
 script = ExtResource("1_uygo4")
 

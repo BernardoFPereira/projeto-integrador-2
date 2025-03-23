@@ -1,9 +1,6 @@
 extends CharacterBody2D
 class_name Enemy
 
-enum States { IDLE, SUSPICIOUS, SEARCH, CHASE, ROAMING, ATTACK, COOLDOWN, DEAD }
-enum Facing { LEFT, RIGHT }
-
 @export var facing: Facing
 @export var start_state := States.IDLE
 @export_range(200.0, 800.0, 1.0) var speed := 600.0
@@ -22,6 +19,7 @@ enum Facing { LEFT, RIGHT }
 @onready var roaming_timer: Timer = $RoamingTimer
 @onready var search_location_timer: Timer = $SearchLocationTimer
 @onready var search_timer: Timer = $SearchTimer
+@onready var interaction_timer: Timer = $InteractionTimer
 
 @onready var icon: Sprite2D = $AlertIcon/Icon
 
@@ -34,6 +32,21 @@ enum Facing { LEFT, RIGHT }
 @onready var body_facing_right_pos: Marker2D = $BodyFacingRightPos
 @onready var body_facing_left_pos: Marker2D = $BodyFacingLeftPos
 
+enum States {
+	IDLE,
+	SUSPICIOUS,
+	SEARCH,
+	GOING_UP,
+	GOING_DOWN,
+	CHASE,
+	ROAMING,
+	ATTACK,
+	COOLDOWN,
+	DEAD
+}
+
+enum Facing { LEFT, RIGHT }
+
 var state: States
 var player_last_pos: Vector2
 
@@ -44,6 +57,9 @@ var target_position := Vector2.ZERO
 var cooldown_counter := 0.0
 var health_points := 2
 
+var can_interact := false
+var just_interacted := false
+var interaction_target: Node2D
 
 func _ready() -> void:
 	set_state(start_state)
@@ -58,6 +74,10 @@ func _physics_process(delta: float) -> void:
 		set_facing(Facing.RIGHT)
 	if velocity.x < 0:
 		set_facing(Facing.LEFT)
+	
+	if PlayerManager.player.health <= 0:
+		if state not in [States.IDLE, States.ROAMING, States.DEAD]:
+			set_state(States.ROAMING)
 	
 	handle_states(delta)
 	handle_facing()
@@ -91,6 +111,16 @@ func set_state(new_state: States) -> void:
 	
 	if new_state != state:
 		match new_state:
+			States.DEAD:
+				sight_area.monitoring = false
+				interaction_target = null
+				icon.texture = null
+				
+				roaming_timer.stop()
+				suspicion_timer.stop()
+				search_location_timer.stop()
+				search_timer.stop()
+			
 			States.ROAMING:
 				icon.texture = null
 				
@@ -116,13 +146,35 @@ func set_state(new_state: States) -> void:
 				search_timer.stop()
 			
 			States.SEARCH:
+				var y_diff = player_last_pos.y - global_position.y
+				if y_diff > 200:
+					#print(y_diff)
+					print("%s: player shot BELOW me!" % self.name)
+					set_state(States.GOING_DOWN)
+				
+				elif y_diff < -200:
+					print(y_diff)
+					print("%s: player shot ABOVE me!" % self.name)
+					set_state(States.GOING_UP)
+				
+				elif y_diff < 130 and y_diff > -200:
+					print(y_diff)
+					print("%s: player shot on the SAME FLOOR as me!" % self.name)
+					
+				#if player_last_pos.y - global_position.y < 0:
+					#print("%s is Going Up!" % self.name)
+					#set_state(States.GOING_UP)
+				#
+				#if player_last_pos.y - global_position.y > 0:
+					#print("%s is Going Down!" % self.name)
+					#set_state(States.GOING_DOWN)
+				
 				icon.texture = suspicious_icon
 				
 				search_location_timer.start()
 				search_timer.start()
 				roaming_timer.stop()
 				suspicion_timer.stop()
-			
 			_:
 				icon.texture = null
 				
@@ -188,20 +240,35 @@ func handle_states(delta) -> void:
 					set_state(States.ROAMING)
 				cooldown_counter = 0.0
 			pass
+			
+		States.GOING_UP:
+			print("LOOK FOR STARIS UP")
+			pass
+		
+		States.GOING_DOWN:
+			print("LOOK FOR STARIS DOWN")
+			pass
 		
 		States.SEARCH:
 			var search_offset = Vector2(randf_range(-250, 250), 0)
 			velocity.x = lerpf(velocity.x, global_position.direction_to(player_last_pos + search_offset).x * roam_speed, delta * 2)
 			
+			if can_interact and !just_interacted:
+				interaction_timer.start()
+				just_interacted = true
+				interaction_target.interaction("ENEMY")
+			
 			if is_player_on_sight and !detected_obstacle():
 				set_state(States.CHASE)
 		
 		States.ROAMING:
-			#if velocity != Vector2.ZERO:
 			velocity.x = lerpf(velocity.x, global_position.direction_to(target_position).x * roam_speed, delta * 2)
 			
 			if is_player_on_sight and !detected_obstacle():
-				set_state(States.SUSPICIOUS)
+				if PlayerManager.player.health <= 0:
+					set_state(States.ROAMING)
+				else:
+					set_state(States.SUSPICIOUS)
 			
 	move_and_slide()
 
@@ -218,13 +285,45 @@ func detected_obstacle() -> bool:
 			return false
 	return true
 
+func look_for_stairs() -> void:
+	# If searching and player_pos.y is below me
+	if player_last_pos.y > global_position.y:
+	#	look for nearest stairs that lead down
+	#	move to nearest stairs
+	#	set_state(States.SEARCH)
+		pass
+	# elif searching and player_pos.y is above me
+	#	look for nearest stairs that lead up
+	#
+	# else is on the same floor, return
+	pass
+
 func _on_sight_area_body_entered(body: Node2D) -> void:
 	#chase_target = body
 	is_player_on_sight = true
+	
+func _on_sight_area_body_exited(body: Node2D) -> void:
+	is_player_on_sight = false
+	player_last_pos = body.global_position
+	ray_cast.target_position = Vector2.ZERO
+	
+	if detected_obstacle():
+		return
+	
+	set_state(States.SEARCH)
+
+func _on_interact_area_area_entered(area: Area2D) -> void:
+	#print("Enemy on stairs!")
+	interaction_target = area.get_parent()
+	#print(interaction_target.name)
+	can_interact = true
+
+func _on_interact_area_area_exited(area: Area2D) -> void:
+	interaction_target = null
+	can_interact = false
 
 func _on_suspicion_timer_timeout() -> void:
 	set_state(States.CHASE)
-	pass # Replace with function body.
 
 func _on_roaming_timer_timeout() -> void:
 	var roaming_offset = Vector2(randf_range(-250, 250), 0)
@@ -247,15 +346,9 @@ func _on_search_location_timer_timeout() -> void:
 		target_position = global_position
 		velocity = Vector2.ZERO
 	
-	search_timer.wait_time = randf_range(min_wait, max_wait)
-	
-func _on_sight_area_body_exited(body: Node2D) -> void:
-	is_player_on_sight = false
-	player_last_pos = body.global_position
-	ray_cast.target_position = Vector2.ZERO
-	
-	if detected_obstacle():
-		set_state(States.ROAMING)
-		return
-	
-	set_state(States.SEARCH)
+	#search_timer.wait_time = randf_range(min_wait, max_wait)
+
+func _on_interaction_timer_timeout() -> void:
+	#print("can interact again!")
+	just_interacted = false
+	#can_interact = true

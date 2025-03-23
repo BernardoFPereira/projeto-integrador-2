@@ -37,6 +37,8 @@ var health = 2
 
 enum States {
 	IDLE,
+	AIM,
+	MELEE,
 	WALK,
 	DUCT,
 	SHADOW_MELD,
@@ -81,18 +83,14 @@ func _process(_delta: float) -> void:
 			#print("In Light!")
 	
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	# Add the gravity based on state.
 	if not is_on_floor():
 		if state in [States.IDLE, States.WALK, States.SHADOW_SHOT, States.DEAD]:
 			velocity += get_gravity() * (delta * 2)
 		if state in [States.DUCT]:
 			velocity = velocity.lerp(Vector2.ZERO, delta)
-		
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	handle_states(delta)
 	
+	handle_states(delta)
 	move_and_slide()
 
 func handle_states(delta) -> void:
@@ -113,9 +111,17 @@ func handle_states(delta) -> void:
 			
 			if direction.x < 0:
 				animated_sprite.flip_h = true
-
+			
 			elif direction.x > 0:
 				animated_sprite.flip_h = false
+		
+		States.MELEE:
+			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
+			carried_weapon.melee()
+		
+		States.AIM:
+			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
+			pass
 			
 		States.DUCT:
 			pass
@@ -161,15 +167,18 @@ func handle_states(delta) -> void:
 				just_jumped = true
 			
 		States.GRAB:
+			if PlayerManager.is_in_shadow != true:
+				set_state(States.IDLE)
+			
 			if direction:
 				if grab_cast_left.is_colliding() or grab_cast_right.is_colliding():
 					velocity.y = lerp(velocity.y, direction.y * SPEED, delta * 2)
 				if grab_cast_top.is_colliding():
 					velocity.x = lerpf(velocity.x, direction.x * SPEED, delta * 2)
-				
+			
 			if !direction:
 				velocity = velocity.lerp(Vector2.ZERO, delta * 6)
-				
+			
 			if !grab_cast_top.is_colliding() and !grab_cast_right.is_colliding() and !grab_cast_left.is_colliding():
 				set_state(States.IDLE)
 			
@@ -196,6 +205,8 @@ func set_state(new_state: States):
 			shadow_collision.disabled = false
 			animated_sprite.play("shadow_shape")
 		
+		#States.AIM:
+			#PlayerManager.switch_aim(true)
 		#States.GRAB:
 			#grab_cast_top.target_position = grab_cast_top.target_position + Vector2(0, -21)
 			#collision_shape.disabled = true
@@ -217,7 +228,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		PlayerManager.interact_target.interaction()
 	
 	if event.is_action_pressed("activate_shadow_meld"):
-		#if PlayerManager.is_in_shadow:
 		match state:
 			States.SHADOW_MELD:
 				set_state(States.IDLE)
@@ -231,31 +241,47 @@ func _unhandled_input(event: InputEvent) -> void:
 		#set_state(States.IDLE)
 		
 	if event.is_action_pressed("ui_accept") and is_on_floor():
+		if state not in [States.IDLE, States.WALK]:
+			return
+		
 		trajectory_line.visible = true
-		#PlayerManager.can_shadowshot = true
 		set_state(States.PREP_SHADOW_SHOT)
 	
 	if event.is_action_released("ui_accept") and is_on_floor():
+		if state not in [States.PREP_SHADOW_SHOT]:
+			return
+		
 		trajectory_line.visible = false
-		#PlayerManager.can_shadowshot = false
 		set_state(States.IDLE)
 		
 	if event.is_action_pressed("aim"):
+		if state in [States.SHADOW_MELD, States.PREP_SHADOW_SHOT, States.MELEE]:
+			return
+			
 		PlayerManager.switch_aim(true)
+		set_state(States.AIM)
+	
 	if event.is_action_released("aim"):
+		if state in [States.SHADOW_MELD, States.PREP_SHADOW_SHOT, States.MELEE]:
+			return
+			
 		hand.rotation_degrees = 40
 		PlayerManager.switch_aim(false)
+		
+		set_state(last_state)
 	
-	if event.is_action_pressed("shoot") and PlayerManager.is_aiming:
+	if event.is_action_pressed("shoot"):# and PlayerManager.is_aiming:
 		if carried_weapon:
-			match carried_weapon.weapon_type:
-				"melee":
-					carried_weapon.throw()
-				"ranged":
-					carried_weapon.shoot()
-					pass
-				_:
-					print("no weapon!")
+			if PlayerManager.is_aiming:
+				match carried_weapon.weapon_type:
+					"melee":
+						carried_weapon.throw()
+					"ranged":
+						carried_weapon.shoot()
+					_:
+						print("no weapon!")
+			else:
+				set_state(States.MELEE)
 	
 	if event.is_action_pressed("shoot") and (state == States.PREP_SHADOW_SHOT) and PlayerManager.is_in_shadow:
 		velocity = global_position.direction_to(get_global_mouse_position()) * shadow_jump_strength

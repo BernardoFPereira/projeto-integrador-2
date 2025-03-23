@@ -5,6 +5,7 @@ class_name Weapon
 @export var max_ammo: int = 0
 
 @onready var interact_area: Area2D = $InteractArea
+@onready var sound_range: Area2D = $SoundRange
 #@onready var interact_highlight: Polygon2D = $InteractHighlight
 
 var player: Player
@@ -48,6 +49,11 @@ func drop_weapon() -> void:
 	player.carried_weapon = null
 	sleeping = false
 
+func melee() -> void:
+	print("PUNCH")
+	player.set_state(player.States.IDLE)
+	pass
+
 func throw() -> void:
 	var impulse = global_position.direction_to(get_global_mouse_position()) * player.throw_power
 	player.carried_weapon = null
@@ -57,8 +63,9 @@ func throw() -> void:
 	reparent(get_tree().root)
 	apply_impulse(impulse)
 	apply_torque(35000.0)
-	
+
 func shoot() -> void:
+	broadcast_noise()
 	if current_ammo > 0:
 		var muzzle_flash_fx = preload("res://Scenes/muzzle_flash_fx.tscn").instantiate()
 		var muzzle_flash = preload("res://Scenes/muzzle_flash.tscn").instantiate()
@@ -79,7 +86,26 @@ func shoot() -> void:
 		get_tree().root.add_child(muzzle_flash)
 		get_tree().root.add_child(projectile)
 		current_ammo -= 1
-	
+
+func broadcast_noise() -> void:
+	var bodies_in_range = sound_range.get_overlapping_bodies()
+	if bodies_in_range:
+		for body in bodies_in_range:
+			if body.state != body.States.DEAD:
+				#var y_diff = player.global_position.y - body.global_position.y
+				#if y_diff > 200:
+					#print(y_diff)
+					#print("%s: player shot BELOW me!" % body.name)
+				#elif y_diff < -200:
+					#print(y_diff)
+					#print("%s: player shot ABOVE me!" % body.name)
+				#elif y_diff < 130 and y_diff > -200:
+					#print(y_diff)
+					#print("%s: player shot on the SAME FLOOR as me!" % body.name)
+				
+				body.player_last_pos = player.global_position
+				body.set_state(body.States.SEARCH)
+
 func _on_interact_area_body_entered(body: Node2D) -> void:
 	match body.get_class():
 		"CharacterBody2D":

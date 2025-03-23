@@ -28,7 +28,7 @@ collision_layer = 32
 collision_mask = 18
 
 [node name="LightDetectCollision" type="CollisionPolygon2D" parent="LightDetectArea"]
-polygon = PackedVector2Array(0, 0, -95, 95, -54, 121, 46, 121, 94, 96)
+polygon = PackedVector2Array(0, 0, -208, 272, 208, 272)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_xps18")
