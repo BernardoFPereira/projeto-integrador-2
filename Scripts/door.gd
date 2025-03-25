@@ -14,14 +14,11 @@ var enemy: Enemy
 
 func _process(delta: float) -> void:
 	if enemy_near:
-		match enemy.state:
-			enemy.States.SEARCH:
-				if state == DoorState.CLOSED:
-					open_door()
-				else:
-					return
-			_:
-				pass
+		if enemy.state in [enemy.States.SEARCH, enemy.States.GOING_UP, enemy.States.GOING_DOWN]:
+			if state == DoorState.CLOSED:
+				open_door()
+			else:
+				return
 
 func interaction():
 	match state:

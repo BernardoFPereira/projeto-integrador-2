@@ -26,9 +26,10 @@ func _physics_process(delta: float) -> void:
 		if collider.is_class("CharacterBody2D"):
 			var shape = collision.get_collider_shape()
 			if shape.is_in_group("HeadCollider"):
-				collider.health_points -= 2
+				PlayerManager.deal_damage(collider, 2)
+			
 			if shape.is_in_group("BodyCollider"):
-				collider.health_points -= 1
+				PlayerManager.deal_damage(collider, 1)
 			#collider.apply_impulse(targ_dir * IMPACT)
 		
 		self.queue_free()

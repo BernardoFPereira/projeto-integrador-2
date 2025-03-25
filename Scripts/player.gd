@@ -25,6 +25,7 @@ const JUMP_VELOCITY = -400.0
 @onready var shadow_collision = $ShadowCollisionShape
 
 @onready var grab_rays = [grab_cast_top, grab_cast_right, grab_cast_left]
+@onready var melee_hit_box: Area2D = $MeleeHitBox
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -48,11 +49,15 @@ enum States {
 	DEAD
 }
 
+enum Facing { RIGHT, LEFT }
+
 var last_state: States
 var state: States
+var facing : Facing
 
 func _ready():
 	set_state(States.IDLE)
+	set_facing(Facing.RIGHT)
 
 func _process(_delta: float) -> void:
 	if health <= 0:
@@ -90,6 +95,7 @@ func _physics_process(delta: float) -> void:
 		if state in [States.DUCT]:
 			velocity = velocity.lerp(Vector2.ZERO, delta)
 	
+	handle_facing()
 	handle_states(delta)
 	move_and_slide()
 
@@ -110,14 +116,42 @@ func handle_states(delta) -> void:
 				set_state(States.IDLE)
 			
 			if direction.x < 0:
-				animated_sprite.flip_h = true
+				set_facing(Facing.LEFT)
 			
 			elif direction.x > 0:
-				animated_sprite.flip_h = false
+				set_facing(Facing.RIGHT)
 		
 		States.MELEE:
+			var targets_to_hit = melee_hit_box.get_overlapping_bodies()
 			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
-			carried_weapon.melee()
+			var melee_fx
+			if carried_weapon:
+				if carried_weapon.weapon_type == "melee":
+					melee_fx = preload("res://Scenes/enemy_slash.tscn").instantiate()
+					melee_fx.global_transform = melee_hit_box.global_transform
+					get_tree().root.add_child(melee_fx)
+				else:
+					melee_fx = preload("res://Scenes/punch.tscn").instantiate()
+					melee_fx.global_transform = melee_hit_box.global_transform
+					get_tree().root.add_child(melee_fx)
+					
+				carried_weapon.melee(targets_to_hit)
+			else:
+				melee_fx = preload("res://Scenes/punch.tscn").instantiate()
+				melee_fx.global_transform = melee_hit_box.global_transform
+				get_tree().root.add_child(melee_fx)
+				
+				for target in targets_to_hit:
+					PlayerManager.deal_damage(target, 1)
+				
+			match facing:
+				Facing.RIGHT:
+					melee_fx.flip_h = true
+				Facing.LEFT:
+					melee_fx.flip_h = false
+					
+			#print(target_to_hit)
+			set_state(States.IDLE)
 		
 		States.AIM:
 			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
@@ -128,6 +162,8 @@ func handle_states(delta) -> void:
 			
 		States.SHADOW_MELD:
 			if !PlayerManager.is_in_shadow:
+				set_state(States.IDLE)
+			if !PlayerManager.is_inside:
 				set_state(States.IDLE)
 				
 			if direction:
@@ -187,7 +223,12 @@ func handle_states(delta) -> void:
 			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
 
 func set_state(new_state: States):
+	#melee_hit_box.monitoring = false
+	
 	match new_state:
+		States.DEAD:
+			PlayerManager.is_player_dead = true
+		
 		States.SHADOW_MELD:
 			if PlayerManager.is_in_shadow != true:
 				set_state(States.IDLE)
@@ -205,8 +246,10 @@ func set_state(new_state: States):
 			shadow_collision.disabled = false
 			animated_sprite.play("shadow_shape")
 		
-		#States.AIM:
-			#PlayerManager.switch_aim(true)
+		States.MELEE:
+			pass
+			#melee_hit_box.monitoring = true
+		
 		#States.GRAB:
 			#grab_cast_top.target_position = grab_cast_top.target_position + Vector2(0, -21)
 			#collision_shape.disabled = true
@@ -222,12 +265,27 @@ func set_state(new_state: States):
 	if new_state != state:
 		last_state = state
 		state = new_state
-	
+
+func set_facing(new_facing) -> void:
+	if new_facing != facing:
+		facing = new_facing
+
+func handle_facing() -> void:
+	match facing:
+		Facing.LEFT:
+			melee_hit_box.position = $HitBoxPosLeft.position
+			animated_sprite.flip_h = true
+			
+		Facing.RIGHT:
+			melee_hit_box.position = $HitBoxPosRight.position
+			animated_sprite.flip_h = false
+			
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and PlayerManager.can_interact:
 		PlayerManager.interact_target.interaction()
 	
-	if event.is_action_pressed("activate_shadow_meld"):
+	if event.is_action_pressed("activate_shadow_meld") and PlayerManager.is_inside:
 		match state:
 			States.SHADOW_MELD:
 				set_state(States.IDLE)
@@ -270,7 +328,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		set_state(last_state)
 	
-	if event.is_action_pressed("shoot"):# and PlayerManager.is_aiming:
+	if event.is_action_pressed("shoot") and state != States.PREP_SHADOW_SHOT:# and PlayerManager.is_aiming:
 		if carried_weapon:
 			if PlayerManager.is_aiming:
 				match carried_weapon.weapon_type:
@@ -279,9 +337,9 @@ func _unhandled_input(event: InputEvent) -> void:
 					"ranged":
 						carried_weapon.shoot()
 					_:
-						print("no weapon!")
-			else:
-				set_state(States.MELEE)
+						print("no weapon type!")
+				return
+		set_state(States.MELEE)
 	
 	if event.is_action_pressed("shoot") and (state == States.PREP_SHADOW_SHOT) and PlayerManager.is_in_shadow:
 		velocity = global_position.direction_to(get_global_mouse_position()) * shadow_jump_strength

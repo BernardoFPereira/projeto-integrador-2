@@ -29,7 +29,7 @@ radius = 14.0357
 size = Vector2(10, 14)
 
 [node name="EnemyCharBod" type="CharacterBody2D" groups=["Enemy"]]
-collision_layer = 4
+collision_layer = 4100
 collision_mask = 17
 floor_constant_speed = true
 script = ExtResource("1_5hljt")

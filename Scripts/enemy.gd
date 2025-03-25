@@ -55,7 +55,7 @@ var is_player_on_sight := false
 
 var target_position := Vector2.ZERO
 var cooldown_counter := 0.0
-var health_points := 2
+var health := 2
 
 var can_interact := false
 var just_interacted := false
@@ -67,7 +67,7 @@ func _ready() -> void:
 	chase_target = get_tree().get_first_node_in_group("Player")
 
 func _physics_process(delta: float) -> void:
-	if health_points <= 0:
+	if health <= 0:
 		set_state(States.DEAD)
 		
 	if velocity.x > 0:
@@ -75,7 +75,7 @@ func _physics_process(delta: float) -> void:
 	if velocity.x < 0:
 		set_facing(Facing.LEFT)
 	
-	if PlayerManager.player.health <= 0:
+	if PlayerManager.is_player_dead:
 		if state not in [States.IDLE, States.ROAMING, States.DEAD]:
 			set_state(States.ROAMING)
 	
@@ -146,28 +146,13 @@ func set_state(new_state: States) -> void:
 				search_timer.stop()
 			
 			States.SEARCH:
-				var y_diff = player_last_pos.y - global_position.y
-				if y_diff > 200:
-					#print(y_diff)
-					print("%s: player shot BELOW me!" % self.name)
-					set_state(States.GOING_DOWN)
-				
-				elif y_diff < -200:
-					print(y_diff)
-					print("%s: player shot ABOVE me!" % self.name)
-					set_state(States.GOING_UP)
-				
-				elif y_diff < 130 and y_diff > -200:
-					print(y_diff)
-					print("%s: player shot on the SAME FLOOR as me!" % self.name)
-					
-				#if player_last_pos.y - global_position.y < 0:
-					#print("%s is Going Up!" % self.name)
-					#set_state(States.GOING_UP)
-				#
-				#if player_last_pos.y - global_position.y > 0:
-					#print("%s is Going Down!" % self.name)
-					#set_state(States.GOING_DOWN)
+				match y_diff():
+					"below":
+						set_state(States.GOING_DOWN)
+						return
+					"above":
+						set_state(States.GOING_UP)
+						return
 				
 				icon.texture = suspicious_icon
 				
@@ -175,6 +160,27 @@ func set_state(new_state: States) -> void:
 				search_timer.start()
 				roaming_timer.stop()
 				suspicion_timer.stop()
+			
+			States.GOING_UP:
+				icon.texture = suspicious_icon
+				
+				target_position = look_for_stairs()
+				
+				search_location_timer.stop()
+				search_timer.stop()
+				roaming_timer.stop()
+				suspicion_timer.stop()
+			
+			States.GOING_DOWN:
+				icon.texture = suspicious_icon
+				
+				target_position = look_for_stairs()
+				
+				search_location_timer.stop()
+				search_timer.stop()
+				roaming_timer.stop()
+				suspicion_timer.stop()
+			
 			_:
 				icon.texture = null
 				
@@ -210,6 +216,7 @@ func handle_states(delta) -> void:
 			
 			var distance_to_player = global_position.distance_to(target_position)
 			var direction_to_player = global_position.direction_to(chase_target.global_position).normalized()
+			
 			if distance_to_player < 50:
 				set_state(States.ATTACK)
 			
@@ -228,7 +235,7 @@ func handle_states(delta) -> void:
 					slash_fx.global_position = global_position - offset
 				
 			get_tree().root.add_child(slash_fx)
-			PlayerManager.deal_damage(1)
+			PlayerManager.deal_damage(PlayerManager.player, 1)
 			set_state(States.COOLDOWN)
 			
 		States.COOLDOWN:
@@ -239,24 +246,28 @@ func handle_states(delta) -> void:
 				else:
 					set_state(States.ROAMING)
 				cooldown_counter = 0.0
-			pass
 			
 		States.GOING_UP:
-			print("LOOK FOR STARIS UP")
-			pass
-		
-		States.GOING_DOWN:
-			print("LOOK FOR STARIS DOWN")
-			pass
-		
-		States.SEARCH:
-			var search_offset = Vector2(randf_range(-250, 250), 0)
-			velocity.x = lerpf(velocity.x, global_position.direction_to(player_last_pos + search_offset).x * roam_speed, delta * 2)
+			velocity.x = lerpf(velocity.x, global_position.direction_to(target_position).x * (roam_speed * 2), delta * 2)
 			
 			if can_interact and !just_interacted:
 				interaction_timer.start()
 				just_interacted = true
 				interaction_target.interaction("ENEMY")
+				set_state(States.SEARCH)
+		
+		States.GOING_DOWN:
+			velocity.x = lerpf(velocity.x, global_position.direction_to(target_position).x * (roam_speed * 2), delta * 2)
+			
+			if can_interact and !just_interacted:
+				interaction_timer.start()
+				just_interacted = true
+				interaction_target.interaction("ENEMY")
+				set_state(States.SEARCH)
+		
+		States.SEARCH:
+			var search_offset = Vector2(randf_range(-250, 250), 0)
+			velocity.x = lerpf(velocity.x, global_position.direction_to(player_last_pos + search_offset).x * roam_speed, delta * 2)
 			
 			if is_player_on_sight and !detected_obstacle():
 				set_state(States.CHASE)
@@ -265,7 +276,7 @@ func handle_states(delta) -> void:
 			velocity.x = lerpf(velocity.x, global_position.direction_to(target_position).x * roam_speed, delta * 2)
 			
 			if is_player_on_sight and !detected_obstacle():
-				if PlayerManager.player.health <= 0:
+				if PlayerManager.is_player_dead:
 					set_state(States.ROAMING)
 				else:
 					set_state(States.SUSPICIOUS)
@@ -285,19 +296,53 @@ func detected_obstacle() -> bool:
 			return false
 	return true
 
-func look_for_stairs() -> void:
+func look_for_stairs() -> Vector2:
 	# If searching and player_pos.y is below me
-	if player_last_pos.y > global_position.y:
-	#	look for nearest stairs that lead down
-	#	move to nearest stairs
-	#	set_state(States.SEARCH)
-		pass
-	# elif searching and player_pos.y is above me
-	#	look for nearest stairs that lead up
-	#
-	# else is on the same floor, return
-	pass
+	var all_stairs = get_tree().get_nodes_in_group("Stair")
+	var target_stairs: Node2D
+	
+	match y_diff():
+		"below":
+		#	look for nearest stairs that lead down
+			var down_stairs = all_stairs.filter(
+				func(stairs): return stairs.direction == stairs.Direction.DOWN
+				)
+			target_stairs = down_stairs.filter(
+					func(stairs): return ((global_position.y - stairs.global_position.y) < 130) and ((global_position.y - stairs.global_position.y) > -200) 
+				)[0]
 
+			#return target_stairs.global_position
+		
+		"above":
+			var up_stairs = all_stairs.filter(
+				func(stairs): return stairs.direction == stairs.Direction.UP
+				)
+			target_stairs = up_stairs.filter(
+					func(stairs): return ((global_position.y - stairs.global_position.y) < 130) and ((global_position.y - stairs.global_position.y) > -200) 
+				)[0]
+		
+	return target_stairs.global_position
+
+
+func y_diff() -> String:
+	var y_diff = player_last_pos.y - global_position.y
+	
+	if y_diff > 130:
+		#print(y_diff)
+		#print("%s: player shot BELOW me!" % self.name)
+		return "below"
+		#set_state(States.GOING_DOWN)
+	elif y_diff < -200:
+		#print(y_diff)
+		#print("%s: player shot ABOVE me!" % self.name)
+		return "above"
+		#set_state(States.GOING_UP)
+	#elif y_diff < 130 and y_diff > -200:
+		#print(y_diff)
+		#print("%s: player shot on the SAME FLOOR as me!" % self.name)
+		
+	return "same"
+		
 func _on_sight_area_body_entered(body: Node2D) -> void:
 	#chase_target = body
 	is_player_on_sight = true
@@ -315,8 +360,18 @@ func _on_sight_area_body_exited(body: Node2D) -> void:
 func _on_interact_area_area_entered(area: Area2D) -> void:
 	#print("Enemy on stairs!")
 	interaction_target = area.get_parent()
+	match state:
+		States.GOING_UP:
+			if interaction_target.direction == interaction_target.Direction.UP:
+				can_interact = true
+			pass
+		
+		States.GOING_DOWN:
+			if interaction_target.direction == interaction_target.Direction.DOWN:
+				can_interact = true
+			pass
 	#print(interaction_target.name)
-	can_interact = true
+	#can_interact = true
 
 func _on_interact_area_area_exited(area: Area2D) -> void:
 	interaction_target = null
