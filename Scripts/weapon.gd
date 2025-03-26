@@ -36,7 +36,6 @@ func interaction() -> void:
 	reparent(player.hand)
 	player.carried_weapon = self
 	freeze = true
-	#sleeping = true
 	transform = hand_hold_spot.transform
 	rotation = 0.0
 	interact_area.monitoring = false
@@ -53,29 +52,19 @@ func drop_weapon() -> void:
 func melee(targets_to_hit: Array) -> void:
 	match weapon_type:
 		"melee":
-			#var slash_fx = preload("res://Scenes/enemy_slash.tscn").instantiate()
-			#slash_fx.transform = get_tree().get_first_node_in_group("Player").transform
-			#get_tree().root.add_child(slash_fx)
-			
 			for target: Enemy in targets_to_hit:
 				target.set_state(target.States.DEAD)
-		"ranged":
-			#var punch_fx = preload("res://Scenes/enemy_slash.tscn").instantiate()
-			#punch_fx.transform = get_tree().get_first_node_in_group("Player").transform
-			#get_tree().root.add_child(punch_fx)
 			
+		"ranged":
 			for target: Enemy in targets_to_hit:
 				PlayerManager.deal_damage(target, 1)
 	#print(target_to_hit)
-	#player.set_state(player.States.IDLE)
 
 func throw() -> void:
 	var impulse = global_position.direction_to(get_global_mouse_position()) * player.throw_power
 	player.carried_weapon = null
 	freeze = false
 	was_thrown = true
-	#interaction_timer.start()
-	#interact_area.monitoring = true
 	reparent(get_tree().root)
 	apply_impulse(impulse)
 	apply_torque(35000.0)

@@ -136,16 +136,87 @@ shape = SubResource("RectangleShape2D_38et7")
 
 [node name="Lights" type="Node2D" parent="."]
 
-[node name="PointLight2D" parent="Lights" instance=ExtResource("6_hrncr")]
+[node name="GroundLight1" parent="Lights" instance=ExtResource("6_hrncr")]
 position = Vector2(778, 308)
 texture_scale = 8.04
 
 [node name="LightSwitch" parent="Lights" node_paths=PackedStringArray("connected_light") instance=ExtResource("5_lowby")]
 position = Vector2(527, 510)
-connected_light = NodePath("../PointLight2D")
+connected_light = NodePath("../GroundLight1")
 
-[node name="PointLight2D2" parent="Lights" instance=ExtResource("6_hrncr")]
+[node name="GroundLight2" parent="Lights" instance=ExtResource("6_hrncr")]
+position = Vector2(1500, 308)
+texture_scale = 8.04
+is_on = false
+
+[node name="LightSwitch2" parent="Lights" node_paths=PackedStringArray("connected_light") instance=ExtResource("5_lowby")]
+position = Vector2(1447, 510)
+connected_light = NodePath("../GroundLight2")
+
+[node name="BrokenSwitch" parent="Lights" instance=ExtResource("5_lowby")]
+position = Vector2(1507, 193)
+
+[node name="BigRoomLight1" parent="Lights" instance=ExtResource("6_hrncr")]
+position = Vector2(719, -330)
+color = Color(1, 0.988985, 0.823395, 1)
+energy = 1.0
+texture_scale = 8.04
+
+[node name="BigRoomSwitch1" parent="Lights" node_paths=PackedStringArray("connected_light") instance=ExtResource("5_lowby")]
+position = Vector2(599, -127)
+connected_light = NodePath("../BigRoomLight1")
+
+[node name="BigRoomLight2" parent="Lights" instance=ExtResource("6_hrncr")]
+position = Vector2(1502, -330)
+color = Color(1, 0.988985, 0.823395, 1)
+energy = 1.0
+texture_scale = 8.04
+
+[node name="BigRoomSwitch2" parent="Lights" node_paths=PackedStringArray("connected_light") instance=ExtResource("5_lowby")]
+position = Vector2(1493, -127)
+connected_light = NodePath("../BigRoomLight2")
+
+[node name="OfficeSwitch" parent="Lights" node_paths=PackedStringArray("connected_light") instance=ExtResource("5_lowby")]
+position = Vector2(654, -773)
+connected_light = NodePath("../TopOfficeLight")
+
+[node name="BathroomLight" parent="Lights" instance=ExtResource("6_hrncr")]
 position = Vector2(574, -13)
+color = Color(1, 0.988985, 0.823395, 1)
+energy = 1.0
+texture_scale = 8.04
+
+[node name="CorridowSwitch1" parent="Lights" node_paths=PackedStringArray("connected_light") instance=ExtResource("5_lowby")]
+position = Vector2(1095, -457)
+connected_light = NodePath("../BathroomLight")
+
+[node name="CorridowSwitch2" parent="Lights" node_paths=PackedStringArray("connected_light") instance=ExtResource("5_lowby")]
+position = Vector2(620, -457)
+connected_light = NodePath("../CorridorLight3")
+
+[node name="CorridowSwitch3" parent="Lights" instance=ExtResource("5_lowby")]
+position = Vector2(1718, -457)
+
+[node name="CorridorLight1" parent="Lights" instance=ExtResource("6_hrncr")]
+position = Vector2(1421, -647)
+color = Color(1, 0.988985, 0.823395, 1)
+energy = 1.0
+texture_scale = 8.04
+
+[node name="CorridorLight2" parent="Lights" instance=ExtResource("6_hrncr")]
+position = Vector2(1091, -647)
+color = Color(1, 0.988985, 0.823395, 1)
+energy = 1.0
+texture_scale = 8.04
+
+[node name="CorridorLight3" parent="Lights" instance=ExtResource("6_hrncr")]
+position = Vector2(749, -647)
+color = Color(1, 0.988985, 0.823395, 1)
+energy = 1.0
+texture_scale = 8.04
+
+[node name="TopOfficeLight" parent="Lights" instance=ExtResource("6_hrncr")]
+position = Vector2(832, -969)
 color = Color(1, 0.988985, 0.823395, 1)
 energy = 1.0
 texture_scale = 8.04
@@ -163,7 +234,6 @@ max_ammo = 8
 
 [node name="Grunt" parent="Enemies" instance=ExtResource("11_58smv")]
 position = Vector2(1024, 534)
-speed = 200.0
 
 [node name="Grunt2" parent="Enemies" instance=ExtResource("11_58smv")]
 position = Vector2(1183, 210)
@@ -192,6 +262,11 @@ position = Vector2(951, -439)
 [node name="Grunt9" parent="Enemies" instance=ExtResource("11_58smv")]
 position = Vector2(745, -114)
 facing = 1
+start_state = 6
+
+[node name="Grunt10" parent="Enemies" instance=ExtResource("11_58smv")]
+position = Vector2(1361, -114)
+start_state = 6
 
 [node name="Player" parent="." instance=ExtResource("7_u6a17")]
 position = Vector2(179, 482)

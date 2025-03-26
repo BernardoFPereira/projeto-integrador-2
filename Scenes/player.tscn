@@ -218,3 +218,9 @@ position = Vector2(30, 1)
 
 [node name="HitBoxPosLeft" type="Marker2D" parent="."]
 position = Vector2(-30, 1)
+
+[node name="RightShoulderPos" type="Marker2D" parent="."]
+position = Vector2(8, -20)
+
+[node name="LeftShoulderPos" type="Marker2D" parent="."]
+position = Vector2(-8, -20)

@@ -7,8 +7,11 @@ const JUMP_VELOCITY = -400.0
 @export_range(500.0, 1500.0) var throw_power: float = 800.0
 @export_range(500, 2500.0) var shadow_jump_strength: float = 100.0
 
-@export var hand_left_position: Vector2
-@export var hand_right_position: Vector2
+#@export var hand_left_position: Vector2
+#@export var hand_right_position: Vector2
+
+@onready var right_shoulder_pos: Marker2D = $RightShoulderPos
+@onready var left_shoulder_pos: Marker2D = $LeftShoulderPos
 
 @onready var light_ray: RayCast2D = $LightRay
 @onready var hand: Polygon2D = $Hand
@@ -274,11 +277,15 @@ func handle_facing() -> void:
 	match facing:
 		Facing.LEFT:
 			melee_hit_box.position = $HitBoxPosLeft.position
+			hand.position = left_shoulder_pos.position
 			animated_sprite.flip_h = true
+			hand.rotation_degrees = 90
 			
 		Facing.RIGHT:
 			melee_hit_box.position = $HitBoxPosRight.position
+			hand.position = right_shoulder_pos.position
 			animated_sprite.flip_h = false
+			hand.rotation_degrees = 40
 			
 
 func _unhandled_input(event: InputEvent) -> void:

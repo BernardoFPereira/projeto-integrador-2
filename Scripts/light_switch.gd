@@ -16,7 +16,8 @@ func _process(delta: float) -> void:
 func interaction():
 	#connected_light.enabled = !connected_light.enabled
 	#connected_light.light_detect_area.monitoring = !connected_light.light_detect_area.monitoring
-	connected_light.switch_power()
+	if connected_light:
+		connected_light.switch_power()
 
 func _on_interact_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
