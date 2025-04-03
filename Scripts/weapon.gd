@@ -15,7 +15,6 @@ var current_ammo: int
 
 var was_thrown := false
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
 	current_ammo = max_ammo
@@ -92,6 +91,9 @@ func shoot() -> void:
 		get_tree().root.add_child(muzzle_flash)
 		get_tree().root.add_child(projectile)
 		current_ammo -= 1
+		
+		Audio.play("res://Sounds/FX/bang_07.ogg", -10)
+
 
 func broadcast_noise() -> void:
 	var bodies_in_range = sound_range.get_overlapping_bodies()

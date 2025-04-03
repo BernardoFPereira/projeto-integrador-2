@@ -24,12 +24,21 @@ func _physics_process(delta: float) -> void:
 		
 		var collider = collision.get_collider()
 		if collider.is_class("CharacterBody2D"):
+			var blood_spatter = preload("res://Scenes/blood_spatter.tscn").instantiate()
 			var shape = collision.get_collider_shape()
+			
 			if shape.is_in_group("HeadCollider"):
+				Audio.play("res://Sounds/FX/ImpactMeat02.ogg", -15)
 				PlayerManager.deal_damage(collider, 2)
 			
 			if shape.is_in_group("BodyCollider"):
+				Audio.play("res://Sounds/FX/qubodupPunch02.ogg", -10)
 				PlayerManager.deal_damage(collider, 1)
-			#collider.apply_impulse(targ_dir * IMPACT)
+			
+			# Spawn blood spatter
+			blood_spatter.global_position = collision.get_position()
+			get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
+		else:
+			Audio.play("res://Sounds/FX/ImpactStone.ogg", -15)
 		
 		self.queue_free()

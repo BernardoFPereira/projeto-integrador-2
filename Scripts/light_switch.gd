@@ -1,23 +1,14 @@
 extends Node2D
 
-@export var connected_light: Light
+@export var connected_lights: Array[Node2D]
 
 @onready var line_2d: Line2D = $Line2D
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func interaction():
-	#connected_light.enabled = !connected_light.enabled
-	#connected_light.light_detect_area.monitoring = !connected_light.light_detect_area.monitoring
-	if connected_light:
-		connected_light.switch_power()
+	Audio.play("res://Sounds/FX/metalLatch.ogg", -10)
+	if connected_lights:
+		for light in connected_lights:
+			light.switch_power()
 
 func _on_interact_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):

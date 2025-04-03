@@ -1,25 +1,29 @@
-extends PointLight2D
+extends Node2D
 class_name Light
 
-@onready var light_pos_marker: Marker2D = $LightPositionMarker
-@onready var light_detect_area: Area2D = $LightDetectArea
+@onready var light_pos_marker: Marker2D = $PointLight2D/LightPositionMarker
+@onready var light_detect_area: Area2D = $PointLight2D/LightDetectArea
+@onready var point_light_2d: Light = $"."
 
 @export var is_on: bool = true
+@export var lights: Array[Node2D]
 
 var player: Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player = get_node("/root/Node/Player")
-	if is_on:
-		switch_power()
-	if !is_on:
-		switch_power()
+	player = get_tree().get_first_node_in_group("Player")
+	for light in lights:
+		if is_on:
+			switch_power()
+		if !is_on:
+			switch_power()
 
 func switch_power() -> void:
-	is_on = !is_on
-	self.enabled = !self.enabled
-	light_detect_area.monitoring = !light_detect_area.monitoring
+	for light in lights:
+		is_on = !is_on
+		light.enabled = !light.enabled
+		light_detect_area.monitoring = !light_detect_area.monitoring
 
 func _on_light_detect_area_body_entered(body: Node2D) -> void:
 	match body.get_class():

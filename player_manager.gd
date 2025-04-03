@@ -3,7 +3,7 @@ extends Node2D
 var interact_target: Node2D
 var can_interact := false
 
-var light_target: Light2D
+var light_target: Node2D
 var current_duct_pos: Vector2
 
 var scanning_light := false
@@ -23,6 +23,8 @@ var is_player_dead := false
 
 var briefcase_found := false
 
+var game_complete := false
+
 func switch_aim(value):
 	if is_aiming != value:
 		is_aiming = !is_aiming
@@ -38,4 +40,3 @@ func deal_damage(target, value):
 			return
 	
 	target.health -= value
-	

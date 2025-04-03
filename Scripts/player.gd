@@ -103,24 +103,26 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func handle_states(delta) -> void:
+	if PlayerManager.game_complete:
+		set_state(States.IDLE)
+		velocity = Vector2.ZERO
+		return
+	
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	match state:
 		States.IDLE:
-			if direction:
+			if direction.x:
 				set_state(States.WALK)
-				
-			velocity.x = lerpf(velocity.x, 0, delta * 6)
+			velocity.x = 0
 			
 		States.WALK:
-			animated_sprite.play("walk")
-			if direction:
-				velocity.x = lerpf(velocity.x, direction.x * SPEED, delta * 8)
+			if direction.x:
+				velocity.x = direction.x * SPEED
 			else:
 				set_state(States.IDLE)
 			
 			if direction.x < 0:
 				set_facing(Facing.LEFT)
-			
 			elif direction.x > 0:
 				set_facing(Facing.RIGHT)
 		
@@ -131,18 +133,18 @@ func handle_states(delta) -> void:
 			if carried_weapon:
 				if carried_weapon.weapon_type == "melee":
 					melee_fx = preload("res://Scenes/enemy_slash.tscn").instantiate()
-					melee_fx.global_transform = melee_hit_box.global_transform
-					get_tree().root.add_child(melee_fx)
+					melee_fx.transform = melee_hit_box.transform
+					self.add_child(melee_fx)
 				else:
 					melee_fx = preload("res://Scenes/punch.tscn").instantiate()
-					melee_fx.global_transform = melee_hit_box.global_transform
-					get_tree().root.add_child(melee_fx)
+					melee_fx.transform = melee_hit_box.transform
+					self.add_child(melee_fx)
 					
 				carried_weapon.melee(targets_to_hit)
 			else:
 				melee_fx = preload("res://Scenes/punch.tscn").instantiate()
-				melee_fx.global_transform = melee_hit_box.global_transform
-				get_tree().root.add_child(melee_fx)
+				melee_fx.transform = melee_hit_box.transform
+				self.add_child(melee_fx)
 				
 				for target in targets_to_hit:
 					PlayerManager.deal_damage(target, 1)
@@ -158,7 +160,6 @@ func handle_states(delta) -> void:
 		
 		States.AIM:
 			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
-			pass
 			
 		States.DUCT:
 			pass
@@ -166,11 +167,9 @@ func handle_states(delta) -> void:
 		States.SHADOW_MELD:
 			if !PlayerManager.is_in_shadow:
 				set_state(States.IDLE)
-			if !PlayerManager.is_inside:
-				set_state(States.IDLE)
-				
+			
 			if direction:
-				velocity = velocity.lerp(direction * SPEED, delta)
+				velocity = velocity.lerp(direction * (SPEED * 1.5), delta)
 			else:
 				velocity = velocity.lerp(Vector2.ZERO, delta * 4)
 			
@@ -179,14 +178,15 @@ func handle_states(delta) -> void:
 			trajectory_line.update_trajectory(global_position.direction_to(get_global_mouse_position()), 100.0, 9.8, delta)
 			
 		States.SHADOW_SHOT:
-			if PlayerManager.is_in_shadow != true:
+			if !PlayerManager.is_in_shadow:
 				set_state(States.IDLE)
 				
 			var ground_ray = grab_cast_down
 			grab_cast_down.force_raycast_update()
 			
+			# TODO: Fix this!
 			if is_on_floor() and !just_jumped:
-				global_position.y -= 20
+				global_position.y -= 30 # <--
 				set_state(States.IDLE)
 			
 			for ray: RayCast2D in grab_rays:
@@ -225,24 +225,43 @@ func handle_states(delta) -> void:
 			rotation_degrees = lerp(rotation_degrees, 90.0, delta * 6)
 			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
 
-func set_state(new_state: States):
+func set_state(new_state: States):	
 	#melee_hit_box.monitoring = false
+	if state not in [States.SHADOW_MELD]:
+		set_collision_mask_value(5, 1)
 	
 	match new_state:
 		States.DEAD:
 			PlayerManager.is_player_dead = true
 		
+		States.IDLE:
+			animated_sprite.play("idle")
+			collision_shape.disabled = false
+			shadow_collision.disabled = true
+			
+		States.WALK:
+			match facing:
+				Facing.RIGHT:
+					animated_sprite.flip_h = true
+				Facing.LEFT:
+					animated_sprite.flip_h = false
+					
+			animated_sprite.play("walk")
+		
 		States.SHADOW_MELD:
-			if PlayerManager.is_in_shadow != true:
+			if !PlayerManager.is_in_shadow:
+				set_state(States.IDLE)
+			if !PlayerManager.is_inside:
 				set_state(States.IDLE)
 				
+			set_collision_mask_value(5, 0)
 			collision_shape.disabled = true
 			shadow_collision.disabled = false
 			animated_sprite.play("shadow_shape")
-			set_collision_mask_value(5, 0)
 		
 		States.SHADOW_SHOT:
-			if PlayerManager.is_in_shadow != true:
+			Audio.play("res://Sounds/FX/cloth3.ogg", -5)
+			if !PlayerManager.is_in_shadow:
 				set_state(States.IDLE)
 			
 			collision_shape.disabled = true
@@ -253,18 +272,20 @@ func set_state(new_state: States):
 			pass
 			#melee_hit_box.monitoring = true
 		
-		#States.GRAB:
-			#grab_cast_top.target_position = grab_cast_top.target_position + Vector2(0, -21)
-			#collision_shape.disabled = true
-			#shadow_collision.disabled = false
-			#animated_sprite.play("shadow_shape")
-		_:
-			#grab_cast_top.target_position = grab_cast_top.target_position + Vector2(0, +21)
+		States.GRAB:
 			collision_shape.disabled = false
-			animated_sprite.play("default")
-			set_collision_mask_value(5, 1)
+			shadow_collision.disabled = true
+			animated_sprite.play("idle")
+		
+		States.AIM:
+			animated_sprite.play("aim")
+		#_:
+			#grab_cast_top.target_position = grab_cast_top.target_position + Vector2(0, +21)
+			#collision_shape.disabled = false
+			#animated_sprite.play("idle")
+			#set_collision_mask_value(5, 1)
 			#polygon.polygon = player_base_shape
-	
+		
 	if new_state != state:
 		last_state = state
 		state = new_state
