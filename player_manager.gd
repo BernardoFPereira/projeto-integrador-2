@@ -34,9 +34,14 @@ func set_in_shadow(value):
 		is_in_shadow = !is_in_shadow
 
 func deal_damage(target, value):
+	#var blood_spatter = preload("res://Scenes/blood_spatter.tscn").instantiate()
 	if target.is_in_group("Player"):
 		if !is_in_shadow:
 			target.health -= value * 2
 			return
-	
+		
 	target.health -= value
+	
+	#var spatter_offset = Vector2(randf_range(-0.5,0.5), randf_range(-0.5,-0.5))
+	#blood_spatter.global_position = target.global_position + spatter_offset
+	#get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)

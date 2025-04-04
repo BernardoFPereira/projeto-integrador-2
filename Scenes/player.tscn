@@ -1,10 +1,12 @@
-[gd_scene load_steps=32 format=3 uid="uid://bdktoaq21c5xd"]
+[gd_scene load_steps=42 format=3 uid="uid://bdktoaq21c5xd"]
 
 [ext_resource type="Script" uid="uid://dy1cfudnsajyy" path="res://Scripts/player.gd" id="1_uygo4"]
 [ext_resource type="Texture2D" uid="uid://c75tj50wstdc7" path="res://Sprites/purple_sheets/purple_gun sheet.png" id="2_3smsa"]
 [ext_resource type="Script" uid="uid://cjpns3m3ir6wp" path="res://Scripts/trajectory.gd" id="2_l02lo"]
 [ext_resource type="Texture2D" uid="uid://4yhea2rd6ef4" path="res://Sprites/tall_purple_shadow.png" id="3_0pnld"]
 [ext_resource type="Texture2D" uid="uid://duy36a2i54rxm" path="res://Sprites/purple_sheets/purpleidle sheet.png" id="3_fd4e3"]
+[ext_resource type="Texture2D" uid="uid://bwba17psjdwyq" path="res://Sprites/purple_sheets/purple_punchanims01-sheet.png" id="4_3smsa"]
+[ext_resource type="Texture2D" uid="uid://cp7yigqpnbemc" path="res://Sprites/purple_sheets/purple_shadowmeld-sheet.png" id="5_8erm5"]
 [ext_resource type="Texture2D" uid="uid://dn6w82sfc7t8o" path="res://Sprites/purple_sheets/Purple_Walkcycle sheet.png" id="6_8erm5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1ek2"]
@@ -37,6 +39,38 @@ region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l6n3p"]
 atlas = ExtResource("3_fd4e3")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8erm5"]
+atlas = ExtResource("4_3smsa")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6uwr"]
+atlas = ExtResource("4_3smsa")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83xs0"]
+atlas = ExtResource("4_3smsa")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yh6i2"]
+atlas = ExtResource("4_3smsa")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypfnu"]
+atlas = ExtResource("5_8erm5")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xuaoq"]
+atlas = ExtResource("5_8erm5")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wohnl"]
+atlas = ExtResource("5_8erm5")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36dho"]
+atlas = ExtResource("5_8erm5")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ed1el"]
@@ -125,6 +159,40 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_8erm5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6uwr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83xs0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yh6i2")
+}],
+"loop": false,
+"name": &"melee",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ypfnu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xuaoq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wohnl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36dho")
+}],
+"loop": false,
+"name": &"shadow_meld",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ed1el")
 }],
 "loop": false,
@@ -199,7 +267,7 @@ region_rect = Rect2(0, 0, 131, 128)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 3
 sprite_frames = SubResource("SpriteFrames_h2too")
-animation = &"shadow_shape"
+animation = &"melee"
 autoplay = "idle"
 
 [node name="LightRay" type="RayCast2D" parent="."]
@@ -222,7 +290,6 @@ polygon = PackedVector2Array(34.8775, 15.1181, 33.0989, 19.2214, 28.1064, 19.494
 
 [node name="HoldSpot" type="Marker2D" parent="Hand"]
 position = Vector2(29.2422, 14.6251)
-rotation = 0.785397
 
 [node name="ShadowShotCollision" type="StaticBody2D" parent="."]
 visible = false
@@ -277,3 +344,6 @@ position = Vector2(8, -20)
 
 [node name="LeftShoulderPos" type="Marker2D" parent="."]
 position = Vector2(-8, -20)
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

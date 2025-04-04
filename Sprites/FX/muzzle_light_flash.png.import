@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7i0shnlbg6ds"
-path="res://.godot/imported/impact_blood.png-b2181ddcde52ef16e2b91803f2e46f63.ctex"
+uid="uid://b08hdt6eq3j86"
+path="res://.godot/imported/muzzle_light_flash.png-396f47c2e6da72d9490c8d0e9c8bb7b9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/impact_blood.png"
-dest_files=["res://.godot/imported/impact_blood.png-b2181ddcde52ef16e2b91803f2e46f63.ctex"]
+source_file="res://Sprites/FX/muzzle_light_flash.png"
+dest_files=["res://.godot/imported/muzzle_light_flash.png-396f47c2e6da72d9490c8d0e9c8bb7b9.ctex"]
 
 [params]
 

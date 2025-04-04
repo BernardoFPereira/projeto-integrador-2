@@ -16,6 +16,7 @@ const JUMP_VELOCITY = -400.0
 @onready var light_ray: RayCast2D = $LightRay
 @onready var hand: Polygon2D = $Hand
 @onready var hold_spot: Marker2D = $Hand/HoldSpot
+@onready var hand_sprite: Sprite2D = $HandSprite
 
 @onready var trajectory_line: Line2D = $TrajectoryLine
 
@@ -100,6 +101,7 @@ func _physics_process(delta: float) -> void:
 	
 	handle_facing()
 	handle_states(delta)
+	
 	move_and_slide()
 
 func handle_states(delta) -> void:
@@ -127,36 +129,7 @@ func handle_states(delta) -> void:
 				set_facing(Facing.RIGHT)
 		
 		States.MELEE:
-			var targets_to_hit = melee_hit_box.get_overlapping_bodies()
-			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
-			var melee_fx
-			if carried_weapon:
-				if carried_weapon.weapon_type == "melee":
-					melee_fx = preload("res://Scenes/enemy_slash.tscn").instantiate()
-					melee_fx.transform = melee_hit_box.transform
-					self.add_child(melee_fx)
-				else:
-					melee_fx = preload("res://Scenes/punch.tscn").instantiate()
-					melee_fx.transform = melee_hit_box.transform
-					self.add_child(melee_fx)
-					
-				carried_weapon.melee(targets_to_hit)
-			else:
-				melee_fx = preload("res://Scenes/punch.tscn").instantiate()
-				melee_fx.transform = melee_hit_box.transform
-				self.add_child(melee_fx)
-				
-				for target in targets_to_hit:
-					PlayerManager.deal_damage(target, 1)
-				
-			match facing:
-				Facing.RIGHT:
-					melee_fx.flip_h = true
-				Facing.LEFT:
-					melee_fx.flip_h = false
-					
-			#print(target_to_hit)
-			set_state(States.IDLE)
+			velocity = Vector2.ZERO
 		
 		States.AIM:
 			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
@@ -186,7 +159,7 @@ func handle_states(delta) -> void:
 			
 			# TODO: Fix this!
 			if is_on_floor() and !just_jumped:
-				global_position.y -= 30 # <--
+				#global_position.y -= 30 # <--!!
 				set_state(States.IDLE)
 			
 			for ray: RayCast2D in grab_rays:
@@ -196,6 +169,7 @@ func handle_states(delta) -> void:
 				if ray.is_colliding():
 					if collider.is_in_group("Grabable") and !just_jumped:
 						velocity = Vector2.ZERO
+						ground_check()
 						set_state(States.GRAB)
 					else:
 						set_state(States.IDLE)
@@ -206,7 +180,7 @@ func handle_states(delta) -> void:
 				just_jumped = true
 			
 		States.GRAB:
-			if PlayerManager.is_in_shadow != true:
+			if !PlayerManager.is_in_shadow:
 				set_state(States.IDLE)
 			
 			if direction:
@@ -225,8 +199,7 @@ func handle_states(delta) -> void:
 			rotation_degrees = lerp(rotation_degrees, 90.0, delta * 6)
 			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
 
-func set_state(new_state: States):	
-	#melee_hit_box.monitoring = false
+func set_state(new_state: States):
 	if state not in [States.SHADOW_MELD]:
 		set_collision_mask_value(5, 1)
 	
@@ -235,11 +208,13 @@ func set_state(new_state: States):
 			PlayerManager.is_player_dead = true
 		
 		States.IDLE:
+			ground_check()
 			animated_sprite.play("idle")
 			collision_shape.disabled = false
 			shadow_collision.disabled = true
 			
 		States.WALK:
+			ground_check()
 			match facing:
 				Facing.RIGHT:
 					animated_sprite.flip_h = true
@@ -249,6 +224,9 @@ func set_state(new_state: States):
 			animated_sprite.play("walk")
 		
 		States.SHADOW_MELD:
+			var ground_ray = grab_cast_down
+			ground_ray.force_raycast_update()
+			
 			if !PlayerManager.is_in_shadow:
 				set_state(States.IDLE)
 			if !PlayerManager.is_inside:
@@ -260,7 +238,7 @@ func set_state(new_state: States):
 			animated_sprite.play("shadow_shape")
 		
 		States.SHADOW_SHOT:
-			Audio.play("res://Sounds/FX/cloth3.ogg", -5)
+			Audio.play("res://Audio/FX/cloth3.ogg", -5)
 			if !PlayerManager.is_in_shadow:
 				set_state(States.IDLE)
 			
@@ -269,8 +247,7 @@ func set_state(new_state: States):
 			animated_sprite.play("shadow_shape")
 		
 		States.MELEE:
-			pass
-			#melee_hit_box.monitoring = true
+			animated_sprite.play("melee")
 		
 		States.GRAB:
 			collision_shape.disabled = false
@@ -278,6 +255,7 @@ func set_state(new_state: States):
 			animated_sprite.play("idle")
 		
 		States.AIM:
+			hand_sprite.visible = true
 			animated_sprite.play("aim")
 		#_:
 			#grab_cast_top.target_position = grab_cast_top.target_position + Vector2(0, +21)
@@ -289,6 +267,12 @@ func set_state(new_state: States):
 	if new_state != state:
 		last_state = state
 		state = new_state
+
+func ground_check() -> void:
+	var ground_ray = grab_cast_down
+	ground_ray.force_raycast_update()
+	if ground_ray.is_colliding():
+		global_position.y -= ground_ray.target_position.y
 
 func set_facing(new_facing) -> void:
 	if new_facing != facing:
@@ -383,3 +367,42 @@ func _unhandled_input(event: InputEvent) -> void:
 #func _on_grab_area_body_exited(body: Node2D) -> void:
 	#if state == States.GRAB:
 		#set_state(States.IDLE)
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	match animated_sprite.animation:
+		"melee":
+			set_state(States.IDLE)
+	pass # Replace with function body.
+
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	match animated_sprite.animation:
+		"melee":
+			if animated_sprite.frame == 2:
+				var targets_to_hit = melee_hit_box.get_overlapping_bodies()
+				#velocity = velocity.lerp(Vector2.ZERO, delta * 4)
+				var melee_fx
+				if carried_weapon:
+					#if carried_weapon.weapon_type == "melee":
+						#melee_fx = preload("res://Scenes/enemy_slash.tscn").instantiate()
+						#melee_fx.transform = melee_hit_box.transform
+						#self.add_child(melee_fx)
+					#else:
+						#melee_fx = preload("res://Scenes/punch.tscn").instantiate()
+						#melee_fx.transform = melee_hit_box.transform
+						#self.add_child(melee_fx)
+						
+					carried_weapon.melee(targets_to_hit)
+				#match facing:
+					#Facing.RIGHT:
+						#melee_fx.flip_h = true
+					#Facing.LEFT:
+						#melee_fx.flip_h = false
+				else:
+					#melee_fx = preload("res://Scenes/punch.tscn").instantiate()
+					#melee_fx.transform = melee_hit_box.transform
+					#self.add_child(melee_fx)
+					
+					for target in targets_to_hit:
+						PlayerManager.deal_damage(target, 1)
+				

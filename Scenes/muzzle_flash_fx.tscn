@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://coem8pho2o03m"]
 
-[ext_resource type="Texture2D" uid="uid://b08hdt6eq3j86" path="res://Sprites/muzzle_light_flash.png" id="1_nm22q"]
+[ext_resource type="Texture2D" uid="uid://b08hdt6eq3j86" path="res://Sprites/FX/muzzle_light_flash.png" id="1_nm22q"]
 [ext_resource type="Script" uid="uid://dcn326sqi1nkh" path="res://Scripts/muzzle_flash_fx.gd" id="2_spkvi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5qsy2"]

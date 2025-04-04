@@ -9,6 +9,8 @@ class_name Weapon
 #@onready var interact_highlight: Polygon2D = $InteractHighlight
 @onready var interaction_timer: Timer = $InteractionTimer
 
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
 var player: Player
 var muzzle: Marker2D
 var current_ammo: int
@@ -49,14 +51,20 @@ func drop_weapon() -> void:
 	sleeping = false
 
 func melee(targets_to_hit: Array) -> void:
+	var back_wall = get_tree().get_first_node_in_group("BackWall")
 	match weapon_type:
 		"melee":
 			for target: Enemy in targets_to_hit:
-				target.set_state(target.States.DEAD)
+				var blood_spatter = preload("res://Scenes/blood_spatter.tscn").instantiate()
+				PlayerManager.deal_damage(target, 2)
+				blood_spatter.global_position = global_position
+				
+				back_wall.add_child(blood_spatter)
 			
 		"ranged":
 			for target: Enemy in targets_to_hit:
 				PlayerManager.deal_damage(target, 1)
+				Audio.play("res://Audio/FX/qubodupPunch02.ogg", -10)
 	#print(target_to_hit)
 
 func throw() -> void:
@@ -92,7 +100,7 @@ func shoot() -> void:
 		get_tree().root.add_child(projectile)
 		current_ammo -= 1
 		
-		Audio.play("res://Sounds/FX/bang_07.ogg", -10)
+		audio_stream_player.play()
 
 
 func broadcast_noise() -> void:
@@ -126,8 +134,12 @@ func _on_body_entered(body: Node) -> void:
 		was_thrown = !was_thrown
 		set_collision_mask_value(13, 0)
 		interact_area.monitoring = true
+	
 		if body.is_in_group("Enemy"):
 			PlayerManager.deal_damage(body, 2)
+			var blood_spatter = preload("res://Scenes/blood_spatter.tscn").instantiate()
+			blood_spatter.global_position = global_position
+			get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
 
 func _on_interaction_timer_timeout() -> void:
 	print("weapon timer")

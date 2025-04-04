@@ -23,7 +23,9 @@ Audio="*res://audio.gd"
 
 [display]
 
+window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
+window/stretch/scale_mode="integer"
 mouse_cursor/custom_image="res://Sprites/UI/reticulo.png"
 mouse_cursor/custom_image_hotspot=Vector2(16, 16)
 
@@ -91,4 +93,6 @@ common/physics_ticks_per_second=120
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=2
 environment/defaults/default_clear_color=Color(0.0953854, 0.123782, 0.137706, 1)
+2d/snap/snap_2d_transforms_to_pixel=true

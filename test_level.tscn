@@ -27,7 +27,7 @@
 [ext_resource type="Shader" uid="uid://ljw3o5pbf52q" path="res://Shaders/noise.gdshader" id="15_2hfll"]
 [ext_resource type="Texture2D" uid="uid://d0x5jgxv5yoe2" path="res://Sprites/Misc/Móveis/mesa 02 (cadeira separada).png" id="15_k4ree"]
 [ext_resource type="Texture2D" uid="uid://c6rlcgbnwpa48" path="res://Sprites/Misc/Móveis/mesa de escritório 01.png" id="16_i3wyx"]
-[ext_resource type="AudioStream" uid="uid://d3yuh0xl7eouw" path="res://Sounds/CoffeeBlack.ogg" id="17_7fqlb"]
+[ext_resource type="AudioStream" uid="uid://d3yuh0xl7eouw" path="res://Audio/CoffeeBlack.ogg" id="17_7fqlb"]
 [ext_resource type="Texture2D" uid="uid://ccw33p382yta6" path="res://Sprites/Misc/Móveis/poltrona 01.png" id="17_ejx2w"]
 [ext_resource type="Texture2D" uid="uid://b8ycnbobg8jdk" path="res://Sprites/Misc/Móveis/poltrona 02.png" id="18_cdyxi"]
 [ext_resource type="Texture2D" uid="uid://gtq7ylllfwff" path="res://Sprites/Misc/Banheiro/pia 01.png" id="19_61x5q"]
@@ -481,19 +481,11 @@ text = "Pressione 'E' para interagir"
 horizontal_alignment = 1
 
 [node name="AmmoLabel" type="Label" parent="Camera2D/CanvasLayer3/UI"]
-visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -527.0
-offset_top = -366.0
-offset_right = -487.0
-offset_bottom = -343.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 58.0
+offset_top = 49.0
+offset_right = 114.0
+offset_bottom = 72.0
 text = "Ammo:"
 
 [node name="ObjectiveImage" type="TextureRect" parent="Camera2D/CanvasLayer3/UI"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c85a5scrtyghu"
-path="res://.godot/imported/grunt_idlev1.png-f04cc32500bbd37f1ce98e44c0d36bfb.ctex"
+uid="uid://d1787t7d80k4i"
+path="res://.godot/imported/exitDoor_sheet.png-e9779a352b3eebd22ee29d49c2415f2a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/grunt_idlev1.png"
-dest_files=["res://.godot/imported/grunt_idlev1.png-f04cc32500bbd37f1ce98e44c0d36bfb.ctex"]
+source_file="res://Sprites/purple_sheets/exitDoor_sheet.png"
+dest_files=["res://.godot/imported/exitDoor_sheet.png-e9779a352b3eebd22ee29d49c2415f2a.ctex"]
 
 [params]
 

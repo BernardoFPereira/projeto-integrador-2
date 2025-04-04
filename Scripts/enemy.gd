@@ -25,12 +25,15 @@ class_name Enemy
 
 @onready var body_collision_shape: CollisionShape2D = $BodyCollisionShape
 @onready var head_collision_shape: CollisionShape2D = $HeadCollisionShape
+@onready var dead_collision_shape: CollisionShape2D = $DeadCollisionShape
 
 @onready var head_facing_right_pos: Marker2D = $HeadFacingRightPos
 @onready var head_facing_left_pos: Marker2D = $HeadFacingLeftPos
 
 @onready var body_facing_right_pos: Marker2D = $BodyFacingRightPos
 @onready var body_facing_left_pos: Marker2D = $BodyFacingLeftPos
+
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 enum States {
 	IDLE,
@@ -112,6 +115,11 @@ func set_state(new_state: States) -> void:
 	if new_state != state:
 		match new_state:
 			States.DEAD:
+				body_collision_shape.disabled = true
+				head_collision_shape.disabled = true
+				dead_collision_shape.disabled = false
+				
+				animated_sprite.play("dead")
 				sight_area.monitoring = false
 				interaction_target = null
 				icon.texture = null
@@ -197,7 +205,7 @@ func handle_states(delta) -> void:
 		
 	match state:
 		States.DEAD:
-			rotation_degrees = lerp(rotation_degrees, 90.0, delta * 6)
+			#rotation_degrees = lerp(rotation_degrees, 90.0, delta * 6)
 			velocity.x = lerpf(velocity.x, 0.0, delta * 4)
 			
 		States.IDLE:

@@ -28,17 +28,17 @@ func _physics_process(delta: float) -> void:
 			var shape = collision.get_collider_shape()
 			
 			if shape.is_in_group("HeadCollider"):
-				Audio.play("res://Sounds/FX/ImpactMeat02.ogg", -15)
+				Audio.play("res://Audio/FX/ImpactMeat02.ogg", -15)
 				PlayerManager.deal_damage(collider, 2)
 			
 			if shape.is_in_group("BodyCollider"):
-				Audio.play("res://Sounds/FX/qubodupPunch02.ogg", -10)
+				Audio.play("res://Audio/FX/qubodupPunch02.ogg", -10)
 				PlayerManager.deal_damage(collider, 1)
 			
 			# Spawn blood spatter
 			blood_spatter.global_position = collision.get_position()
 			get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
 		else:
-			Audio.play("res://Sounds/FX/ImpactStone.ogg", -15)
+			Audio.play("res://Audio/FX/ImpactStone.ogg", -15)
 		
 		self.queue_free()

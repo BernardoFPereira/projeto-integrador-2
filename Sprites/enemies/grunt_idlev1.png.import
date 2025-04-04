@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b08hdt6eq3j86"
-path="res://.godot/imported/muzzle_light_flash.png-0b4a2d11e13a73574a25069e9024c2a2.ctex"
+uid="uid://c85a5scrtyghu"
+path="res://.godot/imported/grunt_idlev1.png-b54ca9c84e8b88dfb668ca81d3c0baa8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/muzzle_light_flash.png"
-dest_files=["res://.godot/imported/muzzle_light_flash.png-0b4a2d11e13a73574a25069e9024c2a2.ctex"]
+source_file="res://Sprites/enemies/grunt_idlev1.png"
+dest_files=["res://.godot/imported/grunt_idlev1.png-b54ca9c84e8b88dfb668ca81d3c0baa8.ctex"]
 
 [params]
 
