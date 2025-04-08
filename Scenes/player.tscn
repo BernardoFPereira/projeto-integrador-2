@@ -258,7 +258,6 @@ floor_constant_speed = true
 script = ExtResource("1_uygo4")
 
 [node name="HandSprite" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 3
 texture = ExtResource("2_3smsa")
 region_enabled = true
@@ -267,7 +266,7 @@ region_rect = Rect2(0, 0, 131, 128)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 3
 sprite_frames = SubResource("SpriteFrames_h2too")
-animation = &"melee"
+animation = &"aim"
 autoplay = "idle"
 
 [node name="LightRay" type="RayCast2D" parent="."]
@@ -321,8 +320,12 @@ target_position = Vector2(-26, 0)
 collision_mask = 192
 
 [node name="GrabCastDown" type="RayCast2D" parent="."]
-target_position = Vector2(0, 66)
-collision_mask = 0
+target_position = Vector2(0, 70)
+collision_mask = 145
+collide_with_areas = true
+
+[node name="ShadowShotGroundCast" type="RayCast2D" parent="."]
+target_position = Vector2(0, 26)
 
 [node name="MeleeHitBox" type="Area2D" parent="."]
 position = Vector2(30, 1)

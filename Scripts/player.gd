@@ -24,6 +24,7 @@ const JUMP_VELOCITY = -400.0
 @onready var grab_cast_right: RayCast2D = $GrabCastRight
 @onready var grab_cast_left: RayCast2D = $GrabCastLeft
 @onready var grab_cast_down: RayCast2D = $GrabCastDown
+@onready var shadow_shot_ground_cast: RayCast2D = $ShadowShotGroundCast
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape
 @onready var shadow_collision = $ShadowCollisionShape
@@ -132,6 +133,7 @@ func handle_states(delta) -> void:
 			velocity = Vector2.ZERO
 		
 		States.AIM:
+			hand_sprite.look_at(get_global_mouse_position())
 			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
 			
 		States.DUCT:
@@ -151,15 +153,16 @@ func handle_states(delta) -> void:
 			trajectory_line.update_trajectory(global_position.direction_to(get_global_mouse_position()), 100.0, 9.8, delta)
 			
 		States.SHADOW_SHOT:
+			if shadow_shot_ground_cast.is_colliding():
+				set_state(States.IDLE)
+				
 			if !PlayerManager.is_in_shadow:
 				set_state(States.IDLE)
 				
 			var ground_ray = grab_cast_down
 			grab_cast_down.force_raycast_update()
 			
-			# TODO: Fix this!
 			if is_on_floor() and !just_jumped:
-				#global_position.y -= 30 # <--!!
 				set_state(States.IDLE)
 			
 			for ray: RayCast2D in grab_rays:
@@ -169,7 +172,7 @@ func handle_states(delta) -> void:
 				if ray.is_colliding():
 					if collider.is_in_group("Grabable") and !just_jumped:
 						velocity = Vector2.ZERO
-						ground_check()
+						#ground_check()
 						set_state(States.GRAB)
 					else:
 						set_state(States.IDLE)
@@ -203,18 +206,23 @@ func set_state(new_state: States):
 	if state not in [States.SHADOW_MELD]:
 		set_collision_mask_value(5, 1)
 	
+	if state in [States.SHADOW_SHOT, States.SHADOW_MELD]:
+		grab_cast_down.enabled = true
+		ground_check()
+		grab_cast_down.enabled = false
+		
 	match new_state:
 		States.DEAD:
 			PlayerManager.is_player_dead = true
 		
 		States.IDLE:
-			ground_check()
+			#ground_check()
 			animated_sprite.play("idle")
 			collision_shape.disabled = false
 			shadow_collision.disabled = true
 			
 		States.WALK:
-			ground_check()
+			#ground_check()
 			match facing:
 				Facing.RIGHT:
 					animated_sprite.flip_h = true
@@ -224,9 +232,6 @@ func set_state(new_state: States):
 			animated_sprite.play("walk")
 		
 		States.SHADOW_MELD:
-			var ground_ray = grab_cast_down
-			ground_ray.force_raycast_update()
-			
 			if !PlayerManager.is_in_shadow:
 				set_state(States.IDLE)
 			if !PlayerManager.is_inside:
@@ -238,18 +243,20 @@ func set_state(new_state: States):
 			animated_sprite.play("shadow_shape")
 		
 		States.SHADOW_SHOT:
-			Audio.play("res://Audio/FX/cloth3.ogg", -5)
+			Audio.play("res://Audio/FX/cloth3.ogg", +5)
 			if !PlayerManager.is_in_shadow:
 				set_state(States.IDLE)
-			
+				
 			collision_shape.disabled = true
 			shadow_collision.disabled = false
 			animated_sprite.play("shadow_shape")
-		
+			
+				
 		States.MELEE:
 			animated_sprite.play("melee")
 		
 		States.GRAB:
+			#ground_check()
 			collision_shape.disabled = false
 			shadow_collision.disabled = true
 			animated_sprite.play("idle")
@@ -272,7 +279,9 @@ func ground_check() -> void:
 	var ground_ray = grab_cast_down
 	ground_ray.force_raycast_update()
 	if ground_ray.is_colliding():
+		print("ajusting position")
 		global_position.y -= ground_ray.target_position.y
+	
 
 func set_facing(new_facing) -> void:
 	if new_facing != facing:
