@@ -14,6 +14,7 @@ class_name Enemy
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast: RayCast2D = $RayCast
 @onready var sight_area: Area2D = $SightArea
+@onready var dark_sight_area: Area2D = $DarkSightArea
 
 @onready var suspicion_timer: Timer = $SuspicionTimer
 @onready var roaming_timer: Timer = $RoamingTimer
@@ -45,6 +46,7 @@ enum States {
 	ROAMING,
 	ATTACK,
 	COOLDOWN,
+	DAMAGE,
 	DEAD
 }
 
@@ -82,6 +84,13 @@ func _physics_process(delta: float) -> void:
 		if state not in [States.IDLE, States.ROAMING, States.DEAD]:
 			set_state(States.ROAMING)
 	
+	if PlayerManager.is_in_shadow:
+		dark_sight_area.monitoring = true
+		sight_area.monitoring = false
+	elif !PlayerManager.is_in_shadow:
+		dark_sight_area.monitoring = false
+		sight_area.monitoring = true
+	
 	handle_states(delta)
 	handle_facing()
 	
@@ -96,6 +105,7 @@ func handle_facing() -> void:
 	match facing:
 		Facing.LEFT:
 			sight_area.scale.x = -1.0
+			dark_sight_area.scale.x = -1.0
 			animated_sprite.flip_h = true
 			
 			head_collision_shape.position = head_facing_left_pos.position
@@ -103,6 +113,7 @@ func handle_facing() -> void:
 			
 		Facing.RIGHT:
 			sight_area.scale.x = 1.0
+			dark_sight_area.scale.x = 1.0
 			animated_sprite.flip_h = false
 			
 			head_collision_shape.position = head_facing_right_pos.position
@@ -128,6 +139,12 @@ func set_state(new_state: States) -> void:
 				suspicion_timer.stop()
 				search_location_timer.stop()
 				search_timer.stop()
+			
+			States.DAMAGE:
+				animated_sprite.play("damage")
+			
+			States.IDLE:
+				animated_sprite.play("idle")
 			
 			States.ROAMING:
 				icon.texture = null
@@ -210,6 +227,8 @@ func handle_states(delta) -> void:
 			
 		States.IDLE:
 			if is_player_on_sight and !detected_obstacle():
+				#if PlayerManager.is_in_shadow:
+					#ray_cast.target_position / 2
 				set_state(States.SUSPICIOUS)
 			
 		States.SUSPICIOUS:
@@ -233,7 +252,7 @@ func handle_states(delta) -> void:
 		States.ATTACK:
 			var slash_fx = preload("res://Scenes/enemy_slash.tscn").instantiate()
 			var offset = Vector2(25, 0)
-			
+			velocity = Vector2.ZERO
 			match facing:
 				Facing.RIGHT:
 					slash_fx.flip_h = true
@@ -244,6 +263,7 @@ func handle_states(delta) -> void:
 				
 			get_tree().root.add_child(slash_fx)
 			PlayerManager.deal_damage(PlayerManager.player, 1)
+			PlayerManager.player.set_state(PlayerManager.player.States.DAMAGE)
 			set_state(States.COOLDOWN)
 			
 		States.COOLDOWN:
@@ -415,3 +435,11 @@ func _on_interaction_timer_timeout() -> void:
 	#print("can interact again!")
 	just_interacted = false
 	#can_interact = true
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	match animated_sprite.animation:
+		"damage":
+			set_state(States.IDLE)
+		_:
+			pass

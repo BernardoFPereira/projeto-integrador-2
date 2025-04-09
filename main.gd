@@ -17,7 +17,11 @@ func _process(delta: float) -> void:
 		var max_ammo = PlayerManager.player.carried_weapon.max_ammo
 		var current_ammo = PlayerManager.player.carried_weapon.current_ammo
 		
-		ammo_label.text = "%/%".format([max_ammo, current_ammo], "%")
+		ammo_label.text = "%\n%/%".format(
+			[PlayerManager.player.carried_weapon.name, max_ammo, current_ammo], "%"
+			) if max_ammo > 0 else "%".format(
+				[PlayerManager.player.carried_weapon.name], "%"
+				)
 	else:
 		ammo_label.visible = false
 		
@@ -31,15 +35,20 @@ func _process(delta: float) -> void:
 		objective_label.text = "Você encontrou a maleta!\nVá até o poste para completar a missão."
 
 func _on_button_pressed() -> void:
-	PlayerManager.is_player_dead = false
-	PlayerManager.briefcase_found = false
+	PlayerManager.restart()
+	#PlayerManager.is_player_dead = false
+	#PlayerManager.briefcase_found = false
 	get_tree().change_scene_to_file("res://test_level.tscn")
 
 func _on_inside_area_body_entered(body: Node2D) -> void:
-	PlayerManager.is_inside = true
+	if body.is_in_group("Player"):
+		PlayerManager.is_inside = !PlayerManager.is_inside
+		print("player is_inside switch")
 
 func _on_inside_area_body_exited(body: Node2D) -> void:
-	PlayerManager.is_inside = false
+	if body.is_in_group("Player"):
+		PlayerManager.is_inside = !PlayerManager.is_inside
+		print("player is_inside switch")
 
 func _on_map_exit_area_body_entered(body: Node2D) -> void:
 	if PlayerManager.briefcase_found:
@@ -50,6 +59,7 @@ func _on_button_3_pressed() -> void:
 	get_tree().quit()
 
 func _on_button_2_pressed() -> void:
-	PlayerManager.game_complete = false
-	PlayerManager.briefcase_found = false
+	PlayerManager.restart()
+	#PlayerManager.game_complete = false
+	#PlayerManager.briefcase_found = false
 	get_tree().reload_current_scene()

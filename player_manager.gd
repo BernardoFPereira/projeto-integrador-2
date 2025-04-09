@@ -25,6 +25,18 @@ var briefcase_found := false
 
 var game_complete := false
 
+func restart() -> void:
+	scanning_light = false
+	is_in_shadow = true
+	is_in_duct = false
+	is_inside = false
+	is_aiming = false
+	can_shadowmeld = false
+	can_shadowshot = false
+	is_player_dead = false
+	briefcase_found = false
+	game_complete = false
+
 func switch_aim(value):
 	if is_aiming != value:
 		is_aiming = !is_aiming

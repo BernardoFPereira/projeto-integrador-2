@@ -9,7 +9,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	var collision = move_and_collide((BULLET_SPEED * targ_dir) * delta)
-	#var debug = preload("res://Scenes/collision_marker.tscn").instantiate()
 	
 	if collision:
 		var collision_fx = preload("res://Scenes/bullet_impact.tscn").instantiate()
@@ -28,11 +27,11 @@ func _physics_process(delta: float) -> void:
 			var shape = collision.get_collider_shape()
 			
 			if shape.is_in_group("HeadCollider"):
-				Audio.play("res://Audio/FX/ImpactMeat02.ogg", -15)
+				Audio.play("res://Audio/FX/ImpactMeat02.ogg", 0)
 				PlayerManager.deal_damage(collider, 2)
 			
 			if shape.is_in_group("BodyCollider"):
-				Audio.play("res://Audio/FX/qubodupPunch02.ogg", -10)
+				Audio.play("res://Audio/FX/qubodupPunch02.ogg", 0)
 				PlayerManager.deal_damage(collider, 1)
 			
 			# Spawn blood spatter

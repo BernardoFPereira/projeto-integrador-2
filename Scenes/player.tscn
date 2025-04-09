@@ -1,9 +1,10 @@
-[gd_scene load_steps=42 format=3 uid="uid://bdktoaq21c5xd"]
+[gd_scene load_steps=44 format=3 uid="uid://bdktoaq21c5xd"]
 
 [ext_resource type="Script" uid="uid://dy1cfudnsajyy" path="res://Scripts/player.gd" id="1_uygo4"]
 [ext_resource type="Texture2D" uid="uid://c75tj50wstdc7" path="res://Sprites/purple_sheets/purple_gun sheet.png" id="2_3smsa"]
 [ext_resource type="Script" uid="uid://cjpns3m3ir6wp" path="res://Scripts/trajectory.gd" id="2_l02lo"]
 [ext_resource type="Texture2D" uid="uid://4yhea2rd6ef4" path="res://Sprites/tall_purple_shadow.png" id="3_0pnld"]
+[ext_resource type="Texture2D" uid="uid://oa147johbjsm" path="res://Sprites/purple_sheets/purple_hitanims.png" id="3_f1ek2"]
 [ext_resource type="Texture2D" uid="uid://duy36a2i54rxm" path="res://Sprites/purple_sheets/purpleidle sheet.png" id="3_fd4e3"]
 [ext_resource type="Texture2D" uid="uid://bwba17psjdwyq" path="res://Sprites/purple_sheets/purple_punchanims01-sheet.png" id="4_3smsa"]
 [ext_resource type="Texture2D" uid="uid://cp7yigqpnbemc" path="res://Sprites/purple_sheets/purple_shadowmeld-sheet.png" id="5_8erm5"]
@@ -24,6 +25,10 @@ region = Rect2(384, 0, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_pu2lt"]
 atlas = ExtResource("2_3smsa")
 region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nv4vc"]
+atlas = ExtResource("3_f1ek2")
+region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qqcod"]
 atlas = ExtResource("3_fd4e3")
@@ -142,6 +147,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_nv4vc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv4vc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv4vc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv4vc")
+}],
+"loop": false,
+"name": &"damage",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qqcod")
 }, {
 "duration": 1.0,
@@ -239,11 +261,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kruvw"]
-radius = 17.0
+radius = 14.0
 height = 112.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aa6qj"]
-radius = 17.0
+radius = 16.1245
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bnuy0"]
 radius = 3.0
@@ -257,11 +279,18 @@ collision_mask = 273
 floor_constant_speed = true
 script = ExtResource("1_uygo4")
 
-[node name="HandSprite" type="Sprite2D" parent="."]
+[node name="Hand" type="Node2D" parent="."]
+position = Vector2(5, -16)
+
+[node name="HandSprite" type="Sprite2D" parent="Hand"]
 texture_filter = 3
+position = Vector2(-6, 17)
 texture = ExtResource("2_3smsa")
 region_enabled = true
 region_rect = Rect2(0, 0, 131, 128)
+
+[node name="HoldSpot" type="Marker2D" parent="Hand"]
+position = Vector2(35, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 3
@@ -279,16 +308,13 @@ shape = SubResource("CapsuleShape2D_kruvw")
 
 [node name="ShadowCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_aa6qj")
-disabled = true
 debug_color = Color(0.622686, 0.532887, 0.03179, 0.42)
 
-[node name="Hand" type="Polygon2D" parent="."]
+[node name="HandPoly" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(8, -20)
 rotation = 0.698132
 polygon = PackedVector2Array(34.8775, 15.1181, 33.0989, 19.2214, 28.1064, 19.4944, 25.6585, 15.0214, 28.0799, 11.6842, 31.6636, 11.2879)
-
-[node name="HoldSpot" type="Marker2D" parent="Hand"]
-position = Vector2(29.2422, 14.6251)
 
 [node name="ShadowShotCollision" type="StaticBody2D" parent="."]
 visible = false
@@ -320,6 +346,7 @@ target_position = Vector2(-26, 0)
 collision_mask = 192
 
 [node name="GrabCastDown" type="RayCast2D" parent="."]
+enabled = false
 target_position = Vector2(0, 70)
 collision_mask = 145
 collide_with_areas = true
@@ -343,10 +370,10 @@ position = Vector2(30, 1)
 position = Vector2(-30, 1)
 
 [node name="RightShoulderPos" type="Marker2D" parent="."]
-position = Vector2(8, -20)
+position = Vector2(5, -16)
 
 [node name="LeftShoulderPos" type="Marker2D" parent="."]
-position = Vector2(-8, -20)
+position = Vector2(-5, -16)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

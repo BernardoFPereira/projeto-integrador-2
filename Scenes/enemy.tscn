@@ -1,9 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://86dt5nfq2yny"]
+[gd_scene load_steps=14 format=3 uid="uid://86dt5nfq2yny"]
 
 [ext_resource type="Script" uid="uid://dpo0hu6jib3ol" path="res://Scripts/enemy.gd" id="1_5hljt"]
+[ext_resource type="Texture2D" uid="uid://fpvxy3h5n53a" path="res://Sprites/enemies/grunt_hit.png" id="2_0830c"]
 [ext_resource type="Texture2D" uid="uid://nvfv35xfcqun" path="res://Sprites/enemies/grunt_deathpose03.png" id="2_afpow"]
 [ext_resource type="Texture2D" uid="uid://c85a5scrtyghu" path="res://Sprites/enemies/grunt_idlev1.png" id="2_fadq0"]
 [ext_resource type="AudioStream" uid="uid://u4mesnmfr58g" path="res://Audio/FX/bang_07.ogg" id="4_287tu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghaa6"]
+atlas = ExtResource("2_0830c")
+region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_287tu"]
 atlas = ExtResource("2_afpow")
@@ -15,6 +20,23 @@ region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4b1w1"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghaa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghaa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghaa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghaa6")
+}],
+"loop": false,
+"name": &"damage",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_287tu")
@@ -81,7 +103,7 @@ position = Vector2(5, -33)
 shape = SubResource("CircleShape2D_gfuur")
 
 [node name="DeadCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(1, 29)
+position = Vector2(0, 29)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_287tu")
 disabled = true
@@ -101,6 +123,13 @@ collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SightArea"]
 polygon = PackedVector2Array(9, -35, 328, -104, 368, -64, 368, 0, 328, 40, 48, 40)
+
+[node name="DarkSightArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DarkSightArea"]
+polygon = PackedVector2Array(9, -35, 168, -69, 218, -17, 177, 40, 48, 40)
 
 [node name="RayCast" type="RayCast2D" parent="."]
 position = Vector2(0, -35.5)
@@ -133,7 +162,10 @@ stream = ExtResource("4_287tu")
 [connection signal="timeout" from="SuspicionTimer" to="." method="_on_suspicion_timer_timeout"]
 [connection signal="timeout" from="SearchLocationTimer" to="." method="_on_search_location_timer_timeout"]
 [connection signal="timeout" from="SearchTimer" to="." method="_on_search_timer_timeout"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="InteractArea" to="." method="_on_interact_area_area_entered"]
 [connection signal="area_exited" from="InteractArea" to="." method="_on_interact_area_area_exited"]
 [connection signal="body_entered" from="SightArea" to="." method="_on_sight_area_body_entered"]
 [connection signal="body_exited" from="SightArea" to="." method="_on_sight_area_body_exited"]
+[connection signal="body_entered" from="DarkSightArea" to="." method="_on_sight_area_body_entered"]
+[connection signal="body_exited" from="DarkSightArea" to="." method="_on_sight_area_body_exited"]

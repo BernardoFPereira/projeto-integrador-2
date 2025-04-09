@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://brxjw7a8jp5n3"]
+[gd_scene load_steps=18 format=3 uid="uid://brxjw7a8jp5n3"]
 
 [ext_resource type="Script" uid="uid://harolibuy2rd" path="res://Scripts/door.gd" id="1_x3hqv"]
 [ext_resource type="Texture2D" uid="uid://cic2fcmp6wu34" path="res://Sprites/simple_door.png" id="2_agx5f"]
@@ -91,12 +91,49 @@ size = Vector2(56, 128)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_65ee6"]
 polygon = PackedVector2Array(-5, -64, 5, -64, 5, 64, -5, 64)
 
+[sub_resource type="Animation" id="Animation_p0e35"]
+resource_name = "closed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:points")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-5, 65, -5, -65, 4, -65, 4, 65)]
+}
+
+[sub_resource type="Animation" id="Animation_fahql"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:points")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-5, 65, -5, -65, 53, -65, 53, 65)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ab4ky"]
+_data = {
+&"closed": SubResource("Animation_p0e35"),
+&"open": SubResource("Animation_fahql")
+}
+
 [node name="SpriteDoor" type="StaticBody2D"]
 collision_layer = 80
 collision_mask = 64
 script = ExtResource("1_x3hqv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
 position = Vector2(19, 0)
 sprite_frames = SubResource("SpriteFrames_73bqh")
 animation = &"closing"
@@ -114,6 +151,20 @@ debug_color = Color(0.622867, 0.5258, 0.251818, 0.42)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_65ee6")
+
+[node name="InteractHighlight" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(-5, 65, -5, -65, 4, -65, 4, 65)
+closed = true
+width = 3.0
+default_color = Color(1, 0.768627, 0, 1)
+joint_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InteractHighlight"]
+libraries = {
+&"": SubResource("AnimationLibrary_ab4ky")
+}
+autoplay = "closed"
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]

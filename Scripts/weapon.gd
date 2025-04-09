@@ -52,6 +52,7 @@ func drop_weapon() -> void:
 
 func melee(targets_to_hit: Array) -> void:
 	var back_wall = get_tree().get_first_node_in_group("BackWall")
+	
 	match weapon_type:
 		"melee":
 			for target: Enemy in targets_to_hit:
@@ -60,11 +61,13 @@ func melee(targets_to_hit: Array) -> void:
 				blood_spatter.global_position = global_position
 				
 				back_wall.add_child(blood_spatter)
+				target.set_state(target.States.DAMAGE)
 			
-		"ranged":
+		_:
 			for target: Enemy in targets_to_hit:
 				PlayerManager.deal_damage(target, 1)
 				Audio.play("res://Audio/FX/qubodupPunch02.ogg", -10)
+				target.set_state(target.States.DAMAGE)
 	#print(target_to_hit)
 
 func throw() -> void:

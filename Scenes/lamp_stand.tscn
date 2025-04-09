@@ -14,10 +14,10 @@ fill_from = Vector2(0.527523, 0.504587)
 fill_to = Vector2(0.206422, 0.853211)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xps18"]
-polygon = PackedVector2Array(10, 0.999955, 8, 0.99998, 10, 3.99997, 11, 0.999972, 14.9999, -18.0001, 15, -19, 13.9999, -18.0001)
+polygon = PackedVector2Array(14, 7.99996, 16, 7.99996, 23.9999, -24.0001, 18.9999, -24)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jsato"]
-polygon = PackedVector2Array(-10, 1.00004, -8, 1.00002, -9.99999, 4.00003, -11, 1.00003, -15.0001, -17.9999, -15, -18, -15, -18, -15, -18, -15, -18, -15, -19, -14, -18, -14.0001, -17.9999)
+polygon = PackedVector2Array(17, 7.99996, 11.9999, -24, 6.99994, -24, 15, 7.99996)
 
 [node name="StandingLamp" type="Node2D" node_paths=PackedStringArray("lights")]
 script = ExtResource("1_0k7nd")
@@ -37,7 +37,7 @@ collision_layer = 32
 collision_mask = 18
 
 [node name="LightDetectCollision" type="CollisionPolygon2D" parent="PointLight2D/LightDetectArea"]
-polygon = PackedVector2Array(-14, 3, -136, 129, 136, 129, 14, 3)
+polygon = PackedVector2Array(-22, 11, -136, 129, 136, 129, 21, 11)
 
 [node name="LightPositionMarker" type="Marker2D" parent="PointLight2D"]
 position = Vector2(0, 9)
@@ -49,10 +49,10 @@ collision_layer = 32
 collision_mask = 18
 
 [node name="LightDetectCollision" type="CollisionPolygon2D" parent="PointLight2D/LightDetectArea2"]
-polygon = PackedVector2Array(-8, 3.52859e-05, -152, 119, 152, 119, 8, -3.57628e-05)
+polygon = PackedVector2Array(-18.1806, 8.41314, -152, 119, 152, 119, 18.1843, 8.41618)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-10, -9, 10, -9, 14, 10, -14, 10)
+polygon = PackedVector2Array(-16, -16, 16, -16, 24, 16, -24, 16)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 position = Vector2(0, -8)
@@ -60,7 +60,7 @@ rotation = -3.14159
 occluder = SubResource("OccluderPolygon2D_xps18")
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(31, -8)
 rotation = -3.14159
 occluder = SubResource("OccluderPolygon2D_jsato")
 

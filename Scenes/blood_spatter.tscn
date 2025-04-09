@@ -195,5 +195,5 @@ animations = [{
 texture_filter = 3
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_hlx7b")
-animation = &"spatter3"
+animation = &"spatter1"
 script = ExtResource("4_tm8ha")

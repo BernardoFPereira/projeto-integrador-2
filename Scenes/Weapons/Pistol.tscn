@@ -9,7 +9,7 @@ radius = 5.0
 height = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t511x"]
-radius = 500.0
+radius = 700.0
 
 [node name="Pistol" type="RigidBody2D"]
 light_mask = 0

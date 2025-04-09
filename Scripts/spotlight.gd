@@ -14,7 +14,7 @@ var player: Player
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
 	for light in lights:
-		if is_on:
+		if is_on: 
 			switch_power()
 		if !is_on:
 			switch_power()

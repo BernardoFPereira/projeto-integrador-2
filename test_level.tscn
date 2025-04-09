@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://duj3s4w2q8fx1"]
+[gd_scene load_steps=42 format=4 uid="uid://duj3s4w2q8fx1"]
 
 [ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://main.gd" id="1_58smv"]
 [ext_resource type="PackedScene" uid="uid://brxjw7a8jp5n3" path="res://Scenes/door.tscn" id="2_8a111"]
@@ -36,6 +36,9 @@
 [ext_resource type="Texture2D" uid="uid://dh1m2n5gxeoh0" path="res://Sprites/Misc/Banheiro/lixeira 05 (banheiro).png" id="22_ssxi7"]
 [ext_resource type="Texture2D" uid="uid://bvfp65e7wvrd5" path="res://Sprites/Misc/Banheiro/desentupidor.png" id="23_nmfct"]
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_5n0ar"]
+b = Vector2(0, 250)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38et7"]
 size = Vector2(93, 23)
 
@@ -66,9 +69,17 @@ script = ExtResource("1_58smv")
 collision_layer = 0
 collision_mask = 2
 
-[node name="Polygon" type="CollisionPolygon2D" parent="InsideArea"]
-position = Vector2(1039, -1183)
-polygon = PackedVector2Array(-639, 159, 161, 159, 161, 479, 726, 479, 726, 1759, -1823, 1759, -1823, 1463, -639, 1463)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InsideArea"]
+position = Vector2(-801, 349)
+shape = SubResource("SegmentShape2D_5n0ar")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="InsideArea"]
+position = Vector2(1185, -951)
+shape = SubResource("SegmentShape2D_5n0ar")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="InsideArea"]
+position = Vector2(1760, 350)
+shape = SubResource("SegmentShape2D_5n0ar")
 
 [node name="Poste" type="Sprite2D" parent="."]
 position = Vector2(2394, 453)
@@ -300,6 +311,10 @@ is_on = false
 position = Vector2(1447, 510)
 connected_lights = [NodePath("../GroundLight2")]
 
+[node name="LightSwitch3" parent="Lights" node_paths=PackedStringArray("connected_lights") instance=ExtResource("5_lowby")]
+position = Vector2(-702, 510)
+connected_lights = [NodePath("../StandingLamp2")]
+
 [node name="BrokenSwitch" parent="Lights" node_paths=PackedStringArray("connected_lights") instance=ExtResource("5_lowby")]
 position = Vector2(1507, 193)
 connected_lights = [NodePath("../BathroomLight")]
@@ -341,6 +356,9 @@ position = Vector2(749, -647)
 
 [node name="StandingLamp" parent="Lights" instance=ExtResource("8_b7ax5")]
 position = Vector2(1094, -522)
+
+[node name="StandingLamp2" parent="Lights" instance=ExtResource("8_b7ax5")]
+position = Vector2(-395, 436)
 
 [node name="TopOfficeLight" parent="Lights" instance=ExtResource("6_hrncr")]
 position = Vector2(832, -969)
@@ -393,7 +411,7 @@ position = Vector2(1361, -114)
 start_state = 6
 
 [node name="Player" parent="." instance=ExtResource("7_u6a17")]
-position = Vector2(-1156, 482)
+position = Vector2(-970, 471)
 shadow_jump_strength = 1000.0
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
@@ -462,6 +480,7 @@ offset_right = 70.5
 offset_bottom = 73.0
 grow_horizontal = 2
 text = "Encontre a maleta"
+horizontal_alignment = 1
 
 [node name="InteractionLabel" type="Label" parent="Camera2D/CanvasLayer3/UI"]
 visible = false
@@ -553,6 +572,22 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Sair"
 
+[node name="HowTo" type="Label" parent="Camera2D/CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = -139.0
+offset_right = 383.0
+offset_bottom = -38.0
+grow_vertical = 0
+text = "WASD: Movimento
+Espaço (Segurar): Mirar Pulo
+Shift: Ativar/Desativar \"Mescla das Sombras\"
+Clique Equerdo: Atirar/Pular/Atacar
+Clique Direito: Mirar"
+
 [node name="MapExitArea" type="Area2D" parent="."]
 position = Vector2(2396, 441)
 collision_layer = 3
@@ -584,9 +619,12 @@ shape = SubResource("RectangleShape2D_e8hb2")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_7fqlb")
 volume_db = -15.0
+pitch_scale = 0.85
 autoplay = true
+mix_target = 1
+max_polyphony = 2
+playback_type = 1
 
-[connection signal="body_entered" from="InsideArea" to="." method="_on_inside_area_body_entered"]
 [connection signal="body_exited" from="InsideArea" to="." method="_on_inside_area_body_exited"]
 [connection signal="body_entered" from="Interactables/Desk/InteractArea" to="Interactables/Desk" method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="Interactables/Desk/InteractArea" to="Interactables/Desk" method="_on_interact_area_body_exited"]

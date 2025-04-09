@@ -14,9 +14,9 @@ const JUMP_VELOCITY = -400.0
 @onready var left_shoulder_pos: Marker2D = $LeftShoulderPos
 
 @onready var light_ray: RayCast2D = $LightRay
-@onready var hand: Polygon2D = $Hand
+@onready var hand: Node2D = $Hand
 @onready var hold_spot: Marker2D = $Hand/HoldSpot
-@onready var hand_sprite: Sprite2D = $HandSprite
+@onready var hand_sprite: Sprite2D = $Hand/HandSprite
 
 @onready var trajectory_line: Line2D = $TrajectoryLine
 
@@ -51,6 +51,7 @@ enum States {
 	PREP_SHADOW_SHOT,
 	SHADOW_SHOT,
 	GRAB,
+	DAMAGE,
 	DEAD
 }
 
@@ -117,7 +118,10 @@ func handle_states(delta) -> void:
 			if direction.x:
 				set_state(States.WALK)
 			velocity.x = 0
-			
+		
+		States.DAMAGE:
+			velocity = Vector2.ZERO
+		
 		States.WALK:
 			if direction.x:
 				velocity.x = direction.x * SPEED
@@ -133,7 +137,7 @@ func handle_states(delta) -> void:
 			velocity = Vector2.ZERO
 		
 		States.AIM:
-			hand_sprite.look_at(get_global_mouse_position())
+			hand.look_at(get_global_mouse_position())
 			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
 			
 		States.DUCT:
@@ -142,6 +146,9 @@ func handle_states(delta) -> void:
 		States.SHADOW_MELD:
 			if !PlayerManager.is_in_shadow:
 				set_state(States.IDLE)
+				
+			if !PlayerManager.is_inside:
+				set_state(States.IDLE)
 			
 			if direction:
 				velocity = velocity.lerp(direction * (SPEED * 1.5), delta)
@@ -149,7 +156,7 @@ func handle_states(delta) -> void:
 				velocity = velocity.lerp(Vector2.ZERO, delta * 4)
 			
 		States.PREP_SHADOW_SHOT:
-			velocity = velocity.lerp(Vector2.ZERO, delta * 6)
+			velocity = Vector2.ZERO
 			trajectory_line.update_trajectory(global_position.direction_to(get_global_mouse_position()), 100.0, 9.8, delta)
 			
 		States.SHADOW_SHOT:
@@ -210,19 +217,28 @@ func set_state(new_state: States):
 		grab_cast_down.enabled = true
 		ground_check()
 		grab_cast_down.enabled = false
-		
+	
+	if new_state in [States.IDLE, States.WALK]:
+		hand_sprite.visible = false
+	
 	match new_state:
 		States.DEAD:
 			PlayerManager.is_player_dead = true
 		
+		States.DAMAGE:
+			var blood_spatter = preload("res://Scenes/black_blood_spatter.tscn").instantiate()
+			blood_spatter.global_position = global_position
+			get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
+			animated_sprite.play("damage")
+			# State switch on animation_finished
+			#set_state(States.IDLE)
+		
 		States.IDLE:
-			#ground_check()
 			animated_sprite.play("idle")
 			collision_shape.disabled = false
-			shadow_collision.disabled = true
+			#shadow_collision.disabled = true
 			
 		States.WALK:
-			#ground_check()
 			match facing:
 				Facing.RIGHT:
 					animated_sprite.flip_h = true
@@ -232,14 +248,9 @@ func set_state(new_state: States):
 			animated_sprite.play("walk")
 		
 		States.SHADOW_MELD:
-			if !PlayerManager.is_in_shadow:
-				set_state(States.IDLE)
-			if !PlayerManager.is_inside:
-				set_state(States.IDLE)
-				
 			set_collision_mask_value(5, 0)
 			collision_shape.disabled = true
-			shadow_collision.disabled = false
+			#shadow_collision.disabled = false
 			animated_sprite.play("shadow_shape")
 		
 		States.SHADOW_SHOT:
@@ -248,17 +259,15 @@ func set_state(new_state: States):
 				set_state(States.IDLE)
 				
 			collision_shape.disabled = true
-			shadow_collision.disabled = false
+			#shadow_collision.disabled = false
 			animated_sprite.play("shadow_shape")
-			
 				
 		States.MELEE:
 			animated_sprite.play("melee")
 		
 		States.GRAB:
-			#ground_check()
 			collision_shape.disabled = false
-			shadow_collision.disabled = true
+			#shadow_collision.disabled = true
 			animated_sprite.play("idle")
 		
 		States.AIM:
@@ -277,10 +286,20 @@ func set_state(new_state: States):
 
 func ground_check() -> void:
 	var ground_ray = grab_cast_down
+	
 	ground_ray.force_raycast_update()
+	
 	if ground_ray.is_colliding():
-		print("ajusting position")
-		global_position.y -= ground_ray.target_position.y
+		var collision_point = ground_ray.get_collision_point()
+		
+		print(global_position)
+		print(collision_point)
+		# TODO: Fix this!
+		var diff = collision_point.y - global_position.y
+		
+		print(diff)
+		global_position.y -= diff
+		print(global_position)
 	
 
 func set_facing(new_facing) -> void:
@@ -344,7 +363,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if state in [States.SHADOW_MELD, States.PREP_SHADOW_SHOT, States.MELEE]:
 			return
 			
-		hand.rotation_degrees = 40
+		#hand.rotation_degrees = 40
 		PlayerManager.switch_aim(false)
 		
 		set_state(last_state)
@@ -367,51 +386,24 @@ func _unhandled_input(event: InputEvent) -> void:
 		trajectory_line.visible = false
 		just_jumped = true
 		set_state(States.SHADOW_SHOT)
-#
-#func _on_grab_area_body_entered(body: Node2D) -> void:
-	#if state == States.SHADOW_SHOT:
-		#velocity = Vector2.ZERO
-		#set_state(States.GRAB)
-#
-#func _on_grab_area_body_exited(body: Node2D) -> void:
-	#if state == States.GRAB:
-		#set_state(States.IDLE)
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	match animated_sprite.animation:
 		"melee":
 			set_state(States.IDLE)
-	pass # Replace with function body.
-
+		"damage":
+			set_state(States.IDLE)
 
 func _on_animated_sprite_2d_frame_changed() -> void:
 	match animated_sprite.animation:
 		"melee":
 			if animated_sprite.frame == 2:
 				var targets_to_hit = melee_hit_box.get_overlapping_bodies()
-				#velocity = velocity.lerp(Vector2.ZERO, delta * 4)
-				var melee_fx
+				
 				if carried_weapon:
-					#if carried_weapon.weapon_type == "melee":
-						#melee_fx = preload("res://Scenes/enemy_slash.tscn").instantiate()
-						#melee_fx.transform = melee_hit_box.transform
-						#self.add_child(melee_fx)
-					#else:
-						#melee_fx = preload("res://Scenes/punch.tscn").instantiate()
-						#melee_fx.transform = melee_hit_box.transform
-						#self.add_child(melee_fx)
-						
 					carried_weapon.melee(targets_to_hit)
-				#match facing:
-					#Facing.RIGHT:
-						#melee_fx.flip_h = true
-					#Facing.LEFT:
-						#melee_fx.flip_h = false
 				else:
-					#melee_fx = preload("res://Scenes/punch.tscn").instantiate()
-					#melee_fx.transform = melee_hit_box.transform
-					#self.add_child(melee_fx)
-					
 					for target in targets_to_hit:
 						PlayerManager.deal_damage(target, 1)
+						target.set_state(target.States.DAMAGE)
 				
