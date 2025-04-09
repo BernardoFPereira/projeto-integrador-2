@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://cjpns3m3ir6wp" path="res://Scripts/trajectory.gd" id="2_l02lo"]
 [ext_resource type="Texture2D" uid="uid://4yhea2rd6ef4" path="res://Sprites/tall_purple_shadow.png" id="3_0pnld"]
 [ext_resource type="Texture2D" uid="uid://oa147johbjsm" path="res://Sprites/purple_sheets/purple_hitanims.png" id="3_f1ek2"]
-[ext_resource type="Texture2D" uid="uid://duy36a2i54rxm" path="res://Sprites/purple_sheets/purpleidle sheet.png" id="3_fd4e3"]
 [ext_resource type="Texture2D" uid="uid://c481j8kh3h8fw" path="res://Sprites/purple_sheets/aim_sheet.png" id="3_tx1dd"]
+[ext_resource type="Texture2D" uid="uid://orbuele4x2ix" path="res://Sprites/purple_sheets/idle_sheet.png" id="4_f1ek2"]
 [ext_resource type="Texture2D" uid="uid://d035rdua5o7pt" path="res://Sprites/purple_sheets/purple_sheet.png" id="6_gymyn"]
 [ext_resource type="Texture2D" uid="uid://cpbhievbp3elr" path="res://Sprites/purple_sheets/shadowmeld_sheet.png" id="7_pu2lt"]
 [ext_resource type="Texture2D" uid="uid://bomcrkpuatxx0" path="res://Sprites/purple_sheets/walkcycle_sheet.png" id="9_ukyrk"]
@@ -30,20 +30,20 @@ region = Rect2(512, 0, 128, 128)
 atlas = ExtResource("3_f1ek2")
 region = Rect2(0, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qqcod"]
-atlas = ExtResource("3_fd4e3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_tx1dd"]
+atlas = ExtResource("4_f1ek2")
 region = Rect2(0, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_igrcy"]
-atlas = ExtResource("3_fd4e3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_gymyn"]
+atlas = ExtResource("4_f1ek2")
 region = Rect2(128, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fs7ks"]
-atlas = ExtResource("3_fd4e3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu2lt"]
+atlas = ExtResource("4_f1ek2")
 region = Rect2(256, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l6n3p"]
-atlas = ExtResource("3_fd4e3")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukyrk"]
+atlas = ExtResource("4_f1ek2")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wpjfl"]
@@ -160,16 +160,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qqcod")
+"texture": SubResource("AtlasTexture_tx1dd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_igrcy")
+"texture": SubResource("AtlasTexture_gymyn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fs7ks")
+"texture": SubResource("AtlasTexture_pu2lt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l6n3p")
+"texture": SubResource("AtlasTexture_ukyrk")
 }],
 "loop": true,
 "name": &"idle",
@@ -292,7 +292,7 @@ position = Vector2(35, 1)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 3
 sprite_frames = SubResource("SpriteFrames_h2too")
-animation = &"damage"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="LightRay" type="RayCast2D" parent="."]
