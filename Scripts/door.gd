@@ -37,27 +37,29 @@ func close_door():
 	animation_player.play("closing")
 	collision.disabled = false
 
-func _on_interact_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		#line_2d.visible = true
-		PlayerManager.can_interact = true
-		PlayerManager.interact_target = self
-	
-	if body.is_in_group("Enemy"):
-		enemy_near = true
-		enemy = body
+#func _on_interact_area_body_entered(body: Node2D) -> void:
+	#if (body.is_in_group("Player") or body.is_in_group("Enemy")) and state == DoorState.OPEN:
+		#collision.disabled = true
+		##line_2d.visible = true
+		#PlayerManager.can_interact = true
+		#PlayerManager.interact_target = self
+	#
+	#if body.is_in_group("Enemy"):
+		#enemy_near = true
+		#enemy = body
 
 
-func _on_interact_area_body_exited(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		#line_2d.visible = false
-		if PlayerManager.interact_target == self:
-			PlayerManager.can_interact = false
-			PlayerManager.interact_target = null
-			
-	if body.is_in_group("Enemy"):
-		enemy_near = false
-		enemy = null
+#func _on_interact_area_body_exited(body: Node2D) -> void:
+	#if (body.is_in_group("Player") or body.is_in_group("Enemy")) and state == DoorState.OPEN:
+		#collision.disabled = false
+		##line_2d.visible = false
+		#if PlayerManager.interact_target == self:
+			#PlayerManager.can_interact = false
+			#PlayerManager.interact_target = null
+			#
+	#if body.is_in_group("Enemy"):
+		#enemy_near = false
+		#enemy = null
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:

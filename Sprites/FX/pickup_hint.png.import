@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr1bggpecdylt"
-path="res://.godot/imported/aim_throw_arm.png-4769c2766e74349d153932c7c38e6d26.ctex"
+uid="uid://bvglsumouc4td"
+path="res://.godot/imported/pickup_hint.png-1caac5a2c42c8456755d3f4b89a637db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/purple_sheets/aim_throw_arm.png"
-dest_files=["res://.godot/imported/aim_throw_arm.png-4769c2766e74349d153932c7c38e6d26.ctex"]
+source_file="res://Sprites/FX/pickup_hint.png"
+dest_files=["res://.godot/imported/pickup_hint.png-1caac5a2c42c8456755d3f4b89a637db.ctex"]
 
 [params]
 

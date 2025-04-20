@@ -1,6 +1,6 @@
-[gd_scene load_steps=42 format=4 uid="uid://duj3s4w2q8fx1"]
+[gd_scene load_steps=43 format=4 uid="uid://duj3s4w2q8fx1"]
 
-[ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://main.gd" id="1_58smv"]
+[ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://Scripts/main.gd" id="1_58smv"]
 [ext_resource type="PackedScene" uid="uid://brxjw7a8jp5n3" path="res://Scenes/door.tscn" id="2_8a111"]
 [ext_resource type="TileSet" uid="uid://bh52f06wo7gfn" path="res://Tilesets/hotel_walls2.tres" id="2_58smv"]
 [ext_resource type="Texture2D" uid="uid://bxk7ds5nfuhwj" path="res://Sprites/Misc/Área Externa/poste.png" id="2_e8hb2"]
@@ -15,9 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://dku1i8xadq6lo" path="res://Scenes/lamp_stand.tscn" id="8_b7ax5"]
 [ext_resource type="Texture2D" uid="uid://crjocyehd3rl6" path="res://Sprites/Misc/Área Externa/lixeira 02.png" id="8_uva3u"]
 [ext_resource type="Texture2D" uid="uid://cj8ng0f8godfa" path="res://Sprites/Misc/Área Externa/lixo 01.png" id="9_tdsls"]
-[ext_resource type="Script" uid="uid://bnx4g7k2bwjk7" path="res://camera.gd" id="9_ubbbm"]
+[ext_resource type="Script" uid="uid://bnx4g7k2bwjk7" path="res://Scripts/camera.gd" id="9_ubbbm"]
 [ext_resource type="Texture2D" uid="uid://43n2n6jxij6f" path="res://Sprites/Misc/Placas/placa chão molhado.png" id="10_2nsn4"]
-[ext_resource type="PackedScene" uid="uid://86dt5nfq2yny" path="res://Scenes/enemy.tscn" id="11_58smv"]
+[ext_resource type="PackedScene" uid="uid://86dt5nfq2yny" path="res://Scenes/enemy_melee.tscn" id="11_58smv"]
 [ext_resource type="Texture2D" uid="uid://bpx68sue22hsh" path="res://Sprites/Misc/Placas/placa escadas(subir).png" id="11_fafb6"]
 [ext_resource type="Texture2D" uid="uid://b5lb0vh1nxqbm" path="res://Sprites/Misc/Placas/placa escadas(descer).png" id="12_nl6r7"]
 [ext_resource type="Texture2D" uid="uid://ngual2ts5ykw" path="res://Sprites/Misc/Placas/placa banheiro 03.png" id="13_0onhy"]
@@ -35,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://be164mgmrky4v" path="res://Sprites/Misc/Banheiro/vaso sanitário 02.png" id="21_tr70r"]
 [ext_resource type="Texture2D" uid="uid://dh1m2n5gxeoh0" path="res://Sprites/Misc/Banheiro/lixeira 05 (banheiro).png" id="22_ssxi7"]
 [ext_resource type="Texture2D" uid="uid://bvfp65e7wvrd5" path="res://Sprites/Misc/Banheiro/desentupidor.png" id="23_nmfct"]
+[ext_resource type="PackedScene" uid="uid://ccjfvb5421qpk" path="res://Scenes/enemy_ranged.tscn" id="29_uva3u"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_5n0ar"]
 b = Vector2(0, 250)
@@ -145,12 +146,12 @@ texture = ExtResource("13_0onhy")
 
 [node name="Mesa01" type="Sprite2D" parent="Misc"]
 texture_filter = 1
-position = Vector2(894, 545)
+position = Vector2(895, 542)
 texture = ExtResource("14_o6foe")
 
 [node name="Mesa02(cadeiraSeparada)" type="Sprite2D" parent="Misc"]
 texture_filter = 1
-position = Vector2(845, 543)
+position = Vector2(845, 540)
 texture = ExtResource("15_k4ree")
 
 [node name="MesaDeEscritório01" type="Sprite2D" parent="Misc"]
@@ -270,7 +271,6 @@ direction = 1
 [node name="Interactables" type="Node" parent="."]
 
 [node name="Desk" type="Polygon2D" parent="Interactables"]
-visible = false
 position = Vector2(885, -779)
 color = Color(0.548963, 0.548963, 0.548963, 1)
 polygon = PackedVector2Array(-55, 75, -47, 75, -47, 51, 10.8062, 51, 73, 51, 73, 75, 81, 75, 81, 11, -55, 11)
@@ -287,7 +287,7 @@ default_color = Color(1, 0.843137, 0, 1)
 
 [node name="InteractArea" type="Area2D" parent="Interactables/Desk"]
 position = Vector2(14, 60)
-collision_layer = 0
+collision_layer = 1024
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Desk/InteractArea"]
@@ -374,11 +374,19 @@ max_ammo = 8
 
 [node name="Enemies" type="Node" parent="."]
 
-[node name="Grunt" parent="Enemies" instance=ExtResource("11_58smv")]
-position = Vector2(1024, 534)
+[node name="RangedEnemy" parent="Enemies" instance=ExtResource("29_uva3u")]
+position = Vector2(1003, 536)
+
+[node name="RangedEnemy2" parent="Enemies" instance=ExtResource("29_uva3u")]
+position = Vector2(600, -109)
+start_state = 6
+
+[node name="RangedEnemy3" parent="Enemies" instance=ExtResource("29_uva3u")]
+position = Vector2(1358, -108)
+start_state = 6
 
 [node name="Grunt2" parent="Enemies" instance=ExtResource("11_58smv")]
-position = Vector2(1183, 210)
+position = Vector2(1221, 210)
 
 [node name="Grunt3" parent="Enemies" instance=ExtResource("11_58smv")]
 position = Vector2(465, 204)
@@ -401,17 +409,8 @@ position = Vector2(666, -430)
 [node name="Grunt8" parent="Enemies" instance=ExtResource("11_58smv")]
 position = Vector2(951, -439)
 
-[node name="Grunt9" parent="Enemies" instance=ExtResource("11_58smv")]
-position = Vector2(541, -114)
-facing = 1
-start_state = 6
-
-[node name="Grunt10" parent="Enemies" instance=ExtResource("11_58smv")]
-position = Vector2(1361, -114)
-start_state = 6
-
 [node name="Player" parent="." instance=ExtResource("7_u6a17")]
-position = Vector2(-970, 471)
+position = Vector2(709, -791)
 shadow_jump_strength = 1000.0
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
@@ -618,12 +617,19 @@ shape = SubResource("RectangleShape2D_e8hb2")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_7fqlb")
-volume_db = -15.0
+volume_db = -80.0
 pitch_scale = 0.85
 autoplay = true
 mix_target = 1
 max_polyphony = 2
 playback_type = 1
+
+[node name="Knife" parent="." instance=ExtResource("4_30c28")]
+position = Vector2(-1253, 548)
+
+[node name="Pistol" parent="." instance=ExtResource("5_kw240")]
+position = Vector2(-1170, 546)
+max_ammo = 200
 
 [connection signal="body_exited" from="InsideArea" to="." method="_on_inside_area_body_exited"]
 [connection signal="body_entered" from="Interactables/Desk/InteractArea" to="Interactables/Desk" method="_on_interact_area_body_entered"]

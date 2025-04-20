@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpbhievbp3elr"
-path="res://.godot/imported/shadowmeld_sheet.png-0c1df4dd322154866a06a314c16f250c.ctex"
+uid="uid://cfbuoxchd2qdw"
+path="res://.godot/imported/purple_dead.png-966163817ac30d85c5e608cfc205ba78.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/purple_sheets/shadowmeld_sheet.png"
-dest_files=["res://.godot/imported/shadowmeld_sheet.png-0c1df4dd322154866a06a314c16f250c.ctex"]
+source_file="res://Sprites/Mr Purple/purple_dead.png"
+dest_files=["res://.godot/imported/purple_dead.png-966163817ac30d85c5e608cfc205ba78.ctex"]
 
 [params]
 

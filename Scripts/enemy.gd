@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Enemy
 
+@export_enum("MELEE", "RANGED") var enemy_type := "MELEE"
+
 @export var facing: Facing
 @export var start_state := States.IDLE
 @export_range(200.0, 800.0, 1.0) var speed := 600.0
@@ -10,6 +12,8 @@ class_name Enemy
 @export_range(80.0, 300.0, 1.0) var roam_speed := 100.0
 @export var min_wait := 2.0
 @export var max_wait := 4.5
+
+@onready var muzzle: Marker2D = $Muzzle
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast: RayCast2D = $RayCast
@@ -21,6 +25,7 @@ class_name Enemy
 @onready var search_location_timer: Timer = $SearchLocationTimer
 @onready var search_timer: Timer = $SearchTimer
 @onready var interaction_timer: Timer = $InteractionTimer
+@onready var aim_timer: Timer = $AimTimer
 
 @onready var icon: Sprite2D = $AlertIcon/Icon
 
@@ -33,6 +38,9 @@ class_name Enemy
 
 @onready var body_facing_right_pos: Marker2D = $BodyFacingRightPos
 @onready var body_facing_left_pos: Marker2D = $BodyFacingLeftPos
+
+@onready var muzzle_right_pos: Marker2D = $MuzzleRightPos
+@onready var muzzle_left_pos: Marker2D = $MuzzleLeftPos
 
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
@@ -47,6 +55,7 @@ enum States {
 	ATTACK,
 	COOLDOWN,
 	DAMAGE,
+	AIM,
 	DEAD
 }
 
@@ -59,12 +68,15 @@ var chase_target: Node2D
 var is_player_on_sight := false
 
 var target_position := Vector2.ZERO
+var ammo := 8
 var cooldown_counter := 0.0
 var health := 2
 
 var can_interact := false
 var just_interacted := false
 var interaction_target: Node2D
+
+var ready_to_shoot := false
 
 func _ready() -> void:
 	set_state(start_state)
@@ -110,6 +122,7 @@ func handle_facing() -> void:
 			
 			head_collision_shape.position = head_facing_left_pos.position
 			body_collision_shape.position = body_facing_left_pos.position
+			muzzle.position = muzzle_left_pos.position
 			
 		Facing.RIGHT:
 			sight_area.scale.x = 1.0
@@ -118,6 +131,8 @@ func handle_facing() -> void:
 			
 			head_collision_shape.position = head_facing_right_pos.position
 			body_collision_shape.position = body_facing_right_pos.position
+			muzzle.position = muzzle_right_pos.position
+
 
 func set_state(new_state: States) -> void:
 	var suspicious_icon = preload("res://Sprites/alert_icons2.png")
@@ -132,6 +147,7 @@ func set_state(new_state: States) -> void:
 				
 				animated_sprite.play("dead")
 				sight_area.monitoring = false
+				dark_sight_area.monitoring = false
 				interaction_target = null
 				icon.texture = null
 				
@@ -141,12 +157,15 @@ func set_state(new_state: States) -> void:
 				search_timer.stop()
 			
 			States.DAMAGE:
-				animated_sprite.play("damage")
+				if health >= 0:
+					animated_sprite.play("damage")
 			
 			States.IDLE:
 				animated_sprite.play("idle")
 			
 			States.ROAMING:
+				animated_sprite.play("idle")
+
 				icon.texture = null
 				
 				roaming_timer.start()
@@ -155,6 +174,8 @@ func set_state(new_state: States) -> void:
 				search_timer.stop()
 			
 			States.SUSPICIOUS:
+				animated_sprite.play("idle")
+
 				icon.texture = suspicious_icon
 				
 				suspicion_timer.start()
@@ -163,6 +184,8 @@ func set_state(new_state: States) -> void:
 				search_timer.stop()
 			
 			States.CHASE:
+				animated_sprite.play("idle")
+
 				icon.texture = alert_icon
 				
 				roaming_timer.stop()
@@ -186,7 +209,14 @@ func set_state(new_state: States) -> void:
 				roaming_timer.stop()
 				suspicion_timer.stop()
 			
+			States.AIM:
+				if enemy_type == "RANGED":
+					animated_sprite.play("aim")
+				aim_timer.start()
+			
 			States.GOING_UP:
+				animated_sprite.play("idle")
+
 				icon.texture = suspicious_icon
 				
 				target_position = look_for_stairs()
@@ -197,6 +227,8 @@ func set_state(new_state: States) -> void:
 				suspicion_timer.stop()
 			
 			States.GOING_DOWN:
+				animated_sprite.play("idle")
+
 				icon.texture = suspicious_icon
 				
 				target_position = look_for_stairs()
@@ -244,27 +276,64 @@ func handle_states(delta) -> void:
 			var distance_to_player = global_position.distance_to(target_position)
 			var direction_to_player = global_position.direction_to(chase_target.global_position).normalized()
 			
-			if distance_to_player < 50:
-				set_state(States.ATTACK)
+			match enemy_type:
+				"MELEE":
+					if distance_to_player < 50:
+						set_state(States.AIM)
+				"RANGED":
+					if is_player_on_sight:
+						set_state(States.AIM)
 			
 			velocity.x = lerpf(velocity.x, direction_to_player.x * speed, delta * 4)
-			
+		
+		States.AIM:
+			velocity.x = 0
+			# TODO: Fix click_fx spawn and despawn
+			#match enemy_type:
+				#"RANGED":
+					#var click_fx = preload("res://Scenes/FX/click_fx.tscn").instantiate()
+					#
+					#if aim_timer.time_left <= 0.5:
+					#
+						#if ready_to_shoot:
+							#click_fx.position = muzzle.position
+							#add_child(click_fx)
+							#print("ready!")
+							#ready_to_shoot = false
+							#
+						#else:
+							#ready_to_shoot = true
+				#_:
+					#pass
+						
+		
 		States.ATTACK:
-			var slash_fx = preload("res://Scenes/enemy_slash.tscn").instantiate()
-			var offset = Vector2(25, 0)
-			velocity = Vector2.ZERO
-			match facing:
-				Facing.RIGHT:
-					slash_fx.flip_h = true
-					slash_fx.global_position = global_position + offset
-				
-				Facing.LEFT:
-					slash_fx.global_position = global_position - offset
-				
-			get_tree().root.add_child(slash_fx)
-			PlayerManager.deal_damage(PlayerManager.player, 1)
-			PlayerManager.player.set_state(PlayerManager.player.States.DAMAGE)
-			set_state(States.COOLDOWN)
+			match enemy_type:
+				"MELEE":
+					var slash_fx = preload("res://Scenes/FX/enemy_slash.tscn").instantiate()
+					var offset = Vector2(25, 0)
+					velocity = Vector2.ZERO
+					match facing:
+						Facing.RIGHT:
+							slash_fx.flip_h = true
+							slash_fx.global_position = global_position + offset
+						
+						Facing.LEFT:
+							slash_fx.global_position = global_position - offset
+						
+					get_tree().root.add_child(slash_fx)
+					PlayerManager.deal_damage(PlayerManager.player, 1)
+					PlayerManager.player.set_state(PlayerManager.player.States.DAMAGE)
+					set_state(States.COOLDOWN)
+					
+				"RANGED":
+					var click_fx = find_child("ClickFx", true)
+					if click_fx:
+						click_fx.queue_free()
+					
+					shoot()
+					set_state(States.COOLDOWN)
+					pass
 			
 		States.COOLDOWN:
 			cooldown_counter += delta
@@ -311,6 +380,32 @@ func handle_states(delta) -> void:
 			
 	move_and_slide()
 
+func shoot() -> void:
+	#broadcast_noise()
+	#if current_ammo > 0:
+	var muzzle_flash_fx = preload("res://Scenes/FX/muzzle_flash_fx.tscn").instantiate()
+	var muzzle_flash = preload("res://Scenes/FX/muzzle_flash.tscn").instantiate()
+	var projectile = preload("res://Scenes/Weapons/bullet.tscn").instantiate()
+
+	# Point projectile towards target
+	projectile.look_at(PlayerManager.player.global_position)
+	
+	# Spawn projectile
+	muzzle_flash_fx.global_transform = muzzle.global_transform
+	muzzle_flash_fx.rotate(deg_to_rad(90))
+	muzzle_flash.global_transform = muzzle.global_transform
+	
+	projectile.global_transform = muzzle.global_transform
+	projectile.targ_dir = global_position.direction_to(PlayerManager.player.global_position)
+	projectile.set_collision_mask_value(2, 1)
+	
+	get_tree().root.add_child(muzzle_flash_fx)
+	get_tree().root.add_child(muzzle_flash)
+	get_tree().root.add_child(projectile)
+	ammo -= 1
+	
+	audio_stream_player.play()
+
 func detected_obstacle() -> bool:
 	var target_distance = ray_cast.global_position.distance_to(chase_target.global_position)
 	ray_cast.look_at(chase_target.global_position)
@@ -325,7 +420,6 @@ func detected_obstacle() -> bool:
 	return true
 
 func look_for_stairs() -> Vector2:
-	# If searching and player_pos.y is below me
 	var all_stairs = get_tree().get_nodes_in_group("Stair")
 	var target_stairs: Node2D
 	
@@ -436,10 +530,12 @@ func _on_interaction_timer_timeout() -> void:
 	just_interacted = false
 	#can_interact = true
 
-
 func _on_animated_sprite_2d_animation_finished() -> void:
 	match animated_sprite.animation:
 		"damage":
 			set_state(States.IDLE)
 		_:
 			pass
+
+func _on_aim_timer_timeout() -> void:
+	set_state(States.ATTACK)

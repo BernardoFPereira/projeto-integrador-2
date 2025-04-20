@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://vftft51xbwy0" path="res://Sprites/black_blood_spatter1.png" id="1_obcft"]
 [ext_resource type="Texture2D" uid="uid://d3p0qd63wet7v" path="res://Sprites/black_blood_spatter2.png" id="2_1rmu0"]
 [ext_resource type="Texture2D" uid="uid://cupgq8lw45clx" path="res://Sprites/black_blood_spatter3.png" id="3_a4xra"]
-[ext_resource type="Script" uid="uid://docmp7k1seqrk" path="res://Scenes/blood_spatter.gd" id="7_17kds"]
+[ext_resource type="Script" uid="uid://docmp7k1seqrk" path="res://Scripts/blood_spatter.gd" id="7_17kds"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60acf"]
 atlas = ExtResource("1_obcft")

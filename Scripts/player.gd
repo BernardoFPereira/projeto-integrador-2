@@ -6,7 +6,6 @@ const JUMP_VELOCITY = -400.0
 
 @export_range(500.0, 1500.0) var throw_power: float = 800.0
 @export_range(500, 2500.0) var shadow_jump_strength: float = 100.0
-
 #@export var hand_left_position: Vector2
 #@export var hand_right_position: Vector2
 
@@ -60,6 +59,7 @@ enum Facing { RIGHT, LEFT }
 var last_state: States
 var state: States
 var facing : Facing
+var idle_hand_rotation: float
 
 func _ready():
 	set_state(States.IDLE)
@@ -101,113 +101,49 @@ func _physics_process(delta: float) -> void:
 		if state in [States.DUCT]:
 			velocity = velocity.lerp(Vector2.ZERO, delta)
 	
-	handle_facing()
+	
+	#handle_facing()
 	handle_states(delta)
+	handle_interactions()
 	
 	move_and_slide()
 
-func handle_states(delta) -> void:
-	if PlayerManager.game_complete:
-		set_state(States.IDLE)
-		velocity = Vector2.ZERO
-		return
-	
-	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	match state:
-		States.IDLE:
-			if direction.x:
-				set_state(States.WALK)
-			velocity.x = 0
-		
-		States.DAMAGE:
-			velocity = Vector2.ZERO
-		
-		States.WALK:
-			if direction.x:
-				velocity.x = direction.x * SPEED
+func set_facing(new_facing) -> void:
+	if new_facing != facing:
+		facing = new_facing
+	match facing:
+		Facing.LEFT:
+			idle_hand_rotation = 108
+			melee_hit_box.position = $HitBoxPosLeft.position
+			hand.position = left_shoulder_pos.position
+			hand.rotation_degrees = idle_hand_rotation
+			#hold_spot.scale = -Vector2.ONE
+			animated_sprite.flip_h = true
+			
+			if carried_weapon:
+				carried_weapon.flip_weapon()
+			
+			if grab_cast_left.is_colliding():
+				melee_hit_box.monitoring = false
 			else:
-				set_state(States.IDLE)
+				melee_hit_box.monitoring = true
 			
-			if direction.x < 0:
-				set_facing(Facing.LEFT)
-			elif direction.x > 0:
-				set_facing(Facing.RIGHT)
-		
-		States.MELEE:
-			velocity = Vector2.ZERO
-		
-		States.AIM:
-			hand.look_at(get_global_mouse_position())
-			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
+		Facing.RIGHT:
+			idle_hand_rotation = 72
+			melee_hit_box.position = $HitBoxPosRight.position
+			hand.position = right_shoulder_pos.position
+			hand.rotation_degrees = idle_hand_rotation
 			
-		States.DUCT:
-			pass
+			animated_sprite.flip_h = false
 			
-		States.SHADOW_MELD:
-			if !PlayerManager.is_in_shadow:
-				set_state(States.IDLE)
+			if carried_weapon:
+				carried_weapon.flip_weapon()
 				
-			if !PlayerManager.is_inside:
-				set_state(States.IDLE)
-			
-			if direction:
-				velocity = velocity.lerp(direction * (SPEED * 1.5), delta)
+			if grab_cast_left.is_colliding():
+				melee_hit_box.monitoring = false
 			else:
-				velocity = velocity.lerp(Vector2.ZERO, delta * 4)
-			
-		States.PREP_SHADOW_SHOT:
-			velocity = Vector2.ZERO
-			trajectory_line.update_trajectory(global_position.direction_to(get_global_mouse_position()), 100.0, 9.8, delta)
-			
-		States.SHADOW_SHOT:
-			if shadow_shot_ground_cast.is_colliding():
-				set_state(States.IDLE)
+				melee_hit_box.monitoring = true
 				
-			if !PlayerManager.is_in_shadow:
-				set_state(States.IDLE)
-				
-			var ground_ray = grab_cast_down
-			grab_cast_down.force_raycast_update()
-			
-			if is_on_floor() and !just_jumped:
-				set_state(States.IDLE)
-			
-			for ray: RayCast2D in grab_rays:
-				ray.force_raycast_update()
-				var collider = ray.get_collider()
-				
-				if ray.is_colliding():
-					if collider.is_in_group("Grabable") and !just_jumped:
-						velocity = Vector2.ZERO
-						#ground_check()
-						set_state(States.GRAB)
-					else:
-						set_state(States.IDLE)
-						
-			if !ground_ray.is_colliding():
-				just_jumped = false
-			elif ground_ray.is_colliding():
-				just_jumped = true
-			
-		States.GRAB:
-			if !PlayerManager.is_in_shadow:
-				set_state(States.IDLE)
-			
-			if direction:
-				if grab_cast_left.is_colliding() or grab_cast_right.is_colliding():
-					velocity.y = lerp(velocity.y, direction.y * SPEED, delta * 2)
-				if grab_cast_top.is_colliding():
-					velocity.x = lerpf(velocity.x, direction.x * SPEED, delta * 2)
-			
-			if !direction:
-				velocity = velocity.lerp(Vector2.ZERO, delta * 6)
-			
-			if !grab_cast_top.is_colliding() and !grab_cast_right.is_colliding() and !grab_cast_left.is_colliding():
-				set_state(States.IDLE)
-			
-		States.DEAD:
-			rotation_degrees = lerp(rotation_degrees, 90.0, delta * 6)
-			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
 
 func set_state(new_state: States):
 	if state not in [States.SHADOW_MELD]:
@@ -223,10 +159,15 @@ func set_state(new_state: States):
 	
 	match new_state:
 		States.DEAD:
+			if carried_weapon:
+				carried_weapon.drop_weapon()
+				
+			animated_sprite.play("dead")
+			hand_sprite.visible = false
 			PlayerManager.is_player_dead = true
 		
 		States.DAMAGE:
-			var blood_spatter = preload("res://Scenes/black_blood_spatter.tscn").instantiate()
+			var blood_spatter = preload("res://Scenes/FX/black_blood_spatter.tscn").instantiate()
 			blood_spatter.global_position = global_position
 			get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
 			animated_sprite.play("damage")
@@ -284,6 +225,110 @@ func set_state(new_state: States):
 		last_state = state
 		state = new_state
 
+func handle_states(delta) -> void:
+	if PlayerManager.game_complete:
+		set_state(States.IDLE)
+		velocity = Vector2.ZERO
+		return
+	
+	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	match state:
+		States.IDLE:
+			if direction.x:
+				set_state(States.WALK)
+			velocity.x = 0
+		
+		States.DAMAGE:
+			velocity = Vector2.ZERO
+		
+		States.WALK:
+			if direction.x:
+				velocity.x = direction.x * SPEED
+			else:
+				set_state(States.IDLE)
+			
+			if direction.x < 0:
+				set_facing(Facing.LEFT)
+			elif direction.x > 0:
+				set_facing(Facing.RIGHT)
+		
+		States.MELEE:
+			velocity = Vector2.ZERO
+		
+		States.AIM:
+			hand.look_at(get_global_mouse_position())
+			velocity = Vector2.ZERO
+			
+		States.DUCT:
+			pass
+			
+		States.SHADOW_MELD:
+			if !PlayerManager.is_in_shadow:
+				set_state(States.IDLE)
+				
+			if !PlayerManager.is_inside:
+				set_state(States.IDLE)
+			
+			if direction:
+				velocity = velocity.lerp(direction * (SPEED * 1.5), delta)
+			else:
+				velocity = velocity.lerp(Vector2.ZERO, delta * 4)
+			
+		States.PREP_SHADOW_SHOT:
+			velocity = Vector2.ZERO
+			trajectory_line.update_trajectory(global_position.direction_to(get_global_mouse_position()), 100.0, 9.8, delta)
+			
+		States.SHADOW_SHOT:
+			if shadow_shot_ground_cast.is_colliding():
+				set_state(States.IDLE)
+				
+			if !PlayerManager.is_in_shadow:
+				set_state(States.IDLE)
+				
+			var ground_ray = grab_cast_down
+			grab_cast_down.force_raycast_update()
+			
+			if is_on_floor() and !just_jumped:
+				set_state(States.IDLE)
+			
+			for ray: RayCast2D in grab_rays:
+				ray.force_raycast_update()
+				var collider = ray.get_collider()
+				
+				if ray.is_colliding():
+					if collider.is_in_group("Grabable") and !just_jumped:
+						velocity = Vector2.ZERO
+						#ground_check()
+						set_state(States.GRAB)
+					else:
+						set_state(States.IDLE)
+						
+			if !ground_ray.is_colliding():
+				just_jumped = false
+			elif ground_ray.is_colliding():
+				just_jumped = true
+			
+		States.GRAB:
+			if !PlayerManager.is_in_shadow:
+				set_state(States.IDLE)
+			
+			if direction:
+				if grab_cast_left.is_colliding() or grab_cast_right.is_colliding():
+					velocity.y = direction.y * SPEED
+				if grab_cast_top.is_colliding():
+					velocity.x = direction.x * SPEED
+			
+			if !direction:
+				velocity = Vector2.ZERO
+			
+			if !grab_cast_top.is_colliding() and !grab_cast_right.is_colliding() and !grab_cast_left.is_colliding():
+				set_state(States.IDLE)
+			
+		States.DEAD:
+			#rotation_degrees = lerp(rotation_degrees, 90.0, delta * 6)
+			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
+
+
 func ground_check() -> void:
 	var ground_ray = grab_cast_down
 	
@@ -302,28 +347,15 @@ func ground_check() -> void:
 		print(global_position)
 	
 
-func set_facing(new_facing) -> void:
-	if new_facing != facing:
-		facing = new_facing
-
-func handle_facing() -> void:
-	match facing:
-		Facing.LEFT:
-			melee_hit_box.position = $HitBoxPosLeft.position
-			hand.position = left_shoulder_pos.position
-			animated_sprite.flip_h = true
-			hand.rotation_degrees = 90
-			
-		Facing.RIGHT:
-			melee_hit_box.position = $HitBoxPosRight.position
-			hand.position = right_shoulder_pos.position
-			animated_sprite.flip_h = false
-			hand.rotation_degrees = 40
-			
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and PlayerManager.can_interact:
 		PlayerManager.interact_target.interaction()
+	
+	if event.is_action_pressed("use_stairs") and state != States.SHADOW_MELD:
+		print("Trying to use stairs!")
+		if PlayerManager.target_stairs:
+			print(PlayerManager.target_stairs)
+			PlayerManager.target_stairs.interaction()
 	
 	if event.is_action_pressed("activate_shadow_meld") and PlayerManager.is_inside:
 		match state:
@@ -363,7 +395,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if state in [States.SHADOW_MELD, States.PREP_SHADOW_SHOT, States.MELEE]:
 			return
 			
-		#hand.rotation_degrees = 40
+		hand.rotation_degrees = idle_hand_rotation
 		PlayerManager.switch_aim(false)
 		
 		set_state(last_state)
@@ -406,4 +438,35 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 					for target in targets_to_hit:
 						PlayerManager.deal_damage(target, 1)
 						target.set_state(target.States.DAMAGE)
-				
+
+func handle_interactions() -> void:
+	if PlayerManager.possible_interactions.is_empty():
+		PlayerManager.can_interact = false
+		return
+	
+	var closest = null
+	var chosen_target = null
+	
+	for node in PlayerManager.possible_interactions:
+		var distance = node.global_position.distance_to(PlayerManager.player.position)
+		if not closest:
+			closest = distance
+			chosen_target = node
+		else:
+			if distance < closest:
+				closest = distance
+				chosen_target = node
+	
+	#print(chosen_target)
+	PlayerManager.interact_target = chosen_target
+	PlayerManager.can_interact = true
+
+func _on_interaction_area_area_entered(area: Area2D) -> void:
+	PlayerManager.possible_interactions.append(area.get_parent())
+	print(PlayerManager.possible_interactions)
+
+func _on_interaction_area_area_exited(area: Area2D) -> void:
+	PlayerManager.possible_interactions = PlayerManager.possible_interactions.filter(
+		func(interaction): return interaction != area.get_parent()
+	)
+	print(PlayerManager.possible_interactions)

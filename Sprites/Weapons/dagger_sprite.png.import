@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bomcrkpuatxx0"
-path="res://.godot/imported/walkcycle_sheet.png-0013d402fa1b2b86822ef510f947e14f.ctex"
+uid="uid://burw0ysufwqna"
+path="res://.godot/imported/dagger_sprite.png-ef6ce9e8a0221f0a292d934ca7f37661.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/purple_sheets/walkcycle_sheet.png"
-dest_files=["res://.godot/imported/walkcycle_sheet.png-0013d402fa1b2b86822ef510f947e14f.ctex"]
+source_file="res://Sprites/Weapons/dagger_sprite.png"
+dest_files=["res://.godot/imported/dagger_sprite.png-ef6ce9e8a0221f0a292d934ca7f37661.ctex"]
 
 [params]
 

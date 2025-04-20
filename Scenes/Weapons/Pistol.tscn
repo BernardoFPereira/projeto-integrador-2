@@ -1,15 +1,55 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmh1hpnuj0sd5"]
+[gd_scene load_steps=12 format=3 uid="uid://cmh1hpnuj0sd5"]
 
 [ext_resource type="Script" uid="uid://qks2gp4m58v5" path="res://Scripts/weapon.gd" id="1_vfd6i"]
-[ext_resource type="Texture2D" uid="uid://cdu12y337278k" path="res://Sprites/suppressed.png" id="2_tdg36"]
+[ext_resource type="Texture2D" uid="uid://bsyf4vjjibo3v" path="res://Sprites/Weapons/gun_sprite.png" id="2_si21x"]
 [ext_resource type="AudioStream" uid="uid://u4mesnmfr58g" path="res://Audio/FX/bang_07.ogg" id="3_si21x"]
+[ext_resource type="Texture2D" uid="uid://cyjb5ub3nakvo" path="res://Sprites/Weapons/gun_selection_highlightt.png" id="3_yyc0p"]
+[ext_resource type="Texture2D" uid="uid://bvglsumouc4td" path="res://Sprites/FX/pickup_hint.png" id="5_jic2m"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t08gl"]
-radius = 5.0
-height = 20.0
+radius = 16.0
+height = 54.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t511x"]
 radius = 700.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6e1qq"]
+atlas = ExtResource("5_jic2m")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r57h8"]
+atlas = ExtResource("5_jic2m")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grp7x"]
+atlas = ExtResource("5_jic2m")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jnn5b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6e1qq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r57h8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grp7x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grp7x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r57h8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6e1qq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
 
 [node name="Pistol" type="RigidBody2D"]
 light_mask = 0
@@ -23,23 +63,29 @@ max_ammo = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3
-position = Vector2(2, -1.39114)
-scale = Vector2(2.37033, 2.45967)
-texture = ExtResource("2_tdg36")
+position = Vector2(6, -3)
+texture = ExtResource("2_si21x")
+
+[node name="Highlight" type="Sprite2D" parent="."]
+texture_filter = 3
+position = Vector2(6, -3)
+texture = ExtResource("3_yyc0p")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(5, -1, 2, 4, -4, 3, -5, -6, 16, -6, 16, -2)
+polygon = PackedVector2Array(2, 6, -5, 6, -5, -11, 17, -11, 17, -6)
 
 [node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 1025
 collision_mask = 2
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
-position = Vector2(6, -2)
+position = Vector2(4, -3)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_t08gl")
 
 [node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(17, -4)
+position = Vector2(18, -8)
 
 [node name="SoundRange" type="Area2D" parent="."]
 collision_layer = 0
@@ -53,6 +99,14 @@ debug_color = Color(0.912507, 9.72241e-05, 0.724732, 0)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_si21x")
+
+[node name="PickupHint" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+position = Vector2(5, -23)
+sprite_frames = SubResource("SpriteFrames_jnn5b")
+autoplay = "default"
+frame = 3
+frame_progress = 0.632689
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]

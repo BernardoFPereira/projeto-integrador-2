@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://da8h3p4lhg1p4"
-path="res://.godot/imported/dagger_sprite2.png-70db2c15bb958abc59a8acb8465692ea.ctex"
+uid="uid://d1787t7d80k4i"
+path="res://.godot/imported/exitDoor_sheet.png-53e3e30ee49e6014c86ae9db0db7499c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/dagger_sprite2.png"
-dest_files=["res://.godot/imported/dagger_sprite2.png-70db2c15bb958abc59a8acb8465692ea.ctex"]
+source_file="res://Sprites/Mr Purple/exitDoor_sheet.png"
+dest_files=["res://.godot/imported/exitDoor_sheet.png-53e3e30ee49e6014c86ae9db0db7499c.ctex"]
 
 [params]
 

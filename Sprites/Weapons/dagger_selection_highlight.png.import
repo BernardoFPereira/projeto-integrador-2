@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://orbuele4x2ix"
-path="res://.godot/imported/idle_sheet.png-04cee4e2e8e08523faab9aa0ec89b01f.ctex"
+uid="uid://b31nh18aqyysd"
+path="res://.godot/imported/dagger_selection_highlight.png-2a70a958a59bfca4b6f2a0e6ee18ca8a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/purple_sheets/idle_sheet.png"
-dest_files=["res://.godot/imported/idle_sheet.png-04cee4e2e8e08523faab9aa0ec89b01f.ctex"]
+source_file="res://Sprites/Weapons/dagger_selection_highlight.png"
+dest_files=["res://.godot/imported/dagger_selection_highlight.png-2a70a958a59bfca4b6f2a0e6ee18ca8a.ctex"]
 
 [params]
 

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgq55m3yix4fx"]
+
+[ext_resource type="Texture2D" uid="uid://d4dy7n2jnkgyc" path="res://Sprites/FX/click_FX.png" id="1_cuvit"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ClickFx" type="Sprite2D" parent="."]
+texture_filter = 3
+position = Vector2(1, -11)
+texture = ExtResource("1_cuvit")

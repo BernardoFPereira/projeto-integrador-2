@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpmicp57ov6oq"
-path="res://.godot/imported/enterDoor_sheet.png-e1548c3aca9752cc6cede7c3776032a5.ctex"
+uid="uid://d4dy7n2jnkgyc"
+path="res://.godot/imported/click_FX.png-14119c4fd75632e9a59bbe91a82a4258.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/purple_sheets/enterDoor_sheet.png"
-dest_files=["res://.godot/imported/enterDoor_sheet.png-e1548c3aca9752cc6cede7c3776032a5.ctex"]
+source_file="res://Sprites/FX/click_FX.png"
+dest_files=["res://.godot/imported/click_FX.png-14119c4fd75632e9a59bbe91a82a4258.ctex"]
 
 [params]
 

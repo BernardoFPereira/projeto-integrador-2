@@ -2,7 +2,7 @@ extends Node2D
 class_name Light
 
 @onready var light_pos_marker: Marker2D = $PointLight2D/LightPositionMarker
-@onready var light_detect_area: Area2D = $PointLight2D/LightDetectArea
+#@onready var light_detect_area: Area2D = $PointLight2D/LightDetectArea
 @onready var point_light_2d: Light = $"."
 
 @export var is_on: bool = true
@@ -21,6 +21,7 @@ func _ready() -> void:
 
 func switch_power() -> void:
 	for light in lights:
+		var light_detect_area = light.get_child(0)
 		is_on = !is_on
 		light.enabled = !light.enabled
 		light_detect_area.monitoring = !light_detect_area.monitoring

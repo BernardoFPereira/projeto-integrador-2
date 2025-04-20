@@ -1,14 +1,15 @@
-[gd_scene load_steps=43 format=3 uid="uid://bdktoaq21c5xd"]
+[gd_scene load_steps=50 format=3 uid="uid://bdktoaq21c5xd"]
 
 [ext_resource type="Script" uid="uid://dy1cfudnsajyy" path="res://Scripts/player.gd" id="1_uygo4"]
 [ext_resource type="Script" uid="uid://cjpns3m3ir6wp" path="res://Scripts/trajectory.gd" id="2_l02lo"]
 [ext_resource type="Texture2D" uid="uid://4yhea2rd6ef4" path="res://Sprites/tall_purple_shadow.png" id="3_0pnld"]
-[ext_resource type="Texture2D" uid="uid://oa147johbjsm" path="res://Sprites/purple_sheets/purple_hitanims.png" id="3_f1ek2"]
-[ext_resource type="Texture2D" uid="uid://c481j8kh3h8fw" path="res://Sprites/purple_sheets/aim_sheet.png" id="3_tx1dd"]
-[ext_resource type="Texture2D" uid="uid://orbuele4x2ix" path="res://Sprites/purple_sheets/idle_sheet.png" id="4_f1ek2"]
-[ext_resource type="Texture2D" uid="uid://d035rdua5o7pt" path="res://Sprites/purple_sheets/purple_sheet.png" id="6_gymyn"]
-[ext_resource type="Texture2D" uid="uid://cpbhievbp3elr" path="res://Sprites/purple_sheets/shadowmeld_sheet.png" id="7_pu2lt"]
-[ext_resource type="Texture2D" uid="uid://bomcrkpuatxx0" path="res://Sprites/purple_sheets/walkcycle_sheet.png" id="9_ukyrk"]
+[ext_resource type="Texture2D" uid="uid://oa147johbjsm" path="res://Sprites/Mr Purple/purple_hitanims.png" id="3_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://c481j8kh3h8fw" path="res://Sprites/Mr Purple/aim_sheet.png" id="3_tx1dd"]
+[ext_resource type="Texture2D" uid="uid://orbuele4x2ix" path="res://Sprites/Mr Purple/idle_sheet.png" id="4_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://cfbuoxchd2qdw" path="res://Sprites/Mr Purple/purple_dead.png" id="4_tx1dd"]
+[ext_resource type="Texture2D" uid="uid://d035rdua5o7pt" path="res://Sprites/Mr Purple/purple_sheet.png" id="6_gymyn"]
+[ext_resource type="Texture2D" uid="uid://cpbhievbp3elr" path="res://Sprites/Mr Purple/shadowmeld_sheet.png" id="7_pu2lt"]
+[ext_resource type="Texture2D" uid="uid://bomcrkpuatxx0" path="res://Sprites/Mr Purple/walkcycle_sheet.png" id="9_ukyrk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7dp3o"]
 atlas = ExtResource("3_tx1dd")
@@ -28,6 +29,10 @@ region = Rect2(512, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nv4vc"]
 atlas = ExtResource("3_f1ek2")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqcod"]
+atlas = ExtResource("4_tx1dd")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tx1dd"]
@@ -139,7 +144,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"aim",
-"speed": 5.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -157,6 +162,14 @@ animations = [{
 "loop": false,
 "name": &"damage",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqcod")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -256,6 +269,9 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tx1dd"]
+size = Vector2(61, 75)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kruvw"]
 radius = 14.0
 height = 112.0
@@ -267,7 +283,23 @@ radius = 16.1245
 radius = 3.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h4iuc"]
-size = Vector2(28, 96)
+size = Vector2(28, 69)
+
+[sub_resource type="Animation" id="Animation_gymyn"]
+resource_name = "aim"
+
+[sub_resource type="Animation" id="Animation_f1ek2"]
+resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_tx1dd"]
+resource_name = "walk"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pu2lt"]
+_data = {
+&"aim": SubResource("Animation_gymyn"),
+&"idle": SubResource("Animation_f1ek2"),
+&"walk": SubResource("Animation_tx1dd")
+}
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
@@ -277,6 +309,7 @@ script = ExtResource("1_uygo4")
 
 [node name="Hand" type="Node2D" parent="."]
 position = Vector2(5, -16)
+rotation = 1.25664
 
 [node name="HandSprite" type="Sprite2D" parent="Hand"]
 visible = false
@@ -295,6 +328,15 @@ sprite_frames = SubResource("SpriteFrames_h2too")
 animation = &"idle"
 autoplay = "idle"
 
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1024
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(-1.5, 23.5)
+shape = SubResource("RectangleShape2D_tx1dd")
+debug_color = Color(0.627451, 0.529412, 0, 0.0784314)
+
 [node name="LightRay" type="RayCast2D" parent="."]
 target_position = Vector2(0, 0)
 collision_mask = 16
@@ -305,7 +347,7 @@ shape = SubResource("CapsuleShape2D_kruvw")
 
 [node name="ShadowCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_aa6qj")
-debug_color = Color(0.622686, 0.532887, 0.03179, 0.42)
+debug_color = Color(0.566883, 0.128881, 0.508625, 0.42)
 
 [node name="HandPoly" type="Polygon2D" parent="."]
 visible = false
@@ -331,7 +373,8 @@ end_cap_mode = 2
 script = ExtResource("2_l02lo")
 
 [node name="GrabCastTop" type="RayCast2D" parent="."]
-target_position = Vector2(0, -50)
+position = Vector2(0, -16)
+target_position = Vector2(0, -34)
 collision_mask = 192
 
 [node name="GrabCastRight" type="RayCast2D" parent="."]
@@ -372,5 +415,15 @@ position = Vector2(5, -16)
 [node name="LeftShoulderPos" type="Marker2D" parent="."]
 position = Vector2(-5, -16)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_pu2lt")
+}
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+[connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
+[connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_area_exited"]

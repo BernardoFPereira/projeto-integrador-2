@@ -1,7 +1,9 @@
 extends Node2D
 
+var possible_interactions: Array[Node2D]
 var interact_target: Node2D
 var can_interact := false
+var target_stairs: Node2D
 
 var light_target: Node2D
 var current_duct_pos: Vector2

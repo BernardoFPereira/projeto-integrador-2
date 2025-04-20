@@ -36,8 +36,6 @@ func _process(delta: float) -> void:
 
 func _on_button_pressed() -> void:
 	PlayerManager.restart()
-	#PlayerManager.is_player_dead = false
-	#PlayerManager.briefcase_found = false
 	get_tree().change_scene_to_file("res://test_level.tscn")
 
 func _on_inside_area_body_entered(body: Node2D) -> void:

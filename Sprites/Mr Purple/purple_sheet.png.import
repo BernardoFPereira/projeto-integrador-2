@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://burw0ysufwqna"
-path="res://.godot/imported/dagger_sprite.png-a55bfde5448a9d5f068fb42b84beb2fc.ctex"
+uid="uid://d035rdua5o7pt"
+path="res://.godot/imported/purple_sheet.png-bad75fd4a7389593616b965987c12951.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/dagger_sprite.png"
-dest_files=["res://.godot/imported/dagger_sprite.png-a55bfde5448a9d5f068fb42b84beb2fc.ctex"]
+source_file="res://Sprites/Mr Purple/purple_sheet.png"
+dest_files=["res://.godot/imported/purple_sheet.png-bad75fd4a7389593616b965987c12951.ctex"]
 
 [params]
 

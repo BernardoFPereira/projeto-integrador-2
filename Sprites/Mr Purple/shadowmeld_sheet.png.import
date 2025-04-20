@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1787t7d80k4i"
-path="res://.godot/imported/exitDoor_sheet.png-e9779a352b3eebd22ee29d49c2415f2a.ctex"
+uid="uid://cpbhievbp3elr"
+path="res://.godot/imported/shadowmeld_sheet.png-f17908c0dd6b003b196259fb6c76b2a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/purple_sheets/exitDoor_sheet.png"
-dest_files=["res://.godot/imported/exitDoor_sheet.png-e9779a352b3eebd22ee29d49c2415f2a.ctex"]
+source_file="res://Sprites/Mr Purple/shadowmeld_sheet.png"
+dest_files=["res://.godot/imported/shadowmeld_sheet.png-f17908c0dd6b003b196259fb6c76b2a1.ctex"]
 
 [params]
 
