@@ -32,11 +32,11 @@ func _on_interact_area_body_entered(body: Node2D) -> void:
 
 func _on_interact_area_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		PlayerManager.target_stairs = null
+		#PlayerManager.target_stairs = null
 		#if PlayerManager.interact_target == self:
 			#PlayerManager.can_interact = false
 			#PlayerManager.interact_target = null
-		#object_to_move = null
+		object_to_move = null
 	
 	#if body.is_in_group("Enemy"):
 		#if body.interaction_target == self:
