@@ -100,6 +100,7 @@ debug_color = Color(0.912507, 9.72241e-05, 0.724732, 0)
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="PickupHint" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
 texture_filter = 3
 position = Vector2(6, -20)
 sprite_frames = SubResource("SpriteFrames_uk2t0")

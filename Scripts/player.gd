@@ -24,6 +24,7 @@ const JUMP_VELOCITY = -400.0
 @onready var grab_cast_left: RayCast2D = $GrabCastLeft
 @onready var grab_cast_down: RayCast2D = $GrabCastDown
 @onready var shadow_shot_ground_cast: RayCast2D = $ShadowShotGroundCast
+@onready var melee_cast: RayCast2D = $MeleeCast
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape
 @onready var shadow_collision = $ShadowCollisionShape
@@ -45,6 +46,7 @@ enum States {
 	AIM,
 	MELEE,
 	WALK,
+	FALL,
 	DUCT,
 	SHADOW_MELD,
 	PREP_SHADOW_SHOT,
@@ -96,7 +98,7 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	# Add the gravity based on state.
 	if not is_on_floor():
-		if state in [States.IDLE, States.WALK, States.SHADOW_SHOT, States.DEAD]:
+		if state in [States.IDLE, States.WALK, States.SHADOW_SHOT, States.DEAD, States.FALL]:
 			velocity += get_gravity() * (delta * 2)
 		if state in [States.DUCT]:
 			velocity = velocity.lerp(Vector2.ZERO, delta)
@@ -155,6 +157,7 @@ func set_state(new_state: States):
 		grab_cast_down.enabled = false
 	
 	if new_state in [States.IDLE, States.WALK]:
+		ceiling_check()
 		hand_sprite.visible = false
 	
 	match new_state:
@@ -214,6 +217,9 @@ func set_state(new_state: States):
 		States.AIM:
 			hand_sprite.visible = true
 			animated_sprite.play("aim")
+		
+		States.FALL:
+			animated_sprite.play("fall")
 		#_:
 			#grab_cast_top.target_position = grab_cast_top.target_position + Vector2(0, +21)
 			#collision_shape.disabled = false
@@ -228,7 +234,7 @@ func set_state(new_state: States):
 func handle_states(delta) -> void:
 	if PlayerManager.game_complete:
 		set_state(States.IDLE)
-		velocity = Vector2.ZERO
+		velocity.x = 0
 		return
 	
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -236,7 +242,18 @@ func handle_states(delta) -> void:
 		States.IDLE:
 			if direction.x:
 				set_state(States.WALK)
+			if !is_on_floor():
+				set_state(States.FALL)
 			velocity.x = 0
+		
+		States.FALL:
+			if is_on_floor():
+				print("Landed!")
+				set_state(States.IDLE)
+			
+			if grab_cast_down.is_colliding():
+				ground_check()
+			pass
 		
 		States.DAMAGE:
 			velocity = Vector2.ZERO
@@ -253,7 +270,7 @@ func handle_states(delta) -> void:
 				set_facing(Facing.RIGHT)
 		
 		States.MELEE:
-			velocity = Vector2.ZERO
+			velocity.x = 0
 		
 		States.AIM:
 			hand.look_at(get_global_mouse_position())
@@ -328,6 +345,23 @@ func handle_states(delta) -> void:
 			#rotation_degrees = lerp(rotation_degrees, 90.0, delta * 6)
 			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
 
+func ceiling_check() -> void:
+	var top_ray = grab_cast_top
+	
+	top_ray.force_raycast_update()
+	if top_ray.is_colliding():
+		var collision_point = top_ray.get_collision_point()
+		
+		print("Global Pos: ", global_position)
+		print("Collision Pos: ", collision_point)
+		
+		var diff = collision_point.y - global_position.y
+		if diff < -25:
+			diff = 0
+			
+		print("Pos Difference: ", diff)
+		global_position.y -= diff
+		print("Global Pos: ", global_position)
 
 func ground_check() -> void:
 	var ground_ray = grab_cast_down
@@ -337,15 +371,16 @@ func ground_check() -> void:
 	if ground_ray.is_colliding():
 		var collision_point = ground_ray.get_collision_point()
 		
-		print(global_position)
-		print(collision_point)
-		# TODO: Fix this!
-		var diff = collision_point.y - global_position.y
+		#print("Global Pos: ", global_position)
+		#print("Collision Pos: ", collision_point)
 		
-		print(diff)
+		var diff = collision_point.y - global_position.y
+		if diff > 45:
+			diff = 0
+			
+		#print("Pos Difference: ", diff)
 		global_position.y -= diff
-		print(global_position)
-	
+		#print("Global Pos: ", global_position)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and PlayerManager.can_interact:
@@ -400,7 +435,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		set_state(last_state)
 	
-	if event.is_action_pressed("shoot") and state != States.PREP_SHADOW_SHOT:# and PlayerManager.is_aiming:
+	if event.is_action_pressed("shoot") and state not in [States.PREP_SHADOW_SHOT, States.SHADOW_SHOT]:# and PlayerManager.is_aiming:
 		if carried_weapon:
 			if PlayerManager.is_aiming:
 				match carried_weapon.weapon_type:
@@ -430,6 +465,9 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 	match animated_sprite.animation:
 		"melee":
 			if animated_sprite.frame == 2:
+				#melee_cast.force_raycast_update()
+				if melee_cast.is_colliding():
+					return
 				var targets_to_hit = melee_hit_box.get_overlapping_bodies()
 				
 				if carried_weapon:

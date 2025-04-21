@@ -271,6 +271,7 @@ direction = 1
 [node name="Interactables" type="Node" parent="."]
 
 [node name="Desk" type="Polygon2D" parent="Interactables"]
+visible = false
 position = Vector2(885, -779)
 color = Color(0.548963, 0.548963, 0.548963, 1)
 polygon = PackedVector2Array(-55, 75, -47, 75, -47, 51, 10.8062, 51, 73, 51, 73, 75, 81, 75, 81, 11, -55, 11)
@@ -410,7 +411,7 @@ position = Vector2(666, -430)
 position = Vector2(951, -439)
 
 [node name="Player" parent="." instance=ExtResource("7_u6a17")]
-position = Vector2(709, -791)
+position = Vector2(-1058, 496)
 shadow_jump_strength = 1000.0
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
@@ -617,7 +618,7 @@ shape = SubResource("RectangleShape2D_e8hb2")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_7fqlb")
-volume_db = -80.0
+volume_db = -21.76
 pitch_scale = 0.85
 autoplay = true
 mix_target = 1
@@ -625,10 +626,10 @@ max_polyphony = 2
 playback_type = 1
 
 [node name="Knife" parent="." instance=ExtResource("4_30c28")]
-position = Vector2(-1253, 548)
+position = Vector2(-2055, 542)
 
 [node name="Pistol" parent="." instance=ExtResource("5_kw240")]
-position = Vector2(-1170, 546)
+position = Vector2(-1972, 540)
 max_ammo = 200
 
 [connection signal="body_exited" from="InsideArea" to="." method="_on_inside_area_body_exited"]

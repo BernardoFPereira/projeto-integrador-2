@@ -1,10 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://cmh1hpnuj0sd5"]
+[gd_scene load_steps=8 format=3 uid="uid://cmh1hpnuj0sd5"]
 
 [ext_resource type="Script" uid="uid://qks2gp4m58v5" path="res://Scripts/weapon.gd" id="1_vfd6i"]
 [ext_resource type="Texture2D" uid="uid://bsyf4vjjibo3v" path="res://Sprites/Weapons/gun_sprite.png" id="2_si21x"]
 [ext_resource type="AudioStream" uid="uid://u4mesnmfr58g" path="res://Audio/FX/bang_07.ogg" id="3_si21x"]
 [ext_resource type="Texture2D" uid="uid://cyjb5ub3nakvo" path="res://Sprites/Weapons/gun_selection_highlightt.png" id="3_yyc0p"]
-[ext_resource type="Texture2D" uid="uid://bvglsumouc4td" path="res://Sprites/FX/pickup_hint.png" id="5_jic2m"]
+[ext_resource type="SpriteFrames" uid="uid://bntauhofrtv7p" path="res://Sprites/SpriteFrames/AnimatedArrow.tres" id="5_jic2m"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t08gl"]
 radius = 16.0
@@ -12,44 +12,6 @@ height = 54.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t511x"]
 radius = 700.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6e1qq"]
-atlas = ExtResource("5_jic2m")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r57h8"]
-atlas = ExtResource("5_jic2m")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_grp7x"]
-atlas = ExtResource("5_jic2m")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_jnn5b"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6e1qq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r57h8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_grp7x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_grp7x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r57h8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6e1qq")
-}],
-"loop": true,
-"name": &"default",
-"speed": 6.0
-}]
 
 [node name="Pistol" type="RigidBody2D"]
 light_mask = 0
@@ -101,9 +63,10 @@ debug_color = Color(0.912507, 9.72241e-05, 0.724732, 0)
 stream = ExtResource("3_si21x")
 
 [node name="PickupHint" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
 texture_filter = 3
 position = Vector2(5, -23)
-sprite_frames = SubResource("SpriteFrames_jnn5b")
+sprite_frames = ExtResource("5_jic2m")
 autoplay = "default"
 frame = 3
 frame_progress = 0.632689
