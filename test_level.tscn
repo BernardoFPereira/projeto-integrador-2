@@ -27,7 +27,6 @@
 [ext_resource type="Shader" uid="uid://ljw3o5pbf52q" path="res://Shaders/noise.gdshader" id="15_2hfll"]
 [ext_resource type="Texture2D" uid="uid://d0x5jgxv5yoe2" path="res://Sprites/Misc/Móveis/mesa 02 (cadeira separada).png" id="15_k4ree"]
 [ext_resource type="Texture2D" uid="uid://c6rlcgbnwpa48" path="res://Sprites/Misc/Móveis/mesa de escritório 01.png" id="16_i3wyx"]
-[ext_resource type="AudioStream" uid="uid://d3yuh0xl7eouw" path="res://Audio/CoffeeBlack.ogg" id="17_7fqlb"]
 [ext_resource type="Texture2D" uid="uid://ccw33p382yta6" path="res://Sprites/Misc/Móveis/poltrona 01.png" id="17_ejx2w"]
 [ext_resource type="Texture2D" uid="uid://b8ycnbobg8jdk" path="res://Sprites/Misc/Móveis/poltrona 02.png" id="18_cdyxi"]
 [ext_resource type="Texture2D" uid="uid://gtq7ylllfwff" path="res://Sprites/Misc/Banheiro/pia 01.png" id="19_61x5q"]
@@ -36,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://dh1m2n5gxeoh0" path="res://Sprites/Misc/Banheiro/lixeira 05 (banheiro).png" id="22_ssxi7"]
 [ext_resource type="Texture2D" uid="uid://bvfp65e7wvrd5" path="res://Sprites/Misc/Banheiro/desentupidor.png" id="23_nmfct"]
 [ext_resource type="PackedScene" uid="uid://ccjfvb5421qpk" path="res://Scenes/enemy_ranged.tscn" id="29_uva3u"]
+[ext_resource type="AudioStream" uid="uid://bybpwfuxkyajc" path="res://Audio/Night Soaked Smoke.mp3" id="36_uva3u"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_5n0ar"]
 b = Vector2(0, 250)
@@ -61,7 +61,7 @@ shader_parameter/shake_color_rate = 0.003
 size = Vector2(213, 293)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e8hb2"]
-size = Vector2(367, 1939)
+size = Vector2(367, 2111)
 
 [node name="Node" type="Node"]
 script = ExtResource("1_58smv")
@@ -613,11 +613,11 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapBoundary2"]
-position = Vector2(173.5, -844.5)
+position = Vector2(173.5, -758.5)
 shape = SubResource("RectangleShape2D_e8hb2")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("17_7fqlb")
+stream = ExtResource("36_uva3u")
 volume_db = -21.76
 pitch_scale = 0.85
 autoplay = true

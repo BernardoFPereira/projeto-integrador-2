@@ -58,6 +58,9 @@ region_rect = Rect2(0, 0, 131, 128)
 [node name="HoldSpot" type="Marker2D" parent="Hand"]
 position = Vector2(35, 1)
 
+[node name="Polygon2D" type="Polygon2D" parent="Hand/HoldSpot"]
+polygon = PackedVector2Array(-1.16701, -1.57318, -0.833977, 0.637954, 1.06814, 1.25598, 1.68617, -0.646133, 0.735109, -0.955148)
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 3
 sprite_frames = ExtResource("3_vgqql")
@@ -124,7 +127,6 @@ collision_mask = 192
 [node name="GrabCastDown" type="RayCast2D" parent="."]
 target_position = Vector2(0, 70)
 collision_mask = 145
-collide_with_areas = true
 
 [node name="ShadowShotGroundCast" type="RayCast2D" parent="."]
 target_position = Vector2(0, 26)

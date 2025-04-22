@@ -98,17 +98,36 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	# Add the gravity based on state.
 	if not is_on_floor():
-		if state in [States.IDLE, States.WALK, States.SHADOW_SHOT, States.DEAD, States.FALL]:
+		if state in [States.WALK, States.SHADOW_SHOT, States.DEAD, States.FALL, States.DAMAGE]:
 			velocity += get_gravity() * (delta * 2)
 		if state in [States.DUCT]:
 			velocity = velocity.lerp(Vector2.ZERO, delta)
 	
 	
-	#handle_facing()
+	handle_facing()
 	handle_states(delta)
 	handle_interactions()
 	
 	move_and_slide()
+
+func handle_facing() -> void:
+	match facing:
+		Facing.RIGHT:
+			if carried_weapon:
+				carried_weapon.flip_weapon()
+			
+			if grab_cast_left.is_colliding():
+				melee_hit_box.monitoring = false
+			else:
+				melee_hit_box.monitoring = true
+		Facing.LEFT:
+			if carried_weapon:
+				carried_weapon.flip_weapon()
+				
+			if grab_cast_left.is_colliding():
+				melee_hit_box.monitoring = false
+			else:
+				melee_hit_box.monitoring = true
 
 func set_facing(new_facing) -> void:
 	if new_facing != facing:
@@ -122,13 +141,13 @@ func set_facing(new_facing) -> void:
 			#hold_spot.scale = -Vector2.ONE
 			animated_sprite.flip_h = true
 			
-			if carried_weapon:
-				carried_weapon.flip_weapon()
-			
-			if grab_cast_left.is_colliding():
-				melee_hit_box.monitoring = false
-			else:
-				melee_hit_box.monitoring = true
+			#if carried_weapon:
+				#carried_weapon.flip_weapon()
+			#
+			#if grab_cast_left.is_colliding():
+				#melee_hit_box.monitoring = false
+			#else:
+				#melee_hit_box.monitoring = true
 			
 		Facing.RIGHT:
 			idle_hand_rotation = 72
@@ -138,13 +157,13 @@ func set_facing(new_facing) -> void:
 			
 			animated_sprite.flip_h = false
 			
-			if carried_weapon:
-				carried_weapon.flip_weapon()
-				
-			if grab_cast_left.is_colliding():
-				melee_hit_box.monitoring = false
-			else:
-				melee_hit_box.monitoring = true
+			#if carried_weapon:
+				#carried_weapon.flip_weapon()
+				#
+			#if grab_cast_left.is_colliding():
+				#melee_hit_box.monitoring = false
+			#else:
+				#melee_hit_box.monitoring = true
 				
 
 func set_state(new_state: States):
@@ -152,12 +171,15 @@ func set_state(new_state: States):
 		set_collision_mask_value(5, 1)
 	
 	if state in [States.SHADOW_SHOT, States.SHADOW_MELD]:
-		grab_cast_down.enabled = true
+		#grab_cast_down.enabled = true
 		ground_check()
-		grab_cast_down.enabled = false
+		#grab_cast_down.enabled = false
 	
+	if state in [States.SHADOW_SHOT]:
+		if new_state in [States.IDLE]:
+			ceiling_check()
+			
 	if new_state in [States.IDLE, States.WALK]:
-		ceiling_check()
 		hand_sprite.visible = false
 	
 	match new_state:
@@ -292,34 +314,33 @@ func handle_states(delta) -> void:
 				velocity = velocity.lerp(Vector2.ZERO, delta * 4)
 			
 		States.PREP_SHADOW_SHOT:
-			velocity = Vector2.ZERO
+			velocity.x = 0
 			trajectory_line.update_trajectory(global_position.direction_to(get_global_mouse_position()), 100.0, 9.8, delta)
 			
 		States.SHADOW_SHOT:
-			if shadow_shot_ground_cast.is_colliding():
-				set_state(States.IDLE)
-				
 			if !PlayerManager.is_in_shadow:
 				set_state(States.IDLE)
 				
-			var ground_ray = grab_cast_down
-			grab_cast_down.force_raycast_update()
+			for ray: RayCast2D in grab_rays:
+				ray.force_raycast_update()
+				
+				if ray.is_colliding():
+					var collider = ray.get_collider()
+					if collider.is_in_group("Grabable") and !just_jumped:
+						velocity = Vector2.ZERO
+						set_state(States.GRAB)
+					else:
+						set_state(States.IDLE)
 			
 			if is_on_floor() and !just_jumped:
 				set_state(States.IDLE)
 			
-			for ray: RayCast2D in grab_rays:
-				ray.force_raycast_update()
-				var collider = ray.get_collider()
+			if shadow_shot_ground_cast.is_colliding():
+				set_state(States.IDLE)
 				
-				if ray.is_colliding():
-					if collider.is_in_group("Grabable") and !just_jumped:
-						velocity = Vector2.ZERO
-						#ground_check()
-						set_state(States.GRAB)
-					else:
-						set_state(States.IDLE)
-						
+			var ground_ray = grab_cast_down
+			grab_cast_down.force_raycast_update()
+				
 			if !ground_ray.is_colliding():
 				just_jumped = false
 			elif ground_ray.is_colliding():
@@ -351,7 +372,6 @@ func ceiling_check() -> void:
 	top_ray.force_raycast_update()
 	if top_ray.is_colliding():
 		var collision_point = top_ray.get_collision_point()
-		
 		print("Global Pos: ", global_position)
 		print("Collision Pos: ", collision_point)
 		
@@ -370,7 +390,6 @@ func ground_check() -> void:
 	
 	if ground_ray.is_colliding():
 		var collision_point = ground_ray.get_collision_point()
-		
 		#print("Global Pos: ", global_position)
 		#print("Collision Pos: ", collision_point)
 		
@@ -465,7 +484,7 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 	match animated_sprite.animation:
 		"melee":
 			if animated_sprite.frame == 2:
-				#melee_cast.force_raycast_update()
+				melee_cast.force_raycast_update()
 				if melee_cast.is_colliding():
 					return
 				var targets_to_hit = melee_hit_box.get_overlapping_bodies()
