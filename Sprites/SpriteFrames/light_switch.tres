@@ -1,0 +1,23 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://caccl5fwwqc0o"]
+
+[ext_resource type="Texture2D" uid="uid://by2v8ia8taqo4" path="res://Sprites/Misc/Iluminação/interruptor 01 (off).png" id="1_q7o6a"]
+[ext_resource type="Texture2D" uid="uid://3q504fdvbujl" path="res://Sprites/Misc/Iluminação/interruptor 01 (on).png" id="2_0jhb8"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_q7o6a")
+}],
+"loop": false,
+"name": &"off",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0jhb8")
+}],
+"loop": false,
+"name": &"on",
+"speed": 0.0
+}]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvnbwjdh3h32x"]
+[gd_scene load_steps=6 format=3 uid="uid://dvnbwjdh3h32x"]
 
 [ext_resource type="Script" uid="uid://2e4jyj74mqpw" path="res://Scripts/spotlight.gd" id="1_dlmpy"]
+[ext_resource type="Texture2D" uid="uid://bos3lmbp61ijh" path="res://Sprites/Misc/Iluminação/luz 02.png" id="2_4soar"]
 
 [sub_resource type="Gradient" id="Gradient_tf1jj"]
 offsets = PackedFloat32Array(0, 0.793103)
@@ -41,5 +42,12 @@ occluder = SubResource("OccluderPolygon2D_xps18")
 [node name="LightPositionMarker" type="Marker2D" parent="PointLight2D"]
 position = Vector2(0, 2)
 
+[node name="Luz02" type="Sprite2D" parent="."]
+texture_filter = 3
+position = Vector2(-1, 1)
+texture = ExtResource("2_4soar")
+
+[connection signal="area_entered" from="PointLight2D/LightDetectArea" to="." method="_on_light_detect_area_area_entered"]
+[connection signal="area_exited" from="PointLight2D/LightDetectArea" to="." method="_on_light_detect_area_area_exited"]
 [connection signal="body_entered" from="PointLight2D/LightDetectArea" to="." method="_on_light_detect_area_body_entered"]
 [connection signal="body_exited" from="PointLight2D/LightDetectArea" to="." method="_on_light_detect_area_body_exited"]

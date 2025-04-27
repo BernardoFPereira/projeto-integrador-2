@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfcysmdx4fwtk"]
+[gd_scene load_steps=4 format=3 uid="uid://cfcysmdx4fwtk"]
 
 [ext_resource type="Script" uid="uid://dihrnr8yofjjl" path="res://Scripts/light_switch.gd" id="1_bl2h7"]
+[ext_resource type="SpriteFrames" uid="uid://caccl5fwwqc0o" path="res://Sprites/SpriteFrames/light_switch.tres" id="2_ysq76"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_npp6h"]
 size = Vector2(24, 24)
@@ -9,10 +10,12 @@ size = Vector2(24, 24)
 script = ExtResource("1_bl2h7")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 color = Color(0.556953, 0.556953, 0.556953, 1)
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [node name="Polygon2D2" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(-3, 5, -3, -5, 3, -5, 3, 5)
 
 [node name="InteractArea" type="Area2D" parent="."]
@@ -24,10 +27,15 @@ shape = SubResource("RectangleShape2D_npp6h")
 
 [node name="Line2D" type="Line2D" parent="."]
 visible = false
-points = PackedVector2Array(-9, -9, 9, -9, 9, 9, -9, 9)
+points = PackedVector2Array(-10, -12, 10, -12, 10, 12, -10, 12)
 closed = true
 width = 2.845
 default_color = Color(1, 0.803922, 0, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+sprite_frames = ExtResource("2_ysq76")
+animation = &"on"
 
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

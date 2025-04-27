@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://brxjw7a8jp5n3"]
+[gd_scene load_steps=19 format=3 uid="uid://brxjw7a8jp5n3"]
 
 [ext_resource type="Script" uid="uid://harolibuy2rd" path="res://Scripts/door.gd" id="1_x3hqv"]
 [ext_resource type="Texture2D" uid="uid://cic2fcmp6wu34" path="res://Sprites/simple_door.png" id="2_agx5f"]
@@ -103,11 +103,27 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [PackedVector2Array(-5, 65, -5, -65, 4, -65, 4, 65)]
+"values": [PackedVector2Array(-5, 64, -5, -64, 5, -64, 5, 64)]
 }
 
 [sub_resource type="Animation" id="Animation_fahql"]
 resource_name = "open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:points")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-5, 64, -5, -64, 53, -64, 53, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_ab4ky"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -118,11 +134,12 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [PackedVector2Array(-5, 65, -5, -65, 53, -65, 53, 65)]
+"values": [PackedVector2Array(-5, 65, -5, -65, 22.0336, -65, 22.0336, 65)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ab4ky"]
 _data = {
+&"RESET": SubResource("Animation_ab4ky"),
 &"closed": SubResource("Animation_p0e35"),
 &"open": SubResource("Animation_fahql")
 }
@@ -136,8 +153,7 @@ script = ExtResource("1_x3hqv")
 texture_filter = 3
 position = Vector2(19, 0)
 sprite_frames = SubResource("SpriteFrames_73bqh")
-animation = &"closing"
-autoplay = "closed"
+animation = &"closed"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_6tjcx")
@@ -156,11 +172,10 @@ occluder = SubResource("OccluderPolygon2D_65ee6")
 
 [node name="InteractHighlight" type="Line2D" parent="."]
 visible = false
-points = PackedVector2Array(-5, 65, -5, -65, 53, -65, 53, 65)
+points = PackedVector2Array(-5, 65, -5, -65, 22.0336, -65, 22.0336, 65)
 closed = true
 width = 3.0
 default_color = Color(1, 0.768627, 0, 1)
-joint_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="InteractHighlight"]
 libraries = {

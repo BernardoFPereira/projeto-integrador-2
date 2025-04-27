@@ -1,9 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://7j67kmjgw7gm"]
+[gd_scene load_steps=14 format=3 uid="uid://7j67kmjgw7gm"]
 
 [ext_resource type="Script" uid="uid://qks2gp4m58v5" path="res://Scripts/weapon.gd" id="1_be8uf"]
 [ext_resource type="Texture2D" uid="uid://burw0ysufwqna" path="res://Sprites/Weapons/dagger_sprite.png" id="2_5187k"]
+[ext_resource type="Texture2D" uid="uid://cs5xsm36qstfy" path="res://Sprites/Weapons/dagger_sprite_held.png" id="2_grp7x"]
 [ext_resource type="Texture2D" uid="uid://b31nh18aqyysd" path="res://Sprites/Weapons/dagger_selection_highlight.png" id="3_v21eu"]
 [ext_resource type="Texture2D" uid="uid://bvglsumouc4td" path="res://Sprites/FX/pickup_hint.png" id="4_0lu2r"]
+[ext_resource type="AudioStream" uid="uid://u4mesnmfr58g" path="res://Audio/FX/bang_07.ogg" id="4_r57h8"]
+[ext_resource type="AudioStream" uid="uid://dk8d6kg78f3ib" path="res://Audio/FX/drawKnife1.ogg" id="5_r57h8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qw0wf"]
 radius = 11.4017
@@ -58,6 +61,8 @@ freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_be8uf")
+default_sprite = ExtResource("2_5187k")
+held_sprite = ExtResource("2_grp7x")
 weapon_type = "melee"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -97,7 +102,11 @@ debug_color = Color(0.912507, 9.72241e-05, 0.724732, 0)
 
 [node name="InteractionTimer" type="Timer" parent="."]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="SoundAttack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_r57h8")
+
+[node name="SoundPickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_r57h8")
 
 [node name="PickupHint" type="AnimatedSprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)

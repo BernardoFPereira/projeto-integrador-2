@@ -23,9 +23,9 @@ Audio="*res://audio.gd"
 
 [display]
 
-window/stretch/mode="viewport"
-window/stretch/aspect="keep_height"
-window/stretch/scale_mode="integer"
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="res://Sprites/UI/reticulo.png"
 mouse_cursor/custom_image_hotspot=Vector2(16, 16)
 
@@ -33,6 +33,9 @@ mouse_cursor/custom_image_hotspot=Vector2(16, 16)
 
 Grabable=""
 Player=""
+Indoors=""
+BackWall=""
+Stair=""
 
 [input]
 
@@ -94,5 +97,6 @@ common/physics_ticks_per_second=120
 [rendering]
 
 textures/canvas_textures/default_texture_filter=2
+viewport/hdr_2d=true
 environment/defaults/default_clear_color=Color(0.0953854, 0.123782, 0.137706, 1)
 2d/snap/snap_2d_transforms_to_pixel=true

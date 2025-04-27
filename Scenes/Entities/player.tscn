@@ -1,9 +1,71 @@
-[gd_scene load_steps=14 format=3 uid="uid://bdktoaq21c5xd"]
+[gd_scene load_steps=13 format=3 uid="uid://bdktoaq21c5xd"]
 
 [ext_resource type="Script" uid="uid://dy1cfudnsajyy" path="res://Scripts/player.gd" id="1_uygo4"]
 [ext_resource type="Script" uid="uid://cjpns3m3ir6wp" path="res://Scripts/trajectory.gd" id="2_l02lo"]
 [ext_resource type="Texture2D" uid="uid://c481j8kh3h8fw" path="res://Sprites/Mr Purple/aim_sheet.png" id="3_tx1dd"]
 [ext_resource type="SpriteFrames" uid="uid://cd1fq6263xxw6" path="res://Sprites/SpriteFrames/Purple.tres" id="3_vgqql"]
+
+[sub_resource type="Animation" id="Animation_fkybt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.25664]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(5, -16)]
+}
+
+[sub_resource type="Animation" id="Animation_vgqql"]
+resource_name = "walk_gun"
+length = 1.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:rotation")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.11178, 0.990551, 0.94702, 1.11071, 1.25292, 1.47516, 1.88244, 1.65011, 1.52762, 1.0965, 1.08076]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(6, -14), Vector2(-2, -16), Vector2(-11, -16), Vector2(1, -16), Vector2(1, -16), Vector2(2, -11), Vector2(2, -11)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x3wgy"]
+_data = {
+&"RESET": SubResource("Animation_fkybt"),
+&"walk_hand": SubResource("Animation_vgqql")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tx1dd"]
 size = Vector2(61, 75)
@@ -19,29 +81,20 @@ radius = 16.1245
 radius = 3.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h4iuc"]
-size = Vector2(28, 52.5)
-
-[sub_resource type="Animation" id="Animation_gymyn"]
-resource_name = "aim"
-
-[sub_resource type="Animation" id="Animation_f1ek2"]
-resource_name = "idle"
-
-[sub_resource type="Animation" id="Animation_tx1dd"]
-resource_name = "walk"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pu2lt"]
-_data = {
-&"aim": SubResource("Animation_gymyn"),
-&"idle": SubResource("Animation_f1ek2"),
-&"walk": SubResource("Animation_tx1dd")
-}
+size = Vector2(41, 52.5)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-collision_layer = 2
+collision_layer = 536870914
 collision_mask = 273
 floor_constant_speed = true
 script = ExtResource("1_uygo4")
+shadow_jump_strength = 1000.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_x3wgy")
+}
+autoplay = "RESET"
 
 [node name="Hand" type="Node2D" parent="."]
 position = Vector2(5, -16)
@@ -56,18 +109,20 @@ region_enabled = true
 region_rect = Rect2(0, 0, 131, 128)
 
 [node name="HoldSpot" type="Marker2D" parent="Hand"]
-position = Vector2(35, 1)
+position = Vector2(34.166, 1.63795)
 
 [node name="Polygon2D" type="Polygon2D" parent="Hand/HoldSpot"]
+visible = false
 polygon = PackedVector2Array(-1.16701, -1.57318, -0.833977, 0.637954, 1.06814, 1.25598, 1.68617, -0.646133, 0.735109, -0.955148)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 3
 sprite_frames = ExtResource("3_vgqql")
-animation = &"idle"
+animation = &"melee_knife"
 autoplay = "idle"
 
 [node name="InteractionArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 1024
 
@@ -77,6 +132,7 @@ shape = SubResource("RectangleShape2D_tx1dd")
 debug_color = Color(0.627451, 0.529412, 0, 0.0784314)
 
 [node name="LightRay" type="RayCast2D" parent="."]
+visible = false
 target_position = Vector2(0, 0)
 collision_mask = 16
 
@@ -95,7 +151,6 @@ rotation = 0.698132
 polygon = PackedVector2Array(34.8775, 15.1181, 33.0989, 19.2214, 28.1064, 19.4944, 25.6585, 15.0214, 28.0799, 11.6842, 31.6636, 11.2879)
 
 [node name="ShadowShotCollision" type="StaticBody2D" parent="."]
-visible = false
 position = Vector2(0, -4)
 collision_layer = 0
 collision_mask = 128
@@ -141,7 +196,7 @@ collision_layer = 32
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeHitBox"]
-position = Vector2(0, -8.25)
+position = Vector2(-6.5, -8.25)
 shape = SubResource("RectangleShape2D_h4iuc")
 debug_color = Color(0.985912, 0, 0.328993, 0.42)
 
@@ -156,11 +211,6 @@ position = Vector2(5, -16)
 
 [node name="LeftShoulderPos" type="Marker2D" parent="."]
 position = Vector2(-5, -16)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_pu2lt")
-}
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true

@@ -1,0 +1,446 @@
+[gd_scene load_steps=19 format=4 uid="uid://ftrs7ifqvy6j"]
+
+[ext_resource type="TileSet" uid="uid://bh52f06wo7gfn" path="res://Tilesets/hotel_walls2.tres" id="1_47tab"]
+[ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://Scripts/main.gd" id="1_dfca2"]
+[ext_resource type="PackedScene" uid="uid://bdktoaq21c5xd" path="res://Scenes/Entities/player.tscn" id="2_eq36v"]
+[ext_resource type="Script" uid="uid://bnx4g7k2bwjk7" path="res://Scripts/camera.gd" id="3_8qvwh"]
+[ext_resource type="Shader" uid="uid://ljw3o5pbf52q" path="res://Shaders/noise.gdshader" id="5_fe3hs"]
+[ext_resource type="Shader" uid="uid://rcn5fpdxiksk" path="res://Shaders/glitch.gdshader" id="6_v0tp6"]
+[ext_resource type="Texture2D" uid="uid://bvk837m3k5ka3" path="res://Sprites/suitcase2.png" id="7_7u1wn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2yy0"]
+shader = ExtResource("5_fe3hs")
+shader_parameter/seed = 80.953
+shader_parameter/power = 0.001
+shader_parameter/speed = 0.16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vbx1p"]
+shader = ExtResource("6_v0tp6")
+shader_parameter/shake_power = 0.005
+shader_parameter/shake_rate = 1.0
+shader_parameter/shake_speed = 1.822
+shader_parameter/shake_block_size = 60.0
+shader_parameter/shake_color_rate = 0.003
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qfhls"]
+bg_color = Color(0.0823529, 0.0313726, 0.0705882, 0.996078)
+
+[sub_resource type="LabelSettings" id="LabelSettings_o8ous"]
+font_size = 72
+
+[sub_resource type="LabelSettings" id="LabelSettings_wbsak"]
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0uwx7"]
+draw_center = false
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.305649, 0.117356, 0.221923, 1)
+shadow_color = Color(0.870494, 0.000114647, 0.71221, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dgld7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.250675, 0.498702, 0.236734, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_godew"]
+draw_center = false
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.155504, 0.653868, 0.492289, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gj5ea"]
+bg_color = Color(0.201691, 0.0282743, 0.0290583, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xscbt"]
+bg_color = Color(0.2, 0.027451, 0.027451, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.739311, 0.468566, 0.0826314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ndo1d"]
+bg_color = Color(0.346596, 0.0728609, 0.0728724, 1)
+
+[node name="DialogueTest" type="Node"]
+script = ExtResource("1_dfca2")
+
+[node name="Tiles" type="Node" parent="."]
+
+[node name="BackWall" type="TileMapLayer" parent="Tiles" groups=["BackWall"]]
+tile_map_data = PackedByteArray("AAAJAPv/AQAKAAkAAAAJAPz/AQAKAAkAAAAJAP3/AQAKAAkAAAAJAP7/AQAKAAkAAAAAAP7/AQAIAAkAAAAAAP3/AQAIAAkAAAAAAPz/AQAIAAkAAAAAAPv/AQAIAAkAAAAAAPr/AQAIAAgAAAAJAPr/AQAIAAgAAFABAPr/AQAJAAgAAAACAPr/AQAJAAgAAAADAPr/AQAJAAgAAAAEAPr/AQAJAAgAAAAFAPr/AQAJAAgAAAAGAPr/AQAJAAgAAAAHAPr/AQAJAAgAAAAIAPr/AQAJAAgAAAAIAP7/AQAJAAkAAAAIAP3/AQAJAAkAAAAIAPz/AQAJAAkAAAAIAPv/AQAJAAkAAAAHAPv/AQAJAAkAAAAGAPv/AQAJAAkAAAAFAPv/AQAJAAkAAAAEAPv/AQAJAAkAAAADAPv/AQAJAAkAAAACAPv/AQAJAAkAAAABAPv/AQAJAAkAAAABAPz/AQAJAAkAAAABAP3/AQAJAAkAAAABAP7/AQAJAAkAAAACAP7/AQAJAAkAAAADAP7/AQAJAAkAAAAEAP7/AQAJAAkAAAAFAP7/AQAJAAkAAAAGAP7/AQAJAAkAAAAHAP7/AQAJAAkAAAAHAP3/AQAJAAkAAAAGAP3/AQAJAAkAAAAFAP3/AQAJAAkAAAAEAP3/AQAJAAkAAAADAP3/AQAJAAkAAAACAP3/AQAJAAkAAAACAPz/AQAJAAkAAAADAPz/AQAJAAkAAAAEAPz/AQAJAAkAAAAFAPz/AQAJAAkAAAAGAPz/AQAJAAkAAAAHAPz/AQAJAAkAAAA=")
+tile_set = ExtResource("1_47tab")
+
+[node name="Walls" type="TileMapLayer" parent="Tiles" groups=["Grabable"]]
+tile_map_data = PackedByteArray("AAD4////AQAAAAcAAAD5////AQAAAAcAAAD6////AQAAAAcAAAD7////AQAAAAcAAAD8////AQAAAAcAAAD9////AQAAAAcAAAD+////AQAAAAcAAAD/////AQAAAAcAAAAAAP//AQAAAAcAAAABAP//AQAAAAcAAAACAP//AQAAAAcAAAADAP//AQAAAAcAAAAEAP//AQAAAAcAAAAFAP//AQAAAAcAAAAGAP//AQAAAAcAAAAIAAAAAQABAAcAAAAGAAAAAQABAAcAAAAFAAAAAQABAAcAAAAEAAAAAQABAAcAAAADAAAAAQABAAcAAAACAAAAAQABAAcAAAABAAAAAQABAAcAAAAAAAAAAQABAAcAAAD//wAAAQABAAcAAAD+/wAAAQABAAcAAAD9/wAAAQABAAcAAAD8/wAAAQABAAcAAAD7/wAAAQABAAcAAAD6/wAAAQABAAcAAAD5/wAAAQABAAcAAAD4/wAAAQABAAcAAAD4/wEAAQACAAcAAAD5/wEAAQACAAcAAAD6/wEAAQACAAcAAAD7/wEAAQACAAcAAAD8/wEAAQACAAcAAAD9/wEAAQACAAcAAAD+/wEAAQACAAcAAAD//wEAAQACAAcAAAAAAAEAAQACAAcAAAABAAEAAQACAAcAAAACAAEAAQACAAcAAAADAAEAAQACAAcAAAAEAAEAAQACAAcAAAAFAAEAAQACAAcAAAAGAAEAAQACAAcAAAAHAAEAAQACAAcAAAAIAAEAAQACAAcAAAAAAP3/AQAFAAYAAAAAAP7/AQAFAAcAAAAAAPr/AQAFAAQAAAABAPr/AQAHAAQAAAACAPr/AQAHAAQAAAADAPr/AQAHAAQAAAAEAPr/AQAHAAQAAAAFAPr/AQAHAAQAAAAGAPr/AQAHAAQAAAAHAPr/AQAHAAQAAAAIAPr/AQAHAAQAAAAJAPr/AQALAAQAAAAAAPv/AQAFAAIAAAAJAPv/AQAFAAIAAAAJAPz/AQAIAAMAAAAAAPz/AQAIAAMAAAAJAP3/AQAFAAYAAAAJAP7/AQAFAAcAAAAIAP//AQAAAAcAAAAHAP//AQAAAAcAAAAHAAAAAQABAAcAAAAJAP//AQAAAAcAAAAJAAAAAQABAAcAAAAJAAEAAQACAAcAAAAKAP//AQAAAAcAAAAKAAAAAQABAAcAAAAKAAEAAQACAAcAAAALAP//AQAAAAcAAAALAAAAAQABAAcAAAALAAEAAQACAAcAAAAMAP//AQAAAAcAAAAMAAAAAQABAAcAAAAMAAEAAQACAAcAAAANAP//AQAAAAcAAAANAAAAAQABAAcAAAANAAEAAQACAAcAAAAOAP//AQAAAAcAAAAOAAAAAQABAAcAAAAOAAEAAQACAAcAAAAPAP//AQAAAAcAAAAPAAAAAQABAAcAAAAPAAEAAQACAAcAAAAQAP//AQAAAAcAAAAQAAAAAQABAAcAAAAQAAEAAQACAAcAAAARAP//AQAAAAcAAAARAAAAAQABAAcAAAARAAEAAQACAAcAAAASAP//AQAAAAcAAAASAAAAAQABAAcAAAASAAEAAQACAAcAAAATAP//AQAAAAcAAAATAAAAAQABAAcAAAATAAEAAQACAAcAAAAUAP//AQAAAAcAAAAUAAAAAQABAAcAAAAUAAEAAQACAAcAAAD2////AQAAAAcAAAD2/wAAAQABAAcAAAD2/wEAAQACAAcAAAD3////AQAAAAcAAAD3/wAAAQABAAcAAAD3/wEAAQACAAcAAAD0////AQAAAAcAAAD0/wAAAQABAAcAAAD0/wEAAQACAAcAAAD1////AQAAAAcAAAD1/wAAAQABAAcAAAD1/wEAAQACAAcAAAA=")
+tile_set = ExtResource("1_47tab")
+
+[node name="Player" parent="." instance=ExtResource("2_eq36v")]
+position = Vector2(-166, -148)
+shadow_jump_strength = 1000.0
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+position = Vector2(-168, -170)
+script = ExtResource("3_8qvwh")
+target = NodePath("../Player")
+
+[node name="ScreenFX" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="NoiseFX" type="ColorRect" parent="ScreenFX"]
+material = SubResource("ShaderMaterial_h2yy0")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GlitchFX" type="ColorRect" parent="ScreenFX"]
+material = SubResource("ShaderMaterial_vbx1p")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="UI" type="Control" parent="CanvasLayer3"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -121.0
+offset_top = -63.0
+offset_right = -33.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "RESTART"
+
+[node name="ObjectiveLabel" type="Label" parent="CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -70.5
+offset_top = 50.0
+offset_right = 70.5
+offset_bottom = 73.0
+grow_horizontal = 2
+text = "Encontre a maleta"
+horizontal_alignment = 1
+
+[node name="InteractionLabel" type="Label" parent="CanvasLayer3/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -103.5
+offset_top = -105.0
+offset_right = 103.5
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Pressione 'E' para interagir"
+horizontal_alignment = 1
+
+[node name="AmmoLabel" type="Label" parent="CanvasLayer3/UI"]
+layout_mode = 1
+offset_left = 58.0
+offset_top = 49.0
+offset_right = 114.0
+offset_bottom = 72.0
+text = "Ammo:"
+
+[node name="ObjectiveImage" type="TextureRect" parent="CanvasLayer3/UI"]
+visible = false
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -28.0
+offset_top = 115.0
+offset_right = 36.0
+offset_bottom = 179.0
+grow_horizontal = 2
+texture = ExtResource("7_7u1wn")
+
+[node name="WinMenu" type="Control" parent="CanvasLayer3/UI"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer3/UI/WinMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 480.5
+offset_top = 292.5
+offset_right = 631.5
+offset_bottom = 315.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Obrigado por jogar!"
+
+[node name="Button2" type="Button" parent="CanvasLayer3/UI/WinMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 498.0
+offset_top = 340.0
+offset_right = 614.0
+offset_bottom = 371.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Jogar de Novo"
+
+[node name="Button3" type="Button" parent="CanvasLayer3/UI/WinMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 537.0
+offset_top = 391.0
+offset_right = 575.0
+offset_bottom = 422.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Sair"
+
+[node name="HowTo" type="Label" parent="CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = -139.0
+offset_right = 383.0
+offset_bottom = -38.0
+grow_vertical = 0
+text = "WASD: Movimento
+Espaço (Segurar): Mirar Pulo
+Shift: Ativar/Desativar \"Mescla das Sombras\"
+Clique Equerdo: Atirar/Pular/Atacar
+Clique Direito: Mirar"
+
+[node name="LoseMenu" type="Control" parent="CanvasLayer3/UI"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer3/UI/LoseMenu"]
+layout_mode = 2
+offset_left = 480.0
+offset_top = 300.0
+offset_right = 669.0
+offset_bottom = 323.0
+text = "Você Morreu!"
+horizontal_alignment = 1
+
+[node name="Button2" type="Button" parent="CanvasLayer3/UI/LoseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 498.0
+offset_top = 340.0
+offset_right = 614.0
+offset_bottom = 371.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Jogar de Novo"
+
+[node name="Button3" type="Button" parent="CanvasLayer3/UI/LoseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 537.0
+offset_top = 391.0
+offset_right = 575.0
+offset_bottom = 422.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Sair"
+
+[node name="Option" type="Control" parent="CanvasLayer3/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer3/UI/Option"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qfhls")
+
+[node name="Title" type="Label" parent="CanvasLayer3/UI/Option"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -158.0
+offset_top = 83.0
+offset_right = 125.0
+offset_bottom = 182.0
+grow_horizontal = 2
+text = "OPÇÕES"
+label_settings = SubResource("LabelSettings_o8ous")
+horizontal_alignment = 1
+
+[node name="OptionText1" type="Label" parent="CanvasLayer3/UI/Option"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = -96.0
+offset_right = -259.0
+offset_bottom = -62.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+text = "Resolução:"
+label_settings = SubResource("LabelSettings_wbsak")
+
+[node name="OptionText2" type="Label" parent="CanvasLayer3/UI/Option"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = 24.0
+offset_right = -259.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+text = "Música:"
+label_settings = SubResource("LabelSettings_wbsak")
+
+[node name="Slider" type="HSlider" parent="CanvasLayer3/UI/Option/OptionText2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 167.5
+offset_top = -14.0
+offset_right = 377.5
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_0uwx7")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_dgld7")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_godew")
+value = 70.0
+ticks_on_borders = true
+
+[node name="OptionText3" type="Label" parent="CanvasLayer3/UI/Option"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = 72.0
+offset_right = -199.0
+offset_bottom = 106.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+text = "Efeitos Sonoros:"
+label_settings = SubResource("LabelSettings_wbsak")
+
+[node name="Slider" type="HSlider" parent="CanvasLayer3/UI/Option/OptionText3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 137.5
+offset_top = -7.0
+offset_right = 347.5
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_0uwx7")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_dgld7")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_godew")
+value = 70.0
+ticks_on_borders = true
+
+[node name="Button" type="Button" parent="CanvasLayer3/UI/Option"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -114.0
+offset_right = 35.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_gj5ea")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xscbt")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ndo1d")
+text = "SAIR"
+
+[node name="InsideArea" type="Area2D" parent="." groups=["Indoors"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InsideArea"]
+polygon = PackedVector2Array(33, -360, 612, -361, 609, -60, 38, -59)

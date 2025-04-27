@@ -1,6 +1,9 @@
 extends RigidBody2D
 class_name Weapon
 
+@export var default_sprite: Texture2D
+@export var held_sprite: Texture2D
+
 @export_enum("melee", "ranged") var weapon_type: String
 @export var max_ammo: int = 0
 
@@ -11,7 +14,8 @@ class_name Weapon
 #@onready var interact_highlight: Polygon2D = $InteractHighlight
 @onready var interaction_timer: Timer = $InteractionTimer
 
-@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var sound_attack: AudioStreamPlayer = $SoundAttack
+@onready var pickup_sound: AudioStreamPlayer = $SoundPickup
 
 @onready var sprite = $Sprite2D
 
@@ -21,15 +25,18 @@ var current_ammo: int
 
 var was_thrown := false
 
+
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
 	current_ammo = max_ammo
+	default_sprite = sprite.texture
 	
 	var muz = get_node("Muzzle")
 	if muz:
 		muzzle = muz
 	else:
 		muzzle = null
+	
 
 #func _process(delta) -> void:
 	#if PlayerManager.player.carried_weapon != self:
@@ -42,6 +49,7 @@ func _ready() -> void:
 
 func interaction() -> void:
 	$PickupHint.visible = false
+	#default_sprite = sprite.texture
 	PlayerManager.possible_interactions = PlayerManager.possible_interactions.filter(
 		func(node): return node != self
 	)
@@ -50,6 +58,7 @@ func interaction() -> void:
 	
 	can_sleep = false
 	
+	sprite.texture = held_sprite
 	var hand_hold_spot = player.hand.find_child("HoldSpot")
 	reparent(player.hand)
 	player.carried_weapon = self
@@ -59,10 +68,13 @@ func interaction() -> void:
 	interact_area.monitoring = false
 	highlight.visible = false
 	interact_area.set_collision_layer_value(11, 0)
+	
+	pickup_sound.play()
 	#print(weapon_type)
 	
 func drop_weapon() -> void:
 	var weapon = player.carried_weapon
+	weapon.sprite.texture = weapon.default_sprite
 	weapon.freeze = false
 	weapon.reparent(get_tree().root)
 	weapon.interact_area.monitoring = true
@@ -81,18 +93,19 @@ func melee(targets_to_hit: Array) -> void:
 				var blood_spatter = preload("res://Scenes/FX/blood_spatter.tscn").instantiate()
 				PlayerManager.deal_damage(target, 2)
 				blood_spatter.global_position = global_position
-				
+				Audio.play("res://Audio/FX/knife_hit.ogg", 0)
 				back_wall.add_child(blood_spatter)
 				target.set_state(target.States.DAMAGE)
 			
 		_:
 			for target: Enemy in targets_to_hit:
 				PlayerManager.deal_damage(target, 1)
-				Audio.play("res://Audio/FX/qubodupPunch02.ogg", -10)
+				Audio.play("res://Audio/FX/qubodupPunch02.ogg", 0)
 				target.set_state(target.States.DAMAGE)
 	#print(target_to_hit)
 
 func throw() -> void:
+	sprite.texture = default_sprite
 	interact_area.set_collision_layer_value(11, 1)
 	var impulse = global_position.direction_to(get_global_mouse_position()) * player.throw_power
 	player.carried_weapon = null
@@ -128,7 +141,7 @@ func shoot() -> void:
 		get_tree().root.add_child(projectile)
 		current_ammo -= 1
 		
-		audio_stream_player.play()
+		sound_attack.play()
 
 func broadcast_noise() -> void:
 	var bodies_in_range = sound_range.get_overlapping_bodies()
@@ -177,6 +190,7 @@ func _on_body_entered(body: Node) -> void:
 			var blood_spatter = preload("res://Scenes/FX/blood_spatter.tscn").instantiate()
 			blood_spatter.global_position = global_position
 			get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
+			Audio.play("res://Audio/FX/ImpactMeat01.ogg", 0)
 
 func _on_interaction_timer_timeout() -> void:
 	print("weapon timer")

@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=38 format=3 uid="uid://cd1fq6263xxw6"]
+[gd_resource type="SpriteFrames" load_steps=43 format=3 uid="uid://cd1fq6263xxw6"]
 
 [ext_resource type="Texture2D" uid="uid://c481j8kh3h8fw" path="res://Sprites/Mr Purple/aim_sheet.png" id="1_mlfqb"]
 [ext_resource type="Texture2D" uid="uid://oa147johbjsm" path="res://Sprites/Mr Purple/purple_hitanims.png" id="2_itjfw"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cpbhievbp3elr" path="res://Sprites/Mr Purple/shadowmeld_sheet.png" id="4_lqsku"]
 [ext_resource type="Texture2D" uid="uid://orbuele4x2ix" path="res://Sprites/Mr Purple/idle_sheet.png" id="5_1u772"]
 [ext_resource type="Texture2D" uid="uid://d035rdua5o7pt" path="res://Sprites/Mr Purple/purple_sheet.png" id="6_ajr2f"]
+[ext_resource type="Texture2D" uid="uid://csb22ca21racy" path="res://Sprites/Mr Purple/Purple_stabanim Sheet-sheet.png" id="7_itjfw"]
 [ext_resource type="Texture2D" uid="uid://4yhea2rd6ef4" path="res://Sprites/tall_purple_shadow.png" id="7_oume6"]
 [ext_resource type="Texture2D" uid="uid://bomcrkpuatxx0" path="res://Sprites/Mr Purple/walkcycle_sheet.png" id="8_xjylf"]
 
@@ -64,6 +65,22 @@ region = Rect2(128, 0, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ijsl"]
 atlas = ExtResource("6_ajr2f")
 region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a86xs"]
+atlas = ExtResource("7_itjfw")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqsku"]
+atlas = ExtResource("7_itjfw")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1u772"]
+atlas = ExtResource("7_itjfw")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajr2f"]
+atlas = ExtResource("7_itjfw")
+region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gysh"]
 atlas = ExtResource("4_lqsku")
@@ -209,6 +226,23 @@ animations = [{
 }],
 "loop": false,
 "name": &"melee",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a86xs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqsku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1u772")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajr2f")
+}],
+"loop": false,
+"name": &"melee_knife",
 "speed": 8.0
 }, {
 "frames": [{

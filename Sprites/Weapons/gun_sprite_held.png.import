@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://da8h3p4lhg1p4"
-path="res://.godot/imported/dagger_sprite2.png-e9bad1e14cd52e6227af03a648dd12bd.ctex"
+uid="uid://ds8h2b66qga6e"
+path="res://.godot/imported/gun_sprite_held.png-eda348e39bcc40e71127adb49cd0f912.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Weapons/dagger_sprite2.png"
-dest_files=["res://.godot/imported/dagger_sprite2.png-e9bad1e14cd52e6227af03a648dd12bd.ctex"]
+source_file="res://Sprites/Weapons/gun_sprite_held.png"
+dest_files=["res://.godot/imported/gun_sprite_held.png-eda348e39bcc40e71127adb49cd0f912.ctex"]
 
 [params]
 

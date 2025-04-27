@@ -28,16 +28,18 @@ const JUMP_VELOCITY = -400.0
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape
 @onready var shadow_collision = $ShadowCollisionShape
+#@onready var shadow_shape: RigidBody2D = $ShadowShape
 
 @onready var grab_rays = [grab_cast_top, grab_cast_right, grab_cast_left]
 @onready var melee_hit_box: Area2D = $MeleeHitBox
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var just_jumped := false
 
 var carried_weapon: Weapon = null
-var secondary_weapon: Weapon = null
+#var secondary_weapon: Weapon = null
 
 var health = 2
 
@@ -102,7 +104,6 @@ func _physics_process(delta: float) -> void:
 			velocity += get_gravity() * (delta * 2)
 		if state in [States.DUCT]:
 			velocity = velocity.lerp(Vector2.ZERO, delta)
-	
 	
 	handle_facing()
 	handle_states(delta)
@@ -182,6 +183,9 @@ func set_state(new_state: States):
 	if new_state in [States.IDLE, States.WALK]:
 		hand_sprite.visible = false
 	
+	if new_state not in [States.WALK]:
+		animation_player.play("RESET")
+	
 	match new_state:
 		States.DEAD:
 			if carried_weapon:
@@ -200,22 +204,39 @@ func set_state(new_state: States):
 			#set_state(States.IDLE)
 		
 		States.IDLE:
+			#print("IDLING LIKE A MOTHERFUCKER")
+			#if carried_weapon:
+				#carried_weapon.visible = true
+				#
 			animated_sprite.play("idle")
 			collision_shape.disabled = false
 			#shadow_collision.disabled = true
 			
 		States.WALK:
+			if shadow_shot_ground_cast.is_colliding():
+				ground_check()
+			
 			match facing:
 				Facing.RIGHT:
 					animated_sprite.flip_h = true
 				Facing.LEFT:
 					animated_sprite.flip_h = false
 					
+			animation_player.play("walk_hand")
 			animated_sprite.play("walk")
 		
 		States.SHADOW_MELD:
+			var inside_area: Area2D = get_tree().get_first_node_in_group("Indoors")
+			var overlaps = inside_area.get_overlapping_bodies()
+			print(overlaps)
+			if state != States.SHADOW_MELD and overlaps.is_empty():
+				set_state(States.IDLE)
+				return
+			
+			#print("Shadowmeld: ENGAGE")
 			set_collision_mask_value(5, 0)
 			collision_shape.disabled = true
+			PlayerManager.is_inside = true
 			#shadow_collision.disabled = false
 			animated_sprite.play("shadow_shape")
 		
@@ -229,7 +250,15 @@ func set_state(new_state: States):
 			animated_sprite.play("shadow_shape")
 				
 		States.MELEE:
-			animated_sprite.play("melee")
+			if carried_weapon:
+				match carried_weapon.weapon_type:
+					"melee":
+						carried_weapon.visible = false
+						animated_sprite.play("melee_knife")
+					"ranged":
+						animated_sprite.play("melee")
+			else:
+				animated_sprite.play("melee")
 		
 		States.GRAB:
 			collision_shape.disabled = false
@@ -278,7 +307,7 @@ func handle_states(delta) -> void:
 			pass
 		
 		States.DAMAGE:
-			velocity = Vector2.ZERO
+			velocity.x = 0
 		
 		States.WALK:
 			if direction.x:
@@ -296,7 +325,7 @@ func handle_states(delta) -> void:
 		
 		States.AIM:
 			hand.look_at(get_global_mouse_position())
-			velocity = Vector2.ZERO
+			velocity.x = 0
 			
 		States.DUCT:
 			pass
@@ -363,8 +392,7 @@ func handle_states(delta) -> void:
 				set_state(States.IDLE)
 			
 		States.DEAD:
-			#rotation_degrees = lerp(rotation_degrees, 90.0, delta * 6)
-			velocity = velocity.lerp(Vector2.ZERO, delta * 4)
+			velocity.x = 0
 
 func ceiling_check() -> void:
 	var top_ray = grab_cast_top
@@ -372,16 +400,16 @@ func ceiling_check() -> void:
 	top_ray.force_raycast_update()
 	if top_ray.is_colliding():
 		var collision_point = top_ray.get_collision_point()
-		print("Global Pos: ", global_position)
-		print("Collision Pos: ", collision_point)
+		#print("Global Pos: ", global_position)
+		#print("Collision Pos: ", collision_point)
 		
 		var diff = collision_point.y - global_position.y
 		if diff < -25:
 			diff = 0
 			
-		print("Pos Difference: ", diff)
+		#print("Pos Difference: ", diff)
 		global_position.y -= diff
-		print("Global Pos: ", global_position)
+		#print("Global Pos: ", global_position)
 
 func ground_check() -> void:
 	var ground_ray = grab_cast_down
@@ -411,7 +439,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			print(PlayerManager.target_stairs)
 			PlayerManager.target_stairs.interaction()
 	
-	if event.is_action_pressed("activate_shadow_meld") and PlayerManager.is_inside:
+	if event.is_action_pressed("activate_shadow_meld"):
 		match state:
 			States.SHADOW_MELD:
 				set_state(States.IDLE)
@@ -441,7 +469,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("aim"):
 		if state in [States.SHADOW_MELD, States.PREP_SHADOW_SHOT, States.MELEE]:
 			return
-			
+		if melee_cast.is_colliding():
+			return
+		
 		PlayerManager.switch_aim(true)
 		set_state(States.AIM)
 	
@@ -477,24 +507,30 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	match animated_sprite.animation:
 		"melee":
 			set_state(States.IDLE)
+		"melee_knife":
+			carried_weapon.visible = true
+			set_state(States.IDLE)
 		"damage":
 			set_state(States.IDLE)
 
 func _on_animated_sprite_2d_frame_changed() -> void:
-	match animated_sprite.animation:
-		"melee":
-			if animated_sprite.frame == 2:
-				melee_cast.force_raycast_update()
-				if melee_cast.is_colliding():
-					return
-				var targets_to_hit = melee_hit_box.get_overlapping_bodies()
-				
-				if carried_weapon:
-					carried_weapon.melee(targets_to_hit)
-				else:
-					for target in targets_to_hit:
-						PlayerManager.deal_damage(target, 1)
-						target.set_state(target.States.DAMAGE)
+	if animated_sprite.animation in ["melee", "melee_knife"]:
+	#match animated_sprite.animation:
+		#"melee":
+		if animated_sprite.frame == 2:
+			melee_cast.force_raycast_update()
+			if melee_cast.is_colliding():
+				return
+			var targets_to_hit = melee_hit_box.get_overlapping_bodies()
+			
+			if carried_weapon:
+				carried_weapon.melee(targets_to_hit)
+			else:
+				if targets_to_hit:
+					Audio.play("res://Audio/FX/qubodupPunch02.ogg", 0)
+				for target in targets_to_hit:
+					PlayerManager.deal_damage(target, 1)
+					target.set_state(target.States.DAMAGE)
 
 func handle_interactions() -> void:
 	if PlayerManager.possible_interactions.is_empty():
@@ -505,7 +541,8 @@ func handle_interactions() -> void:
 	var chosen_target = null
 	
 	for node in PlayerManager.possible_interactions:
-		var distance = node.global_position.distance_to(PlayerManager.player.position)
+		#var distance = node.global_position.distance_to(PlayerManager.player.position)
+		var distance = PlayerManager.player.global_position.x - node.global_position.x
 		if not closest:
 			closest = distance
 			chosen_target = node

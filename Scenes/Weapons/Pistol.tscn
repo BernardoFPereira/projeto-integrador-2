@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmh1hpnuj0sd5"]
+[gd_scene load_steps=10 format=3 uid="uid://cmh1hpnuj0sd5"]
 
 [ext_resource type="Script" uid="uid://qks2gp4m58v5" path="res://Scripts/weapon.gd" id="1_vfd6i"]
+[ext_resource type="Texture2D" uid="uid://ds8h2b66qga6e" path="res://Sprites/Weapons/gun_sprite_held.png" id="2_jtjwi"]
 [ext_resource type="Texture2D" uid="uid://bsyf4vjjibo3v" path="res://Sprites/Weapons/gun_sprite.png" id="2_si21x"]
 [ext_resource type="AudioStream" uid="uid://u4mesnmfr58g" path="res://Audio/FX/bang_07.ogg" id="3_si21x"]
 [ext_resource type="Texture2D" uid="uid://cyjb5ub3nakvo" path="res://Sprites/Weapons/gun_selection_highlightt.png" id="3_yyc0p"]
 [ext_resource type="SpriteFrames" uid="uid://bntauhofrtv7p" path="res://Sprites/SpriteFrames/AnimatedArrow.tres" id="5_jic2m"]
+[ext_resource type="AudioStream" uid="uid://bciiy108gug7r" path="res://Audio/FX/pistol_pickup.ogg" id="5_jnn5b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t08gl"]
 radius = 16.0
@@ -22,6 +24,8 @@ freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_vfd6i")
+default_sprite = ExtResource("2_si21x")
+held_sprite = ExtResource("2_jtjwi")
 weapon_type = "ranged"
 max_ammo = 6
 
@@ -61,8 +65,13 @@ debug_color = Color(0.912507, 9.72241e-05, 0.724732, 0)
 
 [node name="InteractionTimer" type="Timer" parent="."]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="SoundAttack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_si21x")
+
+[node name="SoundPickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_jnn5b")
+volume_db = -11.787
+pitch_scale = 1.3
 
 [node name="PickupHint" type="AnimatedSprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
