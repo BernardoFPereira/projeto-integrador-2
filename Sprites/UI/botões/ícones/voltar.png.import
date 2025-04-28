@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nvfv35xfcqun"
-path="res://.godot/imported/grunt_deathpose03.png-267e57d1e44702ccb3d878ffea006e81.ctex"
+uid="uid://stoabsnlb387"
+path="res://.godot/imported/voltar.png-6f5fbda0ad2c2e3bb4fc2973a9ad016c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/enemies/grunt_deathpose03.png"
-dest_files=["res://.godot/imported/grunt_deathpose03.png-267e57d1e44702ccb3d878ffea006e81.ctex"]
+source_file="res://Sprites/UI/botões/ícones/voltar.png"
+dest_files=["res://.godot/imported/voltar.png-6f5fbda0ad2c2e3bb4fc2973a9ad016c.ctex"]
 
 [params]
 

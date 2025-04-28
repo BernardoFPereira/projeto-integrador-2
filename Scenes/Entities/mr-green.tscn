@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bl7qcybixjxf4"]
+
+[ext_resource type="Script" uid="uid://bc8i50f8rkplt" path="res://Scripts/mr_green.gd" id="1_43vlq"]
+[ext_resource type="Texture2D" uid="uid://dawiep2eka5d4" path="res://Sprites/enemies/green_idle.png" id="1_qnd16"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43vlq"]
+atlas = ExtResource("1_qnd16")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dq6ts"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43vlq")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 0.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dq6ts"]
+radius = 20.0
+height = 128.0
+
+[node name="Mr-green" type="RigidBody2D"]
+script = ExtResource("1_43vlq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+sprite_frames = SubResource("SpriteFrames_dq6ts")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_dq6ts")
+debug_color = Color(0, 0.6, 0.701961, 0)

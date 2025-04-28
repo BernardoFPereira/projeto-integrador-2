@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=4 uid="uid://djwj25g3yxu8i"]
+
+[ext_resource type="Texture2D" uid="uid://b8w151n0j563v" path="res://Sprites/UI/botões/botão g.png" id="1_ga18u"]
+[ext_resource type="TileSet" uid="uid://bh52f06wo7gfn" path="res://Tilesets/hotel_walls2.tres" id="1_n4b4j"]
+[ext_resource type="Texture2D" uid="uid://8ny4lelofd" path="res://Sprites/UI/botões/botão g (click).png" id="2_sino0"]
+[ext_resource type="Texture2D" uid="uid://b71jk8ppmact0" path="res://Sprites/UI/botões/botão g (selecionado).png" id="3_sino0"]
+
+[sub_resource type="SystemFont" id="SystemFont_et25s"]
+font_names = PackedStringArray("Monospace")
+font_weight = 999
+
+[node name="Node" type="Node"]
+
+[node name="TileMaps" type="Node" parent="."]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="TileMaps"]
+tile_map_data = PackedByteArray("AAD//wsAAQACAAcAAAAAAAsAAQACAAcAAAAAAAoAAQACAAcAAAAAAAgAAQABAAcAAAD//wgAAQABAAcAAAD//woAAQACAAcAAAABAAgAAQABAAcAAAACAAgAAQABAAcAAAADAAgAAQABAAcAAAAEAAgAAQABAAcAAAAFAAgAAQABAAcAAAAGAAgAAQABAAcAAAAHAAgAAQABAAcAAAAIAAgAAQABAAcAAAAJAAgAAQABAAcAAAAKAAgAAQABAAcAAAALAAgAAQABAAcAAAAMAAgAAQABAAcAAAANAAgAAQABAAcAAAAOAAgAAQABAAcAAAAPAAgAAQABAAcAAAAQAAgAAQABAAcAAAARAAgAAQABAAcAAAASAAgAAQABAAcAAAATAAgAAQABAAcAAAATAAkAAQACAAcAAAATAAoAAQACAAcAAAATAAsAAQACAAcAAAASAAsAAQACAAcAAAARAAsAAQACAAcAAAAQAAsAAQACAAcAAAAPAAsAAQACAAcAAAAOAAsAAQACAAcAAAANAAsAAQACAAcAAAAMAAsAAQACAAcAAAALAAsAAQACAAcAAAAKAAsAAQACAAcAAAAJAAsAAQACAAcAAAAIAAsAAQACAAcAAAAHAAsAAQACAAcAAAAGAAsAAQACAAcAAAAFAAsAAQACAAcAAAAEAAsAAQACAAcAAAADAAsAAQACAAcAAAACAAsAAQACAAcAAAABAAsAAQACAAcAAAABAAoAAQACAAcAAAACAAoAAQACAAcAAAADAAoAAQACAAcAAAAEAAoAAQACAAcAAAAFAAoAAQACAAcAAAAGAAoAAQACAAcAAAAHAAoAAQACAAcAAAAIAAoAAQACAAcAAAAJAAoAAQACAAcAAAAKAAoAAQACAAcAAAALAAoAAQACAAcAAAAMAAoAAQACAAcAAAANAAoAAQACAAcAAAAOAAoAAQACAAcAAAAPAAoAAQACAAcAAAAQAAoAAQACAAcAAAARAAoAAQACAAcAAAASAAoAAQACAAcAAAAUAAoAAQACAAcAAAAUAAgAAQABAAcAAAAUAAkAAQACAAcAAAAUAAsAAQACAAcAAAASAAkAAQACAAcAAAARAAkAAQACAAcAAAAQAAkAAQACAAcAAAAPAAkAAQACAAcAAAAOAAkAAQACAAcAAAANAAkAAQACAAcAAAAMAAkAAQACAAcAAAALAAkAAQACAAcAAAAKAAkAAQACAAcAAAAJAAkAAQACAAcAAAAIAAkAAQACAAcAAAAHAAkAAQACAAcAAAAGAAkAAQACAAcAAAAFAAkAAQACAAcAAAAEAAkAAQACAAcAAAD//wkAAQACAAcAAAAAAAkAAQACAAcAAAABAAkAAQACAAcAAAACAAkAAQACAAcAAAADAAkAAQACAAcAAAA=")
+tile_set = ExtResource("1_n4b4j")
+
+[node name="CreditsMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CreditsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 546.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 20
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CreditsMenu/MarginContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.662815, 0.635881, 0.783334, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_et25s")
+theme_override_font_sizes/normal_font_size = 18
+text = "Jogo produzido por:
+
+Bernardo F. Pereira (Programador
+Ingrid Miranda (Artista 2D)
+Lauro Rosa (Animador 2D)
+Igor Leal (Game e Level Design)
+"
+
+[node name="ButtonMainMenu" type="TextureButton" parent="CreditsMenu"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -148.0
+offset_top = -106.0
+offset_right = -71.0
+offset_bottom = -66.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("1_ga18u")
+texture_pressed = ExtResource("2_sino0")
+texture_hover = ExtResource("3_sino0")

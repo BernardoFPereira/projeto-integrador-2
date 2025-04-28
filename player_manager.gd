@@ -25,6 +25,7 @@ var is_player_dead := false
 
 var briefcase_found := false
 
+#var game_paused := false
 var game_complete := false
 
 func restart() -> void:
@@ -37,6 +38,7 @@ func restart() -> void:
 	can_shadowshot = false
 	is_player_dead = false
 	briefcase_found = false
+	#game_paused = false
 	game_complete = false
 
 func switch_aim(value):

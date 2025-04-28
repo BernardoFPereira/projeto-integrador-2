@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fpvxy3h5n53a"
-path="res://.godot/imported/grunt_hit.png-daa589ef672e42a3691e96eaba8ca510.ctex"
+uid="uid://csmwpyv8q74ms"
+path="res://.godot/imported/grunt2_deathpose03.png-eac9ecd7bcdc70e47a3e34aeef0e3848.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/enemies/grunt_hit.png"
-dest_files=["res://.godot/imported/grunt_hit.png-daa589ef672e42a3691e96eaba8ca510.ctex"]
+source_file="res://Sprites/Enemies/GruntRanged/grunt2_deathpose03.png"
+dest_files=["res://.godot/imported/grunt2_deathpose03.png-eac9ecd7bcdc70e47a3e34aeef0e3848.ctex"]
 
 [params]
 

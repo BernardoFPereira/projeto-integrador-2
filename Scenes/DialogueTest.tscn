@@ -80,7 +80,6 @@ tile_set = ExtResource("1_47tab")
 
 [node name="Player" parent="." instance=ExtResource("2_eq36v")]
 position = Vector2(-166, -148)
-shadow_jump_strength = 1000.0
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 position = Vector2(-168, -170)

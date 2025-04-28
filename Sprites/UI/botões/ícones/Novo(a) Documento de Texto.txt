@@ -1,0 +1,5 @@
+fiz os ícones separados dos botões pq é melhor do que fazer 8730 botões diferentes xd 
+
+o ícone configuração 2 eu fiz sabendo que ele não caberia dentro de um botão então da pra usar de decoração na página de configuração se quiser (ou não, deixei na pasta pq achei bonitinho só)
+
+os dois ícones de volume ficariam fora de botões por isso que o de música é um pouco maior (mas se quiser eu ajusto)

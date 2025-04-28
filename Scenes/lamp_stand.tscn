@@ -15,19 +15,22 @@ fill_from = Vector2(0.527523, 0.504587)
 fill_to = Vector2(0.206422, 0.853211)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xps18"]
-polygon = PackedVector2Array(7.00001, 3.99998, 10, 3.99997, 18.9999, -24, 15.9999, -20, 9.99998, -8.00003)
+polygon = PackedVector2Array(7.00002, 5.99998, 10, 3.99997, 19.9999, -27, 17.9999, -28, 9.99998, -8.00003)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jsato"]
-polygon = PackedVector2Array(24, 3.99994, 20, -9.00005, 13.9999, -20, 8.99993, -26, 20, 4.99995)
+polygon = PackedVector2Array(24, 5.99994, 20, -9.00005, 11.9999, -28, 9.99993, -27, 19, 2.99995)
 
 [node name="StandingLamp" type="Node2D" node_paths=PackedStringArray("lights")]
 script = ExtResource("1_0k7nd")
-lights = [NodePath("PointLight2D"), NodePath("PointLight2D3")]
+lights = [NodePath("PointLight2D")]
+
+[node name="Luz06" type="Sprite2D" parent="."]
+texture_filter = 3
+position = Vector2(0, 44)
+texture = ExtResource("2_kgslk")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(0, -4)
 color = Color(1, 0.972549, 0.635294, 1)
-energy = 0.33
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_qwren")
 texture_scale = 5.18
@@ -38,34 +41,20 @@ collision_layer = 32
 collision_mask = 18
 
 [node name="LightDetectCollision" type="CollisionPolygon2D" parent="PointLight2D/LightDetectArea"]
-polygon = PackedVector2Array(-15, 6, -98, 91, 99, 92, 17, 6)
+polygon = PackedVector2Array(-22, 11, -104, 102, 99, 102, 19, 10, 0, 13)
+
+[node name="LightDetectCollision2" type="CollisionPolygon2D" parent="PointLight2D/LightDetectArea"]
+polygon = PackedVector2Array(-9, -28, -108, -176, 84, -176, 7, -28)
 
 [node name="LightPositionMarker" type="Marker2D" parent="PointLight2D"]
 position = Vector2(0, 9)
-
-[node name="PointLight2D3" type="PointLight2D" parent="."]
-position = Vector2(0, -4)
-color = Color(1, 0.972549, 0.635294, 1)
-energy = 0.33
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_qwren")
-texture_scale = 5.18
-
-[node name="LightDetectArea" type="Area2D" parent="PointLight2D3"]
-position = Vector2(0, -5)
-rotation = -3.14159
-collision_layer = 32
-collision_mask = 18
-
-[node name="LightDetectCollision" type="CollisionPolygon2D" parent="PointLight2D3/LightDetectArea"]
-polygon = PackedVector2Array(-6.99999, 4.00002, -143, 158, 136, 151, 7.00001, 3.99998)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 visible = false
 polygon = PackedVector2Array(-16, -16, 16, -16, 24, 16, -24, 16)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(-2, -8)
 rotation = -3.14159
 occluder = SubResource("OccluderPolygon2D_xps18")
 
@@ -74,12 +63,5 @@ position = Vector2(31, -8)
 rotation = -3.14159
 occluder = SubResource("OccluderPolygon2D_jsato")
 
-[node name="Luz06" type="Sprite2D" parent="."]
-texture_filter = 3
-position = Vector2(0, 44)
-texture = ExtResource("2_kgslk")
-
 [connection signal="body_entered" from="PointLight2D/LightDetectArea" to="." method="_on_light_detect_area_body_entered"]
 [connection signal="body_exited" from="PointLight2D/LightDetectArea" to="." method="_on_light_detect_area_body_exited"]
-[connection signal="body_entered" from="PointLight2D3/LightDetectArea" to="." method="_on_light_detect_area_body_entered"]
-[connection signal="body_exited" from="PointLight2D3/LightDetectArea" to="." method="_on_light_detect_area_body_exited"]

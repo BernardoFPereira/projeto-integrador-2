@@ -1,19 +1,124 @@
-[gd_scene load_steps=4 format=3 uid="uid://2xv5mbc2ylr1"]
+[gd_scene load_steps=18 format=3 uid="uid://2xv5mbc2ylr1"]
 
-[ext_resource type="Texture2D" uid="uid://bdl1n6i73jt7v" path="res://Sprites/Misc/Móveis/aparador baixo.png" id="1_ws57k"]
-[ext_resource type="Texture2D" uid="uid://by87p84d3wghk" path="res://Sprites/Misc/Móveis/estante de livros.png" id="2_y5ao6"]
-[ext_resource type="Texture2D" uid="uid://cuf35sk6cjn5h" path="res://Sprites/Misc/Móveis/mesa 01 (cadeira separada).png" id="3_2pvvi"]
+[ext_resource type="Texture2D" uid="uid://u4srlvvfjxb5" path="res://Sprites/Misc/Área Externa/lixeira 01.png" id="1_h476e"]
+[ext_resource type="Texture2D" uid="uid://crjocyehd3rl6" path="res://Sprites/Misc/Área Externa/lixeira 02.png" id="2_w78p8"]
+[ext_resource type="Texture2D" uid="uid://cj8ng0f8godfa" path="res://Sprites/Misc/Área Externa/lixo 01.png" id="3_tubo4"]
+[ext_resource type="Texture2D" uid="uid://43n2n6jxij6f" path="res://Sprites/Misc/Placas/placa chão molhado.png" id="4_vjlm3"]
+[ext_resource type="Texture2D" uid="uid://bpx68sue22hsh" path="res://Sprites/Misc/Placas/placa escadas(subir).png" id="5_msc8d"]
+[ext_resource type="Texture2D" uid="uid://b5lb0vh1nxqbm" path="res://Sprites/Misc/Placas/placa escadas(descer).png" id="6_ee17l"]
+[ext_resource type="Texture2D" uid="uid://ngual2ts5ykw" path="res://Sprites/Misc/Placas/placa banheiro 03.png" id="7_son7y"]
+[ext_resource type="Texture2D" uid="uid://bahlcoa2b2oh7" path="res://Sprites/Misc/Móveis/mesa 01.png" id="8_ywwm7"]
+[ext_resource type="Texture2D" uid="uid://d0x5jgxv5yoe2" path="res://Sprites/Misc/Móveis/mesa 02 (cadeira separada).png" id="9_ljc35"]
+[ext_resource type="Texture2D" uid="uid://c6rlcgbnwpa48" path="res://Sprites/Misc/Móveis/mesa de escritório 01.png" id="10_xf8n3"]
+[ext_resource type="Texture2D" uid="uid://ccw33p382yta6" path="res://Sprites/Misc/Móveis/poltrona 01.png" id="11_l1tkq"]
+[ext_resource type="Texture2D" uid="uid://b8ycnbobg8jdk" path="res://Sprites/Misc/Móveis/poltrona 02.png" id="12_s8jj1"]
+[ext_resource type="Texture2D" uid="uid://gtq7ylllfwff" path="res://Sprites/Misc/Banheiro/pia 01.png" id="13_1fegw"]
+[ext_resource type="Texture2D" uid="uid://cc54t6b8yf8jc" path="res://Sprites/Misc/Banheiro/toalha 01.png" id="14_r0w0b"]
+[ext_resource type="Texture2D" uid="uid://be164mgmrky4v" path="res://Sprites/Misc/Banheiro/vaso sanitário 02.png" id="15_3jfcw"]
+[ext_resource type="Texture2D" uid="uid://dh1m2n5gxeoh0" path="res://Sprites/Misc/Banheiro/lixeira 05 (banheiro).png" id="16_a0pee"]
+[ext_resource type="Texture2D" uid="uid://bvfp65e7wvrd5" path="res://Sprites/Misc/Banheiro/desentupidor.png" id="17_t6bjc"]
 
-[node name="Mobilia" type="Node2D"]
+[node name="Misc" type="Node"]
 
-[node name="AparadorBaixo" type="Sprite2D" parent="."]
-position = Vector2(137, 489)
-texture = ExtResource("1_ws57k")
+[node name="Lixeira01" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1378, 545)
+texture = ExtResource("1_h476e")
 
-[node name="EstanteDeLivros" type="Sprite2D" parent="."]
-position = Vector2(64, 270)
-texture = ExtResource("2_y5ao6")
+[node name="Lixeira02" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1358, 543)
+texture = ExtResource("2_w78p8")
 
-[node name="Mesa01(cadeiraSeparada)" type="Sprite2D" parent="."]
-position = Vector2(239, 81)
-texture = ExtResource("3_2pvvi")
+[node name="Lixo01" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1330, 560)
+texture = ExtResource("3_tubo4")
+
+[node name="PlacaChãoMolhado" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(91, 557)
+texture = ExtResource("4_vjlm3")
+
+[node name="PlacaEscadas(subir)" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1581, 468)
+texture = ExtResource("5_msc8d")
+
+[node name="PlacaEscadas(descer)" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1692, 145)
+texture = ExtResource("6_ee17l")
+
+[node name="PlacaEscadas(subir)2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(941, 147)
+texture = ExtResource("5_msc8d")
+
+[node name="PlacaEscadas(descer)2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1058, -175)
+texture = ExtResource("6_ee17l")
+
+[node name="PlacaBanheiro03" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(721, 159)
+texture = ExtResource("7_son7y")
+
+[node name="Mesa01" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(895, 542)
+texture = ExtResource("8_ywwm7")
+
+[node name="Mesa02(cadeiraSeparada)" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(845, 540)
+texture = ExtResource("9_ljc35")
+
+[node name="MesaDeEscritório01" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(898, -758)
+texture = ExtResource("10_xf8n3")
+
+[node name="Poltrona01" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(717, -415)
+texture = ExtResource("11_l1tkq")
+
+[node name="Poltrona02" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1037, -415)
+texture = ExtResource("12_s8jj1")
+
+[node name="Poltrona03" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(881, -415)
+texture = ExtResource("11_l1tkq")
+flip_h = true
+
+[node name="Pia01" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(529, 194)
+texture = ExtResource("13_1fegw")
+
+[node name="Toalha01" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(578, 198)
+texture = ExtResource("14_r0w0b")
+
+[node name="VasoSanitário02" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(454, 224)
+texture = ExtResource("15_3jfcw")
+
+[node name="Lixeira05(banheiro)" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(499, 244)
+texture = ExtResource("16_a0pee")
+
+[node name="Desentupidor" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(441, 236)
+texture = ExtResource("17_t6bjc")
+
+[node name="Node2D" type="Node2D" parent="."]

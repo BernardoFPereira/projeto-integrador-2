@@ -2,7 +2,7 @@
 extends Node
 
 var num_players = 24
-var bus = "Sub1"
+var bus = "SoundFX"
 
 var available = []  # The available players.
 var queue = []  # The queue of sounds to play.

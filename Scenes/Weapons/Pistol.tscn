@@ -26,6 +26,7 @@ max_contacts_reported = 1
 script = ExtResource("1_vfd6i")
 default_sprite = ExtResource("2_si21x")
 held_sprite = ExtResource("2_jtjwi")
+used_sprite = ExtResource("2_si21x")
 weapon_type = "ranged"
 max_ammo = 6
 

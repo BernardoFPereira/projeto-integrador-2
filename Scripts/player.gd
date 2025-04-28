@@ -5,9 +5,7 @@ const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 
 @export_range(500.0, 1500.0) var throw_power: float = 800.0
-@export_range(500, 2500.0) var shadow_jump_strength: float = 100.0
-#@export var hand_left_position: Vector2
-#@export var hand_right_position: Vector2
+@export_range(500, 2500.0) var shadow_jump_strength: float = 1000.0
 
 @onready var right_shoulder_pos: Marker2D = $RightShoulderPos
 @onready var left_shoulder_pos: Marker2D = $LeftShoulderPos
@@ -28,7 +26,6 @@ const JUMP_VELOCITY = -400.0
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape
 @onready var shadow_collision = $ShadowCollisionShape
-#@onready var shadow_shape: RigidBody2D = $ShadowShape
 
 @onready var grab_rays = [grab_cast_top, grab_cast_right, grab_cast_left]
 @onready var melee_hit_box: Area2D = $MeleeHitBox
@@ -39,7 +36,6 @@ const JUMP_VELOCITY = -400.0
 var just_jumped := false
 
 var carried_weapon: Weapon = null
-#var secondary_weapon: Weapon = null
 
 var health = 2
 
@@ -124,7 +120,7 @@ func handle_facing() -> void:
 		Facing.LEFT:
 			if carried_weapon:
 				carried_weapon.flip_weapon()
-				
+			
 			if grab_cast_left.is_colliding():
 				melee_hit_box.monitoring = false
 			else:
@@ -133,22 +129,14 @@ func handle_facing() -> void:
 func set_facing(new_facing) -> void:
 	if new_facing != facing:
 		facing = new_facing
+		
 	match facing:
 		Facing.LEFT:
 			idle_hand_rotation = 108
 			melee_hit_box.position = $HitBoxPosLeft.position
 			hand.position = left_shoulder_pos.position
 			hand.rotation_degrees = idle_hand_rotation
-			#hold_spot.scale = -Vector2.ONE
 			animated_sprite.flip_h = true
-			
-			#if carried_weapon:
-				#carried_weapon.flip_weapon()
-			#
-			#if grab_cast_left.is_colliding():
-				#melee_hit_box.monitoring = false
-			#else:
-				#melee_hit_box.monitoring = true
 			
 		Facing.RIGHT:
 			idle_hand_rotation = 72
@@ -157,15 +145,6 @@ func set_facing(new_facing) -> void:
 			hand.rotation_degrees = idle_hand_rotation
 			
 			animated_sprite.flip_h = false
-			
-			#if carried_weapon:
-				#carried_weapon.flip_weapon()
-				#
-			#if grab_cast_left.is_colliding():
-				#melee_hit_box.monitoring = false
-			#else:
-				#melee_hit_box.monitoring = true
-				
 
 func set_state(new_state: States):
 	if state not in [States.SHADOW_MELD]:
@@ -184,7 +163,11 @@ func set_state(new_state: States):
 		hand_sprite.visible = false
 	
 	if new_state not in [States.WALK]:
-		animation_player.play("RESET")
+		match facing:
+			Facing.RIGHT:
+				animation_player.play("idle_hand_R")
+			Facing.LEFT:
+				animation_player.play("idle_hand_L")
 	
 	match new_state:
 		States.DEAD:
@@ -201,13 +184,8 @@ func set_state(new_state: States):
 			get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
 			animated_sprite.play("damage")
 			# State switch on animation_finished
-			#set_state(States.IDLE)
 		
 		States.IDLE:
-			#print("IDLING LIKE A MOTHERFUCKER")
-			#if carried_weapon:
-				#carried_weapon.visible = true
-				#
 			animated_sprite.play("idle")
 			collision_shape.disabled = false
 			#shadow_collision.disabled = true
@@ -219,10 +197,10 @@ func set_state(new_state: States):
 			match facing:
 				Facing.RIGHT:
 					animated_sprite.flip_h = true
+				
 				Facing.LEFT:
 					animated_sprite.flip_h = false
-					
-			animation_player.play("walk_hand")
+				
 			animated_sprite.play("walk")
 		
 		States.SHADOW_MELD:
@@ -299,12 +277,11 @@ func handle_states(delta) -> void:
 		
 		States.FALL:
 			if is_on_floor():
-				print("Landed!")
+				#print("Landed!")
 				set_state(States.IDLE)
 			
 			if grab_cast_down.is_colliding():
 				ground_check()
-			pass
 		
 		States.DAMAGE:
 			velocity.x = 0
@@ -317,8 +294,10 @@ func handle_states(delta) -> void:
 			
 			if direction.x < 0:
 				set_facing(Facing.LEFT)
+				animation_player.play("walk_hand_L")
 			elif direction.x > 0:
 				set_facing(Facing.RIGHT)
+				animation_player.play("walk_hand_R")
 		
 		States.MELEE:
 			velocity.x = 0
@@ -502,6 +481,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		trajectory_line.visible = false
 		just_jumped = true
 		set_state(States.SHADOW_SHOT)
+	
+	#if event.is_action_pressed("pause_game"):
+		#if !PlayerManager.game_paused:
+		#PlayerManager.game_paused = true
+		#get_tree().paused = true
+		#else:
+			#PlayerManager.game_paused = false
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	match animated_sprite.animation:

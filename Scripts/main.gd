@@ -1,6 +1,5 @@
 extends Node
 
-# TODO: CHANGE THIS INSANE PARENTING
 @onready var objective_label: Label = $CanvasLayer3/UI/ObjectiveLabel
 @onready var interaction_label: Label = $CanvasLayer3/UI/InteractionLabel
 @onready var ammo_label: Label = $CanvasLayer3/UI/AmmoLabel
@@ -8,6 +7,7 @@ extends Node
 
 @onready var win_menu: Control = $CanvasLayer3/UI/WinMenu
 @onready var lose_menu: Control = $CanvasLayer3/UI/LoseMenu
+@onready var pause_menu: Control = $CanvasLayer3/UI/PauseMenu
 
 func _ready() -> void:
 	PlayerManager.player = get_tree().get_first_node_in_group("Player")
@@ -41,16 +41,6 @@ func _process(delta: float) -> void:
 func _on_button_pressed() -> void:
 	PlayerManager.restart()
 	get_tree().change_scene_to_file("res://test_level.tscn")
-
-# Disconnected temporarily, maybe
-#func _on_inside_area_body_entered(body: Node2D) -> void:
-	#if body.is_in_group("Player"):
-		#PlayerManager.is_inside = !PlayerManager.is_inside
-		#print("player is_inside switch")
-#func _on_inside_area_body_exited(body: Node2D) -> void:
-	#if body.is_in_group("Player"):
-		#PlayerManager.is_inside = !PlayerManager.is_inside
-		#print("player is_inside switch")
 
 func _on_map_exit_area_body_entered(body: Node2D) -> void:
 	if PlayerManager.briefcase_found:

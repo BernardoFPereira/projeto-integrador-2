@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d88dp20ow06n"
-path="res://.godot/imported/grunt01_walk.png-122ad772e03f94080942367ede9a2230.ctex"
+uid="uid://dtixgv0ixs8uq"
+path="res://.godot/imported/botão p (selecionado +click).png-cf1d47c6e7a742e891c5de610217ec97.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/enemies/grunt01_walk.png"
-dest_files=["res://.godot/imported/grunt01_walk.png-122ad772e03f94080942367ede9a2230.ctex"]
+source_file="res://Sprites/UI/botões/botão p (selecionado +click).png"
+dest_files=["res://.godot/imported/botão p (selecionado +click).png-cf1d47c6e7a742e891c5de610217ec97.ctex"]
 
 [params]
 

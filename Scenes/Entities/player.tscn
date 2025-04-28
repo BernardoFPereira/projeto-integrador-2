@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bdktoaq21c5xd"]
+[gd_scene load_steps=16 format=3 uid="uid://bdktoaq21c5xd"]
 
 [ext_resource type="Script" uid="uid://dy1cfudnsajyy" path="res://Scripts/player.gd" id="1_uygo4"]
 [ext_resource type="Script" uid="uid://cjpns3m3ir6wp" path="res://Scripts/trajectory.gd" id="2_l02lo"]
@@ -61,10 +61,96 @@ tracks/1/keys = {
 "values": [Vector2(6, -14), Vector2(-2, -16), Vector2(-11, -16), Vector2(1, -16), Vector2(1, -16), Vector2(2, -11), Vector2(2, -11)]
 }
 
+[sub_resource type="Animation" id="Animation_svftf"]
+resource_name = "walk_hand_L"
+length = 1.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:rotation")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.93977, 2.09617, 2.35259, 2.15683, 1.68504, 1.30315, 1.10253, 1.65475, 1.50604, 2.06157, 2.03962]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-8, -13), Vector2(-6, -11), Vector2(-2, -8), Vector2(-4.76837e-07, -10), Vector2(-4, -14), Vector2(-5, -16), Vector2(9, -14), Vector2(2, -18), Vector2(-5, -15), Vector2(-1, -8), Vector2(-1, -8)]
+}
+
+[sub_resource type="Animation" id="Animation_a1rq5"]
+resource_name = "idle_hand_R"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(5, -16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.21511]
+}
+
+[sub_resource type="Animation" id="Animation_yqx0t"]
+resource_name = "idle_hand_L"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(-5, -16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.80984]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x3wgy"]
 _data = {
 &"RESET": SubResource("Animation_fkybt"),
-&"walk_hand": SubResource("Animation_vgqql")
+&"idle_hand_L": SubResource("Animation_yqx0t"),
+&"idle_hand_R": SubResource("Animation_a1rq5"),
+&"walk_hand_L": SubResource("Animation_svftf"),
+&"walk_hand_R": SubResource("Animation_vgqql")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tx1dd"]
@@ -88,7 +174,6 @@ collision_layer = 536870914
 collision_mask = 273
 floor_constant_speed = true
 script = ExtResource("1_uygo4")
-shadow_jump_strength = 1000.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -118,7 +203,7 @@ polygon = PackedVector2Array(-1.16701, -1.57318, -0.833977, 0.637954, 1.06814, 1
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 3
 sprite_frames = ExtResource("3_vgqql")
-animation = &"melee_knife"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="InteractionArea" type="Area2D" parent="."]
@@ -139,16 +224,11 @@ collision_mask = 16
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_kruvw")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="ShadowCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_aa6qj")
-debug_color = Color(0.566883, 0.128881, 0.508625, 0.42)
-
-[node name="HandPoly" type="Polygon2D" parent="."]
-visible = false
-position = Vector2(8, -20)
-rotation = 0.698132
-polygon = PackedVector2Array(34.8775, 15.1181, 33.0989, 19.2214, 28.1064, 19.4944, 25.6585, 15.0214, 28.0799, 11.6842, 31.6636, 11.2879)
+debug_color = Color(0.568627, 0.129412, 0.509804, 0.180392)
 
 [node name="ShadowShotCollision" type="StaticBody2D" parent="."]
 position = Vector2(0, -4)
@@ -198,7 +278,7 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeHitBox"]
 position = Vector2(-6.5, -8.25)
 shape = SubResource("RectangleShape2D_h4iuc")
-debug_color = Color(0.985912, 0, 0.328993, 0.42)
+debug_color = Color(0.984314, 0, 0.329412, 0)
 
 [node name="HitBoxPosRight" type="Marker2D" parent="."]
 position = Vector2(30, 1)

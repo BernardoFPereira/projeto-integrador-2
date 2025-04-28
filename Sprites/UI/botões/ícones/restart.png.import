@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c85a5scrtyghu"
-path="res://.godot/imported/grunt_idlev1.png-b54ca9c84e8b88dfb668ca81d3c0baa8.ctex"
+uid="uid://cc0dlfsjhrcr0"
+path="res://.godot/imported/restart.png-dab354c930b119b8c984398ba9169725.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/enemies/grunt_idlev1.png"
-dest_files=["res://.godot/imported/grunt_idlev1.png-b54ca9c84e8b88dfb668ca81d3c0baa8.ctex"]
+source_file="res://Sprites/UI/botões/ícones/restart.png"
+dest_files=["res://.godot/imported/restart.png-dab354c930b119b8c984398ba9169725.ctex"]
 
 [params]
 

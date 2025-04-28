@@ -142,10 +142,6 @@ func set_state(new_state: States) -> void:
 	var suspicious_icon = preload("res://Sprites/alert_icons2.png")
 	var alert_icon = preload("res://Sprites/alert_icons1.png")
 	
-	if state != States.DEAD:
-		if velocity.x != 0:
-			animated_sprite.play("walk")
-	
 	if new_state != state:
 		match new_state:
 			States.DEAD:
@@ -155,7 +151,6 @@ func set_state(new_state: States) -> void:
 				head_collision_shape.disabled = true
 				dead_collision_shape.disabled = false
 				
-				animated_sprite.play("dead")
 				sight_area.monitoring = false
 				dark_sight_area.monitoring = false
 				interaction_target = null
@@ -168,6 +163,8 @@ func set_state(new_state: States) -> void:
 				suspicion_timer.stop()
 				search_location_timer.stop()
 				search_timer.stop()
+				
+				animated_sprite.play("dead")
 			States.DAMAGE:
 				if health >= 0:
 					animated_sprite.play("damage")
@@ -181,17 +178,14 @@ func set_state(new_state: States) -> void:
 				state_sprite.stop()
 				state_sprite.visible = false
 				
-				#animated_sprite.play("walk")
-				#icon.texture = null
-				
 				roaming_timer.start()
 				suspicion_timer.stop()
 				search_location_timer.stop()
 				search_timer.stop()
-			States.SUSPICIOUS:
-				animated_sprite.play("idle")
 				
-				state_sprite.self_modulate = Color.ORANGE
+				animated_sprite.play("walk")
+			States.SUSPICIOUS:
+				state_sprite.self_modulate = Color.WHITE
 				state_sprite.visible = true
 				state_sprite.play("search")
 				#icon.texture = suspicious_icon
@@ -200,9 +194,9 @@ func set_state(new_state: States) -> void:
 				roaming_timer.stop()
 				search_location_timer.stop()
 				search_timer.stop()
-			States.CHASE:
-				#animated_sprite.play("walk")
 				
+				#animated_sprite.play("idle")
+			States.CHASE:
 				state_sprite.visible = true
 				state_sprite.self_modulate = Color.RED
 				state_sprite.play("detected")
@@ -212,8 +206,10 @@ func set_state(new_state: States) -> void:
 				suspicion_timer.stop()
 				search_location_timer.stop()
 				search_timer.stop()
+				animated_sprite.play("walk")
 			States.SEARCH:
-				#animated_sprite.play("walk")
+				if state == States.AIM:
+					aim_timer.stop()
 				match y_diff():
 					"below":
 						set_state(States.GOING_DOWN)
@@ -231,14 +227,18 @@ func set_state(new_state: States) -> void:
 				search_timer.start()
 				roaming_timer.stop()
 				suspicion_timer.stop()
+				animated_sprite.play("walk")
 			States.AIM:
+				velocity.x = 0
 				# Esperando sprites de pereparação de facada do grunt melee
 				# pra tirar esse `if`
 				if enemy_type == "RANGED":
 					animated_sprite.play("aim")
 				aim_timer.start()
+			States.ATTACK:
+				velocity.x = 0
+				animated_sprite.play("attack")
 			States.GOING_UP:
-				#animated_sprite.play("walk")
 				
 				state_sprite.visible = true
 				state_sprite.self_modulate = Color.ORANGE
@@ -251,13 +251,12 @@ func set_state(new_state: States) -> void:
 				search_timer.stop()
 				roaming_timer.stop()
 				suspicion_timer.stop()
+				
+				animated_sprite.play("walk")
 			States.GOING_DOWN:
-				#animated_sprite.play("walk")
-				
 				state_sprite.visible = true
 				state_sprite.self_modulate = Color.ORANGE
 				state_sprite.play("search")
-				#icon.texture = suspicious_icon
 				
 				target_position = look_for_stairs()
 				
@@ -265,15 +264,17 @@ func set_state(new_state: States) -> void:
 				search_timer.stop()
 				roaming_timer.stop()
 				suspicion_timer.stop()
-			_:
-				state_sprite.visible = false
-				state_sprite.stop()
-				#icon.texture = null
 				
-				roaming_timer.stop()
-				suspicion_timer.stop()
-				search_location_timer.stop()
-				search_timer.stop()
+				animated_sprite.play("walk")
+			#_:
+				#print(state)
+				#state_sprite.visible = false
+				#state_sprite.stop()
+				#
+				#roaming_timer.stop()
+				#suspicion_timer.stop()
+				#search_location_timer.stop()
+				#search_timer.stop()
 			
 		state = new_state
 
@@ -285,17 +286,14 @@ func handle_states(delta) -> void:
 		States.DEAD:
 			#rotation_degrees = lerp(rotation_degrees, 90.0, delta * 6)
 			velocity.x = 0
-			
 		States.IDLE:
 			if is_player_on_sight and !detected_obstacle():
 				#if PlayerManager.is_in_shadow:
 					#ray_cast.target_position / 2
 				set_state(States.SUSPICIOUS)
-			
 		States.SUSPICIOUS:
 			# wait to see if player stays in sight
 			pass
-			
 		States.CHASE:
 			target_position = chase_target.global_position
 			
@@ -314,14 +312,9 @@ func handle_states(delta) -> void:
 						set_state(States.AIM)
 			if !(global_position.distance_to(target_position) < 20):
 				velocity.x = direction_to_player.x * speed
-		
 		States.AIM:
 			velocity.x = 0
 			
-			if !is_player_on_sight:
-				aim_timer.stop()
-				set_state(States.SEARCH)
-				
 			# TODO: Fix click_fx spawn and despawn
 			#match enemy_type:
 				#"RANGED":
@@ -339,12 +332,9 @@ func handle_states(delta) -> void:
 							#ready_to_shoot = true
 				#_:
 					#pass
-						
-		
 		States.ATTACK:
 			match enemy_type:
 				"MELEE":
-					velocity = Vector2.ZERO
 					
 					var slash_fx = preload("res://Scenes/FX/enemy_slash.tscn").instantiate()
 					var offset = Vector2(25, 0)
@@ -374,7 +364,6 @@ func handle_states(delta) -> void:
 					
 					set_state(States.COOLDOWN)
 					pass
-			
 		States.COOLDOWN:
 			cooldown_counter += delta
 			if cooldown_counter >= attack_cooldown:
@@ -383,7 +372,6 @@ func handle_states(delta) -> void:
 				else:
 					set_state(States.ROAMING)
 				cooldown_counter = 0.0
-			
 		States.GOING_UP:
 			if !(global_position.distance_to(target_position) < 20):
 				velocity.x = global_position.direction_to(target_position).x * (roam_speed * 2)
@@ -393,7 +381,6 @@ func handle_states(delta) -> void:
 				just_interacted = true
 				interaction_target.interaction("ENEMY")
 				set_state(States.SEARCH)
-		
 		States.GOING_DOWN:
 			if !(global_position.distance_to(target_position) < 20):
 				velocity.x = global_position.direction_to(target_position).x * (roam_speed * 2)
@@ -404,20 +391,32 @@ func handle_states(delta) -> void:
 				just_interacted = true
 				interaction_target.interaction("ENEMY")
 				set_state(States.SEARCH)
-		
 		States.SEARCH:
 			#var search_offset = Vector2(randf_range(-350, 350), 0)
 			if !(global_position.distance_to(target_position) < 100):
 				velocity.x = global_position.direction_to(player_last_pos).x * roam_speed
 			#velocity.x = lerpf(velocity.x, global_position.direction_to(player_last_pos + search_offset).x * roam_speed, delta * 2)
 			
+			if velocity.x == 0:
+				animated_sprite.play("idle")
+			else:
+				animated_sprite.play("walk")
+			
 			if is_player_on_sight and !detected_obstacle():
 				set_state(States.CHASE)
-		
 		States.ROAMING:
 			if !(global_position.distance_to(target_position) < 100):
 				velocity.x = global_position.direction_to(target_position).x * roam_speed
 			#velocity.x = lerpf(velocity.x, global_position.direction_to(target_position).x * roam_speed, delta * 2)
+			#if is_on_wall():
+				#roaming_timer.stop()
+				#roaming_timer.wait_time = 0.5
+				#roaming_timer.start()
+			
+			if velocity.x == 0:
+				animated_sprite.play("idle")
+			else:
+				animated_sprite.play("walk")
 			
 			if is_player_on_sight and !detected_obstacle():
 				if PlayerManager.is_player_dead:
@@ -561,7 +560,7 @@ func _on_roaming_timer_timeout() -> void:
 	var roaming_offset = Vector2(randf_range(-250, 250), 0)
 	target_position = global_position + roaming_offset
 	
-	if global_position.distance_to(target_position) < 100:
+	if global_position.distance_to(target_position) < 100 or is_on_wall():
 		target_position = global_position
 		velocity = Vector2.ZERO
 	
