@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 
 func _on_button_pressed() -> void:
 	PlayerManager.restart()
-	get_tree().change_scene_to_file("res://test_level.tscn")
+	get_tree().change_scene_to_file("res://Scenes/test_level.tscn")
 
 func _on_map_exit_area_body_entered(body: Node2D) -> void:
 	if PlayerManager.briefcase_found:
@@ -56,3 +56,7 @@ func _on_button_2_pressed() -> void:
 
 func _on_inside_area_body_exited(body: Node2D) -> void:
 	PlayerManager.is_inside = false
+
+func _on_button_continue_pressed() -> void:
+	get_tree().paused = false
+	pause_menu.visible = false

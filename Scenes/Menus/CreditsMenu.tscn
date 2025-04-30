@@ -1,9 +1,19 @@
-[gd_scene load_steps=6 format=4 uid="uid://djwj25g3yxu8i"]
+[gd_scene load_steps=16 format=4 uid="uid://djwj25g3yxu8i"]
 
 [ext_resource type="Texture2D" uid="uid://b8w151n0j563v" path="res://Sprites/UI/botões/botão g.png" id="1_ga18u"]
 [ext_resource type="TileSet" uid="uid://bh52f06wo7gfn" path="res://Tilesets/hotel_walls2.tres" id="1_n4b4j"]
+[ext_resource type="Texture2D" uid="uid://d1o6onyxgjk6n" path="res://Sprites/Misc/Área Externa/cone.png" id="2_mgg0m"]
 [ext_resource type="Texture2D" uid="uid://8ny4lelofd" path="res://Sprites/UI/botões/botão g (click).png" id="2_sino0"]
+[ext_resource type="Texture2D" uid="uid://u4srlvvfjxb5" path="res://Sprites/Misc/Área Externa/lixeira 01.png" id="3_rp1lj"]
 [ext_resource type="Texture2D" uid="uid://b71jk8ppmact0" path="res://Sprites/UI/botões/botão g (selecionado).png" id="3_sino0"]
+[ext_resource type="Texture2D" uid="uid://crjocyehd3rl6" path="res://Sprites/Misc/Área Externa/lixeira 02.png" id="4_fs1sj"]
+[ext_resource type="Texture2D" uid="uid://cjye0fk0du4v5" path="res://Sprites/Misc/Móveis/sofá 02.png" id="5_t14fh"]
+[ext_resource type="Texture2D" uid="uid://cj8ng0f8godfa" path="res://Sprites/Misc/Área Externa/lixo 01.png" id="6_fbr3m"]
+[ext_resource type="Texture2D" uid="uid://05dsa302qmfh" path="res://Sprites/Misc/Área Externa/lixo 02.png" id="7_ea5fe"]
+[ext_resource type="Texture2D" uid="uid://byj2gmlki22b6" path="res://Sprites/Misc/Área Externa/lixo 03.png" id="8_bo37b"]
+[ext_resource type="Texture2D" uid="uid://b7bbjbbnbkptt" path="res://Sprites/Misc/Área Externa/lixeira 03.png" id="9_c7ao1"]
+[ext_resource type="Texture2D" uid="uid://bxk7ds5nfuhwj" path="res://Sprites/Misc/Área Externa/poste.png" id="10_u8o63"]
+[ext_resource type="Script" uid="uid://ct2yyxdj2a8cy" path="res://Scripts/credits_menu.gd" id="11_rp1lj"]
 
 [sub_resource type="SystemFont" id="SystemFont_et25s"]
 font_names = PackedStringArray("Monospace")
@@ -17,6 +27,78 @@ font_weight = 999
 tile_map_data = PackedByteArray("AAD//wsAAQACAAcAAAAAAAsAAQACAAcAAAAAAAoAAQACAAcAAAAAAAgAAQABAAcAAAD//wgAAQABAAcAAAD//woAAQACAAcAAAABAAgAAQABAAcAAAACAAgAAQABAAcAAAADAAgAAQABAAcAAAAEAAgAAQABAAcAAAAFAAgAAQABAAcAAAAGAAgAAQABAAcAAAAHAAgAAQABAAcAAAAIAAgAAQABAAcAAAAJAAgAAQABAAcAAAAKAAgAAQABAAcAAAALAAgAAQABAAcAAAAMAAgAAQABAAcAAAANAAgAAQABAAcAAAAOAAgAAQABAAcAAAAPAAgAAQABAAcAAAAQAAgAAQABAAcAAAARAAgAAQABAAcAAAASAAgAAQABAAcAAAATAAgAAQABAAcAAAATAAkAAQACAAcAAAATAAoAAQACAAcAAAATAAsAAQACAAcAAAASAAsAAQACAAcAAAARAAsAAQACAAcAAAAQAAsAAQACAAcAAAAPAAsAAQACAAcAAAAOAAsAAQACAAcAAAANAAsAAQACAAcAAAAMAAsAAQACAAcAAAALAAsAAQACAAcAAAAKAAsAAQACAAcAAAAJAAsAAQACAAcAAAAIAAsAAQACAAcAAAAHAAsAAQACAAcAAAAGAAsAAQACAAcAAAAFAAsAAQACAAcAAAAEAAsAAQACAAcAAAADAAsAAQACAAcAAAACAAsAAQACAAcAAAABAAsAAQACAAcAAAABAAoAAQACAAcAAAACAAoAAQACAAcAAAADAAoAAQACAAcAAAAEAAoAAQACAAcAAAAFAAoAAQACAAcAAAAGAAoAAQACAAcAAAAHAAoAAQACAAcAAAAIAAoAAQACAAcAAAAJAAoAAQACAAcAAAAKAAoAAQACAAcAAAALAAoAAQACAAcAAAAMAAoAAQACAAcAAAANAAoAAQACAAcAAAAOAAoAAQACAAcAAAAPAAoAAQACAAcAAAAQAAoAAQACAAcAAAARAAoAAQACAAcAAAASAAoAAQACAAcAAAAUAAoAAQACAAcAAAAUAAgAAQABAAcAAAAUAAkAAQACAAcAAAAUAAsAAQACAAcAAAASAAkAAQACAAcAAAARAAkAAQACAAcAAAAQAAkAAQACAAcAAAAPAAkAAQACAAcAAAAOAAkAAQACAAcAAAANAAkAAQACAAcAAAAMAAkAAQACAAcAAAALAAkAAQACAAcAAAAKAAkAAQACAAcAAAAJAAkAAQACAAcAAAAIAAkAAQACAAcAAAAHAAkAAQACAAcAAAAGAAkAAQACAAcAAAAFAAkAAQACAAcAAAAEAAkAAQACAAcAAAD//wkAAQACAAcAAAAAAAkAAQACAAcAAAABAAkAAQACAAcAAAACAAkAAQACAAcAAAADAAkAAQACAAcAAAA=")
 tile_set = ExtResource("1_n4b4j")
 
+[node name="Detail" type="Node" parent="."]
+
+[node name="Cone" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(257, 492)
+texture = ExtResource("2_mgg0m")
+
+[node name="Cone2" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(274, 492)
+texture = ExtResource("2_mgg0m")
+
+[node name="Cone3" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(956, 492)
+texture = ExtResource("2_mgg0m")
+
+[node name="Lixeira01" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(62, 480)
+texture = ExtResource("3_rp1lj")
+
+[node name="Lixeira02" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(80, 479)
+texture = ExtResource("4_fs1sj")
+
+[node name="Sofá02" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(1135, 476)
+texture = ExtResource("5_t14fh")
+
+[node name="Lixo01" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(134, 496)
+texture = ExtResource("6_fbr3m")
+
+[node name="Lixo02" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(108, 492)
+texture = ExtResource("7_ea5fe")
+
+[node name="Lixo03" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(29, 488)
+texture = ExtResource("8_bo37b")
+
+[node name="Lixeira03" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(1233, 466)
+texture = ExtResource("9_c7ao1")
+
+[node name="Lixo04" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(1152, 488)
+texture = ExtResource("8_bo37b")
+
+[node name="Poste" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(181, 387)
+texture = ExtResource("10_u8o63")
+
+[node name="Poste2" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(642, 387)
+texture = ExtResource("10_u8o63")
+
+[node name="Poste3" type="Sprite2D" parent="Detail"]
+texture_filter = 3
+position = Vector2(1096, 387)
+texture = ExtResource("10_u8o63")
+
 [node name="CreditsMenu" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -24,6 +106,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("11_rp1lj")
 
 [node name="MarginContainer" type="MarginContainer" parent="CreditsMenu"]
 layout_mode = 1
@@ -68,3 +151,5 @@ grow_vertical = 0
 texture_normal = ExtResource("1_ga18u")
 texture_pressed = ExtResource("2_sino0")
 texture_hover = ExtResource("3_sino0")
+
+[connection signal="pressed" from="CreditsMenu/ButtonMainMenu" to="CreditsMenu" method="_on_button_main_menu_pressed"]

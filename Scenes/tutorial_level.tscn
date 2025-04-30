@@ -1,0 +1,797 @@
+[gd_scene load_steps=39 format=4 uid="uid://kdw08n7ui3mv"]
+
+[ext_resource type="Script" uid="uid://ctuy0d1nxcxf1" path="res://Scripts/pause_manager.gd" id="1_0l1o8"]
+[ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://Scripts/main.gd" id="1_3h0wn"]
+[ext_resource type="Script" uid="uid://bnx4g7k2bwjk7" path="res://Scripts/camera.gd" id="2_3h0wn"]
+[ext_resource type="TileSet" uid="uid://bh52f06wo7gfn" path="res://Tilesets/hotel_walls2.tres" id="3_pqrgu"]
+[ext_resource type="PackedScene" uid="uid://brxjw7a8jp5n3" path="res://Scenes/door.tscn" id="4_or8a6"]
+[ext_resource type="PackedScene" uid="uid://cm5psujfwcom2" path="res://Scenes/stairs.tscn" id="5_la5i4"]
+[ext_resource type="Script" uid="uid://cwnxio8qjx6at" path="res://Scripts/desk.gd" id="6_8uvx6"]
+[ext_resource type="PackedScene" uid="uid://cfcysmdx4fwtk" path="res://Scenes/light_switch.tscn" id="7_gjt4w"]
+[ext_resource type="PackedScene" uid="uid://dvnbwjdh3h32x" path="res://Scenes/spotlight.tscn" id="8_h8rrn"]
+[ext_resource type="PackedScene" uid="uid://dku1i8xadq6lo" path="res://Scenes/lamp_stand.tscn" id="9_otetg"]
+[ext_resource type="PackedScene" uid="uid://7j67kmjgw7gm" path="res://Scenes/Weapons/knife.tscn" id="10_q1olv"]
+[ext_resource type="PackedScene" uid="uid://cmh1hpnuj0sd5" path="res://Scenes/Weapons/Pistol.tscn" id="11_r7qun"]
+[ext_resource type="Shader" uid="uid://ljw3o5pbf52q" path="res://Shaders/noise.gdshader" id="12_x0qkl"]
+[ext_resource type="Shader" uid="uid://rcn5fpdxiksk" path="res://Shaders/glitch.gdshader" id="13_1hjx5"]
+[ext_resource type="Texture2D" uid="uid://bvk837m3k5ka3" path="res://Sprites/suitcase2.png" id="14_it386"]
+[ext_resource type="Script" uid="uid://1cjx5p8lqwdy" path="res://Scripts/UI/resolution_select.gd" id="15_gbtpu"]
+[ext_resource type="Script" uid="uid://c33v11q4gjqps" path="res://Scripts/UI/volume_slider.gd" id="16_m2gal"]
+[ext_resource type="Script" uid="uid://burr4kixdupuq" path="res://Scripts/UI/fullscreen_toggle.gd" id="17_w3twc"]
+[ext_resource type="Texture2D" uid="uid://45xkkegop3hi" path="res://Sprites/UI/botões/botão p.png" id="18_3tusj"]
+[ext_resource type="Texture2D" uid="uid://d4hqgxplq340d" path="res://Sprites/UI/botões/botão p (click).png" id="19_a57c7"]
+[ext_resource type="Texture2D" uid="uid://ddv8vabldyt0p" path="res://Sprites/UI/botões/botão p (selecionado).png" id="20_ci7yp"]
+[ext_resource type="Texture2D" uid="uid://stoabsnlb387" path="res://Sprites/UI/botões/ícones/voltar.png" id="21_4tuft"]
+[ext_resource type="AudioStream" uid="uid://bybpwfuxkyajc" path="res://Audio/Night Soaked Smoke.mp3" id="22_a7b3b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_knud7"]
+size = Vector2(93, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qaypg"]
+size = Vector2(213, 293)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b8ixv"]
+size = Vector2(367, 1973)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_581l4"]
+shader = ExtResource("12_x0qkl")
+shader_parameter/seed = 80.953
+shader_parameter/power = 0.001
+shader_parameter/speed = 0.16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qud5q"]
+shader = ExtResource("13_1hjx5")
+shader_parameter/shake_power = 0.005
+shader_parameter/shake_rate = 1.0
+shader_parameter/shake_speed = 1.822
+shader_parameter/shake_block_size = 60.0
+shader_parameter/shake_color_rate = 0.003
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e52aa"]
+bg_color = Color(0.0823529, 0.0313726, 0.0705882, 0.996078)
+
+[sub_resource type="LabelSettings" id="LabelSettings_g6svb"]
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_jtvgf"]
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7g4mg"]
+draw_center = false
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.305649, 0.117356, 0.221923, 1)
+shadow_color = Color(0.870494, 0.000114647, 0.71221, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_csh2y"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.250675, 0.498702, 0.236734, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i455y"]
+draw_center = false
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.155504, 0.653868, 0.492289, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_giqp4"]
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n55l8"]
+bg_color = Color(0.201691, 0.0282743, 0.0290583, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ysnoq"]
+bg_color = Color(0.2, 0.027451, 0.027451, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.739311, 0.468566, 0.0826314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k717a"]
+bg_color = Color(0.346596, 0.0728609, 0.0728724, 1)
+
+[node name="TutorialLevel" type="Node"]
+script = ExtResource("1_3h0wn")
+
+[node name="PauseManager" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("1_0l1o8")
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+position = Vector2(-944, 471)
+offset = Vector2(0, -125)
+script = ExtResource("2_3h0wn")
+target = NodePath("")
+
+[node name="TileLayers" type="Node" parent="."]
+
+[node name="RoomBack2" type="TileMapLayer" parent="TileLayers" groups=["BackWall"]]
+tile_map_data = PackedByteArray("AAAGAAcAAQAIAAYAAAAGAAgAAQAIAAYAAAAJAAUAAQAJAAYAAAAOAAUAAQAJAAYAAAAPAAcAAQAJAAYAAAAPAAgAAQAJAAYAAAAHAAcAAQAJAAYAAAAIAAcAAQAJAAYAAAAJAAcAAQAJAAYAAAAKAAcAAQAJAAYAAAALAAcAAQAJAAYAAAAMAAcAAQAJAAYAAAANAAcAAQAJAAYAAAAOAAcAAQAJAAYAAAAOAAgAAQAJAAYAAAANAAgAAQAJAAYAAAAMAAgAAQAJAAYAAAALAAgAAQAJAAYAAAAKAAgAAQAJAAYAAAAJAAgAAQAJAAYAAAAIAAgAAQAJAAYAAAAHAAgAAQAJAAYAAAAPAAUAAQAJAAYAAAAGAAQAAQAIAAUAAAAPAAQAAQAJAAUAAAAOAAQAAQAJAAUAAAANAAQAAQAJAAUAAAAMAAQAAQAJAAUAAAALAAQAAQAJAAUAAAAKAAQAAQAJAAUAAAAJAAQAAQAJAAUAAAAHAAQAAQAJAAUAAAAQAAYAAQAJAAYAAAARAAYAAQAJAAYAAAARAAcAAQAJAAYAAAARAAgAAQAJAAYAAAAQAAgAAQAJAAYAAAAQAAcAAQAJAAYAAAAbAAcAAQAKAAYAAAAbAAgAAQAKAAYAAAAaAAgAAQAJAAYAAAAaAAcAAQAJAAYAAAAaAAYAAQAJAAYAAAAZAAYAAQAJAAYAAAAYAAYAAQAJAAYAAAAXAAYAAQAJAAYAAAAWAAYAAQAJAAYAAAAVAAYAAQAJAAYAAAAUAAYAAQAJAAYAAAATAAYAAQAJAAYAAAASAAYAAQAJAAYAAAATAAcAAQAJAAYAAAAbAAYAAQAKAAYAAAASAAcAAQAJAAYAAAASAAgAAQAJAAYAAAATAAgAAQAJAAYAAAAUAAgAAQAJAAYAAAAVAAgAAQAJAAYAAAAWAAgAAQAJAAYAAAAXAAgAAQAJAAYAAAAYAAgAAQAJAAYAAAAZAAgAAQAJAAYAAAAZAAcAAQAJAAYAAAAYAAcAAQAJAAYAAAAXAAcAAQAJAAYAAAAWAAcAAQAJAAYAAAAVAAcAAQAJAAYAAAAUAAcAAQAJAAYAAAAQAAQAAQAJAAUAAAARAAQAAQAJAAUAAAASAAQAAQAJAAUAAAATAAQAAQAJAAUAAAAUAAQAAQAJAAUAAAAVAAQAAQAJAAUAAAAaAAQAAQAJAAUA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")
+tile_set = ExtResource("3_pqrgu")
+
+[node name="Walls2" type="TileMapLayer" parent="TileLayers" groups=["Grabable"]]
+texture_filter = 3
+tile_map_data = PackedByteArray("AAAJAAkAAQAAAAcAAAAKAAkAAQAAAAcAAAALAAkAAQAAAAcAAAAMAAkAAQAAAAcAAAANAAkAAQAAAAcAAAAOAAkAAQAAAAcAAAAPAAkAAQAAAAcAAAAQAAkAAQAAAAcAAAARAAkAAQAAAAcAAAASAAkAAQAAAAcAAAARAAoAAQABAAcAAAAQAAoAAQABAAcAAAAPAAoAAQABAAcAAAAOAAoAAQABAAcAAAANAAoAAQABAAcAAAAMAAoAAQABAAcAAAALAAoAAQABAAcAAAAKAAoAAQABAAcAAAAJAAoAAQABAAcAAAAIAAoAAQABAAcAAAAHAAoAAQABAAcAAAAGAAoAAQABAAcAAAASAAoAAQABAAcAAAAGAAYAAQAIAAMAAAAbAAgAAQAFAAcAAAAbAAcAAQAFAAcAAAAbAAYAAQAIAAMAAAATAAkAAQAAAAcAAAAUAAkAAQAAAAcAAAAVAAkAAQAAAAcAAAAWAAkAAQAAAAcAAAAXAAkAAQAAAAcAAAAYAAkAAQAAAAcAAAAZAAkAAQAAAAcAAAAaAAkAAQAAAAcAAAAbAAkAAQAAAAcAAAAcAAkAAQAAAAcAAAAdAAkAAQAAAAcAAAAeAAkAAQAAAAcAAAAfAAkAAQAAAAcAAAAgAAkAAQAAAAcAAAAhAAkAAQAAAAcAAAAiAAkAAQAAAAcAAAAjAAkAAQAAAAcAAAAkAAkAAQAAAAcAAAAmAAkAAQAAAAcAAAAnAAkAAQAAAAcAAAAoAAkAAQAAAAcAAAATAAoAAQABAAcAAAAUAAoAAQABAAcAAAAVAAoAAQABAAcAAAAWAAoAAQABAAcAAAAXAAoAAQABAAcAAAAYAAoAAQABAAcAAAAZAAoAAQABAAcAAAAaAAoAAQABAAcAAAAbAAoAAQABAAcAAAAcAAoAAQABAAcAAAAdAAoAAQABAAcAAAAeAAoAAQABAAcAAAAfAAoAAQABAAcAAAAgAAoAAQABAAcAAAAhAAoAAQABAAcAAAAiAAoAAQABAAcAAAAjAAoAAQABAAcAAAAmAAoAAQABAAcAAAAnAAoAAQABAAcAAAAoAAoAAQABAAcAAAApAAoAAQABAAcAAAAqAAoAAQABAAcAAAArAAoAAQABAAcAAAAsAAoAAQABAAcAAAAtAAoAAQABAAcAAAAuAAoAAQABAAcAAAApAAkAAQAAAAcAAAAqAAkAAQAAAAcAAAArAAkAAQAAAAcAAAAsAAkAAQAAAAcAAAAtAAkAAQAAAAcAAAAuAAkAAQAAAAcAAAAvAAkAAQAAAAcAAAAvAAoAAQABAAcAAAAGAAQAAQAFAAQAAAAKAAQAAQAIAAQAAAATAAQAAQAIAAQAAAAbAAQAAQALAAQAAAAHAAQAAQAGAAQAAAAIAAQAAQAHAAQAAAAJAAQAAQAIAAQAAAALAAQAAQAIAAQAAAAMAAQAAQAIAAQAAAANAAQAAQAIAAQAAAAOAAQAAQAIAAQAAAAPAAQAAQAKAAMAAAAQAAQAAQAIAAQAAAARAAQAAQAIAAQAAAASAAQAAQAIAAQAAAAUAAQAAQAIAAQAAAAVAAQAAQAKAAMAAAAWAAQAAQAIAAQAAAAXAAQAAQAIAAQAAAAYAAQAAQAIAAQAAAAZAAQAAQAIAAQAAAAaAAQAAQAIAAQAAAAbAAUAAQAFAAIAAAAGAAUAAQAFAAIAAAD//w0AAQACAAcAAAD//w4AAQACAAcAAAAAAA4AAQACAAcAAAABAA4AAQACAAcAAAACAA4AAQACAAcAAAADAA4AAQACAAcAAAAEAA4AAQACAAcAAAAFAA4AAQACAAcAAAAGAA4AAQACAAcAAAAHAA4AAQACAAcAAAAIAA4AAQACAAcAAAAJAA4AAQACAAcAAAAKAA4AAQACAAcAAAAAAA0AAQACAAcAAAABAA0AAQACAAcAAAACAA0AAQACAAcAAAADAA0AAQACAAcAAAAEAA0AAQACAAcAAAAFAA0AAQACAAcAAAAGAA0AAQACAAcAAAAHAA0AAQACAAcAAAAIAA0AAQACAAcAAAAJAA0AAQACAAcAAAAKAA0AAQACAAcAAAALAA0AAQACAAcAAAAMAA0AAQACAAcAAAANAA0AAQACAAcAAAAOAA0AAQACAAcAAAAGAAwAAQACAAcAAAAHAAwAAQACAAcAAAAIAAwAAQACAAcAAAAJAAwAAQACAAcAAAAKAAwAAQACAAcAAAALAAwAAQACAAcAAAAMAAwAAQACAAcAAAANAAwAAQACAAcAAAAOAAwAAQACAAcAAAAPAAwAAQACAAcAAAAQAAwAAQACAAcAAAAGAAsAAQACAAcAAAAHAAsAAQACAAcAAAAIAAsAAQACAAcAAAAJAAsAAQACAAcAAAAKAAsAAQACAAcAAAALAAsAAQACAAcAAAAMAAsAAQACAAcAAAANAAsAAQACAAcAAAAOAAsAAQACAAcAAAAPAAsAAQACAAcAAAAvAAsAAQACAAcAAAAuAAsAAQACAAcAAAAtAAsAAQACAAcAAAAsAAsAAQACAAcAAAArAAsAAQACAAcAAAAqAAsAAQACAAcAAAApAAsAAQACAAcAAAAoAAsAAQACAAcAAAAnAAsAAQACAAcAAAAmAAsAAQACAAcAAAAlAAsAAQACAAcAAAAkAAsAAQACAAcAAAAjAAsAAQACAAcAAAAiAAsAAQACAAcAAAAhAAsAAQACAAcAAAAgAAsAAQACAAcAAAAfAAsAAQACAAcAAAAeAAsAAQACAAcAAAAdAAsAAQACAAcAAAAcAAsAAQACAAcAAAAbAAsAAQACAAcAAAAaAAsAAQACAAcAAAAZAAsAAQACAAcAAAAYAAsAAQACAAcAAAAXAAsAAQACAAcAAAAWAAsAAQACAAcAAAAVAAsAAQACAAcAAAAUAAsAAQACAAcAAAATAAsAAQACAAcAAAASAAsAAQACAAcAAAARAAsAAQACAAcAAAAQAAsAAQACAAcAAAARAAwAAQACAAcAAAASAAwAAQACAAcAAAAUAAwAAQACAAcAAAAVAAwAAQACAAcAAAAWAAwAAQACAAcAAAAXAAwAAQACAAcAAAAYAAwAAQACAAcAAAAZAAwAAQACAAcAAAAaAAwAAQACAAcAAAAbAAwAAQACAAcAAAAcAAwAAQACAAcAAAAdAAwAAQACAAcAAAAeAAwAAQACAAcAAAAfAAwAAQACAAcAAAAgAAwAAQACAAcAAAAhAAwAAQACAAcAAAAiAAwAAQACAAcAAAAjAAwAAQACAAcAAAAkAAwAAQACAAcAAAAlAAwAAQACAAcAAAAmAAwAAQACAAcAAAAnAAwAAQACAAcAAAAoAAwAAQACAAcAAAApAAwAAQACAAcAAAAqAAwAAQACAAcAAAArAAwAAQACAAcAAAAsAAwAAQACAAcAAAAtAAwAAQACAAcAAAAuAAwAAQACAAcAAAAvAAwAAQACAAcAAAAvAA0AAQACAAcAAAAuAA0AAQACAAcAAAAtAA0AAQACAAcAAAAsAA0AAQACAAcAAAArAA0AAQACAAcAAAAqAA0AAQACAAcAAAApAA0AAQACAAcAAAAoAA0AAQACAAcAAAAnAA4AAQACAAcAAAAmAA4AAQACAAcAAAAlAA4AAQACAAcAAAAkAA4AAQACAAcAAAAjAA4AAQACAAcAAAAiAA4AAQACAAcAAAAhAA4AAQACAAcAAAAgAA4AAQACAAcAAAAfAA4AAQACAAcAAAAeAA4AAQACAAcAAAAdAA4AAQACAAcAAAAcAA4AAQACAAcAAAAbAA4AAQACAAcAAAAaAA0AAQACAAcAAAAZAA0AAQACAAcAAAAYAA0AAQACAAcAAAAXAA0AAQACAAcAAAAWAA0AAQACAAcAAAAVAA0AAQACAAcAAAAUAA0AAQACAAcAAAATAA0AAQACAAcAAAASAA0AAQACAAcAAAARAA0AAQACAAcAAAAQAA0AAQACAAcAAAAPAA0AAQACAAcAAAAMAA4AAQACAAcAAAANAA4AAQACAAcAAAAOAA4AAQACAAcAAAAPAA4AAQACAAcAAAAQAA4AAQACAAcAAAARAA4AAQACAAcAAAASAA4AAQACAAcAAAATAA4AAQACAAcAAAAUAA4AAQACAAcAAAAVAA4AAQACAAcAAAAWAA4AAQACAAcAAAAXAA4AAQACAAcAAAAYAA4AAQACAAcAAAAZAA4AAQACAAcAAAAaAA4AAQACAAcAAAAvAA4AAQACAAcAAAAuAA4AAQACAAcAAAAtAA4AAQACAAcAAAAsAA4AAQACAAcAAAArAA4AAQACAAcAAAAqAA4AAQACAAcAAAApAA4AAQACAAcAAAAoAA4AAQACAAcAAAAnAA0AAQACAAcAAAAmAA0AAQACAAcAAAAlAA0AAQACAAcAAAAkAA0AAQACAAcAAAAjAA0AAQACAAcAAAAiAA0AAQACAAcAAAAhAA0AAQACAAcAAAAgAA0AAQACAAcAAAAfAA0AAQACAAcAAAAeAA0AAQACAAcAAAAdAA0AAQACAAcAAAAcAA0AAQACAAcAAAAbAA0AAQACAAcAAAALAA4AAQACAAcAAAD6/w0AAQACAAcAAAD6/w4AAQACAAcAAAD7/w4AAQACAAcAAAD8/w4AAQACAAcAAAD9/w4AAQACAAcAAAD+/w4AAQACAAcAAAD+/w0AAQACAAcAAAD9/w0AAQACAAcAAAD8/w0AAQACAAcAAAD7/w0AAQACAAcAAADw/wkAAQAAAAcAAAD5/w4AAQACAAcAAAD4/w4AAQACAAcAAAD3/w4AAQACAAcAAAD2/w4AAQACAAcAAAD1/w4AAQACAAcAAAD0/w4AAQACAAcAAADz/w4AAQACAAcAAADy/w4AAQACAAcAAADx/w4AAQACAAcAAADw/w4AAQACAAcAAADw/w0AAQACAAcAAADx/w0AAQACAAcAAADy/w0AAQACAAcAAADz/w0AAQACAAcAAAD0/w0AAQACAAcAAAD1/w0AAQACAAcAAAD2/w0AAQACAAcAAAD3/w0AAQACAAcAAAD4/w0AAQACAAcAAAD5/w0AAQACAAcAAADw/wwAAQACAAcAAADw/woAAQABAAcAAADw/wsAAQACAAcAAAAGAAkAAQAAAAcAAAAHAAkAAQAAAAcAAAAIAAkAAQAAAAcAAAAlAAkAAQAAAAcAAAAlAAoAAQABAAcAAAAkAAoAAQABAAcAAAATAAwAAQACAAcAAADx/wkAAQAAAAcAAADx/woAAQABAAcAAADx/wsAAQACAAcAAADx/wwAAQACAAcAAADy/woAAQABAAcAAADy/wsAAQACAAcAAADy/wwAAQACAAcAAADz/woAAQABAAcAAADz/wsAAQACAAcAAADz/wwAAQACAAcAAAD0/woAAQABAAcAAAD0/wsAAQACAAcAAAD0/wwAAQACAAcAAAD1/woAAQABAAcAAAD1/wsAAQACAAcAAAD1/wwAAQACAAcAAAD2/woAAQABAAcAAAD2/wsAAQACAAcAAAD2/wwAAQACAAcAAAD3/woAAQABAAcAAAD3/wsAAQACAAcAAAD3/wwAAQACAAcAAAD4/woAAQABAAcAAAD4/wsAAQACAAcAAAD4/wwAAQACAAcAAAD5/woAAQABAAcAAAD5/wsAAQACAAcAAAD5/wwAAQACAAcAAAD6/woAAQABAAcAAAD6/wsAAQACAAcAAAD6/wwAAQACAAcAAAD7/woAAQABAAcAAAD7/wsAAQACAAcAAAD7/wwAAQACAAcAAAD8/woAAQABAAcAAAD8/wsAAQACAAcAAAD8/wwAAQACAAcAAAD9/woAAQABAAcAAAD9/wsAAQACAAcAAAD9/wwAAQACAAcAAAD+/woAAQABAAcAAAD+/wsAAQACAAcAAAD+/wwAAQACAAcAAAD//woAAQABAAcAAAD//wsAAQACAAcAAAD//wwAAQACAAcAAAAAAAoAAQABAAcAAAAAAAsAAQACAAcAAAAAAAwAAQACAAcAAAABAAoAAQABAAcAAAABAAsAAQACAAcAAAABAAwAAQACAAcAAAACAAoAAQABAAcAAAACAAsAAQACAAcAAAACAAwAAQACAAcAAAADAAoAAQABAAcAAAADAAsAAQACAAcAAAADAAwAAQACAAcAAAAEAAoAAQABAAcAAAAEAAsAAQACAAcAAAAEAAwAAQACAAcAAAAFAAoAAQABAAcAAAAFAAsAAQACAAcAAAAFAAwAAQACAAcAAAAPAAUAAQAIAAMAAAAPAAgAAQAFAAMAAAAPAAcAAQAGAAMAAAAVAAUAAQAFAAIAAAAVAAYAAQAIAAMAAAAPAAYAAQAFAAYAAAAFAAkAAQAAAAcAAAAEAAkAAQAAAAcAAAADAAkAAQAAAAcAAAACAAkAAQAAAAcAAAABAAkAAQAAAAcAAAAAAAkAAQAAAAcAAAD//wkAAQAAAAcAAAD+/wkAAQAAAAcAAAD9/wkAAQAAAAcAAAD8/wkAAQAAAAcAAAD7/wkAAQAAAAcAAAD6/wkAAQAAAAcAAAD5/wkAAQAAAAcAAAD4/wkAAQAAAAcAAAD3/wkAAQAAAAcAAAD2/wkAAQAAAAcAAAD1/wkAAQAAAAcAAAD0/wkAAQAAAAcAAADz/wkAAQAAAAcAAADy/wkAAQAAAAcAAAA=")
+tile_set = ExtResource("3_pqrgu")
+
+[node name="Doors" type="Node" parent="."]
+
+[node name="SpriteDoor" parent="Doors" instance=ExtResource("4_or8a6")]
+position = Vector2(417, 512)
+
+[node name="SpriteDoor3" parent="Doors" instance=ExtResource("4_or8a6")]
+position = Vector2(1376, 512)
+
+[node name="SpriteDoor4" parent="Doors" instance=ExtResource("4_or8a6")]
+position = Vector2(1761, 512)
+
+[node name="AnimatedSprite2D" parent="Doors/SpriteDoor4" index="0"]
+position = Vector2(-19, -1)
+flip_h = true
+
+[node name="SpriteDoor2" parent="Doors" instance=ExtResource("4_or8a6")]
+position = Vector2(672, 192)
+
+[node name="SpriteDoor6" parent="Doors" instance=ExtResource("4_or8a6")]
+position = Vector2(1249, 192)
+
+[node name="SpriteDoor9" parent="Doors" instance=ExtResource("4_or8a6")]
+position = Vector2(-224, 512)
+
+[node name="Stairs" type="Node" parent="."]
+
+[node name="Stairs" parent="Stairs" node_paths=PackedStringArray("destination") groups=["Stair"] instance=ExtResource("5_la5i4")]
+position = Vector2(1637, 576)
+destination = NodePath("../Stairs2")
+
+[node name="Stairs2" parent="Stairs" node_paths=PackedStringArray("destination") groups=["Stair"] instance=ExtResource("5_la5i4")]
+position = Vector2(1637, 256)
+destination = NodePath("../Stairs")
+direction = 1
+
+[node name="Stairs3" parent="Stairs" node_paths=PackedStringArray("destination") groups=["Stair"] instance=ExtResource("5_la5i4")]
+position = Vector2(999, 256)
+destination = NodePath("../Stairs4")
+
+[node name="Stairs4" parent="Stairs" node_paths=PackedStringArray("destination") groups=["Stair"] instance=ExtResource("5_la5i4")]
+position = Vector2(999, -65)
+destination = NodePath("../Stairs3")
+direction = 1
+
+[node name="Stairs5" parent="Stairs" node_paths=PackedStringArray("destination") groups=["Stair"] instance=ExtResource("5_la5i4")]
+position = Vector2(1638, -65)
+destination = NodePath("")
+
+[node name="Interactables" type="Node" parent="."]
+
+[node name="Desk" type="Polygon2D" parent="Interactables"]
+visible = false
+position = Vector2(885, -779)
+color = Color(0.548963, 0.548963, 0.548963, 1)
+polygon = PackedVector2Array(-55, 75, -47, 75, -47, 51, 10.8062, 51, 73, 51, 73, 75, 81, 75, 81, 11, -55, 11)
+uv = PackedVector2Array(-184, -29, -185, 10, -177, 12, -176, -27, -153, -27, -152, 0, -141, -4, -140, -43, -195, -42)
+script = ExtResource("6_8uvx6")
+
+[node name="InteractHighlight" type="Line2D" parent="Interactables/Desk"]
+visible = false
+position = Vector2(14, 31)
+points = PackedVector2Array(-69, -20, 67, -20, 67, 44, 59, 44, 59, 20, -62, 20, -62, 44, -69, 44)
+closed = true
+width = 2.5
+default_color = Color(1, 0.843137, 0, 1)
+
+[node name="InteractArea" type="Area2D" parent="Interactables/Desk"]
+position = Vector2(14, 60)
+collision_layer = 1024
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Desk/InteractArea"]
+position = Vector2(0.5, -32.5)
+shape = SubResource("RectangleShape2D_knud7")
+
+[node name="Lights" type="Node2D" parent="."]
+
+[node name="LightSwitch4" parent="Lights" instance=ExtResource("7_gjt4w")]
+position = Vector2(1195, 514)
+switch_condition = "BROKEN"
+
+[node name="GroundLight1" parent="Lights" instance=ExtResource("8_h8rrn")]
+position = Vector2(792, 308)
+
+[node name="LightSwitch" parent="Lights" node_paths=PackedStringArray("connected_lights") instance=ExtResource("7_gjt4w")]
+position = Vector2(553, 510)
+connected_lights = [NodePath("../GroundLight1")]
+
+[node name="GroundLight2" parent="Lights" instance=ExtResource("8_h8rrn")]
+position = Vector2(1560, 309)
+is_on = false
+
+[node name="LightSwitch2" parent="Lights" node_paths=PackedStringArray("connected_lights") instance=ExtResource("7_gjt4w")]
+position = Vector2(1450, 507)
+connected_lights = [NodePath("../GroundLight2")]
+
+[node name="LightSwitch3" parent="Lights" node_paths=PackedStringArray("connected_lights") instance=ExtResource("7_gjt4w")]
+position = Vector2(-702, 510)
+connected_lights = [NodePath("../StandingLamp2")]
+
+[node name="BrokenSwitch" parent="Lights" node_paths=PackedStringArray("connected_lights") instance=ExtResource("7_gjt4w")]
+position = Vector2(1507, 193)
+connected_lights = [NodePath("../BathroomLight")]
+
+[node name="BigRoomLight1" parent="Lights" instance=ExtResource("8_h8rrn")]
+position = Vector2(719, -330)
+
+[node name="BigRoomSwitch1" parent="Lights" node_paths=PackedStringArray("connected_lights") instance=ExtResource("7_gjt4w")]
+position = Vector2(844, -127)
+connected_lights = [NodePath("../BigRoomLight1")]
+
+[node name="BigRoomLight2" parent="Lights" instance=ExtResource("8_h8rrn")]
+position = Vector2(1332, -6)
+
+[node name="BigRoomSwitch2" parent="Lights" node_paths=PackedStringArray("connected_lights") instance=ExtResource("7_gjt4w")]
+position = Vector2(1493, -127)
+connected_lights = [NodePath("../BigRoomLight2")]
+
+[node name="BathroomLight" parent="Lights" instance=ExtResource("8_h8rrn")]
+position = Vector2(574, -13)
+
+[node name="StandingLamp2" parent="Lights" instance=ExtResource("9_otetg")]
+position = Vector2(-395, 468)
+
+[node name="Weapons" type="Node" parent="."]
+
+[node name="Knife" parent="Weapons" instance=ExtResource("10_q1olv")]
+visible = false
+position = Vector2(1366, 558)
+
+[node name="Pistol" parent="Weapons" instance=ExtResource("11_r7qun")]
+visible = false
+position = Vector2(557, 236)
+max_ammo = 8
+
+[node name="MapExitArea" type="Area2D" parent="."]
+position = Vector2(2396, 441)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapExitArea"]
+position = Vector2(3.5, -12.5)
+shape = SubResource("RectangleShape2D_qaypg")
+debug_color = Color(0.676968, 1, 0.58729, 0.42)
+
+[node name="MapBoundary" type="StaticBody2D" parent="."]
+position = Vector2(-1390, 362)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBoundary"]
+position = Vector2(173.5, -794.5)
+shape = SubResource("RectangleShape2D_b8ixv")
+
+[node name="MapBoundary2" type="StaticBody2D" parent="."]
+position = Vector2(2637, 362)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBoundary2"]
+position = Vector2(173.5, -776.5)
+shape = SubResource("RectangleShape2D_b8ixv")
+
+[node name="ScreenFX" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="NoiseFX" type="ColorRect" parent="ScreenFX"]
+material = SubResource("ShaderMaterial_581l4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GlitchFX" type="ColorRect" parent="ScreenFX"]
+material = SubResource("ShaderMaterial_qud5q")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+layer = 3
+visible = false
+
+[node name="UI" type="Control" parent="CanvasLayer3"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -121.0
+offset_top = -63.0
+offset_right = -33.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "RESTART"
+
+[node name="ObjectiveLabel" type="Label" parent="CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -70.5
+offset_top = 50.0
+offset_right = 70.5
+offset_bottom = 73.0
+grow_horizontal = 2
+text = "Encontre a maleta"
+horizontal_alignment = 1
+
+[node name="InteractionLabel" type="Label" parent="CanvasLayer3/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -103.5
+offset_top = -105.0
+offset_right = 103.5
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Pressione 'E' para interagir"
+horizontal_alignment = 1
+
+[node name="AmmoLabel" type="Label" parent="CanvasLayer3/UI"]
+layout_mode = 1
+offset_left = 58.0
+offset_top = 49.0
+offset_right = 114.0
+offset_bottom = 72.0
+text = "Ammo:"
+
+[node name="ObjectiveImage" type="TextureRect" parent="CanvasLayer3/UI"]
+visible = false
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -28.0
+offset_top = 115.0
+offset_right = 36.0
+offset_bottom = 179.0
+grow_horizontal = 2
+texture = ExtResource("14_it386")
+
+[node name="WinMenu" type="Control" parent="CanvasLayer3/UI"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer3/UI/WinMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 480.5
+offset_top = 292.5
+offset_right = 631.5
+offset_bottom = 315.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Obrigado por jogar!"
+
+[node name="Button2" type="Button" parent="CanvasLayer3/UI/WinMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 498.0
+offset_top = 340.0
+offset_right = 614.0
+offset_bottom = 371.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Jogar de Novo"
+
+[node name="Button3" type="Button" parent="CanvasLayer3/UI/WinMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 537.0
+offset_top = 391.0
+offset_right = 575.0
+offset_bottom = 422.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Sair"
+
+[node name="HowTo" type="Label" parent="CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = -139.0
+offset_right = 383.0
+offset_bottom = -38.0
+grow_vertical = 0
+text = "WASD: Movimento
+Espaço (Segurar): Mirar Pulo
+Shift: Ativar/Desativar \"Mescla das Sombras\"
+Clique Equerdo: Atirar/Pular/Atacar
+Clique Direito: Mirar"
+
+[node name="LoseMenu" type="Control" parent="CanvasLayer3/UI"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer3/UI/LoseMenu"]
+layout_mode = 2
+offset_left = 480.0
+offset_top = 300.0
+offset_right = 669.0
+offset_bottom = 323.0
+text = "Você Morreu!"
+horizontal_alignment = 1
+
+[node name="Button2" type="Button" parent="CanvasLayer3/UI/LoseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 498.0
+offset_top = 340.0
+offset_right = 614.0
+offset_bottom = 371.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Jogar de Novo"
+
+[node name="Button3" type="Button" parent="CanvasLayer3/UI/LoseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 537.0
+offset_top = 391.0
+offset_right = 575.0
+offset_bottom = 422.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Sair"
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer3/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e52aa")
+
+[node name="Title" type="Label" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -179.0
+offset_top = 28.0
+offset_right = 183.0
+offset_bottom = 127.0
+grow_horizontal = 2
+text = "Jogo Pausado"
+label_settings = SubResource("LabelSettings_g6svb")
+horizontal_alignment = 1
+
+[node name="OptionResolution" type="Label" parent="CanvasLayer3/UI/PauseMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = -96.0
+offset_right = -106.0
+offset_bottom = -62.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+text = "Resolução:"
+label_settings = SubResource("LabelSettings_jtvgf")
+
+[node name="MenuButton" type="MenuButton" parent="CanvasLayer3/UI/PauseMenu/OptionResolution"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 227.5
+offset_top = -14.0
+offset_right = 317.5
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = false
+item_count = 3
+popup/item_0/text = "960 x 540"
+popup/item_0/checkable = 2
+popup/item_0/checked = true
+popup/item_0/id = 0
+popup/item_1/text = "1920 x 1080"
+popup/item_1/checkable = 2
+popup/item_1/id = 1
+popup/item_2/text = "578 x 324"
+popup/item_2/checkable = 2
+popup/item_2/id = 2
+script = ExtResource("15_gbtpu")
+
+[node name="VolumeMaster" type="Label" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = -40.0
+offset_right = -106.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+text = "Master:"
+label_settings = SubResource("LabelSettings_jtvgf")
+
+[node name="Slider" type="HSlider" parent="CanvasLayer3/UI/PauseMenu/VolumeMaster"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 168.5
+offset_top = -4.0
+offset_right = 378.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_7g4mg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_csh2y")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_i455y")
+max_value = 1.0
+step = 0.05
+value = 1.0
+ticks_on_borders = true
+script = ExtResource("16_m2gal")
+audio_bus_name = "Master"
+
+[node name="VolumeMusic" type="Label" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = 7.0
+offset_right = -106.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+text = "Música:"
+label_settings = SubResource("LabelSettings_jtvgf")
+
+[node name="Slider" type="HSlider" parent="CanvasLayer3/UI/PauseMenu/VolumeMusic"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 168.5
+offset_top = -4.0
+offset_right = 378.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_7g4mg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_csh2y")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_i455y")
+max_value = 1.0
+step = 0.05
+value = 1.0
+ticks_on_borders = true
+script = ExtResource("16_m2gal")
+audio_bus_name = "Music"
+
+[node name="VolumeSFX" type="Label" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = 55.0
+offset_right = -46.0
+offset_bottom = 89.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+text = "Efeitos Sonoros:"
+label_settings = SubResource("LabelSettings_jtvgf")
+
+[node name="Slider" type="HSlider" parent="CanvasLayer3/UI/PauseMenu/VolumeSFX"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 137.5
+offset_top = -7.0
+offset_right = 347.5
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_7g4mg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_csh2y")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_i455y")
+max_value = 1.0
+step = 0.05
+value = 1.0
+ticks_on_borders = true
+script = ExtResource("16_m2gal")
+audio_bus_name = "SoundFX"
+
+[node name="FullScreen" type="Label" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = -99.0
+offset_right = -113.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Fullscreen"
+label_settings = SubResource("LabelSettings_giqp4")
+
+[node name="FullscreenToggle" type="CheckButton" parent="CanvasLayer3/UI/PauseMenu/FullScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 208.0
+offset_top = -13.0
+offset_right = 335.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "off"
+script = ExtResource("17_w3twc")
+
+[node name="Button" type="Button" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 85.0
+offset_top = -106.0
+offset_right = 155.0
+offset_bottom = -66.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_n55l8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ysnoq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_k717a")
+text = "SAIR"
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -138.0
+offset_top = -108.0
+offset_right = -96.0
+offset_bottom = -66.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("18_3tusj")
+texture_pressed = ExtResource("19_a57c7")
+texture_hover = ExtResource("20_ci7yp")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer3/UI/PauseMenu/TextureButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("21_4tuft")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("22_a7b3b")
+volume_db = -21.76
+pitch_scale = 0.85
+autoplay = true
+mix_target = 1
+max_polyphony = 2
+bus = &"Music"
+playback_type = 1
+
+[connection signal="body_entered" from="Interactables/Desk/InteractArea" to="Interactables/Desk" method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="Interactables/Desk/InteractArea" to="Interactables/Desk" method="_on_interact_area_body_exited"]
+[connection signal="body_entered" from="MapExitArea" to="." method="_on_map_exit_area_body_entered"]
+[connection signal="value_changed" from="CanvasLayer3/UI/PauseMenu/VolumeMaster/Slider" to="CanvasLayer3/UI/PauseMenu/VolumeMaster/Slider" method="_on_value_changed"]
+[connection signal="value_changed" from="CanvasLayer3/UI/PauseMenu/VolumeMusic/Slider" to="CanvasLayer3/UI/PauseMenu/VolumeMusic/Slider" method="_on_value_changed"]
+[connection signal="value_changed" from="CanvasLayer3/UI/PauseMenu/VolumeSFX/Slider" to="CanvasLayer3/UI/PauseMenu/VolumeSFX/Slider" method="_on_value_changed"]
+[connection signal="toggled" from="CanvasLayer3/UI/PauseMenu/FullScreen/FullscreenToggle" to="CanvasLayer3/UI/PauseMenu/FullScreen/FullscreenToggle" method="_on_toggled"]
+
+[editable path="Doors/SpriteDoor4"]

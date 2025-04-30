@@ -39,7 +39,7 @@
 [ext_resource type="Shader" uid="uid://ljw3o5pbf52q" path="res://Shaders/noise.gdshader" id="39_7dlls"]
 [ext_resource type="Shader" uid="uid://rcn5fpdxiksk" path="res://Shaders/glitch.gdshader" id="40_ee1v5"]
 [ext_resource type="Texture2D" uid="uid://bvk837m3k5ka3" path="res://Sprites/suitcase2.png" id="41_g0d2v"]
-[ext_resource type="Script" uid="uid://1cjx5p8lqwdy" path="res://resolution_select.gd" id="42_i6gx3"]
+[ext_resource type="Script" uid="uid://1cjx5p8lqwdy" path="res://Scripts/UI/resolution_select.gd" id="42_i6gx3"]
 [ext_resource type="AudioStream" uid="uid://bybpwfuxkyajc" path="res://Audio/Night Soaked Smoke.mp3" id="43_n2t2o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38et7"]

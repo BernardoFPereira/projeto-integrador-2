@@ -230,6 +230,7 @@ process_callback = 0
 wait_time = 15.0
 
 [node name="AimTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

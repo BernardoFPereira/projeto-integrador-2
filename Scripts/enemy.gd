@@ -5,7 +5,7 @@ class_name Enemy
 
 @export var facing: Facing
 @export var start_state := States.IDLE
-@export_range(200.0, 800.0, 1.0) var speed := 600.0
+@export_range(200.0, 800.0, 1.0) var speed := 200.0
 @export var attack_cooldown := 1.0
 
 @export_category("Roaming")
@@ -142,6 +142,9 @@ func set_state(new_state: States) -> void:
 	var suspicious_icon = preload("res://Sprites/alert_icons2.png")
 	var alert_icon = preload("res://Sprites/alert_icons1.png")
 	
+	if state == States.DEAD:
+		return
+	
 	if new_state != state:
 		match new_state:
 			States.DEAD:
@@ -230,10 +233,7 @@ func set_state(new_state: States) -> void:
 				animated_sprite.play("walk")
 			States.AIM:
 				velocity.x = 0
-				# Esperando sprites de pereparação de facada do grunt melee
-				# pra tirar esse `if`
-				if enemy_type == "RANGED":
-					animated_sprite.play("aim")
+				animated_sprite.play("aim")
 				aim_timer.start()
 			States.ATTACK:
 				velocity.x = 0

@@ -47,6 +47,7 @@ enum States {
 	FALL,
 	DUCT,
 	SHADOW_MELD,
+	EXIT_SHADOW_MELD,
 	PREP_SHADOW_SHOT,
 	SHADOW_SHOT,
 	GRAB,
@@ -169,96 +170,115 @@ func set_state(new_state: States):
 			Facing.LEFT:
 				animation_player.play("idle_hand_L")
 	
-	match new_state:
-		States.DEAD:
-			if carried_weapon:
-				carried_weapon.drop_weapon()
-				
-			animated_sprite.play("dead")
-			hand_sprite.visible = false
-			PlayerManager.is_player_dead = true
-		
-		States.DAMAGE:
-			var blood_spatter = preload("res://Scenes/FX/black_blood_spatter.tscn").instantiate()
-			blood_spatter.global_position = global_position
-			get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
-			animated_sprite.play("damage")
-			# State switch on animation_finished
-		
-		States.IDLE:
-			animated_sprite.play("idle")
-			collision_shape.disabled = false
-			#shadow_collision.disabled = true
+	last_state = state
+	if state != new_state:
+		match new_state:
+			States.DEAD:
+				if carried_weapon:
+					carried_weapon.drop_weapon()
+					
+				animated_sprite.play("dead")
+				hand_sprite.visible = false
+				PlayerManager.is_player_dead = true
 			
-		States.WALK:
-			if shadow_shot_ground_cast.is_colliding():
-				ground_check()
+			States.DAMAGE:
+				var blood_spatter = preload("res://Scenes/FX/black_blood_spatter.tscn").instantiate()
+				blood_spatter.global_position = global_position
+				get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
+				animated_sprite.play("damage")
+				# State switch on animation_finished
 			
-			match facing:
-				Facing.RIGHT:
-					animated_sprite.flip_h = true
+			States.IDLE:
+				animated_sprite.play("idle")
+				collision_shape.disabled = false
+				#shadow_collision.disabled = true
 				
-				Facing.LEFT:
-					animated_sprite.flip_h = false
+			States.WALK:
+				if shadow_shot_ground_cast.is_colliding():
+					ground_check()
 				
-			animated_sprite.play("walk")
-		
-		States.SHADOW_MELD:
-			var inside_area: Area2D = get_tree().get_first_node_in_group("Indoors")
-			var overlaps = inside_area.get_overlapping_bodies()
-			print(overlaps)
-			if state != States.SHADOW_MELD and overlaps.is_empty():
-				set_state(States.IDLE)
-				return
+				match facing:
+					Facing.RIGHT:
+						set_facing(Facing.RIGHT)
+					
+					Facing.LEFT:
+						set_facing(Facing.LEFT)
+					
+				animated_sprite.play("walk")
 			
-			#print("Shadowmeld: ENGAGE")
-			set_collision_mask_value(5, 0)
-			collision_shape.disabled = true
-			PlayerManager.is_inside = true
-			#shadow_collision.disabled = false
-			animated_sprite.play("shadow_shape")
-		
-		States.SHADOW_SHOT:
-			Audio.play("res://Audio/FX/cloth3.ogg", +5)
-			if !PlayerManager.is_in_shadow:
-				set_state(States.IDLE)
+			States.SHADOW_MELD:
+				if hand_sprite.visible:
+					hand_sprite.visible = false
+				var inside_area: Area2D = get_tree().get_first_node_in_group("Indoors")
+				var overlaps = inside_area.get_overlapping_bodies()
+				#print(overlaps)
+				if state != States.SHADOW_MELD and overlaps.is_empty():
+					set_state(States.IDLE)
+					return
 				
-			collision_shape.disabled = true
-			#shadow_collision.disabled = false
-			animated_sprite.play("shadow_shape")
+				#print("Shadowmeld: ENGAGE")
+				set_collision_mask_value(5, 0)
+				collision_shape.disabled = true
+				PlayerManager.is_inside = true
+				#shadow_collision.disabled = false
 				
-		States.MELEE:
-			if carried_weapon:
-				match carried_weapon.weapon_type:
-					"melee":
-						carried_weapon.visible = false
-						animated_sprite.play("melee_knife")
-					"ranged":
-						animated_sprite.play("melee")
-			else:
-				animated_sprite.play("melee")
-		
-		States.GRAB:
-			collision_shape.disabled = false
-			#shadow_collision.disabled = true
-			animated_sprite.play("idle")
-		
-		States.AIM:
-			hand_sprite.visible = true
-			animated_sprite.play("aim")
-		
-		States.FALL:
-			animated_sprite.play("fall")
-		#_:
-			#grab_cast_top.target_position = grab_cast_top.target_position + Vector2(0, +21)
-			#collision_shape.disabled = false
-			#animated_sprite.play("idle")
-			#set_collision_mask_value(5, 1)
-			#polygon.polygon = player_base_shape
-		
-	if new_state != state:
-		last_state = state
-		state = new_state
+				if state == States.SHADOW_SHOT:
+					#animated_sprite.play("shadow_shape")
+					return
+					
+				animated_sprite.play("shadow_meld")
+			
+			States.EXIT_SHADOW_MELD:
+				velocity = Vector2.ZERO
+				animated_sprite.play("exit_shadow_meld")
+				pass
+			
+			States.PREP_SHADOW_SHOT:
+				animated_sprite.play("prep_jump")
+			
+			States.SHADOW_SHOT:
+				#print("SHOT!")
+				Audio.play("res://Audio/FX/cloth3.ogg", +5)
+				if !PlayerManager.is_in_shadow:
+					set_state(States.EXIT_SHADOW_MELD)
+					
+				collision_shape.disabled = true
+				#shadow_collision.disabled = false
+				animated_sprite.play("shadow_shape")
+			
+			States.MELEE:
+				if carried_weapon:
+					match carried_weapon.weapon_type:
+						"melee":
+							carried_weapon.visible = false
+							animated_sprite.play("melee_knife")
+						"ranged":
+							animated_sprite.play("melee")
+				else:
+					animated_sprite.play("melee")
+			
+			States.GRAB:
+				collision_shape.disabled = false
+				hand_sprite.visible = true
+				#shadow_collision.disabled = true
+				for ray in [grab_cast_left, grab_cast_right]:
+					if ray.is_colliding():
+						animated_sprite.play("grab_wall")
+				if grab_cast_top.is_colliding():
+					animated_sprite.play("grab_ceiling")
+				#animated_sprite.play("idle")
+			
+			States.AIM:
+				hand_sprite.visible = true
+				for ray in grab_rays:
+					if ray.is_colliding():
+						return
+				animated_sprite.play("aim")
+			
+			States.FALL:
+				animated_sprite.play("fall")
+	
+	state = new_state
 
 func handle_states(delta) -> void:
 	if PlayerManager.game_complete:
@@ -303,31 +323,34 @@ func handle_states(delta) -> void:
 			velocity.x = 0
 		
 		States.AIM:
-			hand.look_at(get_global_mouse_position())
 			velocity.x = 0
-			
-		States.DUCT:
-			pass
-			
+			hand.look_at(get_global_mouse_position())
+		
 		States.SHADOW_MELD:
 			if !PlayerManager.is_in_shadow:
-				set_state(States.IDLE)
+				set_state(States.EXIT_SHADOW_MELD)
 				
 			if !PlayerManager.is_inside:
-				set_state(States.IDLE)
+				set_state(States.EXIT_SHADOW_MELD)
 			
 			if direction:
 				velocity = velocity.lerp(direction * (SPEED * 1.5), delta)
 			else:
 				velocity = velocity.lerp(Vector2.ZERO, delta * 4)
-			
+		
 		States.PREP_SHADOW_SHOT:
 			velocity.x = 0
 			trajectory_line.update_trajectory(global_position.direction_to(get_global_mouse_position()), 100.0, 9.8, delta)
-			
+			var mouse_dir = global_position.direction_to(get_global_mouse_position())
+			if mouse_dir.x > 0:
+				set_facing(Facing.RIGHT)
+				
+			if mouse_dir.x < 0:
+				set_facing(Facing.LEFT)
+		
 		States.SHADOW_SHOT:
 			if !PlayerManager.is_in_shadow:
-				set_state(States.IDLE)
+				set_state(States.EXIT_SHADOW_MELD)
 				
 			for ray: RayCast2D in grab_rays:
 				ray.force_raycast_update()
@@ -357,6 +380,22 @@ func handle_states(delta) -> void:
 		States.GRAB:
 			if !PlayerManager.is_in_shadow:
 				set_state(States.IDLE)
+			
+			if grab_cast_left.is_colliding():
+				animated_sprite.play("grab_wall")
+				set_facing(Facing.RIGHT)
+			
+			if grab_cast_right.is_colliding():
+				animated_sprite.play("grab_wall")
+				set_facing(Facing.LEFT)
+			
+			if grab_cast_top.is_colliding() and !grab_cast_left.is_colliding() and !grab_cast_right.is_colliding():
+				if direction:
+					if direction.x > 0:
+						set_facing(Facing.RIGHT)
+					if direction.x < 0:
+						set_facing(Facing.LEFT)
+				animated_sprite.play("grab_ceiling")
 			
 			if direction:
 				if grab_cast_left.is_colliding() or grab_cast_right.is_colliding():
@@ -413,32 +452,29 @@ func _unhandled_input(event: InputEvent) -> void:
 		PlayerManager.interact_target.interaction()
 	
 	if event.is_action_pressed("use_stairs") and state != States.SHADOW_MELD:
-		print("Trying to use stairs!")
+		#print("Trying to use stairs!")
 		if PlayerManager.target_stairs:
-			print(PlayerManager.target_stairs)
+			#print(PlayerManager.target_stairs)
 			PlayerManager.target_stairs.interaction()
 	
 	if event.is_action_pressed("activate_shadow_meld"):
 		match state:
 			States.SHADOW_MELD:
-				set_state(States.IDLE)
+				set_state(States.EXIT_SHADOW_MELD)
 			_:
 				set_state(States.SHADOW_MELD)
 	
-	if event.is_action_pressed("ui_accept") and state == States.GRAB:
+	if event.is_action_pressed("prep_jump") and state == States.GRAB:
 		set_state(States.IDLE)
-		
-	#if event.is_action_pressed("interact") and VentManager.current_waypoint.is_exit:
-		#set_state(States.IDLE)
-		
-	if event.is_action_pressed("ui_accept") and is_on_floor():
+	
+	if event.is_action_pressed("prep_jump") and is_on_floor():
 		if state not in [States.IDLE, States.WALK]:
 			return
 		
 		trajectory_line.visible = true
 		set_state(States.PREP_SHADOW_SHOT)
 	
-	if event.is_action_released("ui_accept") and is_on_floor():
+	if event.is_action_released("prep_jump") and is_on_floor():
 		if state not in [States.PREP_SHADOW_SHOT]:
 			return
 		
@@ -446,7 +482,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		set_state(States.IDLE)
 		
 	if event.is_action_pressed("aim"):
-		if state in [States.SHADOW_MELD, States.PREP_SHADOW_SHOT, States.MELEE]:
+		if state in [States.SHADOW_MELD, States.PREP_SHADOW_SHOT, States.MELEE, States.SHADOW_SHOT]:
 			return
 		if melee_cast.is_colliding():
 			return
@@ -455,15 +491,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		set_state(States.AIM)
 	
 	if event.is_action_released("aim"):
-		if state in [States.SHADOW_MELD, States.PREP_SHADOW_SHOT, States.MELEE]:
+		if state in [States.SHADOW_MELD, States.PREP_SHADOW_SHOT, States.MELEE, States.SHADOW_SHOT]:
 			return
 			
 		hand.rotation_degrees = idle_hand_rotation
 		PlayerManager.switch_aim(false)
-		
+		#print(state)
+		#print(last_state)
 		set_state(last_state)
 	
 	if event.is_action_pressed("shoot") and state not in [States.PREP_SHADOW_SHOT, States.SHADOW_SHOT]:# and PlayerManager.is_aiming:
+		if state in [States.SHADOW_MELD, States.PREP_SHADOW_SHOT, States.MELEE]:
+			return
+		
 		if carried_weapon:
 			if PlayerManager.is_aiming:
 				match carried_weapon.weapon_type:
@@ -497,6 +537,10 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 			carried_weapon.visible = true
 			set_state(States.IDLE)
 		"damage":
+			set_state(States.IDLE)
+		"shadow_meld":
+			animated_sprite.play("shadow_shape")
+		"exit_shadow_meld":
 			set_state(States.IDLE)
 
 func _on_animated_sprite_2d_frame_changed() -> void:

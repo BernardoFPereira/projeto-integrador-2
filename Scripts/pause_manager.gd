@@ -15,3 +15,14 @@ func _input(event: InputEvent) -> void:
 			game_paused = true
 			pause_menu.visible = true
 			get_tree().paused = true
+
+func _on_button_continue_pressed() -> void:
+			game_paused = false
+			pause_menu.visible = false
+			get_tree().paused = false
+
+func _on_button_quit_pressed() -> void:
+	game_paused = false
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://Scenes/Menus/MainMenu.tscn")
+	pass # Replace with function body.

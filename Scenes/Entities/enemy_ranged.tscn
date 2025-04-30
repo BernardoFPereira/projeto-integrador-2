@@ -1,13 +1,13 @@
 [gd_scene load_steps=34 format=3 uid="uid://ccjfvb5421qpk"]
 
 [ext_resource type="Script" uid="uid://dpo0hu6jib3ol" path="res://Scripts/enemy.gd" id="1_f5pa5"]
-[ext_resource type="Texture2D" uid="uid://durqc2ybvavsu" path="res://Sprites/enemies/GruntRanged/grunt2_gunidle.png" id="2_n4314"]
-[ext_resource type="Texture2D" uid="uid://dj7xl5mnxk5ah" path="res://Sprites/enemies/GruntRanged/grunt2_hit.png" id="3_n4314"]
-[ext_resource type="Texture2D" uid="uid://csmwpyv8q74ms" path="res://Sprites/enemies/GruntRanged/grunt2_deathpose03.png" id="4_kllrf"]
+[ext_resource type="Texture2D" uid="uid://durqc2ybvavsu" path="res://Sprites/Enemies/GruntRanged/grunt2_gunidle.png" id="2_n4314"]
+[ext_resource type="Texture2D" uid="uid://dj7xl5mnxk5ah" path="res://Sprites/Enemies/GruntRanged/grunt2_hit.png" id="3_n4314"]
+[ext_resource type="Texture2D" uid="uid://csmwpyv8q74ms" path="res://Sprites/Enemies/GruntRanged/grunt2_deathpose03.png" id="4_kllrf"]
 [ext_resource type="AudioStream" uid="uid://u4mesnmfr58g" path="res://Audio/FX/bang_07.ogg" id="5_kybcg"]
-[ext_resource type="Texture2D" uid="uid://bmidfb4a6ntg8" path="res://Sprites/enemies/GruntRanged/grunt2_idle.png" id="5_pyx2n"]
+[ext_resource type="Texture2D" uid="uid://bmidfb4a6ntg8" path="res://Sprites/Enemies/GruntRanged/grunt2_idle.png" id="5_pyx2n"]
 [ext_resource type="Texture2D" uid="uid://dpis1kqi67oo" path="res://Sprites/FX/enemy_detect_eye1.png" id="6_0ddtp"]
-[ext_resource type="Texture2D" uid="uid://b8p6urhsqg60m" path="res://Sprites/enemies/GruntRanged/grunt2_walkcycle.png" id="6_kllrf"]
+[ext_resource type="Texture2D" uid="uid://b8p6urhsqg60m" path="res://Sprites/Enemies/GruntRanged/grunt2_walkcycle.png" id="6_kllrf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pyx2n"]
 atlas = ExtResource("2_n4314")
