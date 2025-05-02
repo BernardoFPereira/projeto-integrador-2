@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://cq1k7u6rk18bl"]
+
+[ext_resource type="Script" path="res://Scripts/spotlight.gd" id="1_vc86f"]
+[ext_resource type="Texture2D" uid="uid://bos3lmbp61ijh" path="res://Sprites/Misc/Iluminação/luz 02.png" id="2_vib8v"]
+
+[sub_resource type="Gradient" id="Gradient_tf1jj"]
+offsets = PackedFloat32Array(0, 0.793103)
+colors = PackedColorArray(0.992324, 1, 0.810655, 1, 1, 1, 0.768831, 0.577922)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qwren"]
+gradient = SubResource("Gradient_tf1jj")
+width = 106
+height = 106
+fill = 1
+fill_from = Vector2(0.527523, 0.504587)
+fill_to = Vector2(0.206422, 0.853211)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xps18"]
+polygon = PackedVector2Array(-6, 8, 0, -1, 6, 8, 3, -8, -3, -8)
+
+[node name="SpotLight" type="Node2D" node_paths=PackedStringArray("lights")]
+script = ExtResource("1_vc86f")
+lights = [NodePath("PointLight2D")]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.972549, 0.635294, 1)
+energy = 0.65
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_qwren")
+texture_scale = 5.18
+
+[node name="LightDetectArea" type="Area2D" parent="PointLight2D"]
+collision_layer = 32
+collision_mask = 18
+
+[node name="LightDetectCollision" type="CollisionPolygon2D" parent="PointLight2D/LightDetectArea"]
+rotation = 6.52013e-05
+polygon = PackedVector2Array(0, 0, 0.0178651, 274, 332.018, 273.978)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="PointLight2D"]
+rotation = -0.634349
+occluder = SubResource("OccluderPolygon2D_xps18")
+
+[node name="LightPositionMarker" type="Marker2D" parent="PointLight2D"]
+position = Vector2(0, 2)
+
+[node name="Luz02" type="Sprite2D" parent="."]
+texture_filter = 3
+position = Vector2(-1, 1)
+rotation = -0.460178
+texture = ExtResource("2_vib8v")
+
+[connection signal="area_entered" from="PointLight2D/LightDetectArea" to="." method="_on_light_detect_area_area_entered"]
+[connection signal="area_exited" from="PointLight2D/LightDetectArea" to="." method="_on_light_detect_area_area_exited"]
+[connection signal="body_entered" from="PointLight2D/LightDetectArea" to="." method="_on_light_detect_area_body_entered"]
+[connection signal="body_exited" from="PointLight2D/LightDetectArea" to="." method="_on_light_detect_area_body_exited"]

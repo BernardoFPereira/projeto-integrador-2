@@ -1,13 +1,13 @@
 [gd_scene load_steps=66 format=4 uid="uid://duj3s4w2q8fx1"]
 
-[ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://Scripts/main.gd" id="1_58smv"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_58smv"]
 [ext_resource type="PackedScene" uid="uid://brxjw7a8jp5n3" path="res://Scenes/door.tscn" id="2_8a111"]
 [ext_resource type="TileSet" uid="uid://bh52f06wo7gfn" path="res://Tilesets/hotel_walls2.tres" id="2_58smv"]
 [ext_resource type="Texture2D" uid="uid://bxk7ds5nfuhwj" path="res://Sprites/Misc/Área Externa/poste.png" id="2_e8hb2"]
-[ext_resource type="Script" uid="uid://ctuy0d1nxcxf1" path="res://Scripts/pause_manager.gd" id="2_k4ree"]
+[ext_resource type="Script" path="res://Scripts/pause_manager.gd" id="2_k4ree"]
 [ext_resource type="PackedScene" uid="uid://cm5psujfwcom2" path="res://Scenes/stairs.tscn" id="3_ra6lv"]
 [ext_resource type="PackedScene" uid="uid://7j67kmjgw7gm" path="res://Scenes/Weapons/knife.tscn" id="4_30c28"]
-[ext_resource type="Script" uid="uid://cwnxio8qjx6at" path="res://Scripts/desk.gd" id="5_a25ih"]
+[ext_resource type="Script" path="res://Scripts/desk.gd" id="5_a25ih"]
 [ext_resource type="PackedScene" uid="uid://cmh1hpnuj0sd5" path="res://Scenes/Weapons/Pistol.tscn" id="5_kw240"]
 [ext_resource type="PackedScene" uid="uid://cfcysmdx4fwtk" path="res://Scenes/light_switch.tscn" id="5_lowby"]
 [ext_resource type="PackedScene" uid="uid://dvnbwjdh3h32x" path="res://Scenes/spotlight.tscn" id="6_hrncr"]
@@ -16,16 +16,16 @@
 [ext_resource type="PackedScene" uid="uid://dku1i8xadq6lo" path="res://Scenes/lamp_stand.tscn" id="8_b7ax5"]
 [ext_resource type="Texture2D" uid="uid://crjocyehd3rl6" path="res://Sprites/Misc/Área Externa/lixeira 02.png" id="8_uva3u"]
 [ext_resource type="Texture2D" uid="uid://cj8ng0f8godfa" path="res://Sprites/Misc/Área Externa/lixo 01.png" id="9_tdsls"]
-[ext_resource type="Script" uid="uid://bnx4g7k2bwjk7" path="res://Scripts/camera.gd" id="9_ubbbm"]
+[ext_resource type="Script" path="res://Scripts/camera.gd" id="9_ubbbm"]
 [ext_resource type="Texture2D" uid="uid://43n2n6jxij6f" path="res://Sprites/Misc/Placas/placa chão molhado.png" id="10_2nsn4"]
 [ext_resource type="PackedScene" uid="uid://86dt5nfq2yny" path="res://Scenes/Entities/enemy_melee.tscn" id="11_58smv"]
 [ext_resource type="Texture2D" uid="uid://bpx68sue22hsh" path="res://Sprites/Misc/Placas/placa escadas(subir).png" id="11_fafb6"]
 [ext_resource type="Texture2D" uid="uid://b5lb0vh1nxqbm" path="res://Sprites/Misc/Placas/placa escadas(descer).png" id="12_nl6r7"]
 [ext_resource type="Texture2D" uid="uid://ngual2ts5ykw" path="res://Sprites/Misc/Placas/placa banheiro 03.png" id="13_0onhy"]
 [ext_resource type="Texture2D" uid="uid://bvk837m3k5ka3" path="res://Sprites/suitcase2.png" id="13_38et7"]
-[ext_resource type="Shader" uid="uid://rcn5fpdxiksk" path="res://Shaders/glitch.gdshader" id="14_4bgwg"]
+[ext_resource type="Shader" path="res://Shaders/glitch.gdshader" id="14_4bgwg"]
 [ext_resource type="Texture2D" uid="uid://bahlcoa2b2oh7" path="res://Sprites/Misc/Móveis/mesa 01.png" id="14_o6foe"]
-[ext_resource type="Shader" uid="uid://ljw3o5pbf52q" path="res://Shaders/noise.gdshader" id="15_2hfll"]
+[ext_resource type="Shader" path="res://Shaders/noise.gdshader" id="15_2hfll"]
 [ext_resource type="Texture2D" uid="uid://d0x5jgxv5yoe2" path="res://Sprites/Misc/Móveis/mesa 02 (cadeira separada).png" id="15_k4ree"]
 [ext_resource type="Texture2D" uid="uid://c6rlcgbnwpa48" path="res://Sprites/Misc/Móveis/mesa de escritório 01.png" id="16_i3wyx"]
 [ext_resource type="Texture2D" uid="uid://ccw33p382yta6" path="res://Sprites/Misc/Móveis/poltrona 01.png" id="17_ejx2w"]
@@ -42,10 +42,10 @@
 [ext_resource type="Texture2D" uid="uid://dwk5epph4upj3" path="res://Sprites/Misc/Misc/ventilação 02.png" id="26_ejx2w"]
 [ext_resource type="PackedScene" uid="uid://ccjfvb5421qpk" path="res://Scenes/Entities/enemy_ranged.tscn" id="29_uva3u"]
 [ext_resource type="AudioStream" uid="uid://bybpwfuxkyajc" path="res://Audio/Night Soaked Smoke.mp3" id="36_uva3u"]
-[ext_resource type="Script" uid="uid://1cjx5p8lqwdy" path="res://Scripts/UI/resolution_select.gd" id="41_o6foe"]
-[ext_resource type="Script" uid="uid://b13iffimqj3yk" path="res://Scripts/options_menu.gd" id="42_giktf"]
-[ext_resource type="Script" uid="uid://burr4kixdupuq" path="res://Scripts/UI/fullscreen_toggle.gd" id="43_4248a"]
-[ext_resource type="Script" uid="uid://c33v11q4gjqps" path="res://Scripts/UI/volume_slider.gd" id="43_b47o7"]
+[ext_resource type="Script" path="res://Scripts/UI/resolution_select.gd" id="41_o6foe"]
+[ext_resource type="Script" path="res://Scripts/options_menu.gd" id="42_giktf"]
+[ext_resource type="Script" path="res://Scripts/UI/fullscreen_toggle.gd" id="43_4248a"]
+[ext_resource type="Script" path="res://Scripts/UI/volume_slider.gd" id="43_b47o7"]
 [ext_resource type="Texture2D" uid="uid://45xkkegop3hi" path="res://Sprites/UI/botões/botão p.png" id="45_eylua"]
 [ext_resource type="Texture2D" uid="uid://d4hqgxplq340d" path="res://Sprites/UI/botões/botão p (click).png" id="46_giktf"]
 [ext_resource type="Texture2D" uid="uid://ddv8vabldyt0p" path="res://Sprites/UI/botões/botão p (selecionado).png" id="47_y0hbx"]
@@ -837,7 +837,6 @@ item_count = 3
 popup/item_0/text = "960 x 540"
 popup/item_0/checkable = 2
 popup/item_0/checked = true
-popup/item_0/id = 0
 popup/item_1/text = "1920 x 1080"
 popup/item_1/checkable = 2
 popup/item_1/id = 1
@@ -1068,7 +1067,6 @@ pitch_scale = 0.85
 autoplay = true
 mix_target = 1
 max_polyphony = 2
-bus = &"Music"
 playback_type = 1
 
 [connection signal="body_exited" from="InsideArea" to="." method="_on_inside_area_body_exited"]

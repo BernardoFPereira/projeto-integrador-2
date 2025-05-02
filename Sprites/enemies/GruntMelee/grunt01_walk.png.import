@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d88dp20ow06n"
-path="res://.godot/imported/grunt01_walk.png-edc2656fd1a74d72ca20fcc31d93d365.ctex"
+path="res://.godot/imported/grunt01_walk.png-df71c884caa9587ca82a742f47cc26ce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Enemies/GruntMelee/grunt01_walk.png"
-dest_files=["res://.godot/imported/grunt01_walk.png-edc2656fd1a74d72ca20fcc31d93d365.ctex"]
+source_file="res://Sprites/enemies/GruntMelee/grunt01_walk.png"
+dest_files=["res://.godot/imported/grunt01_walk.png-df71c884caa9587ca82a742f47cc26ce.ctex"]
 
 [params]
 
