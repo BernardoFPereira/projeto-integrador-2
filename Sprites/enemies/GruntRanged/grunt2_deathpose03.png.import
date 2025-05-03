@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://csmwpyv8q74ms"
-path="res://.godot/imported/grunt2_deathpose03.png-eac9ecd7bcdc70e47a3e34aeef0e3848.ctex"
+path="res://.godot/imported/grunt2_deathpose03.png-54d0ecf5d40157ed95bba45e65253a9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Enemies/GruntRanged/grunt2_deathpose03.png"
-dest_files=["res://.godot/imported/grunt2_deathpose03.png-eac9ecd7bcdc70e47a3e34aeef0e3848.ctex"]
+source_file="res://Sprites/enemies/GruntRanged/grunt2_deathpose03.png"
+dest_files=["res://.godot/imported/grunt2_deathpose03.png-54d0ecf5d40157ed95bba45e65253a9d.ctex"]
 
 [params]
 

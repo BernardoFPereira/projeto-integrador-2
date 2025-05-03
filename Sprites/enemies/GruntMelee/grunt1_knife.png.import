@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bowlegcy6cgkc"
-path="res://.godot/imported/grunt1_knife.png-e989e6a48406c1cc5770f94d52640410.ctex"
+path="res://.godot/imported/grunt1_knife.png-7056a959c7b29c44e1dc869ca57b9db6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Enemies/GruntMelee/grunt1_knife.png"
-dest_files=["res://.godot/imported/grunt1_knife.png-e989e6a48406c1cc5770f94d52640410.ctex"]
+source_file="res://Sprites/enemies/GruntMelee/grunt1_knife.png"
+dest_files=["res://.godot/imported/grunt1_knife.png-7056a959c7b29c44e1dc869ca57b9db6.ctex"]
 
 [params]
 
