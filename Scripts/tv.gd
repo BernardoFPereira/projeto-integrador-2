@@ -2,7 +2,8 @@ extends Node2D
 
 @onready var light_pos_marker: Marker2D = $PointLight2D/LightPositionMarker
 #@onready var light_detect_area: Area2D = $PointLight2D/LightDetectArea
-#@onready var point_light_2d: Light = $"."
+@onready var point_light_2d = $"."
+@onready var interact_highlight: Line2D = $InteractHighlight
 
 @export var is_on: bool = true
 @export var lights: Array[Node2D]
@@ -17,6 +18,15 @@ func _ready() -> void:
 			switch_power()
 		if !is_on:
 			switch_power()
+
+func _process(delta: float) -> void:
+	if PlayerManager.can_interact and PlayerManager.interact_target == self:
+		interact_highlight.visible = true
+	else:
+		interact_highlight.visible = false
+
+func interaction() -> void:
+	switch_power()
 
 func switch_power() -> void:
 	for light in lights:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://ftrs7ifqvy6j"]
+[gd_scene load_steps=22 format=4 uid="uid://ftrs7ifqvy6j"]
 
 [ext_resource type="TileSet" uid="uid://bh52f06wo7gfn" path="res://Tilesets/hotel_walls2.tres" id="1_47tab"]
 [ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://Scripts/main.gd" id="1_dfca2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://ljw3o5pbf52q" path="res://Shaders/noise.gdshader" id="5_fe3hs"]
 [ext_resource type="Shader" uid="uid://rcn5fpdxiksk" path="res://Shaders/glitch.gdshader" id="6_v0tp6"]
 [ext_resource type="Texture2D" uid="uid://bvk837m3k5ka3" path="res://Sprites/suitcase2.png" id="7_7u1wn"]
+[ext_resource type="StyleBox" uid="uid://d0wmlyg3u2wx3" path="res://Tilesets/dialogue_box_texture.tres" id="8_fe3hs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h2yy0"]
 shader = ExtResource("5_fe3hs")
@@ -64,6 +65,11 @@ border_color = Color(0.739311, 0.468566, 0.0826314, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ndo1d"]
 bg_color = Color(0.346596, 0.0728609, 0.0728724, 1)
+
+[sub_resource type="Theme" id="Theme_v0tp6"]
+
+[sub_resource type="SystemFont" id="SystemFont_fe3hs"]
+font_names = PackedStringArray("Monospace")
 
 [node name="DialogueTest" type="Node"]
 script = ExtResource("1_dfca2")
@@ -438,6 +444,43 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_gj5ea")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xscbt")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ndo1d")
 text = "SAIR"
+
+[node name="Panel" type="Panel" parent="CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -194.0
+offset_top = -169.0
+offset_right = 193.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_v0tp6")
+theme_override_styles/panel = ExtResource("8_fe3hs")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer3/UI/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer3/UI/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = SubResource("SystemFont_fe3hs")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Então é nesse pulgueiro... Trabalho é trabalho."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="InsideArea" type="Area2D" parent="." groups=["Indoors"]]
 

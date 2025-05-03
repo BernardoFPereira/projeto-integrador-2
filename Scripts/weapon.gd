@@ -1,6 +1,7 @@
 extends RigidBody2D
 class_name Weapon
 
+@export var weapon_name: String
 @export var default_sprite: Texture2D
 @export var held_sprite: Texture2D
 @export var used_sprite: Texture2D
@@ -49,6 +50,7 @@ func _ready() -> void:
 			#PlayerManager.interact_target = null
 
 func interaction() -> void:
+	player = get_tree().get_first_node_in_group("Player")
 	$PickupHint.visible = false
 	#default_sprite = sprite.texture
 	PlayerManager.possible_interactions = PlayerManager.possible_interactions.filter(

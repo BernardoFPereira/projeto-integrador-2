@@ -203,7 +203,7 @@ polygon = PackedVector2Array(-1.16701, -1.57318, -0.833977, 0.637954, 1.06814, 1
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 3
 sprite_frames = ExtResource("3_vgqql")
-animation = &"grab_ceiling"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="InteractionArea" type="Area2D" parent="."]

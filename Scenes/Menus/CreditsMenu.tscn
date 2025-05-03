@@ -1,11 +1,8 @@
-[gd_scene load_steps=16 format=4 uid="uid://djwj25g3yxu8i"]
+[gd_scene load_steps=14 format=4 uid="uid://djwj25g3yxu8i"]
 
-[ext_resource type="Texture2D" uid="uid://b8w151n0j563v" path="res://Sprites/UI/botões/botão g.png" id="1_ga18u"]
 [ext_resource type="TileSet" uid="uid://bh52f06wo7gfn" path="res://Tilesets/hotel_walls2.tres" id="1_n4b4j"]
 [ext_resource type="Texture2D" uid="uid://d1o6onyxgjk6n" path="res://Sprites/Misc/Área Externa/cone.png" id="2_mgg0m"]
-[ext_resource type="Texture2D" uid="uid://8ny4lelofd" path="res://Sprites/UI/botões/botão g (click).png" id="2_sino0"]
 [ext_resource type="Texture2D" uid="uid://u4srlvvfjxb5" path="res://Sprites/Misc/Área Externa/lixeira 01.png" id="3_rp1lj"]
-[ext_resource type="Texture2D" uid="uid://b71jk8ppmact0" path="res://Sprites/UI/botões/botão g (selecionado).png" id="3_sino0"]
 [ext_resource type="Texture2D" uid="uid://crjocyehd3rl6" path="res://Sprites/Misc/Área Externa/lixeira 02.png" id="4_fs1sj"]
 [ext_resource type="Texture2D" uid="uid://cjye0fk0du4v5" path="res://Sprites/Misc/Móveis/sofá 02.png" id="5_t14fh"]
 [ext_resource type="Texture2D" uid="uid://cj8ng0f8godfa" path="res://Sprites/Misc/Área Externa/lixo 01.png" id="6_fbr3m"]
@@ -14,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b7bbjbbnbkptt" path="res://Sprites/Misc/Área Externa/lixeira 03.png" id="9_c7ao1"]
 [ext_resource type="Texture2D" uid="uid://bxk7ds5nfuhwj" path="res://Sprites/Misc/Área Externa/poste.png" id="10_u8o63"]
 [ext_resource type="Script" uid="uid://ct2yyxdj2a8cy" path="res://Scripts/credits_menu.gd" id="11_rp1lj"]
+[ext_resource type="Theme" uid="uid://7eltmng1er5f" path="res://UITheme/ButtonTheme.tres" id="12_smomg"]
 
 [sub_resource type="SystemFont" id="SystemFont_et25s"]
 font_names = PackedStringArray("Monospace")
@@ -113,7 +111,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 546.0
+offset_top = 525.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 40
@@ -121,35 +119,60 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 20
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CreditsMenu/MarginContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="CreditsMenu/MarginContainer"]
+layout_mode = 2
+split_offset = 740
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CreditsMenu/MarginContainer/HSplitContainer"]
 layout_mode = 2
 theme_override_colors/default_color = Color(0.662815, 0.635881, 0.783334, 1)
 theme_override_fonts/normal_font = SubResource("SystemFont_et25s")
 theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
 text = "Jogo produzido por:
 
-Bernardo F. Pereira (Programador
-Ingrid Miranda (Artista 2D)
-Lauro Rosa (Animador 2D)
+Bernardo F. Pereira (Programador e VFX)
+Ingrid Miranda (Artista 2D - Cenários)
+Lauro Rosa (Artista e Animador 2D - Sprites e Tilesets)
 Igor Leal (Game e Level Design)
 "
 
-[node name="ButtonMainMenu" type="TextureButton" parent="CreditsMenu"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="CreditsMenu/MarginContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.662815, 0.635881, 0.783334, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_et25s")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Audio utilizado:
+Kenney RPG Sound Pack
+https://kenney.nl/assets
+Impact  e Punch de Iwan 'qubodup' Gabovitch
+http://opengameart.org/users/qubodup
+
+"
+
+[node name="ButtonMainMenu" type="Button" parent="CreditsMenu"]
 texture_filter = 3
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -148.0
-offset_top = -106.0
-offset_right = -71.0
-offset_bottom = -66.0
-grow_horizontal = 0
-grow_vertical = 0
-texture_normal = ExtResource("1_ga18u")
-texture_pressed = ExtResource("2_sino0")
-texture_hover = ExtResource("3_sino0")
+offset_left = 42.0
+offset_top = 38.0
+offset_right = 119.0
+offset_bottom = 78.0
+theme = ExtResource("12_smomg")
+
+[node name="Label" type="Label" parent="CreditsMenu/ButtonMainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -9.5
+offset_right = 20.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Voltar"
 
 [connection signal="pressed" from="CreditsMenu/ButtonMainMenu" to="CreditsMenu" method="_on_button_main_menu_pressed"]

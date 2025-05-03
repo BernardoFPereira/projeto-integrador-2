@@ -219,6 +219,7 @@ process_callback = 0
 [node name="SuspicionTimer" type="Timer" parent="."]
 
 [node name="SearchLocationTimer" type="Timer" parent="."]
+wait_time = 2.0
 
 [node name="SearchTimer" type="Timer" parent="."]
 wait_time = 10.0

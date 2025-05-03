@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxpsecdw7nn0e"]
+
+[ext_resource type="Texture2D" uid="uid://b5b40y0me4gxk" path="res://Sprites/Misc/Área Externa/lixeira 04.png" id="1_ar0a1"]
+
+[node name="Dumpster" type="StaticBody2D"]
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ar0a1")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-35, -46, 35, -24, 35, 46, -35, 46)

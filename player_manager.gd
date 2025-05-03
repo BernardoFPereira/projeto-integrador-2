@@ -28,6 +28,8 @@ var briefcase_found := false
 #var game_paused := false
 var game_complete := false
 
+var in_dialogue := false
+
 func restart() -> void:
 	scanning_light = false
 	is_in_shadow = true

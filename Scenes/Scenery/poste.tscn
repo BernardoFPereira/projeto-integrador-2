@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://bljkigdqi5ipq"]
+
+[ext_resource type="Texture2D" uid="uid://bxk7ds5nfuhwj" path="res://Sprites/Misc/Área Externa/poste.png" id="1_830to"]
+[ext_resource type="Script" uid="uid://2e4jyj74mqpw" path="res://Scripts/spotlight.gd" id="1_x8xtg"]
+[ext_resource type="Texture2D" uid="uid://bq2t1q7bafmw1" path="res://Textures/circle_light.tres" id="2_x8xtg"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_x8xtg"]
+polygon = PackedVector2Array(-2.55422, -1.27711, -0.425703, -5.95984, 0.425703, -5.95984, 2.55422, -1.27711, 2.12851, -1.27711, 0, -4.46988, -2.12851, -1.27711)
+
+[node name="Poste" type="Node2D"]
+script = ExtResource("1_x8xtg")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -124)
+scale = Vector2(4.69811, 4.69811)
+shadow_enabled = true
+texture = ExtResource("2_x8xtg")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="PointLight2D"]
+position = Vector2(0, 3.83133)
+occluder = SubResource("OccluderPolygon2D_x8xtg")
+
+[node name="LightPositionMarker" type="Marker2D" parent="PointLight2D"]
+position = Vector2(0, 1.48996)
+scale = Vector2(0.212851, 0.212851)
+
+[node name="LightDetectArea" type="Area2D" parent="."]
+position = Vector2(0, -125)
+collision_layer = 32
+collision_mask = 18
+
+[node name="LightDetectCollision" type="CollisionPolygon2D" parent="LightDetectArea"]
+polygon = PackedVector2Array(0, 0, -208, 253, 206, 253)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_830to")
+
+[connection signal="area_entered" from="LightDetectArea" to="." method="_on_light_detect_area_area_entered"]
+[connection signal="area_exited" from="LightDetectArea" to="." method="_on_light_detect_area_area_exited"]
+[connection signal="body_entered" from="LightDetectArea" to="." method="_on_light_detect_area_body_entered"]
+[connection signal="body_exited" from="LightDetectArea" to="." method="_on_light_detect_area_body_exited"]

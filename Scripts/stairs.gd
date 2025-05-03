@@ -31,6 +31,7 @@ func interaction(mode: String = "PLAYER"):
 		"ENEMY":
 			if enemy_to_move != null:
 				enemy_to_move.global_position = destination.spawn_marker.global_position
+				enemy_to_move = null
 
 func _on_interact_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
@@ -45,7 +46,7 @@ func _on_interact_area_body_exited(body: Node2D) -> void:
 
 func _on_interact_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("EnemyInteractionArea"):
-		print("Enemy on stairs!")
+		#print("Enemy on stairs!")
 		var enemy = area.get_parent()
 		enemy_to_move = enemy
 

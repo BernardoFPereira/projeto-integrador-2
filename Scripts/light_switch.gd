@@ -35,6 +35,13 @@ func set_state(new_state: States) -> void:
 
 func interaction():
 	Audio.play("res://Audio/FX/metalLatch.ogg", -10)
+	match state:
+		States.ON:
+			pass
+		States.OFF:
+			if switch_condition != "BROKEN":
+				Audio.play("res://Audio/FX/buzz.ogg", -10)
+			pass
 	
 	match state:
 		States.ON:

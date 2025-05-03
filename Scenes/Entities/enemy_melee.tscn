@@ -217,10 +217,11 @@ script = ExtResource("1_5hljt")
 speed = 550.0
 
 [node name="InteractionTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 4.0
 
 [node name="RoamingTimer" type="Timer" parent="."]
 process_callback = 0
+wait_time = 3.0
 
 [node name="SuspicionTimer" type="Timer" parent="."]
 

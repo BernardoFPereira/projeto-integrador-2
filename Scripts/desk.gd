@@ -1,4 +1,4 @@
-extends Polygon2D
+extends Node2D
 
 @onready var interact_highlight: Line2D = $InteractHighlight
 
