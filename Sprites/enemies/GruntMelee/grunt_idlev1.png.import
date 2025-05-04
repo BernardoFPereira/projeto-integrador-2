@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c85a5scrtyghu"
-path="res://.godot/imported/grunt_idlev1.png-1e5a4d22f44fec0e982baeaa37f8c8c5.ctex"
+path="res://.godot/imported/grunt_idlev1.png-9220b3244f8b5407c49e665a6d47b896.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/enemies/GruntMelee/grunt_idlev1.png"
-dest_files=["res://.godot/imported/grunt_idlev1.png-1e5a4d22f44fec0e982baeaa37f8c8c5.ctex"]
+source_file="res://Sprites/Enemies/GruntMelee/grunt_idlev1.png"
+dest_files=["res://.godot/imported/grunt_idlev1.png-9220b3244f8b5407c49e665a6d47b896.ctex"]
 
 [params]
 

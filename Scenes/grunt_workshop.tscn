@@ -507,12 +507,6 @@ position = Vector2(-43, 504)
 
 [node name="RangedEnemy3" parent="Enemies" instance=ExtResource("40_q2e71")]
 position = Vector2(880, -108)
-facing = 0
-start_state = 0
-attack_cooldown = 1.0
-roam_speed = 100.0
-min_wait = 2.0
-max_wait = 6.0
 
 [node name="MapExitArea" type="Area2D" parent="."]
 position = Vector2(1838, 441)

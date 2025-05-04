@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://durqc2ybvavsu"
-path="res://.godot/imported/grunt2_gunidle.png-c6d7f704a23fe7f1a42c2c5d7408f30e.ctex"
+path="res://.godot/imported/grunt2_gunidle.png-08ac5be6a1af25777e89d59ca2a0d76d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/enemies/GruntRanged/grunt2_gunidle.png"
-dest_files=["res://.godot/imported/grunt2_gunidle.png-c6d7f704a23fe7f1a42c2c5d7408f30e.ctex"]
+source_file="res://Sprites/Enemies/GruntRanged/grunt2_gunidle.png"
+dest_files=["res://.godot/imported/grunt2_gunidle.png-08ac5be6a1af25777e89d59ca2a0d76d.ctex"]
 
 [params]
 

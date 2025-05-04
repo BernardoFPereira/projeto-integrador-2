@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csmwpyv8q74ms"
-path="res://.godot/imported/grunt2_deathpose03.png-eac9ecd7bcdc70e47a3e34aeef0e3848.ctex"
+uid="uid://cc8fa627m6twu"
+path="res://.godot/imported/discoball.png-b6b04ba775fc56f390f3b4352f078cf8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Enemies/GruntRanged/grunt2_deathpose03.png"
-dest_files=["res://.godot/imported/grunt2_deathpose03.png-eac9ecd7bcdc70e47a3e34aeef0e3848.ctex"]
+source_file="res://Sprites/Misc/discoball.png"
+dest_files=["res://.godot/imported/discoball.png-b6b04ba775fc56f390f3b4352f078cf8.ctex"]
 
 [params]
 

@@ -1,9 +1,9 @@
 [gd_resource type="Theme" load_steps=24 format=3 uid="uid://7eltmng1er5f"]
 
-[ext_resource type="StyleBox" uid="uid://mt2pwyhrbvyd" path="res://button_hover_style_box.tres" id="1_t16ps"]
-[ext_resource type="StyleBox" uid="uid://dnqo1qgkvlfxf" path="res://button_hover_pressed_style_box.tres" id="2_kyndr"]
-[ext_resource type="StyleBox" uid="uid://bg4dt6v4h67my" path="res://button_normal_style_box.tres" id="3_65r1h"]
-[ext_resource type="StyleBox" uid="uid://cafhivs8pjnhm" path="res://button_pressed_style_box.tres" id="4_nrrbu"]
+[ext_resource type="StyleBox" uid="uid://mt2pwyhrbvyd" path="res://Resources/button_hover_style_box.tres" id="1_t16ps"]
+[ext_resource type="StyleBox" uid="uid://dnqo1qgkvlfxf" path="res://Resources/button_hover_pressed_style_box.tres" id="2_kyndr"]
+[ext_resource type="StyleBox" uid="uid://bg4dt6v4h67my" path="res://Resources/button_normal_style_box.tres" id="3_65r1h"]
+[ext_resource type="StyleBox" uid="uid://cafhivs8pjnhm" path="res://Resources/button_pressed_style_box.tres" id="4_nrrbu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t16ps"]
 
