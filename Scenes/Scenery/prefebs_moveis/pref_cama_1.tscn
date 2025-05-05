@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2h5v8uuwwi0m"]
+
+[ext_resource type="Texture2D" uid="uid://bo1kwia5oq2uw" path="res://Sprites/Misc/Móveis/cama 01.png" id="1_efwtt"]
+
+[node name="Pref" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(61, 0)
+texture = ExtResource("1_efwtt")

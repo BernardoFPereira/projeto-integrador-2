@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct3q5s7g0op3c"]
+
+[ext_resource type="Texture2D" uid="uid://88stktn547hj" path="res://Sprites/Misc/Placas/placa proibido fumar.png" id="1_lhse4"]
+
+[node name="PrefPlacaProibidoFumar" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, 0)
+texture = ExtResource("1_lhse4")

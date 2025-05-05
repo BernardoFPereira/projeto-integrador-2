@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfln6ix515pcf"]
+
+[ext_resource type="Texture2D" uid="uid://bahlcoa2b2oh7" path="res://Sprites/Misc/Móveis/mesa 01.png" id="1_3npq4"]
+
+[node name="Pref" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(39, 0)
+texture = ExtResource("1_3npq4")

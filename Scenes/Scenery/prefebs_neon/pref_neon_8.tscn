@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgby4ogsp2jdt"]
+
+[ext_resource type="Texture2D" uid="uid://dwl3ffotfbfes" path="res://Sprites/Misc/Neon Signs/neon sign 08.png" id="1_3aiqb"]
+
+[node name="PrefNeon8" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(40, 0)
+texture = ExtResource("1_3aiqb")

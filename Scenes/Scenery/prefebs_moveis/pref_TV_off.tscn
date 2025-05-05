@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://q7nk1aek3oun"]
+
+[ext_resource type="Texture2D" uid="uid://boufekauttw6i" path="res://Sprites/Misc/Móveis/tv 02.png" id="1_22au5"]
+
+[node name="Pref" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(30, 0)
+texture = ExtResource("1_22au5")

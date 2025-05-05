@@ -43,7 +43,7 @@
 [ext_resource type="Texture2D" uid="uid://dwk5epph4upj3" path="res://Sprites/Misc/Misc/ventilação 02.png" id="26_ejx2w"]
 [ext_resource type="PackedScene" uid="uid://ccjfvb5421qpk" path="res://Scenes/Entities/enemy_ranged.tscn" id="29_uva3u"]
 [ext_resource type="AudioStream" uid="uid://bybpwfuxkyajc" path="res://Audio/Night Soaked Smoke.mp3" id="36_uva3u"]
-[ext_resource type="PackedScene" uid="uid://cxpsecdw7nn0e" path="res://Scenes/Scenery/dumpster.tscn" id="39_3628t"]
+[ext_resource type="PackedScene" uid="uid://cxpsecdw7nn0e" path="res://Scenes/Scenery/prefebs_areaExterna/pref_lixerao_lateral.tscn" id="39_3628t"]
 [ext_resource type="Script" uid="uid://b13iffimqj3yk" path="res://Scripts/options_menu.gd" id="42_giktf"]
 [ext_resource type="Script" uid="uid://burr4kixdupuq" path="res://Scripts/UI/fullscreen_toggle.gd" id="43_4248a"]
 [ext_resource type="Script" uid="uid://c33v11q4gjqps" path="res://Scripts/UI/volume_slider.gd" id="43_b47o7"]
@@ -1035,7 +1035,6 @@ pitch_scale = 0.85
 autoplay = true
 mix_target = 1
 max_polyphony = 2
-bus = &"Music"
 playback_type = 1
 
 [connection signal="body_exited" from="InsideArea" to="." method="_on_inside_area_body_exited"]

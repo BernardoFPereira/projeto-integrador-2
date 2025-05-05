@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbk42s7aaaose"]
+
+[ext_resource type="Texture2D" uid="uid://05dsa302qmfh" path="res://Sprites/Misc/Área Externa/lixo 02.png" id="1_kne1j"]
+
+[node name="PrefLixo2" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(22, 0)
+texture = ExtResource("1_kne1j")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bm7trmxsm0tgx"]
+
+[ext_resource type="Texture2D" uid="uid://b8ycnbobg8jdk" path="res://Sprites/Misc/Móveis/poltrona 02.png" id="1_nbyna"]
+
+[node name="Pref" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(34, 1)
+texture = ExtResource("1_nbyna")

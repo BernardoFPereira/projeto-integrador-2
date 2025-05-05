@@ -27,7 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://drfevqaggv7kc" path="res://Sprites/Misc/Área Externa/ar condicionado 01 .png" id="25_mj7h2"]
 [ext_resource type="Texture2D" uid="uid://3be0c7xq2d7h" path="res://Sprites/Misc/Misc/ventilação 01.png" id="26_0lfl1"]
 [ext_resource type="Texture2D" uid="uid://dwk5epph4upj3" path="res://Sprites/Misc/Misc/ventilação 02.png" id="27_06oio"]
-[ext_resource type="PackedScene" uid="uid://cxpsecdw7nn0e" path="res://Scenes/Scenery/dumpster.tscn" id="28_jgwhn"]
+[ext_resource type="PackedScene" uid="uid://cxpsecdw7nn0e" path="res://Scenes/Scenery/prefebs_areaExterna/pref_lixerao_lateral.tscn" id="28_jgwhn"]
 [ext_resource type="Texture2D" uid="uid://bxaoymebtne3n" path="res://Sprites/Misc/Área Externa/phone.png" id="29_6ga30"]
 [ext_resource type="PackedScene" uid="uid://brxjw7a8jp5n3" path="res://Scenes/door.tscn" id="30_tty3t"]
 [ext_resource type="PackedScene" uid="uid://cm5psujfwcom2" path="res://Scenes/stairs.tscn" id="31_tbxu6"]

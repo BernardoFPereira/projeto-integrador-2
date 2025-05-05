@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgpadas34rq64"]
+
+[ext_resource type="Texture2D" uid="uid://divncen4rwiw0" path="res://Sprites/Misc/Placas/placa inflamável.png" id="1_b3chi"]
+
+[node name="PrefPlacaInflamavel" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(20, 0)
+texture = ExtResource("1_b3chi")

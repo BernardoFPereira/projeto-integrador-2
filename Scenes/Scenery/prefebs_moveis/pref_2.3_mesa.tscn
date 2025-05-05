@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://3h18yauxaaa3"]
+
+[ext_resource type="Texture2D" uid="uid://b6bo368o3o672" path="res://Sprites/Misc/Móveis/mesa 02 (sem toalha).png" id="1_ct2sj"]
+
+[node name="Pref" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(88, 1)
+texture = ExtResource("1_ct2sj")

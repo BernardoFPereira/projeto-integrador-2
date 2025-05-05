@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpwl6dshmjy6m"]
+
+[ext_resource type="Texture2D" uid="uid://bdl1n6i73jt7v" path="res://Sprites/Misc/Móveis/aparador baixo.png" id="1_wxrg3"]
+
+[node name="Pref" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(39, 0)
+texture = ExtResource("1_wxrg3")

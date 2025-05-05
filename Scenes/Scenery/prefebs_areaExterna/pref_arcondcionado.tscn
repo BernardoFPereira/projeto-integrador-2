@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgaowue0rl3kb"]
+
+[ext_resource type="Texture2D" uid="uid://drfevqaggv7kc" path="res://Sprites/Misc/Área Externa/ar condicionado 01 .png" id="1_txfyv"]
+
+[node name="PrefArcondcionado" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(19, 0)
+texture = ExtResource("1_txfyv")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, 43, 0, -38, 33, -38, 34, 16, 26, 16)

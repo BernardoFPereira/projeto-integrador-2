@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bom82y2ei7jd8"]
+
+[ext_resource type="Texture2D" uid="uid://d0x5jgxv5yoe2" path="res://Sprites/Misc/Móveis/mesa 02 (cadeira separada).png" id="1_flgvv"]
+
+[node name="Pref" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(19, 0)
+texture = ExtResource("1_flgvv")

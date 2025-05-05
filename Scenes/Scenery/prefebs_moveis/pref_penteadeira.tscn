@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://kcmy2k25b60k"]
+
+[ext_resource type="Texture2D" uid="uid://cuxgk1pdqn0pr" path="res://Sprites/Misc/Móveis/penteadeira.png" id="1_xvdu5"]
+
+[node name="Pref" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(62, 0)
+texture = ExtResource("1_xvdu5")

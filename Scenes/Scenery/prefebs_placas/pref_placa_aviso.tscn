@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbkv8h3fdtiq"]
+
+[ext_resource type="Texture2D" uid="uid://dh4d1hvcxjlwt" path="res://Sprites/Misc/Placas/placa aviso.png" id="1_ap4na"]
+
+[node name="PrefPlacaAviso" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(15, 0)
+texture = ExtResource("1_ap4na")

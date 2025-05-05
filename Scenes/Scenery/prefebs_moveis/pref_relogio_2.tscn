@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0im7shalncvg"]
+
+[ext_resource type="Texture2D" uid="uid://cdeeypylkw11r" path="res://Sprites/Misc/Móveis/relógio.png" id="1_l6toa"]
+
+[node name="Pref" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_l6toa")

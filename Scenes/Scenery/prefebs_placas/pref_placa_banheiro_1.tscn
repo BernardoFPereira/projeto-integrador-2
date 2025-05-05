@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5v1mbp53s5y2"]
+
+[ext_resource type="Texture2D" uid="uid://ckd11ptbcf30e" path="res://Sprites/Misc/Placas/placa banheiro 01.png" id="1_2j4lg"]
+
+[node name="PrefPlacaBanheiro1" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(15, 0)
+texture = ExtResource("1_2j4lg")

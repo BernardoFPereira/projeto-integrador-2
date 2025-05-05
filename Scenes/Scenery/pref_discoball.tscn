@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d38fcyhoambk7"]
+
+[ext_resource type="Texture2D" uid="uid://cc8fa627m6twu" path="res://Sprites/Misc/discoball.png" id="1_jljh3"]
+
+[node name="PrefDiscoball" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(19, 0)
+texture = ExtResource("1_jljh3")

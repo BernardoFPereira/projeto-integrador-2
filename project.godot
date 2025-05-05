@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Deadshade"
-run/main_scene="uid://f4rtc2d71bi8"
+run/main_scene="uid://kdw08n7ui3mv"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7cuhfiqhfadk"]
+
+[ext_resource type="Texture2D" uid="uid://cc4lr6qvioyx8" path="res://Sprites/Misc/Móveis/tv 01 (visão frontal).png" id="1_nbxl3"]
+
+[node name="Pref" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(36, 0)
+texture = ExtResource("1_nbxl3")

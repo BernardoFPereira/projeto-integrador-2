@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://rmxl3jm0djat"]
+
+[ext_resource type="Texture2D" uid="uid://43n2n6jxij6f" path="res://Sprites/Misc/Placas/placa chão molhado.png" id="1_v1413"]
+
+[node name="PrefPlacaChaoMolhado" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(19, -1)
+texture = ExtResource("1_v1413")

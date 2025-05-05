@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbd27pd5g4im6"]
+
+[ext_resource type="Texture2D" uid="uid://b70d1xcftb6m6" path="res://Sprites/Misc/Móveis/relógio grandfather.png" id="1_hwldc"]
+
+[node name="Pref" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(17, 0)
+texture = ExtResource("1_hwldc")

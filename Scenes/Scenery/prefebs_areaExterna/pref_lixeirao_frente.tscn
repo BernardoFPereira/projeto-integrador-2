@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://c480t6t0mgs38"]
+
+[ext_resource type="Texture2D" uid="uid://b7bbjbbnbkptt" path="res://Sprites/Misc/Área Externa/lixeira 03.png" id="1_vcpwq"]
+
+[node name="PrefLixeiraoFrente" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(59, 0)
+texture = ExtResource("1_vcpwq")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(4, 37, 4, -21, 16, -44, 103, -44, 115, -21, 115, 37)

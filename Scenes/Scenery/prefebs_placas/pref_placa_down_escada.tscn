@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dea4gdhgo1nbc"]
+
+[ext_resource type="Texture2D" uid="uid://b5lb0vh1nxqbm" path="res://Sprites/Misc/Placas/placa escadas(descer).png" id="1_xc0mj"]
+
+[node name="PrefPlacaDownEscada" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(12, 0)
+texture = ExtResource("1_xc0mj")

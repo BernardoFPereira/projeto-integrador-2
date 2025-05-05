@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfjxoyxg1hdnu"]
+
+[ext_resource type="Texture2D" uid="uid://d1o6onyxgjk6n" path="res://Sprites/Misc/Área Externa/cone.png" id="1_7jcog"]
+
+[node name="PrefCone" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(20, 0)
+texture = ExtResource("1_7jcog")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=4 uid="uid://kdw08n7ui3mv"]
+[gd_scene load_steps=54 format=4 uid="uid://kdw08n7ui3mv"]
 
 [ext_resource type="Script" uid="uid://ctuy0d1nxcxf1" path="res://Scripts/pause_manager.gd" id="1_0l1o8"]
 [ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://Scripts/main.gd" id="1_3h0wn"]
@@ -19,7 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://45xkkegop3hi" path="res://Sprites/UI/botões/botão p.png" id="18_3tusj"]
 [ext_resource type="Texture2D" uid="uid://d4hqgxplq340d" path="res://Sprites/UI/botões/botão p (click).png" id="19_a57c7"]
 [ext_resource type="Texture2D" uid="uid://cc8fa627m6twu" path="res://Sprites/Misc/discoball.png" id="19_m2gal"]
-[ext_resource type="PackedScene" uid="uid://cxpsecdw7nn0e" path="res://Scenes/Scenery/dumpster.tscn" id="19_w3twc"]
+[ext_resource type="PackedScene" uid="uid://cxpsecdw7nn0e" path="res://Scenes/Scenery/prefebs_areaExterna/pref_lixerao_lateral.tscn" id="19_w3twc"]
 [ext_resource type="Texture2D" uid="uid://ddv8vabldyt0p" path="res://Sprites/UI/botões/botão p (selecionado).png" id="20_ci7yp"]
 [ext_resource type="PackedScene" uid="uid://brxjw7a8jp5n3" path="res://Scenes/door.tscn" id="20_cp60o"]
 [ext_resource type="Texture2D" uid="uid://stoabsnlb387" path="res://Sprites/UI/botões/ícones/voltar.png" id="21_4tuft"]
@@ -37,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://cj8ng0f8godfa" path="res://Sprites/Misc/Área Externa/lixo 01.png" id="34_bj8ks"]
 [ext_resource type="Texture2D" uid="uid://05dsa302qmfh" path="res://Sprites/Misc/Área Externa/lixo 02.png" id="35_ba25u"]
 [ext_resource type="Texture2D" uid="uid://bxk7ds5nfuhwj" path="res://Sprites/Misc/Área Externa/poste.png" id="36_1lu0v"]
+[ext_resource type="PackedScene" uid="uid://cdxwdtmf7dr8l" path="res://Scenes/TV1.tscn" id="38_w3twc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_knud7"]
 size = Vector2(93, 23)
@@ -290,7 +291,7 @@ position = Vector2(557, 236)
 max_ammo = 8
 
 [node name="Player" parent="." instance=ExtResource("2_q7pm8")]
-position = Vector2(-564, 509)
+position = Vector2(-538, 484)
 
 [node name="MapExitArea" type="Area2D" parent="."]
 position = Vector2(2738, 441)
@@ -825,6 +826,9 @@ autoplay = true
 mix_target = 1
 max_polyphony = 2
 playback_type = 1
+
+[node name="Tv1" parent="." instance=ExtResource("38_w3twc")]
+position = Vector2(1707, 576)
 
 [connection signal="body_exited" from="InsideArea" to="." method="_on_inside_area_body_exited"]
 [connection signal="body_entered" from="Interactables/Desk/InteractArea" to="Interactables/Desk" method="_on_interact_area_body_entered"]
