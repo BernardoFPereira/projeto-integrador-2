@@ -516,16 +516,16 @@ func y_diff() -> String:
 	var y_diff = player_last_pos.y - global_position.y
 	
 	if y_diff > 130:
-		#print(y_diff)
+		print(y_diff)
 		#print("%s: player is BELOW me!" % self.name)
 		return "below"
 	elif y_diff < -200:
-		#print(y_diff)
+		print(y_diff)
 		#print("%s: player is ABOVE me!" % self.name)
 		return "above"
 	#elif y_diff < 130 and y_diff > -200:
-		#print(y_diff)
 		#print("%s: player is on the SAME FLOOR as me!" % self.name)
+	print(y_diff)
 	return "same"
 		
 func _on_sight_area_body_entered(body: Node2D) -> void:
@@ -579,10 +579,12 @@ func _on_search_timer_timeout() -> void:
 	set_state(States.ROAMING)
 
 func _on_search_location_timer_timeout() -> void:
+	print("changing search location")
 	var search_offset = Vector2(randf_range(-400, 400), 0)
 	target_position = player_last_pos + search_offset
-	
+	print("target_position: %s" % target_position)
 	if global_position.distance_to(target_position) < 50 or is_on_wall():
+		print("target_position zeroed on my position: %s" % target_position)
 		target_position = global_position
 		velocity = Vector2.ZERO
 	

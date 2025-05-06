@@ -120,8 +120,8 @@ func throw() -> void:
 	set_collision_mask_value(13, 1)
 
 func shoot() -> void:
-	broadcast_noise()
 	if current_ammo > 0:
+		broadcast_noise()
 		var muzzle_flash_fx = preload("res://Scenes/FX/muzzle_flash_fx.tscn").instantiate()
 		var muzzle_flash = preload("res://Scenes/FX/muzzle_flash.tscn").instantiate()
 		var projectile = preload("res://Scenes/Weapons/bullet.tscn").instantiate()

@@ -9,6 +9,8 @@ extends Node
 @onready var lose_menu: Control = $CanvasLayer3/UI/LoseMenu
 @onready var pause_menu: Control = $CanvasLayer3/UI/PauseMenu
 
+var objective_complete := false
+
 func _ready() -> void:
 	PlayerManager.player = get_tree().get_first_node_in_group("Player")
 
@@ -32,6 +34,7 @@ func _process(delta: float) -> void:
 		interaction_label.visible = false
 	
 	if PlayerManager.briefcase_found:
+		objective_complete = true
 		objective_image.visible = true
 		objective_label.text = "Você encontrou a maleta!\nVá até o poste para completar a missão."
 	
@@ -43,7 +46,7 @@ func _on_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/test_level.tscn")
 
 func _on_map_exit_area_body_entered(body: Node2D) -> void:
-	if PlayerManager.briefcase_found:
+	if objective_complete:
 		PlayerManager.game_complete = true
 		win_menu.visible = true
 

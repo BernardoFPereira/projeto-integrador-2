@@ -256,14 +256,17 @@ texture_region_size = Vector2i(64, 64)
 8:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15.3947, -32, -15.3429, 32, 14.9076, 32, 15.1252, 15.234, 32, 15.0164, 32, -32)
 7:3/0 = 0
 7:3/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_6vmqe")
-7:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-21.4593, -27.0574, -16.3278, -1.39952, -15.3429, 32, 14.9076, 32, 15.1252, 15.234, 32, 15.0164, 32, -32, -5.59809, -32)
+7:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-20.9928, -22.8589, -16.3278, -1.39952, -15.3429, 32, 14.9076, 32, 15.1252, 15.234, 32, 15.0164, 32, -32, -5.13158, -27.5239)
 7:2/0 = 0
 7:2/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_juxot")
 7:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14.9756, -32, 15.9315, -32, 18.6603, 10.7297, -1.39952, 23.3254, -15.3947, 20.9928)
 7:1/0 = 0
 7:1/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_7sovt")
-7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 15.5, -32, 15.5)
+7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 1.73494, -32, 4.81929, -6.16869, 8.67472, 6.55423, 0.963852, 15.4217, -32, 15.5)
 9:2/0 = 0
+8:2/0 = 0
+8:0/0 = 0
+8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0.326445, 13.493, -32, 13.4894, -32, 19.4247, 0.108816, 19.1514)
 
 [resource]
 tile_size = Vector2i(64, 64)

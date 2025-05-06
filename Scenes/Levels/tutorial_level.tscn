@@ -1,0 +1,1036 @@
+[gd_scene load_steps=77 format=4 uid="uid://kdw08n7ui3mv"]
+
+[ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://Scripts/main.gd" id="1_c7ir2"]
+[ext_resource type="Script" uid="uid://ctuy0d1nxcxf1" path="res://Scripts/pause_manager.gd" id="2_8t34m"]
+[ext_resource type="Script" uid="uid://bnx4g7k2bwjk7" path="res://Scripts/camera.gd" id="3_v8lox"]
+[ext_resource type="TileSet" uid="uid://bh52f06wo7gfn" path="res://Tilesets/hotel_walls2.tres" id="4_go6pc"]
+[ext_resource type="PackedScene" uid="uid://brxjw7a8jp5n3" path="res://Scenes/door.tscn" id="5_l4a6n"]
+[ext_resource type="PackedScene" uid="uid://cm5psujfwcom2" path="res://Scenes/stairs.tscn" id="6_ivhh6"]
+[ext_resource type="Texture2D" uid="uid://b8nhmvuqijpa7" path="res://Sprites/Misc/Misc/extintor de incêndio.png" id="7_ss8cx"]
+[ext_resource type="Texture2D" uid="uid://dt2ldxdiy3w03" path="res://Sprites/Misc/Misc/fliperama 01 (SHADOWBOLT).png" id="8_cjqrj"]
+[ext_resource type="Texture2D" uid="uid://3be0c7xq2d7h" path="res://Sprites/Misc/Misc/ventilação 01.png" id="9_d30fj"]
+[ext_resource type="Texture2D" uid="uid://b5lb0vh1nxqbm" path="res://Sprites/Misc/Placas/placa escadas(descer).png" id="10_8o2ra"]
+[ext_resource type="Texture2D" uid="uid://bpx68sue22hsh" path="res://Sprites/Misc/Placas/placa escadas(subir).png" id="11_7kw3o"]
+[ext_resource type="Texture2D" uid="uid://cjye0fk0du4v5" path="res://Sprites/Misc/Móveis/sofá 02.png" id="12_6du32"]
+[ext_resource type="Texture2D" uid="uid://bc4n7doiqfx6r" path="res://Sprites/Misc/Neon Signs/neon sign 03.png" id="13_0dfbt"]
+[ext_resource type="Texture2D" uid="uid://cj8ng0f8godfa" path="res://Sprites/Misc/Área Externa/lixo 01.png" id="14_jjpbn"]
+[ext_resource type="Texture2D" uid="uid://05dsa302qmfh" path="res://Sprites/Misc/Área Externa/lixo 02.png" id="15_pk122"]
+[ext_resource type="Texture2D" uid="uid://drfevqaggv7kc" path="res://Sprites/Misc/Área Externa/ar condicionado 01 .png" id="16_oyyyl"]
+[ext_resource type="Texture2D" uid="uid://bxk7ds5nfuhwj" path="res://Sprites/Misc/Área Externa/poste.png" id="17_gbxc0"]
+[ext_resource type="Texture2D" uid="uid://cc8fa627m6twu" path="res://Sprites/Misc/discoball.png" id="18_i6ft4"]
+[ext_resource type="PackedScene" uid="uid://cxpsecdw7nn0e" path="res://Scenes/Scenery/dumpster.tscn" id="19_jtech"]
+[ext_resource type="Texture2D" uid="uid://cp0i01w6nljl4" path="res://Sprites/Misc/Neon Signs/neon sign 02.png" id="20_6jwqk"]
+[ext_resource type="Script" uid="uid://cwnxio8qjx6at" path="res://Scripts/desk.gd" id="21_6jwqk"]
+[ext_resource type="Texture2D" uid="uid://88stktn547hj" path="res://Sprites/Misc/Placas/placa proibido fumar.png" id="21_625k2"]
+[ext_resource type="PackedScene" uid="uid://dvnbwjdh3h32x" path="res://Scenes/spotlight.tscn" id="22_625k2"]
+[ext_resource type="Texture2D" uid="uid://ngup0j78tjs5" path="res://Sprites/asset pack 03/deco 01.png" id="22_s01n2"]
+[ext_resource type="PackedScene" uid="uid://cfcysmdx4fwtk" path="res://Scenes/light_switch.tscn" id="23_s01n2"]
+[ext_resource type="Texture2D" uid="uid://c8k5pxpy8hyub" path="res://Sprites/asset pack 03/deco 02.png" id="23_uvhf6"]
+[ext_resource type="Texture2D" uid="uid://cq4bjfqyeqt1q" path="res://Sprites/asset pack 03/deco 04.png" id="24_idb8x"]
+[ext_resource type="PackedScene" uid="uid://dku1i8xadq6lo" path="res://Scenes/lamp_stand.tscn" id="24_uvhf6"]
+[ext_resource type="Texture2D" uid="uid://d3sgf3m0rc3cm" path="res://Sprites/asset pack 03/janela B1.png" id="25_688p4"]
+[ext_resource type="PackedScene" uid="uid://cdxwdtmf7dr8l" path="res://Scenes/TV1.tscn" id="25_idb8x"]
+[ext_resource type="PackedScene" uid="uid://cq1k7u6rk18bl" path="res://Scenes/spotlightBoate.tscn" id="26_8t34m"]
+[ext_resource type="PackedScene" uid="uid://7j67kmjgw7gm" path="res://Scenes/Weapons/knife.tscn" id="26_688p4"]
+[ext_resource type="Texture2D" uid="uid://du03ydkajgil6" path="res://Sprites/asset pack 03/placa 01.png" id="26_ldj6i"]
+[ext_resource type="Texture2D" uid="uid://bjty25xdwb1ww" path="res://Sprites/asset pack 03/janela A1.png" id="27_0q0y7"]
+[ext_resource type="PackedScene" uid="uid://86dt5nfq2yny" path="res://Scenes/Entities/enemy_melee.tscn" id="27_go6pc"]
+[ext_resource type="PackedScene" uid="uid://cmh1hpnuj0sd5" path="res://Scenes/Weapons/Pistol.tscn" id="27_ldj6i"]
+[ext_resource type="PackedScene" uid="uid://bdktoaq21c5xd" path="res://Scenes/Entities/player.tscn" id="28_0q0y7"]
+[ext_resource type="PackedScene" uid="uid://ccjfvb5421qpk" path="res://Scenes/Entities/enemy_ranged.tscn" id="28_l4a6n"]
+[ext_resource type="Texture2D" uid="uid://ce6m3krw8rw1b" path="res://Sprites/asset pack 03/guarda sol.png" id="28_ty0sj"]
+[ext_resource type="Texture2D" uid="uid://ccw33p382yta6" path="res://Sprites/Misc/Móveis/poltrona 01.png" id="29_047bk"]
+[ext_resource type="Shader" uid="uid://ljw3o5pbf52q" path="res://Shaders/noise.gdshader" id="29_ty0sj"]
+[ext_resource type="Shader" uid="uid://rcn5fpdxiksk" path="res://Shaders/glitch.gdshader" id="30_047bk"]
+[ext_resource type="PackedScene" uid="uid://uj3skqknvjp7" path="res://Scenes/Scenery/antena.tscn" id="30_625k2"]
+[ext_resource type="Texture2D" uid="uid://bvk837m3k5ka3" path="res://Sprites/suitcase2.png" id="31_7e3ap"]
+[ext_resource type="Texture2D" uid="uid://b5wr5ph4j0iuh" path="res://Sprites/asset pack 03/tutorial/a.png" id="31_rs2gq"]
+[ext_resource type="Texture2D" uid="uid://c7ybxi40gbjcm" path="res://Sprites/asset pack 03/bandeira.png" id="31_s01n2"]
+[ext_resource type="Script" uid="uid://1cjx5p8lqwdy" path="res://Scripts/UI/resolution_select.gd" id="32_rs2gq"]
+[ext_resource type="Texture2D" uid="uid://0udpc386je68" path="res://Sprites/asset pack 03/tutorial/d.png" id="32_vsg7v"]
+[ext_resource type="Texture2D" uid="uid://dnh3ek8n7o8u3" path="res://Sprites/asset pack 03/tutorial/w.png" id="33_8n2m2"]
+[ext_resource type="Script" uid="uid://c33v11q4gjqps" path="res://Scripts/UI/volume_slider.gd" id="33_vsg7v"]
+[ext_resource type="Script" uid="uid://burr4kixdupuq" path="res://Scripts/UI/fullscreen_toggle.gd" id="34_8n2m2"]
+[ext_resource type="Texture2D" uid="uid://0nboe5ewsth8" path="res://Sprites/asset pack 03/tutorial/espaço.png" id="34_ali6o"]
+[ext_resource type="Texture2D" uid="uid://45xkkegop3hi" path="res://Sprites/UI/botões/botão p.png" id="35_ali6o"]
+[ext_resource type="Texture2D" uid="uid://cqlwlbm3ijk1t" path="res://Sprites/asset pack 03/tutorial/neon sign fire.png" id="35_qlrbs"]
+[ext_resource type="Texture2D" uid="uid://ci2q4wa6gsdef" path="res://Sprites/asset pack 03/tutorial/neon sign shift.png" id="36_4ofva"]
+[ext_resource type="Texture2D" uid="uid://d4hqgxplq340d" path="res://Sprites/UI/botões/botão p (click).png" id="36_qlrbs"]
+[ext_resource type="Texture2D" uid="uid://ddv8vabldyt0p" path="res://Sprites/UI/botões/botão p (selecionado).png" id="37_4ofva"]
+[ext_resource type="Texture2D" uid="uid://bv41rbsj04tba" path="res://Sprites/asset pack 03/tutorial/click.png" id="37_7ykxa"]
+[ext_resource type="Texture2D" uid="uid://stoabsnlb387" path="res://Sprites/UI/botões/ícones/voltar.png" id="38_7ykxa"]
+[ext_resource type="AudioStream" uid="uid://bybpwfuxkyajc" path="res://Audio/Night Soaked Smoke.mp3" id="39_33bie"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uvhf6"]
+size = Vector2(201, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_knud7"]
+size = Vector2(93, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qaypg"]
+size = Vector2(213, 293)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b8ixv"]
+size = Vector2(367, 1973)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_581l4"]
+shader = ExtResource("29_ty0sj")
+shader_parameter/seed = 80.953
+shader_parameter/power = 0.001
+shader_parameter/speed = 0.16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qud5q"]
+shader = ExtResource("30_047bk")
+shader_parameter/shake_power = 0.005
+shader_parameter/shake_rate = 1.0
+shader_parameter/shake_speed = 1.822
+shader_parameter/shake_block_size = 60.0
+shader_parameter/shake_color_rate = 0.003
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e52aa"]
+bg_color = Color(0.0823529, 0.0313726, 0.0705882, 0.996078)
+
+[sub_resource type="LabelSettings" id="LabelSettings_g6svb"]
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_jtvgf"]
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7g4mg"]
+draw_center = false
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.305649, 0.117356, 0.221923, 1)
+shadow_color = Color(0.870494, 0.000114647, 0.71221, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_csh2y"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.250675, 0.498702, 0.236734, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i455y"]
+draw_center = false
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.155504, 0.653868, 0.492289, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_giqp4"]
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n55l8"]
+bg_color = Color(0.201691, 0.0282743, 0.0290583, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ysnoq"]
+bg_color = Color(0.2, 0.027451, 0.027451, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.739311, 0.468566, 0.0826314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k717a"]
+bg_color = Color(0.346596, 0.0728609, 0.0728724, 1)
+
+[node name="TutorialLevel" type="Node"]
+script = ExtResource("1_c7ir2")
+
+[node name="PauseManager" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("2_8t34m")
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+position = Vector2(-944, 471)
+offset = Vector2(0, -125)
+script = ExtResource("3_v8lox")
+target = NodePath("../Player")
+
+[node name="InsideArea" type="Area2D" parent="." groups=["Indoors"]]
+collision_layer = 0
+collision_mask = 536870912
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InsideArea"]
+visible = false
+position = Vector2(68, -7)
+polygon = PackedVector2Array(20, 577, 28, -35, 415, -42, 415, -356, 1561, -356, 1562, -41, 2527, -42, 2523, 583)
+
+[node name="TileLayers" type="Node" parent="."]
+
+[node name="RoomBackFill" type="TileMapLayer" parent="TileLayers"]
+tile_map_data = PackedByteArray("AAAPAAQAAQALAAYAAAADAP//AQAMAAoAAGAEAP//AQAMAAoAAGAFAP//AQAMAAoAAGAGAP//AQAMAAoAAGAHAP//AQAMAAoAAGAIAP//AQAMAAoAAGAJAP//AQAMAAoAAGAKAP//AQAMAAoAAGALAP//AQAMAAoAAGAMAP//AQAMAAoAAGANAP//AQAMAAoAAGAOAP//AQAMAAoAAGAdAAQAAQANAAkAAGAcAAQAAQANAAkAAGAbAAQAAQANAAkAAGAaAAQAAQANAAkAAGAZAAQAAQANAAkAAGAYAAQAAQANAAkAAGAXAAQAAQANAAkAAGAWAAQAAQANAAkAAGAVAAQAAQANAAkAAGAUAAQAAQANAAkAAGACAP//AQAIAAAAACD4/wIAAQAIAAAAABA=")
+tile_set = ExtResource("4_go6pc")
+metadata/_edit_lock_ = true
+
+[node name="RoomBack" type="TileMapLayer" parent="TileLayers" groups=["BackWall"]]
+tile_map_data = PackedByteArray("AAAQAAQAAQANAAkAAHARAAQAAQANAAkAAHASAAQAAQANAAkAAHATAAQAAQANAAkAAHAeAAQAAQANAAkAAHAfAAQAAQANAAkAAHAgAAQAAQANAAkAAHAhAAQAAQANAAkAAHAiAAQAAQANAAkAAHAjAAQAAQANAAwAAHACAAcAAQALAAYAABACAAgAAQALAAYAABAPAAQAAQANAAwAAGAQAAUAAQALAAsAAAARAAUAAQALAAsAAAASAAUAAQALAAsAAAATAAUAAQALAAsAAAAUAAUAAQALAAsAAAAVAAUAAQALAAsAAAAWAAUAAQALAAsAAAAXAAUAAQALAAsAAAAYAAUAAQALAAsAAAAZAAUAAQALAAsAAAAaAAUAAQALAAsAAAAbAAUAAQALAAsAAAAcAAUAAQALAAsAAAAdAAUAAQALAAsAAAAeAAUAAQALAAsAAAAfAAUAAQALAAsAAAAgAAUAAQALAAsAAAAhAAUAAQANAAYAABAiAAUAAQALAAsAAAAiAAYAAQALAAsAAAAiAAcAAQALAAsAAAAiAAgAAQALAAsAAAAhAAgAAQALAAsAAAAgAAgAAQALAAsAAAAfAAgAAQALAAsAAAAeAAgAAQALAAsAAAAdAAgAAQALAAsAAAAcAAgAAQALAAsAAAAbAAgAAQALAAsAAAAaAAgAAQALAAsAAAAZAAgAAQALAAsAAAAYAAgAAQALAAsAAAAXAAgAAQALAAsAAAAWAAgAAQALAAsAAAAVAAgAAQALAAsAAAAUAAgAAQALAAsAAAATAAgAAQALAAsAAAASAAgAAQALAAsAAAARAAgAAQALAAsAAAAQAAgAAQALAAsAAAAQAAcAAQALAAsAAAAQAAYAAQALAAsAAAARAAYAAQALAAsAAAARAAcAAQALAAsAAAASAAYAAQALAAsAAAASAAcAAQALAAsAAAATAAcAAQALAAsAAAAUAAcAAQALAAsAAAAVAAcAAQALAAsAAAAWAAcAAQALAAsAAAAXAAcAAQALAAsAAAAYAAcAAQALAAsAAAAZAAcAAQALAAsAAAAaAAcAAQALAAsAAAAbAAcAAQALAAsAAAAcAAcAAQALAAsAAAAdAAcAAQALAAsAAAAeAAcAAQALAAsAAAAfAAcAAQALAAsAAAAgAAcAAQALAAsAAAAhAAcAAQALAAsAAAAhAAYAAQALAAsAAAAgAAYAAQALAAsAAAAfAAYAAQALAAsAAAAeAAYAAQALAAsAAAAdAAYAAQALAAsAAAAcAAYAAQALAAsAAAAbAAYAAQALAAsAAAAaAAYAAQALAAsAAAAZAAYAAQALAAsAAAAYAAYAAQALAAsAAAAXAAYAAQALAAsAAAAWAAYAAQALAAsAAAAVAAYAAQANAAYAAAAUAAYAAQALAAsAAAATAAYAAQALAAsAAAAPAAUAAQAOAAoAAAAPAAYAAQAOAAoAAAAPAAcAAQAOAAoAAAAPAAgAAQAOAAoAAAAjAAUAAQAKAAUAAFAjAAYAAQAKAAUAAFAjAAAAAQAKAAcAAGAjAAEAAQAKAAcAAGAjAAIAAQAKAAcAAGAjAAMAAQAKAAcAAGAPAAAAAQAOAAkAADAPAAEAAQAOAAkAADAPAAIAAQAOAAkAADAPAAMAAQAOAAkAADAPAP//AQAOAAwAABAjAP//AQALAAcAAGAiAP//AQAKAAcAADAhAP//AQAKAAcAADAgAP//AQAKAAcAADAfAP//AQAKAAcAADAeAP//AQAKAAcAADAdAP//AQAKAAcAADAcAP//AQAKAAcAADAbAP//AQAKAAcAADAaAP//AQAKAAcAADAZAP//AQAKAAcAADAYAP//AQAKAAcAADAXAP//AQAKAAcAADAWAP//AQAKAAcAADAVAP//AQAKAAcAADAUAP//AQAKAAcAADATAP//AQAKAAcAADASAP//AQAKAAcAADARAP//AQAKAAcAADAQAP//AQAKAAcAADAQAAAAAQANAAsAAAARAAAAAQANAAsAAAASAAAAAQANAAsAAAATAAAAAQANAAsAAAAUAAAAAQANAAsAAAAVAAAAAQANAAsAAAAWAAAAAQANAAsAAAAXAAAAAQANAAsAAAAYAAAAAQANAAsAAAAZAAAAAQANAAsAAAAaAAAAAQANAAsAAAAbAAAAAQANAAsAAAAcAAAAAQANAAsAAAAdAAAAAQANAAsAAAAeAAAAAQANAAsAAAAfAAAAAQANAAsAAAAgAAAAAQANAAsAAAAhAAAAAQANAAsAAAAiAAAAAQANAAsAAAAiAAEAAQANAAsAAAAiAAIAAQANAAsAAAAiAAMAAQANAAsAAAAhAAMAAQANAAsAAAAgAAMAAQANAAsAAAAfAAMAAQANAAsAAAAeAAMAAQANAAsAAAAdAAMAAQANAAsAAAAcAAMAAQANAAsAAAAbAAIAAQANAAsAAAAaAAIAAQANAAsAAAAZAAIAAQANAAsAAAAYAAIAAQANAAsAAAAXAAIAAQANAAsAAAAWAAIAAQANAAsAAAAVAAIAAQANAAsAAAAVAAMAAQANAAsAAAAUAAMAAQANAAsAAAATAAMAAQANAAsAAAAWAAMAAQANAAsAAAAXAAMAAQANAAsAAAAYAAMAAQANAAsAAAAZAAMAAQANAAsAAAAaAAMAAQANAAsAAAAbAAMAAQANAAsAAAAQAAMAAQANAAsAAAARAAMAAQANAAsAAAASAAMAAQANAAsAAAAQAAIAAQANAAsAAAARAAIAAQANAAsAAAASAAIAAQANAAsAAAATAAIAAQANAAsAAAAUAAIAAQANAAsAAAAQAAEAAQANAAsAAAARAAEAAQANAAsAAAASAAEAAQANAAsAAAATAAEAAQANAAsAAAAUAAEAAQANAAsAAAAVAAEAAQANAAsAAAAWAAEAAQANAAsAAAAXAAEAAQANAAsAAAAYAAEAAQANAAsAAAAZAAEAAQANAAsAAAAaAAEAAQANAAsAAAAbAAEAAQANAAsAAAAcAAEAAQANAAsAAAAdAAEAAQANAAsAAAAeAAEAAQANAAsAAAAfAAEAAQANAAsAAAAgAAEAAQANAAsAAAAhAAEAAQANAAsAAAAhAAIAAQANAAsAAAAgAAIAAQANAAsAAAAfAAIAAQANAAsAAAAeAAIAAQANAAsAAAAdAAIAAQANAAsAAAAcAAIAAQANAAsAAAAOAAgAAQAMAAsAAAAOAAcAAQAMAAsAAAAOAAYAAQAMAAsAAAAOAAUAAQAMAAsAAAAOAAQAAQAMAAsAAAAOAAMAAQAMAAsAAAAOAAIAAQAMAAsAAAAOAAEAAQAMAAsAAAAOAAAAAQAMAAsAAAANAAAAAQAMAAsAAAAMAAAAAQAMAAsAAAALAAAAAQAMAAsAAAAKAAAAAQAMAAsAAAAJAAAAAQAMAAsAAAAIAAAAAQAMAAsAAAAHAAAAAQAMAAsAAAAGAAAAAQAMAAsAAAAFAAAAAQAMAAsAAAAEAAAAAQAMAAsAAAADAAAAAQAMAAsAAAADAAEAAQAMAAsAAAADAAIAAQAMAAsAAAADAAMAAQAMAAsAAAADAAQAAQAMAAsAAAADAAUAAQAMAAsAAAADAAYAAQAMAAsAAAADAAcAAQAMAAsAAAADAAgAAQAMAAsAAAAEAAgAAQAMAAsAAAAFAAgAAQAMAAsAAAAGAAgAAQAMAAsAAAAHAAgAAQAMAAsAAAAIAAgAAQAMAAsAAAAJAAgAAQAMAAsAAAAKAAgAAQAMAAsAAAALAAgAAQAMAAsAAAAMAAgAAQAMAAsAAAANAAgAAQAMAAsAAAANAAcAAQAMAAsAAAAMAAcAAQAMAAsAAAALAAcAAQAMAAsAAAAKAAcAAQAMAAsAAAAJAAcAAQAMAAsAAAAIAAcAAQAMAAsAAAAHAAcAAQAMAAsAAAAGAAcAAQAMAAsAAAAFAAcAAQAMAAsAAAAKAAEAAQAMAAsAAAALAAEAAQAMAAsAAAAMAAEAAQAMAAsAAAANAAEAAQAMAAsAAAAEAAEAAQAMAAsAAAAEAAIAAQAMAAsAAAAEAAMAAQAMAAsAAAAEAAQAAQAMAAsAAAAEAAUAAQAMAAsAAAAEAAYAAQAMAAsAAAAEAAcAAQAMAAsAAAAMAAYAAQAMAAsAAAANAAYAAQAMAAsAAAALAAYAAQAMAAsAAAAKAAYAAQAMAAsAAAAJAAYAAQAMAAsAAAAIAAYAAQAMAAsAAAAHAAYAAQAMAAsAAAAGAAYAAQAMAAsAAAAFAAYAAQAMAAsAAAAFAAUAAQAMAAsAAAAFAAQAAQAMAAsAAAAFAAMAAQAMAAsAAAAFAAIAAQAMAAsAAAAFAAEAAQAMAAsAAAAGAAEAAQAMAAsAAAAHAAEAAQAMAAsAAAAIAAEAAQAMAAsAAAAJAAEAAQAMAAsAAAAGAAIAAQAMAAsAAAAHAAIAAQAMAAsAAAAIAAIAAQAMAAsAAAAJAAIAAQAMAAsAAAAKAAIAAQAMAAsAAAALAAIAAQAMAAsAAAAMAAIAAQAMAAsAAAANAAIAAQAMAAsAAAANAAMAAQAMAAsAAAANAAQAAQAMAAsAAAANAAUAAQAMAAsAAAAMAAUAAQAMAAsAAAALAAUAAQAMAAsAAAAKAAUAAQAMAAsAAAAJAAUAAQAMAAsAAAAIAAUAAQAMAAsAAAAHAAUAAQAMAAsAAAAGAAUAAQAMAAsAAAAGAAQAAQAMAAsAAAAHAAQAAQAMAAsAAAAIAAQAAQAMAAsAAAAJAAQAAQAMAAsAAAAKAAQAAQAMAAsAAAALAAQAAQAMAAsAAAAMAAQAAQAMAAsAAAAMAAMAAQAMAAsAAAALAAMAAQAMAAsAAAAKAAMAAQAMAAsAAAAJAAMAAQAMAAsAAAAIAAMAAQAMAAsAAAAHAAMAAQAMAAsAAAAGAAMAAQAMAAsAAAADAP7/AQAOAAsAAAADAP3/AQAOAAsAAAADAPz/AQAOAAsAAAAEAPv/AQAOAAsAAAAFAPv/AQAOAAsAAAAGAPv/AQAOAAsAAAAHAPv/AQAOAAsAAAAIAPv/AQAOAAsAAAAJAPv/AQAOAAsAAAAKAPv/AQAOAAsAAAALAPv/AQAOAAsAAAAMAPv/AQAOAAsAAAANAPv/AQAOAAsAAAAOAPv/AQAOAAsAAAAPAPv/AQAOAAsAAAAQAPv/AQAOAAsAAAARAPv/AQAOAAsAAAASAPv/AQAOAAsAAAASAPz/AQAOAAsAAAASAP3/AQAOAAsAAAASAP7/AQAOAAsAAAARAP7/AQAOAAsAAAAQAP7/AQAOAAsAAAAPAP7/AQAOAAsAAAAOAP7/AQAOAAsAAAANAP7/AQAOAAsAAAAMAP7/AQAOAAsAAAALAP7/AQAOAAsAAAAKAP7/AQAOAAsAAAAJAP7/AQAOAAsAAAAIAP7/AQAOAAsAAAAHAP7/AQAOAAsAAAAGAP7/AQAOAAsAAAAFAP7/AQAOAAsAAAAEAP7/AQAOAAsAAAAEAP3/AQAOAAsAAAAEAPz/AQAOAAsAAAAFAPz/AQAOAAsAAAAFAP3/AQAOAAsAAAAGAP3/AQAOAAsAAAAHAP3/AQAOAAsAAAAIAP3/AQAOAAsAAAAJAP3/AQAOAAsAAAAKAP3/AQAOAAsAAAALAP3/AQAOAAsAAAAMAP3/AQAOAAsAAAANAP3/AQAOAAsAAAAOAP3/AQAOAAsAAAAPAP3/AQAOAAsAAAAQAP3/AQAOAAsAAAARAP3/AQAOAAsAAAARAPz/AQAOAAsAAAAQAPz/AQAOAAsAAAAPAPz/AQAOAAsAAAAOAPz/AQAOAAsAAAANAPz/AQAOAAsAAAAMAPz/AQAOAAsAAAALAPz/AQAOAAsAAAAKAPz/AQAOAAsAAAAJAPz/AQAOAAsAAAAIAPz/AQAOAAsAAAAHAPz/AQAOAAsAAAAGAPz/AQAOAAsAAAAOAP//AQAJAAIAAAANAP//AQAJAAIAAAAMAP//AQAJAAIAAAALAP//AQAJAAIAAAAKAP//AQAJAAIAAAAJAP//AQAJAAIAAAAIAP//AQAJAAIAAAAHAP//AQAJAAIAAAAGAP//AQAJAAIAAAAFAP//AQAJAAIAAAAEAP//AQAJAAIAAAADAP//AQAJAAIAAAACAAAAAQALAAYAABACAAEAAQALAAYAABACAAIAAQALAAYAABACAAMAAQALAAYAABACAAQAAQALAAYAABACAAUAAQALAAYAABACAAYAAQALAAYAABAjAAcAAQAKAAUAAFAjAAgAAQAKAAUAAFATAP7/AQAJAAYAABATAP3/AQAJAAYAABATAPz/AQAJAAYAABATAPv/AQAJAAYAABACAP7/AQAJAAYAAAACAP3/AQAJAAYAAAACAPz/AQAJAAYAAAACAPv/AQAJAAYAAAACAP//AQAMAA0AAGADAPr/AQAJAAYAAFADAPv/AQAOAAsAAAAEAPr/AQAJAAYAAFAFAPr/AQAJAAYAAFAGAPr/AQAJAAYAAFAHAPr/AQAJAAYAAFAIAPr/AQAJAAYAAFAJAPr/AQAJAAYAAFAKAPr/AQAJAAYAAFALAPr/AQAJAAYAAFAMAPr/AQAJAAYAAFANAPr/AQAJAAYAAFAOAPr/AQAJAAYAAFAPAPr/AQAJAAYAAFAQAPr/AQAJAAYAAFARAPr/AQAJAAYAAFASAPr/AQAJAAYAAFATAPr/AQAJAAcAADACAPr/AQAJAAcAAFAYAAQAAQAIAAIAAAAXAAQAAQAIAAIAAAAWAAQAAQAIAAIAAAAVAAQAAQAIAAIAAAAUAAQAAQAIAAIAAAAZAAQAAQAIAAIAAAAaAAQAAQAIAAIAAAAbAAQAAQAIAAIAAAAcAAQAAQAIAAIAAAAdAAQAAQAIAAIAAAA=")
+tile_set = ExtResource("4_go6pc")
+metadata/_edit_lock_ = true
+
+[node name="Walls2" type="TileMapLayer" parent="TileLayers" groups=["Grabable"]]
+texture_filter = 3
+tile_map_data = PackedByteArray("AAAJAAkAAQAKAAkAAAAKAAkAAQAKAAkAAAALAAkAAQAKAAkAAAAMAAkAAQAKAAkAAAANAAkAAQAKAAkAAAAOAAkAAQAKAAkAAAAPAAkAAQAKAAkAAAAQAAkAAQAKAAkAAAARAAkAAQAKAAkAAAASAAkAAQAKAAkAAAARAAoAAQALAAkAAAAQAAoAAQALAAkAAAAPAAoAAQALAAkAAAAOAAoAAQALAAkAAAANAAoAAQALAAkAAAAMAAoAAQALAAkAAAALAAoAAQALAAkAAAAKAAoAAQALAAkAAAAJAAoAAQALAAkAAAAIAAoAAQALAAkAAAAHAAoAAQALAAkAAAAGAAoAAQALAAkAAAASAAoAAQALAAkAAAATAAkAAQAKAAkAAAAUAAkAAQAKAAkAAAAVAAkAAQAKAAkAAAAWAAkAAQAKAAkAAAAXAAkAAQAKAAkAAAAYAAkAAQAKAAkAAAAZAAkAAQAKAAkAAAAaAAkAAQAKAAkAAAAbAAkAAQAKAAkAAAAcAAkAAQAKAAkAAAAdAAkAAQAKAAkAAAAeAAkAAQAKAAkAAAAfAAkAAQAKAAkAAAAgAAkAAQAKAAkAAAAhAAkAAQAKAAkAAAAiAAkAAQAKAAkAAAAjAAkAAQAKAAkAAAAkAAkAAQAKAAkAAAAmAAkAAQAKAAkAAAAnAAkAAQAKAAkAAAAoAAkAAQAKAAkAAAATAAoAAQALAAkAAAAUAAoAAQALAAkAAAAVAAoAAQALAAkAAAAWAAoAAQALAAkAAAAXAAoAAQALAAkAAAAYAAoAAQALAAkAAAAZAAoAAQALAAkAAAAaAAoAAQALAAkAAAAbAAoAAQALAAkAAAAcAAoAAQALAAkAAAAdAAoAAQALAAkAAAAeAAoAAQALAAkAAAAfAAoAAQALAAkAAAAgAAoAAQALAAkAAAAhAAoAAQALAAkAAAAiAAoAAQALAAkAAAAjAAoAAQALAAkAAAAmAAoAAQALAAkAAAAnAAoAAQALAAkAAAAoAAoAAQALAAkAAAApAAoAAQALAAkAAAAqAAoAAQALAAkAAAArAAoAAQALAAkAAAAsAAoAAQALAAkAAAAtAAoAAQALAAkAAAAuAAoAAQALAAkAAAApAAkAAQAKAAkAAAAqAAkAAQAKAAkAAAArAAkAAQAKAAkAAAAsAAkAAQAKAAkAAAAtAAkAAQAKAAkAAAAuAAkAAQAKAAkAAAAvAAkAAQAKAAkAAAAvAAoAAQALAAkAAAD//w0AAQALAAoAAAD//w4AAQALAAoAAAAAAA4AAQALAAoAAAABAA4AAQALAAoAAAACAA4AAQALAAoAAAADAA4AAQALAAoAAAAEAA4AAQALAAoAAAAFAA4AAQALAAoAAAAGAA4AAQALAAoAAAAHAA4AAQALAAoAAAAIAA4AAQALAAoAAAAJAA4AAQALAAoAAAAKAA4AAQALAAoAAAAAAA0AAQALAAoAAAABAA0AAQALAAoAAAACAA0AAQALAAoAAAADAA0AAQALAAoAAAAEAA0AAQALAAoAAAAFAA0AAQALAAoAAAAGAA0AAQALAAoAAAAHAA0AAQALAAoAAAAIAA0AAQALAAoAAAAJAA0AAQALAAoAAAAKAA0AAQALAAoAAAALAA0AAQALAAoAAAAMAA0AAQALAAoAAAANAA0AAQALAAoAAAAOAA0AAQALAAoAAAAGAAwAAQALAAoAAAAHAAwAAQALAAoAAAAIAAwAAQALAAoAAAAJAAwAAQALAAoAAAAKAAwAAQALAAoAAAALAAwAAQALAAoAAAAMAAwAAQALAAoAAAANAAwAAQALAAoAAAAOAAwAAQALAAoAAAAPAAwAAQALAAoAAAAQAAwAAQALAAoAAAAGAAsAAQALAAoAAAAHAAsAAQALAAoAAAAIAAsAAQALAAoAAAAJAAsAAQALAAoAAAAKAAsAAQALAAoAAAALAAsAAQALAAoAAAAMAAsAAQALAAoAAAANAAsAAQALAAoAAAAOAAsAAQALAAoAAAAPAAsAAQALAAoAAAAvAAsAAQALAAoAAAAuAAsAAQALAAoAAAAtAAsAAQALAAoAAAAsAAsAAQALAAoAAAArAAsAAQALAAoAAAAqAAsAAQALAAoAAAApAAsAAQALAAoAAAAoAAsAAQALAAoAAAAnAAsAAQALAAoAAAAmAAsAAQALAAoAAAAlAAsAAQALAAoAAAAkAAsAAQALAAoAAAAjAAsAAQALAAoAAAAiAAsAAQALAAoAAAAhAAsAAQALAAoAAAAgAAsAAQALAAoAAAAfAAsAAQALAAoAAAAeAAsAAQALAAoAAAAdAAsAAQALAAoAAAAcAAsAAQALAAoAAAAbAAsAAQALAAoAAAAaAAsAAQALAAoAAAAZAAsAAQALAAoAAAAYAAsAAQALAAoAAAAXAAsAAQALAAoAAAAWAAsAAQALAAoAAAAVAAsAAQALAAoAAAAUAAsAAQALAAoAAAATAAsAAQALAAoAAAASAAsAAQALAAoAAAARAAsAAQALAAoAAAAQAAsAAQALAAoAAAARAAwAAQALAAoAAAASAAwAAQALAAoAAAAUAAwAAQALAAoAAAAVAAwAAQALAAoAAAAWAAwAAQALAAoAAAAXAAwAAQALAAoAAAAYAAwAAQALAAoAAAAZAAwAAQALAAoAAAAaAAwAAQALAAoAAAAbAAwAAQALAAoAAAAcAAwAAQALAAoAAAAdAAwAAQALAAoAAAAeAAwAAQALAAoAAAAfAAwAAQALAAoAAAAgAAwAAQALAAoAAAAhAAwAAQALAAoAAAAiAAwAAQALAAoAAAAjAAwAAQALAAoAAAAkAAwAAQALAAoAAAAlAAwAAQALAAoAAAAmAAwAAQALAAoAAAAnAAwAAQALAAoAAAAoAAwAAQALAAoAAAApAAwAAQALAAoAAAAqAAwAAQALAAoAAAArAAwAAQALAAoAAAAsAAwAAQALAAoAAAAtAAwAAQALAAoAAAAuAAwAAQALAAoAAAAvAAwAAQALAAoAAAAvAA0AAQALAAoAAAAuAA0AAQALAAoAAAAtAA0AAQALAAoAAAAsAA0AAQALAAoAAAArAA0AAQALAAoAAAAqAA0AAQALAAoAAAApAA0AAQALAAoAAAAoAA0AAQALAAoAAAAnAA4AAQALAAoAAAAmAA4AAQALAAoAAAAlAA4AAQALAAoAAAAkAA4AAQALAAoAAAAjAA4AAQALAAoAAAAiAA4AAQALAAoAAAAhAA4AAQALAAoAAAAgAA4AAQALAAoAAAAfAA4AAQALAAoAAAAeAA4AAQALAAoAAAAdAA4AAQALAAoAAAAcAA4AAQALAAoAAAAbAA4AAQALAAoAAAAaAA0AAQALAAoAAAAZAA0AAQALAAoAAAAYAA0AAQALAAoAAAAXAA0AAQALAAoAAAAWAA0AAQALAAoAAAAVAA0AAQALAAoAAAAUAA0AAQALAAoAAAATAA0AAQALAAoAAAASAA0AAQALAAoAAAARAA0AAQALAAoAAAAQAA0AAQALAAoAAAAPAA0AAQALAAoAAAAMAA4AAQALAAoAAAANAA4AAQALAAoAAAAOAA4AAQALAAoAAAAPAA4AAQALAAoAAAAQAA4AAQALAAoAAAARAA4AAQALAAoAAAASAA4AAQALAAoAAAATAA4AAQALAAoAAAAUAA4AAQALAAoAAAAVAA4AAQALAAoAAAAWAA4AAQALAAoAAAAXAA4AAQALAAoAAAAYAA4AAQALAAoAAAAZAA4AAQALAAoAAAAaAA4AAQALAAoAAAAvAA4AAQALAAoAAAAuAA4AAQALAAoAAAAtAA4AAQALAAoAAAAsAA4AAQALAAoAAAArAA4AAQALAAoAAAAqAA4AAQALAAoAAAApAA4AAQALAAoAAAAoAA4AAQALAAoAAAAnAA0AAQALAAoAAAAmAA0AAQALAAoAAAAlAA0AAQALAAoAAAAkAA0AAQALAAoAAAAjAA0AAQALAAoAAAAiAA0AAQALAAoAAAAhAA0AAQALAAoAAAAgAA0AAQALAAoAAAAfAA0AAQALAAoAAAAeAA0AAQALAAoAAAAdAA0AAQALAAoAAAAcAA0AAQALAAoAAAAbAA0AAQALAAoAAAALAA4AAQALAAoAAAD6/w0AAQALAAoAAAD6/w4AAQALAAoAAAD7/w4AAQALAAoAAAD8/w4AAQALAAoAAAD9/w4AAQALAAoAAAD+/w4AAQALAAoAAAD+/w0AAQALAAoAAAD9/w0AAQALAAoAAAD8/w0AAQALAAoAAAD7/w0AAQALAAoAAADw/wkAAQAKAAkAAAD5/w4AAQALAAoAAAD4/w4AAQALAAoAAAD3/w4AAQALAAoAAAD2/w4AAQALAAoAAAD1/w4AAQALAAoAAAD0/w4AAQALAAoAAADz/w4AAQALAAoAAADy/w4AAQALAAoAAADx/w4AAQALAAoAAADw/w4AAQALAAoAAADw/w0AAQALAAoAAADx/w0AAQALAAoAAADy/w0AAQALAAoAAADz/w0AAQALAAoAAAD0/w0AAQALAAoAAAD1/w0AAQALAAoAAAD2/w0AAQALAAoAAAD3/w0AAQALAAoAAAD4/w0AAQALAAoAAAD5/w0AAQALAAoAAADw/wwAAQALAAoAAADw/woAAQALAAkAAADw/wsAAQALAAoAAAAGAAkAAQAKAAkAAAAHAAkAAQAKAAkAAAAIAAkAAQAKAAkAAAAlAAkAAQAKAAkAAAAlAAoAAQALAAkAAAAkAAoAAQALAAkAAAATAAwAAQALAAoAAADx/wkAAQAKAAkAAADx/woAAQALAAkAAADx/wsAAQALAAoAAADx/wwAAQALAAoAAADy/woAAQALAAkAAADy/wsAAQALAAoAAADy/wwAAQALAAoAAADz/woAAQALAAkAAADz/wsAAQALAAoAAADz/wwAAQALAAoAAAD0/woAAQALAAkAAAD0/wsAAQALAAoAAAD0/wwAAQALAAoAAAD1/woAAQALAAkAAAD1/wsAAQALAAoAAAD1/wwAAQALAAoAAAD2/woAAQALAAkAAAD2/wsAAQALAAoAAAD2/wwAAQALAAoAAAD3/woAAQALAAkAAAD3/wsAAQALAAoAAAD3/wwAAQALAAoAAAD4/woAAQALAAkAAAD4/wsAAQALAAoAAAD4/wwAAQALAAoAAAD5/woAAQALAAkAAAD5/wsAAQALAAoAAAD5/wwAAQALAAoAAAD6/woAAQALAAkAAAD6/wsAAQALAAoAAAD6/wwAAQALAAoAAAD7/woAAQALAAkAAAD7/wsAAQALAAoAAAD7/wwAAQALAAoAAAD8/woAAQALAAkAAAD8/wsAAQALAAoAAAD8/wwAAQALAAoAAAD9/woAAQALAAkAAAD9/wsAAQALAAoAAAD9/wwAAQALAAoAAAD+/wsAAQALAAoAAAD+/wwAAQALAAoAAAD//wsAAQALAAoAAAD//wwAAQALAAoAAAAAAAsAAQALAAoAAAAAAAwAAQALAAoAAAABAAsAAQALAAoAAAABAAwAAQALAAoAAAACAAsAAQALAAoAAAACAAwAAQALAAoAAAADAAoAAQALAAkAAAADAAsAAQALAAoAAAADAAwAAQALAAoAAAAEAAoAAQALAAkAAAAEAAsAAQALAAoAAAAEAAwAAQALAAoAAAAFAAoAAQALAAkAAAAFAAsAAQALAAoAAAAFAAwAAQALAAoAAAAFAAkAAQAKAAkAAAAEAAkAAQAKAAkAAAADAAkAAQAKAAkAAAD9/wkAAQAKAAkAAAD8/wkAAQAKAAkAAAD7/wkAAQAKAAkAAAD6/wkAAQAKAAkAAAD5/wkAAQAKAAkAAAD4/wkAAQAKAAkAAAD3/wkAAQAKAAkAAAD2/wkAAQAKAAkAAAD1/wkAAQAKAAkAAADz/wkAAQAKAAkAAADy/wkAAQAKAAkAAADy/wcAAQABAAsAAADy/wgAAQACAA0AAADz/wIAAQABAAsAAAD0/wIAAQABAAsAAAD1/wIAAQACAAwAAAD2/wIAAQACAAwAAADy/wMAAQABAAsAAADy/wQAAQABAAsAAADy/wUAAQABAAsAAADy/wYAAQABAAsAAAD3/wEAAQABAAwAAAD3////AQABAAsAAAD3/wAAAQABAAsAAAD3//3/AQABAAsAAAD3//7/AQABAAsAAAAUAP//AQAJAAQAAAAUAAQAAQAHAAIAAGD3//v/AQABAAsAAAD3//z/AQABAAsAAAD3//r/AQACAAoAAADu//r/AQABAAoAAADv//r/AQACAAoAAADw//r/AQACAAoAAADx//r/AQABAAoAAADy//r/AQACAAoAAADz//r/AQABAAoAAAD0//r/AQACAAoAAAD1//r/AQABAAoAAAD2//r/AQABAAoAAAAVAP//AQAJAAQAAAAWAP//AQAJAAQAAAAXAP//AQAJAAQAAAAZAP//AQAJAAQAAAAaAP//AQAJAAQAAAAbAP//AQAJAAQAAAAcAP//AQAJAAQAAAAdAP//AQAJAAQAAAAwAAkAAQAKAAkAAAAxAAkAAQAKAAkAAAAyAAkAAQAKAAkAAAAwAAoAAQALAAkAAAAxAAoAAQALAAkAAAAyAAoAAQALAAkAAAAwAAsAAQALAAoAAAAwAAwAAQALAAoAAAAwAA0AAQALAAoAAAAwAA4AAQALAAoAAAAxAAsAAQALAAoAAAAxAAwAAQALAAoAAAAxAA0AAQALAAoAAAAxAA4AAQALAAoAAAAyAAsAAQALAAoAAAAyAAwAAQALAAoAAAAyAA0AAQALAAoAAAAyAA4AAQALAAoAAAAHAPr/AQAJAAQAAAAIAPr/AQAJAAQAAAAJAPr/AQAJAAQAAAAKAPr/AQAJAAQAAAALAPr/AQAJAAQAAAAMAPr/AQAJAAQAAAANAPr/AQAJAAQAAAAOAPr/AQAJAAQAAAAPAPr/AQAJAAQAAAAQAPr/AQAJAAQAAAARAPr/AQAJAAQAAAASAPr/AQAJAAQAAAATAPr/AQAKAAQAAAAYAAQAAQAHAAIAAHAZAAQAAQAHAAIAAEAdAAQAAQAHAAIAAHAeAAQAAQANAAIAAAAiAAQAAQANAAIAAAAjAAQAAQANAAMAAFAeAP//AQAJAAQAAAAfAP//AQAJAAQAAAAgAP//AQAJAAQAAAAhAP//AQAJAAQAAAAiAP//AQAJAAQAAAAjAP//AQAKAAQAAAAYAP//AQAJAAQAAADy/wIAAQACAAwAAAACAPr/AQAIAAQAAAACAPv/AQANAAIAAFACAPz/AQAHAAIAAAACAP//AQAHAAMAAAADAPr/AQAJAAQAAAAEAPr/AQAJAAQAAAAFAPr/AQAJAAQAAAAGAPr/AQAJAAQAAAAPAP//AQAKAAMAAAAPAAAAAQANAAIAAFAPAAEAAQANAAIAAFAPAAIAAQANAAIAAFAPAAMAAQANAAIAAFAPAAQAAQANAAMAAGAPAAUAAQANAAIAAFAPAAYAAQANAAIAAFAPAAcAAQANAAIAAFAPAAgAAQANAAIAAFAQAP//AQAJAAQAAAAQAAQAAQANAAIAAAARAP//AQAJAAQAAAARAAQAAQANAAIAAAASAP//AQAJAAQAAAASAAQAAQANAAIAAAATAP//AQAJAAMAAAATAAQAAQANAAIAAAAfAAQAAQANAAIAAAAgAAQAAQANAAIAAAAhAAQAAQANAAIAAAAjAAAAAQANAAIAAFAjAAEAAQANAAIAAFAjAAIAAQANAAIAAFAjAAMAAQANAAIAAFAjAAUAAQANAAIAAGAjAAYAAQAOAAIAAADx/wgAAQACAA0AAAD3/wIAAQABAAsAAADs//r/AQABAAoAAADt//r/AQACAAoAAADq//r/AQABAAoAAADr//r/AQACAAoAAADq//v/AQABAAsAAADq//z/AQABAAsAAADq//3/AQABAAsAAADq//7/AQABAAsAAADq////AQABAAsAAADq/wAAAQABAAsAAADq/wEAAQABAAsAAADr//v/AQABAAsAAADr//z/AQABAAsAAADr//3/AQABAAsAAADr//7/AQABAAsAAADr////AQABAAsAAADr/wAAAQABAAsAAADr/wEAAQABAAsAAADs//v/AQABAAsAAADs//z/AQABAAsAAADs//3/AQABAAsAAADs//7/AQABAAsAAADs////AQABAAsAAADs/wAAAQABAAsAAADs/wEAAQABAAsAAADt//v/AQABAAsAAADt//z/AQABAAsAAADt//3/AQABAAsAAADt//7/AQABAAsAAADt////AQABAAsAAADt/wAAAQABAAsAAADt/wEAAQABAAsAAADu//v/AQABAAsAAADu//z/AQABAAsAAADu//3/AQABAAsAAADu//7/AQABAAsAAADu////AQABAAsAAADu/wAAAQABAAsAAADu/wEAAQABAAsAAADv//v/AQABAAsAAADv//z/AQABAAsAAADv//3/AQABAAsAAADv//7/AQABAAsAAADv////AQABAAsAAADv/wAAAQABAAsAAADv/wEAAQABAAsAAADw//v/AQABAAsAAADw//z/AQABAAsAAADw//3/AQABAAsAAADw//7/AQABAAsAAADw////AQABAAsAAADw/wAAAQABAAsAAADw/wEAAQABAAsAAADx//v/AQACAAwAAADx//z/AQABAAsAAADx//3/AQABAAsAAADx//7/AQABAAsAAADx////AQABAAsAAADx/wAAAQABAAsAAADx/wEAAQABAAsAAADy//v/AQABAAsAAADy//z/AQABAAsAAADy//3/AQABAAsAAADy//7/AQABAAsAAADy////AQABAAsAAADy/wAAAQABAAsAAADy/wEAAQABAAsAAADz//v/AQABAAsAAADz//z/AQABAAsAAADz//3/AQABAAsAAADz//7/AQABAAsAAADz////AQABAAsAAADz/wAAAQABAAsAAADz/wEAAQABAAsAAAD0//v/AQABAAsAAAD0//z/AQABAAsAAAD0//3/AQABAAsAAAD0//7/AQABAAwAAAD0////AQABAAsAAAD0/wAAAQABAAsAAAD0/wEAAQABAAsAAAD1//v/AQABAAsAAAD1//z/AQACAAwAAAD1//3/AQABAAsAAAD1//7/AQABAAsAAAD1////AQABAAsAAAD1/wAAAQABAAsAAAD1/wEAAQABAAsAAAD2//v/AQABAAsAAAD2//z/AQACAAwAAAD2//3/AQABAAsAAAD2//7/AQABAAsAAAD2////AQABAAsAAAD2/wAAAQABAAsAAAD2/wEAAQABAAsAAADq/wIAAQABAAsAAADq/wMAAQABAAsAAADq/wQAAQABAAsAAADq/wUAAQABAAsAAADq/wYAAQABAAsAAADq/wcAAQABAAsAAADr/wIAAQABAAsAAADr/wMAAQABAAsAAADr/wQAAQABAAsAAADr/wUAAQABAAsAAADr/wYAAQABAAsAAADr/wcAAQABAAsAAADs/wIAAQABAAsAAADs/wMAAQABAAsAAADs/wQAAQABAAsAAADs/wUAAQABAAsAAADs/wYAAQABAAsAAADs/wcAAQABAAsAAADt/wIAAQABAAsAAADt/wMAAQABAAsAAADt/wQAAQABAAsAAADt/wUAAQABAAsAAADt/wYAAQABAAsAAADt/wcAAQABAAsAAADu/wIAAQABAAsAAADu/wMAAQABAAsAAADu/wQAAQABAAsAAADu/wUAAQABAAsAAADu/wYAAQABAAsAAADu/wcAAQABAAsAAADv/wIAAQABAAsAAADv/wMAAQABAAsAAADv/wQAAQABAAsAAADv/wUAAQABAAsAAADv/wYAAQABAAsAAADv/wcAAQABAAsAAADw/wIAAQABAAsAAADw/wMAAQABAAsAAADw/wQAAQABAAsAAADw/wUAAQABAAsAAADw/wYAAQABAAsAAADw/wcAAQABAAsAAADx/wIAAQABAAsAAADx/wMAAQABAAsAAADx/wQAAQABAAsAAADx/wUAAQABAAsAAADx/wYAAQABAAsAAADx/wcAAQABAAsAAADw/wgAAQABAA0AAADq/wgAAQABAA0AAADr/wgAAQACAA0AAADs/wgAAQABAA0AAADt/wgAAQACAA0AAADu/wgAAQABAA0AAADv/wgAAQACAA0AAAD+/wkAAQAKAAkAAAD+/woAAQALAAkAAAD//wkAAQAKAAkAAAD//woAAQALAAkAAAAAAAkAAQAKAAkAAAAAAAoAAQALAAkAAAABAAkAAQAKAAkAAAABAAoAAQALAAkAAAACAAkAAQAKAAkAAAACAAoAAQALAAkAAAACAAAAAQANAAIAAGACAAEAAQANAAIAAGACAAIAAQANAAIAAGACAAMAAQANAAIAAGACAAUAAQALAAAAACADAP//AQAHAAEAAAATAPv/AQANAAIAAFATAPz/AQANAAIAAFACAAcAAQAKAAEAAAACAAgAAQAKAAIAAAAjAAcAAQAKAAEAAAAjAAgAAQAKAAIAAAAOAP//AQAHAAEAABAAAP//AQAKAAAAACABAP//AQAKAAAAACACAAYAAQAOAAIAAADz/wMAAQABAAsAAADz/wQAAQABAAsAAADz/wUAAQABAAsAAADz/wYAAQABAAsAAADz/wcAAQABAAsAAADz/wgAAQACAA0AAAD0/wkAAQAKAAkAAAD0/wMAAQABAAsAAAD0/wQAAQABAAsAAAD0/wUAAQABAAsAAAD0/wYAAQABAAsAAAD0/wcAAQABAAsAAAD0/wgAAQACAA0AAAD4//r/AQADAAoAAAD4//v/AQADAAwAAAD4//z/AQABAAkAAAD4//3/AQADAAsAAAD4//7/AQABAAkAAAD4////AQADAAwAAAD4/wAAAQABAAkAAAD4/wEAAQABAAkAAAD1/wMAAQADAAwAAAD1/wQAAQABAAkAAAD1/wUAAQADAAwAAAD1/wYAAQABAAkAAAD1/wcAAQADAAwAAAD1/wgAAQADAA0AAAAAAAUAAQAKAAAAACABAAUAAQAKAAAAACACAAQAAQANAAIAAFD/////AQAJAAAAACD//wUAAQAJAAAAACATAP3/AQANAAIAAFATAP7/AQANAAIAAFD4/wIAAQADAAsAAAA=")
+tile_set = ExtResource("4_go6pc")
+metadata/_edit_lock_ = true
+
+[node name="Doors" type="Node" parent="."]
+
+[node name="SpriteDoor2" parent="Doors" instance=ExtResource("5_l4a6n")]
+position = Vector2(2273, 512)
+
+[node name="SpriteDoor3" parent="Doors" instance=ExtResource("5_l4a6n")]
+position = Vector2(160, 512)
+
+[node name="Stairs" type="Node" parent="."]
+
+[node name="Stairs2" parent="Stairs" node_paths=PackedStringArray("destination") groups=["Stair"] instance=ExtResource("6_ivhh6")]
+position = Vector2(1157, 273)
+destination = NodePath("../Stairs3")
+
+[node name="Stairs3" parent="Stairs" node_paths=PackedStringArray("destination") groups=["Stair"] instance=ExtResource("6_ivhh6")]
+position = Vector2(1155, -64)
+destination = NodePath("../Stairs2")
+direction = 1
+
+[node name="Assets" type="Node" parent="."]
+
+[node name="ExtintorDeIncêndio" type="Sprite2D" parent="Assets"]
+position = Vector2(1894, 259)
+rotation = 1.49019
+texture = ExtResource("7_ss8cx")
+
+[node name="Fliperama01(shadowbolt)" type="Sprite2D" parent="Assets"]
+position = Vector2(1464, 515)
+texture = ExtResource("8_cjqrj")
+
+[node name="Ventilação01" type="Sprite2D" parent="Assets"]
+position = Vector2(2100, 19)
+texture = ExtResource("9_d30fj")
+
+[node name="PlacaEscadas(descer)" type="Sprite2D" parent="Assets"]
+position = Vector2(1093, -174)
+texture = ExtResource("10_8o2ra")
+
+[node name="PlacaEscadas(subir)" type="Sprite2D" parent="Assets"]
+position = Vector2(1218, 164)
+texture = ExtResource("11_7kw3o")
+
+[node name="Sofá02" type="Sprite2D" parent="Assets"]
+position = Vector2(1853, 542)
+texture = ExtResource("12_6du32")
+
+[node name="NeonSign03" type="Sprite2D" parent="Assets"]
+position = Vector2(2190, 404)
+texture = ExtResource("13_0dfbt")
+
+[node name="Lixo01" type="Sprite2D" parent="Assets"]
+position = Vector2(-548, 561)
+texture = ExtResource("14_jjpbn")
+
+[node name="Lixo02" type="Sprite2D" parent="Assets"]
+position = Vector2(-574, 557)
+texture = ExtResource("15_pk122")
+
+[node name="ArCondicionado01" type="Sprite2D" parent="Assets"]
+position = Vector2(-447, -209)
+texture = ExtResource("16_oyyyl")
+
+[node name="Poste" type="Sprite2D" parent="Assets"]
+position = Vector2(2739, 451)
+texture = ExtResource("17_gbxc0")
+
+[node name="DiscoBall" type="Node2D" parent="Assets"]
+position = Vector2(562, -337)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Assets/DiscoBall"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 547.0
+grow_horizontal = 2
+texture = ExtResource("18_i6ft4")
+patch_margin_top = 10
+patch_margin_bottom = 45
+
+[node name="Dumpster" parent="Assets" instance=ExtResource("19_jtech")]
+position = Vector2(-617, 530)
+
+[node name="NeonSign02" type="Sprite2D" parent="Assets"]
+self_modulate = Color(1.657, 1.658, 2.21, 1)
+position = Vector2(1091, 388)
+texture = ExtResource("20_6jwqk")
+
+[node name="PlacaProibidoFumar" type="Sprite2D" parent="Assets"]
+position = Vector2(1796, 416)
+texture = ExtResource("21_625k2")
+
+[node name="Deco01" type="Sprite2D" parent="Assets"]
+position = Vector2(357, -220)
+scale = Vector2(2.86645, 2.86645)
+texture = ExtResource("22_s01n2")
+
+[node name="Deco02" type="Sprite2D" parent="Assets"]
+position = Vector2(1460, 383)
+scale = Vector2(1.19403, 1.19403)
+texture = ExtResource("23_uvhf6")
+
+[node name="Deco04" type="Sprite2D" parent="Assets"]
+position = Vector2(1753, 137)
+rotation = -0.176266
+scale = Vector2(1.92248, 1.92248)
+texture = ExtResource("24_idb8x")
+
+[node name="JanelaB1" type="Sprite2D" parent="Assets"]
+position = Vector2(-626, -211)
+texture = ExtResource("25_688p4")
+
+[node name="Placa01" type="Sprite2D" parent="Assets"]
+position = Vector2(-801, 328)
+texture = ExtResource("26_ldj6i")
+
+[node name="JanelaB2" type="Sprite2D" parent="Assets"]
+position = Vector2(-626, 38)
+texture = ExtResource("25_688p4")
+
+[node name="JanelaB3" type="Sprite2D" parent="Assets"]
+position = Vector2(-861, -211)
+texture = ExtResource("27_0q0y7")
+
+[node name="JanelaB4" type="Sprite2D" parent="Assets"]
+position = Vector2(-861, 38)
+texture = ExtResource("25_688p4")
+
+[node name="JanelaB5" type="Sprite2D" parent="Assets"]
+position = Vector2(-965, 359)
+texture = ExtResource("25_688p4")
+
+[node name="GuardaSol" type="Sprite2D" parent="Assets"]
+position = Vector2(-735, -427)
+texture = ExtResource("28_ty0sj")
+
+[node name="Poltrona01" type="Sprite2D" parent="Assets"]
+position = Vector2(-676, -415)
+texture = ExtResource("29_047bk")
+flip_h = true
+
+[node name="Antena" parent="Assets" instance=ExtResource("30_625k2")]
+position = Vector2(-935, -532)
+
+[node name="flag" type="StaticBody2D" parent="Assets"]
+position = Vector2(-465, 169)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Assets/flag"]
+offset_right = 202.0
+offset_bottom = 54.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("31_s01n2")
+patch_margin_left = 6
+patch_margin_right = 46
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Assets/flag"]
+position = Vector2(100.5, 6)
+shape = SubResource("RectangleShape2D_uvhf6")
+
+[node name="Graffiti" type="Node" parent="."]
+
+[node name="PlaceholderGraffiti2" type="Sprite2D" parent="Graffiti"]
+self_modulate = Color(1.657, 3.87, 1.657, 1)
+position = Vector2(-863, 438)
+scale = Vector2(0.834825, 0.809444)
+texture = ExtResource("31_rs2gq")
+region_rect = Rect2(77.5, 4, 227, 118)
+
+[node name="PlaceholderGraffiti8" type="Sprite2D" parent="Graffiti"]
+self_modulate = Color(1.657, 3.87, 1.657, 1)
+position = Vector2(-746, 435)
+scale = Vector2(0.834825, 0.809444)
+texture = ExtResource("32_vsg7v")
+region_rect = Rect2(77.5, 4, 227, 118)
+
+[node name="PlaceholderGraffiti7" type="Sprite2D" parent="Graffiti"]
+position = Vector2(1140, -260)
+rotation = -0.132287
+scale = Vector2(1.65229, 1.60206)
+texture = ExtResource("33_8n2m2")
+region_rect = Rect2(7.5, 4, 74, 74)
+
+[node name="PlaceholderGraffiti" type="Sprite2D" parent="Graffiti"]
+self_modulate = Color(1.657, 3.87, 1.657, 1)
+position = Vector2(-561, 144)
+scale = Vector2(0.834825, 0.809444)
+texture = ExtResource("34_ali6o")
+region_rect = Rect2(162.5, 136, 175, 90)
+
+[node name="PlaceholderGraffiti3" type="Sprite2D" parent="Graffiti"]
+self_modulate = Color(1.657, 1, 1, 1)
+position = Vector2(2075, 91)
+scale = Vector2(0.834825, 0.809444)
+texture = ExtResource("35_qlrbs")
+region_rect = Rect2(204.5, 227, 162, 108)
+
+[node name="PlaceholderGraffiti4" type="Sprite2D" parent="Graffiti"]
+self_modulate = Color(100, 7.734, 2.21, 1)
+position = Vector2(1556, 336)
+rotation = 0.212024
+scale = Vector2(0.834825, 0.809444)
+texture = ExtResource("36_4ofva")
+region_rect = Rect2(32.5, 253, 141, 69)
+
+[node name="PlaceholderGraffiti5" type="Sprite2D" parent="Graffiti"]
+position = Vector2(1277.73, 125.074)
+scale = Vector2(1.48884, 1.44357)
+texture = ExtResource("37_7ykxa")
+region_rect = Rect2(12.5, 125, 112, 122)
+
+[node name="PlaceholderGraffiti6" type="Sprite2D" parent="Graffiti"]
+position = Vector2(2006, 86)
+scale = Vector2(1.14286, 1.10811)
+texture = ExtResource("37_7ykxa")
+region_rect = Rect2(12.5, 125, 112, 122)
+
+[node name="Interactables" type="Node" parent="."]
+
+[node name="Desk" type="Polygon2D" parent="Interactables"]
+visible = false
+position = Vector2(885, -779)
+color = Color(0.548963, 0.548963, 0.548963, 1)
+polygon = PackedVector2Array(-55, 75, -47, 75, -47, 51, 10.8062, 51, 73, 51, 73, 75, 81, 75, 81, 11, -55, 11)
+uv = PackedVector2Array(-184, -29, -185, 10, -177, 12, -176, -27, -153, -27, -152, 0, -141, -4, -140, -43, -195, -42)
+script = ExtResource("21_6jwqk")
+
+[node name="InteractHighlight" type="Line2D" parent="Interactables/Desk"]
+visible = false
+position = Vector2(14, 31)
+points = PackedVector2Array(-69, -20, 67, -20, 67, 44, 59, 44, 59, 20, -62, 20, -62, 44, -69, 44)
+closed = true
+width = 2.5
+default_color = Color(1, 0.843137, 0, 1)
+
+[node name="InteractArea" type="Area2D" parent="Interactables/Desk"]
+position = Vector2(14, 60)
+collision_layer = 1024
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Desk/InteractArea"]
+position = Vector2(0.5, -32.5)
+shape = SubResource("RectangleShape2D_knud7")
+
+[node name="Lights" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="SpotLight" parent="Lights" instance=ExtResource("22_625k2")]
+position = Vector2(1965, 304)
+metadata/_edit_lock_ = true
+
+[node name="LightSwitch" parent="Lights" node_paths=PackedStringArray("connected_lights") instance=ExtResource("23_s01n2")]
+position = Vector2(2179, 520)
+connected_lights = [NodePath("../SpotLight")]
+metadata/_edit_lock_ = true
+
+[node name="StandingLamp" parent="Lights" instance=ExtResource("24_uvhf6")]
+position = Vector2(1230, 471)
+metadata/_edit_lock_ = true
+
+[node name="LightSwitch2" parent="Lights" node_paths=PackedStringArray("connected_lights") instance=ExtResource("23_s01n2")]
+position = Vector2(1050, 512)
+connected_lights = [NodePath("../StandingLamp")]
+metadata/_edit_lock_ = true
+
+[node name="SpotLight2" parent="Lights" instance=ExtResource("22_625k2")]
+position = Vector2(1600, 266)
+rotation = 3.13568
+scale = Vector2(1.00634, 1.04357)
+metadata/_edit_lock_ = true
+
+[node name="Darkness" type="DirectionalLight2D" parent="Lights"]
+position = Vector2(-86, -1198)
+energy = 0.6
+blend_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="Tv1" parent="Lights" instance=ExtResource("25_idb8x")]
+position = Vector2(1671, 576)
+metadata/_edit_lock_ = true
+
+[node name="SpotLight3" parent="Lights" instance=ExtResource("26_8t34m")]
+position = Vector2(190, 170)
+metadata/_edit_lock_ = true
+
+[node name="SpotLight4" parent="Lights" instance=ExtResource("26_8t34m")]
+position = Vector2(962, 167)
+rotation = 3.14159
+scale = Vector2(1, -1)
+metadata/_edit_lock_ = true
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="MeleeEnemy" parent="Enemies" instance=ExtResource("27_go6pc")]
+position = Vector2(1266, 231)
+facing = 1
+metadata/_edit_lock_ = true
+
+[node name="MeleeEnemy2" parent="Enemies" instance=ExtResource("27_go6pc")]
+position = Vector2(1098, 533)
+facing = 1
+metadata/_edit_lock_ = true
+
+[node name="RangedEnemy" parent="Enemies" instance=ExtResource("28_l4a6n")]
+position = Vector2(2055, 532)
+metadata/_edit_lock_ = true
+
+[node name="Weapons" type="Node" parent="."]
+
+[node name="Knife" parent="Weapons" instance=ExtResource("26_688p4")]
+position = Vector2(1003, -93)
+
+[node name="Pistol" parent="Weapons" instance=ExtResource("27_ldj6i")]
+position = Vector2(2104, 249)
+max_ammo = 8
+
+[node name="Player" parent="." instance=ExtResource("28_0q0y7")]
+position = Vector2(-443, 509)
+
+[node name="MapExitArea" type="Area2D" parent="."]
+position = Vector2(2738, 441)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapExitArea"]
+position = Vector2(-4, -12)
+shape = SubResource("RectangleShape2D_qaypg")
+debug_color = Color(0.676968, 1, 0.58729, 0.42)
+
+[node name="MapBoundary" type="StaticBody2D" parent="."]
+position = Vector2(-1390, 362)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBoundary"]
+position = Vector2(173.5, -794.5)
+shape = SubResource("RectangleShape2D_b8ixv")
+metadata/_edit_lock_ = true
+
+[node name="MapBoundary2" type="StaticBody2D" parent="."]
+position = Vector2(3089, 362)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBoundary2"]
+position = Vector2(-4, -763)
+shape = SubResource("RectangleShape2D_b8ixv")
+metadata/_edit_lock_ = true
+
+[node name="ScreenFX" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="NoiseFX" type="ColorRect" parent="ScreenFX"]
+material = SubResource("ShaderMaterial_581l4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GlitchFX" type="ColorRect" parent="ScreenFX"]
+material = SubResource("ShaderMaterial_qud5q")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+layer = 3
+visible = false
+
+[node name="UI" type="Control" parent="CanvasLayer3"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -121.0
+offset_top = -63.0
+offset_right = -33.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "RESTART"
+
+[node name="ObjectiveLabel" type="Label" parent="CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -70.5
+offset_top = 50.0
+offset_right = 70.5
+offset_bottom = 73.0
+grow_horizontal = 2
+text = "Encontre a maleta"
+horizontal_alignment = 1
+
+[node name="InteractionLabel" type="Label" parent="CanvasLayer3/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -103.5
+offset_top = -105.0
+offset_right = 103.5
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Pressione 'E' para interagir"
+horizontal_alignment = 1
+
+[node name="AmmoLabel" type="Label" parent="CanvasLayer3/UI"]
+layout_mode = 1
+offset_left = 58.0
+offset_top = 49.0
+offset_right = 114.0
+offset_bottom = 72.0
+text = "Ammo:"
+
+[node name="ObjectiveImage" type="TextureRect" parent="CanvasLayer3/UI"]
+visible = false
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -28.0
+offset_top = 115.0
+offset_right = 36.0
+offset_bottom = 179.0
+grow_horizontal = 2
+texture = ExtResource("31_7e3ap")
+
+[node name="WinMenu" type="Control" parent="CanvasLayer3/UI"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer3/UI/WinMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 480.5
+offset_top = 292.5
+offset_right = 631.5
+offset_bottom = 315.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Obrigado por jogar!"
+
+[node name="Button2" type="Button" parent="CanvasLayer3/UI/WinMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 498.0
+offset_top = 340.0
+offset_right = 614.0
+offset_bottom = 371.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Jogar de Novo"
+
+[node name="Button3" type="Button" parent="CanvasLayer3/UI/WinMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 537.0
+offset_top = 391.0
+offset_right = 575.0
+offset_bottom = 422.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Sair"
+
+[node name="HowTo" type="Label" parent="CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = -139.0
+offset_right = 383.0
+offset_bottom = -38.0
+grow_vertical = 0
+text = "WASD: Movimento
+Espaço (Segurar): Mirar Pulo
+Shift: Ativar/Desativar \"Mescla das Sombras\"
+Clique Equerdo: Atirar/Pular/Atacar
+Clique Direito: Mirar"
+
+[node name="LoseMenu" type="Control" parent="CanvasLayer3/UI"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer3/UI/LoseMenu"]
+layout_mode = 2
+offset_left = 480.0
+offset_top = 300.0
+offset_right = 669.0
+offset_bottom = 323.0
+text = "Você Morreu!"
+horizontal_alignment = 1
+
+[node name="Button2" type="Button" parent="CanvasLayer3/UI/LoseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 498.0
+offset_top = 340.0
+offset_right = 614.0
+offset_bottom = 371.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Jogar de Novo"
+
+[node name="Button3" type="Button" parent="CanvasLayer3/UI/LoseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 537.0
+offset_top = 391.0
+offset_right = 575.0
+offset_bottom = 422.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Sair"
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer3/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e52aa")
+
+[node name="Title" type="Label" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -179.0
+offset_top = 28.0
+offset_right = 183.0
+offset_bottom = 127.0
+grow_horizontal = 2
+text = "Jogo Pausado"
+label_settings = SubResource("LabelSettings_g6svb")
+horizontal_alignment = 1
+
+[node name="OptionResolution" type="Label" parent="CanvasLayer3/UI/PauseMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = -96.0
+offset_right = -106.0
+offset_bottom = -62.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+text = "Resolução:"
+label_settings = SubResource("LabelSettings_jtvgf")
+
+[node name="MenuButton" type="MenuButton" parent="CanvasLayer3/UI/PauseMenu/OptionResolution"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 227.5
+offset_top = -14.0
+offset_right = 317.5
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = false
+item_count = 3
+popup/item_0/text = "960 x 540"
+popup/item_0/checkable = 2
+popup/item_0/checked = true
+popup/item_0/id = 0
+popup/item_1/text = "1920 x 1080"
+popup/item_1/checkable = 2
+popup/item_1/id = 1
+popup/item_2/text = "578 x 324"
+popup/item_2/checkable = 2
+popup/item_2/id = 2
+script = ExtResource("32_rs2gq")
+
+[node name="VolumeMaster" type="Label" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = -40.0
+offset_right = -106.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+text = "Master:"
+label_settings = SubResource("LabelSettings_jtvgf")
+
+[node name="Slider" type="HSlider" parent="CanvasLayer3/UI/PauseMenu/VolumeMaster"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 168.5
+offset_top = -4.0
+offset_right = 378.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_7g4mg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_csh2y")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_i455y")
+max_value = 1.0
+step = 0.05
+value = 1.0
+ticks_on_borders = true
+script = ExtResource("33_vsg7v")
+
+[node name="VolumeMusic" type="Label" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = 7.0
+offset_right = -106.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+text = "Música:"
+label_settings = SubResource("LabelSettings_jtvgf")
+
+[node name="Slider" type="HSlider" parent="CanvasLayer3/UI/PauseMenu/VolumeMusic"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 168.5
+offset_top = -4.0
+offset_right = 378.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_7g4mg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_csh2y")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_i455y")
+max_value = 1.0
+step = 0.05
+value = 1.0
+ticks_on_borders = true
+script = ExtResource("33_vsg7v")
+audio_bus_name = "Music"
+
+[node name="VolumeSFX" type="Label" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = 55.0
+offset_right = -46.0
+offset_bottom = 89.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+text = "Efeitos Sonoros:"
+label_settings = SubResource("LabelSettings_jtvgf")
+
+[node name="Slider" type="HSlider" parent="CanvasLayer3/UI/PauseMenu/VolumeSFX"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 137.5
+offset_top = -7.0
+offset_right = 347.5
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_7g4mg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_csh2y")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_i455y")
+max_value = 1.0
+step = 0.05
+value = 1.0
+ticks_on_borders = true
+script = ExtResource("33_vsg7v")
+audio_bus_name = "SoundFX"
+
+[node name="FullScreen" type="Label" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = -99.0
+offset_right = -113.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Fullscreen"
+label_settings = SubResource("LabelSettings_giqp4")
+
+[node name="FullscreenToggle" type="CheckButton" parent="CanvasLayer3/UI/PauseMenu/FullScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 208.0
+offset_top = -13.0
+offset_right = 335.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "off"
+script = ExtResource("34_8n2m2")
+
+[node name="Button" type="Button" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 85.0
+offset_top = -106.0
+offset_right = 155.0
+offset_bottom = -66.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_n55l8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ysnoq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_k717a")
+text = "SAIR"
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer3/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -138.0
+offset_top = -108.0
+offset_right = -96.0
+offset_bottom = -66.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("35_ali6o")
+texture_pressed = ExtResource("36_qlrbs")
+texture_hover = ExtResource("37_4ofva")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer3/UI/PauseMenu/TextureButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("38_7ykxa")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("39_33bie")
+volume_db = -21.76
+pitch_scale = 0.85
+mix_target = 1
+max_polyphony = 2
+playback_type = 1
+
+[connection signal="body_exited" from="InsideArea" to="." method="_on_inside_area_body_exited"]
+[connection signal="body_entered" from="Interactables/Desk/InteractArea" to="Interactables/Desk" method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="Interactables/Desk/InteractArea" to="Interactables/Desk" method="_on_interact_area_body_exited"]
+[connection signal="body_entered" from="MapExitArea" to="." method="_on_map_exit_area_body_entered"]
+[connection signal="value_changed" from="CanvasLayer3/UI/PauseMenu/VolumeMaster/Slider" to="CanvasLayer3/UI/PauseMenu/VolumeMaster/Slider" method="_on_value_changed"]
+[connection signal="value_changed" from="CanvasLayer3/UI/PauseMenu/VolumeMusic/Slider" to="CanvasLayer3/UI/PauseMenu/VolumeMusic/Slider" method="_on_value_changed"]
+[connection signal="value_changed" from="CanvasLayer3/UI/PauseMenu/VolumeSFX/Slider" to="CanvasLayer3/UI/PauseMenu/VolumeSFX/Slider" method="_on_value_changed"]
+[connection signal="toggled" from="CanvasLayer3/UI/PauseMenu/FullScreen/FullscreenToggle" to="CanvasLayer3/UI/PauseMenu/FullScreen/FullscreenToggle" method="_on_toggled"]

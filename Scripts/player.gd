@@ -458,6 +458,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			PlayerManager.target_stairs.interaction()
 	
 	if event.is_action_pressed("activate_shadow_meld"):
+		if state in [States.PREP_SHADOW_SHOT, States.MELEE, States.SHADOW_SHOT]:
+			return
 		match state:
 			States.SHADOW_MELD:
 				set_state(States.EXIT_SHADOW_MELD)

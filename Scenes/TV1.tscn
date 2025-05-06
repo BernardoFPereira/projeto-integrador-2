@@ -1,11 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://cdxwdtmf7dr8l"]
+[gd_scene load_steps=7 format=3 uid="uid://cdxwdtmf7dr8l"]
 
 [ext_resource type="Texture2D" uid="uid://0iyht37wj4me" path="res://Sprites/Misc/Móveis/tv 01 (visão traseira).png" id="1_dit4j"]
 [ext_resource type="Script" uid="uid://v11uotpu6bmn" path="res://Scripts/tv.gd" id="1_grc72"]
-[ext_resource type="Texture2D" uid="uid://bq2t1q7bafmw1" path="res://Textures/circle_light.tres" id="2_grc72"]
+
+[sub_resource type="Gradient" id="Gradient_dit4j"]
+offsets = PackedFloat32Array(0, 0.453441, 1)
+colors = PackedColorArray(0.85098, 0.870588, 0.941176, 0.952941, 0.85098, 0.870588, 0.941176, 0.886275, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_grc72"]
+gradient = SubResource("Gradient_dit4j")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.786325, 0.863248)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dit4j"]
-radius = 108.005
+radius = 577.902
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ul422"]
 size = Vector2(62, 88)
@@ -16,10 +27,10 @@ lights = [NodePath("PointLight2D")]
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(-3, -69)
-scale = Vector2(2.39623, 2.39623)
+scale = Vector2(0.375, 0.375)
 energy = 2.0
 shadow_enabled = true
-texture = ExtResource("2_grc72")
+texture = SubResource("GradientTexture2D_grc72")
 
 [node name="LightDetectArea" type="Area2D" parent="PointLight2D"]
 position = Vector2(2.08661, 0.834644)
