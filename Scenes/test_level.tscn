@@ -160,6 +160,7 @@ z_index = -1
 
 [node name="ParallaxBG1" type="Parallax2D" parent="ParallaxBackgrounds"]
 z_index = -4
+scroll_scale = Vector2(0.1, 1)
 repeat_size = Vector2(1, 1)
 autoscroll = Vector2(1, 0)
 
@@ -169,6 +170,7 @@ texture = ExtResource("7_peb0m")
 
 [node name="ParallaxBG2" type="Parallax2D" parent="ParallaxBackgrounds"]
 z_index = -3
+scroll_scale = Vector2(0.7, 1)
 scroll_offset = Vector2(0, 1)
 repeat_size = Vector2(1, 1)
 autoscroll = Vector2(1, 1)
@@ -179,6 +181,7 @@ texture = ExtResource("8_oqmk0")
 
 [node name="ParallaxBG3" type="Parallax2D" parent="ParallaxBackgrounds"]
 z_index = -1
+scroll_scale = Vector2(0.5, 1)
 scroll_offset = Vector2(5, 0)
 repeat_size = Vector2(1, 0)
 
@@ -188,14 +191,32 @@ texture = ExtResource("9_v45m5")
 
 [node name="Parallax2D6" type="Parallax2D" parent="ParallaxBackgrounds"]
 z_index = -1
-scroll_scale = Vector2(0.1, 0.1)
-scroll_offset = Vector2(0.2, 1)
-repeat_size = Vector2(1, 0)
-autoscroll = Vector2(5, 0)
+texture_repeat = 2
+scroll_scale = Vector2(0.7, 1)
+repeat_size = Vector2(0, 1)
+repeat_times = 3
+screen_offset = Vector2(10, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackgrounds/Parallax2D6"]
+texture_repeat = 2
+position = Vector2(1920, 366)
+texture = ExtResource("12_ehbil")
+region_enabled = true
+region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackgrounds/Parallax2D6"]
+texture_repeat = 2
+position = Vector2(-646, 358)
+texture = ExtResource("12_ehbil")
+region_enabled = true
+region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackgrounds/Parallax2D6"]
+texture_repeat = 2
 position = Vector2(640, 361)
 texture = ExtResource("12_ehbil")
+region_enabled = true
+region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
 
 [node name="Parallax2D7" type="Parallax2D" parent="ParallaxBackgrounds"]
 z_index = -2
@@ -204,6 +225,7 @@ scroll_offset = Vector2(624, 249)
 repeat_size = Vector2(1, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackgrounds/Parallax2D7"]
+visible = false
 position = Vector2(640, 112)
 texture = ExtResource("13_buck4")
 
