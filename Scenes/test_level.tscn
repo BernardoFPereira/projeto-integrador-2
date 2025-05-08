@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=4 uid="uid://duj3s4w2q8fx1"]
+[gd_scene load_steps=72 format=4 uid="uid://duj3s4w2q8fx1"]
 
 [ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://Scripts/main.gd" id="1_58smv"]
 [ext_resource type="PackedScene" uid="uid://brxjw7a8jp5n3" path="res://Scenes/door.tscn" id="2_8a111"]
@@ -28,7 +28,6 @@
 [ext_resource type="Texture2D" uid="uid://b5lb0vh1nxqbm" path="res://Sprites/Misc/Placas/placa escadas(descer).png" id="12_nl6r7"]
 [ext_resource type="Texture2D" uid="uid://ngual2ts5ykw" path="res://Sprites/Misc/Placas/placa banheiro 03.png" id="13_0onhy"]
 [ext_resource type="Texture2D" uid="uid://bvk837m3k5ka3" path="res://Sprites/suitcase2.png" id="13_38et7"]
-[ext_resource type="Texture2D" uid="uid://crqf10ty3rsa7" path="res://Sprites/ParallaxBGs/bg_parallax7.png" id="13_buck4"]
 [ext_resource type="Shader" uid="uid://rcn5fpdxiksk" path="res://Shaders/glitch.gdshader" id="14_4bgwg"]
 [ext_resource type="Texture2D" uid="uid://bahlcoa2b2oh7" path="res://Sprites/Misc/Móveis/mesa 01.png" id="14_o6foe"]
 [ext_resource type="Shader" uid="uid://ljw3o5pbf52q" path="res://Shaders/noise.gdshader" id="15_2hfll"]
@@ -169,65 +168,71 @@ position = Vector2(640, 360)
 texture = ExtResource("7_peb0m")
 
 [node name="ParallaxBG2" type="Parallax2D" parent="ParallaxBackgrounds"]
-z_index = -3
+z_index = -4
 scroll_scale = Vector2(0.7, 1)
 scroll_offset = Vector2(0, 1)
-repeat_size = Vector2(1, 1)
+repeat_size = Vector2(2, 1)
 autoscroll = Vector2(1, 1)
+repeat_times = 3
+screen_offset = Vector2(0, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackgrounds/ParallaxBG2"]
-position = Vector2(643, 215)
+position = Vector2(638, 354)
 texture = ExtResource("8_oqmk0")
 
 [node name="ParallaxBG3" type="Parallax2D" parent="ParallaxBackgrounds"]
-z_index = -1
-scroll_scale = Vector2(0.5, 1)
-scroll_offset = Vector2(5, 0)
-repeat_size = Vector2(1, 0)
+z_index = -3
+repeat_size = Vector2(3, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackgrounds/ParallaxBG3"]
 position = Vector2(640, 335)
 texture = ExtResource("9_v45m5")
 
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackgrounds/ParallaxBG3"]
+position = Vector2(1911, 335)
+texture = ExtResource("9_v45m5")
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackgrounds/ParallaxBG3"]
+position = Vector2(-644, 335)
+texture = ExtResource("9_v45m5")
+
 [node name="Parallax2D6" type="Parallax2D" parent="ParallaxBackgrounds"]
 z_index = -1
 texture_repeat = 2
-scroll_scale = Vector2(0.7, 1)
-repeat_size = Vector2(0, 1)
+scroll_scale = Vector2(0, 5)
+repeat_size = Vector2(5.5, 1)
 repeat_times = 3
-screen_offset = Vector2(10, 0)
+follow_viewport = false
+screen_offset = Vector2(5, 0)
 
 [node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackgrounds/Parallax2D6"]
 texture_repeat = 2
-position = Vector2(1920, 366)
+position = Vector2(1920, 245)
+texture = ExtResource("12_ehbil")
+region_enabled = true
+region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
+
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackgrounds/Parallax2D6"]
+texture_repeat = 2
+position = Vector2(-1932, 239)
 texture = ExtResource("12_ehbil")
 region_enabled = true
 region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
 
 [node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackgrounds/Parallax2D6"]
 texture_repeat = 2
-position = Vector2(-646, 358)
+position = Vector2(-655, 247)
 texture = ExtResource("12_ehbil")
 region_enabled = true
 region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackgrounds/Parallax2D6"]
 texture_repeat = 2
-position = Vector2(640, 361)
+position = Vector2(642, 238)
 texture = ExtResource("12_ehbil")
 region_enabled = true
 region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
-
-[node name="Parallax2D7" type="Parallax2D" parent="ParallaxBackgrounds"]
-z_index = -2
-scroll_scale = Vector2(0.1, 0.1)
-scroll_offset = Vector2(624, 249)
-repeat_size = Vector2(1, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackgrounds/Parallax2D7"]
-visible = false
-position = Vector2(640, 112)
-texture = ExtResource("13_buck4")
 
 [node name="Misc" type="Node" parent="."]
 
