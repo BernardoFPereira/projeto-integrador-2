@@ -11,7 +11,7 @@ var volume := -10
 
 func _ready():
 	for i in num_players:
-		var p = AudioStreamPlayer2D.new()
+		var p = AudioStreamPlayer.new()
 		add_child(p)
 
 		available.append(p)

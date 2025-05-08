@@ -21,9 +21,10 @@ buses/default_bus_layout="uid://dciaydrrlwtt8"
 
 [autoload]
 
+Audio="*res://audio.gd"
+SceneManager="*res://scene_manager.gd"
 PlayerManager="*res://player_manager.gd"
 VentManager="*res://vent_manager.gd"
-Audio="*res://audio.gd"
 
 [display]
 

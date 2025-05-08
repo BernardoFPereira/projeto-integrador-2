@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmh1hpnuj0sd5"]
+[gd_scene load_steps=11 format=3 uid="uid://cmh1hpnuj0sd5"]
 
 [ext_resource type="Script" uid="uid://qks2gp4m58v5" path="res://Scripts/weapon.gd" id="1_vfd6i"]
+[ext_resource type="Texture2D" uid="uid://bnu0m0qfn46oe" path="res://Sprites/Weapons/gun_icont.png" id="2_2xblu"]
 [ext_resource type="Texture2D" uid="uid://ds8h2b66qga6e" path="res://Sprites/Weapons/gun_sprite_held.png" id="2_jtjwi"]
 [ext_resource type="Texture2D" uid="uid://bsyf4vjjibo3v" path="res://Sprites/Weapons/gun_sprite.png" id="2_si21x"]
 [ext_resource type="AudioStream" uid="uid://u4mesnmfr58g" path="res://Audio/FX/bang_07.ogg" id="3_si21x"]
@@ -24,6 +25,7 @@ freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_vfd6i")
+weapon_icon = ExtResource("2_2xblu")
 default_sprite = ExtResource("2_si21x")
 held_sprite = ExtResource("2_jtjwi")
 used_sprite = ExtResource("2_si21x")

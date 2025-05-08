@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://f4rtc2d71bi8"]
+[gd_scene load_steps=8 format=3 uid="uid://f4rtc2d71bi8"]
 
 [ext_resource type="Script" uid="uid://q67d5llac072" path="res://Scripts/main_menu.gd" id="1_tfrft"]
 [ext_resource type="Texture2D" uid="uid://cyrvqjm4gbii6" path="res://Sprites/main_menu.png" id="3_hqtmt"]
+[ext_resource type="AudioStream" uid="uid://bnm2k1oy5rwqa" path="res://Audio/Pause guitar.ogg" id="4_tfrft"]
 [ext_resource type="Theme" uid="uid://7eltmng1er5f" path="res://UITheme/ButtonTheme.tres" id="5_uv623"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hqtmt"]
@@ -176,6 +177,11 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Fechar"
 label_settings = SubResource("LabelSettings_uv623")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_tfrft")
+volume_db = 10.0
+autoplay = true
 
 [connection signal="pressed" from="ButtonStartGame" to="." method="_on_button_start_game_pressed"]
 [connection signal="pressed" from="ButtonOptions" to="." method="_on_button_options_pressed"]

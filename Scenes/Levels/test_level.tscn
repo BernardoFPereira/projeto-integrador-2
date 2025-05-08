@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=4 uid="uid://duj3s4w2q8fx1"]
+[gd_scene load_steps=77 format=4 uid="uid://duj3s4w2q8fx1"]
 
 [ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://Scripts/main.gd" id="1_qh5qs"]
 [ext_resource type="Script" uid="uid://ctuy0d1nxcxf1" path="res://Scripts/pause_manager.gd" id="2_qkw6u"]
@@ -45,10 +45,15 @@
 [ext_resource type="Shader" uid="uid://rcn5fpdxiksk" path="res://Shaders/glitch.gdshader" id="43_iph2q"]
 [ext_resource type="Texture2D" uid="uid://bvk837m3k5ka3" path="res://Sprites/suitcase2.png" id="44_65i8a"]
 [ext_resource type="Script" uid="uid://b13iffimqj3yk" path="res://Scripts/options_menu.gd" id="45_1efmp"]
+[ext_resource type="StyleBox" uid="uid://cwimapaxwo1vb" path="res://Resources/clipboard_style.tres" id="45_33d2b"]
 [ext_resource type="Script" uid="uid://c33v11q4gjqps" path="res://Scripts/UI/volume_slider.gd" id="46_1nhob"]
+[ext_resource type="Texture2D" uid="uid://dwh3yfn4467k7" path="res://Sprites/UI/complete_stamp.png" id="46_g741f"]
 [ext_resource type="Script" uid="uid://burr4kixdupuq" path="res://Scripts/UI/fullscreen_toggle.gd" id="47_drncd"]
+[ext_resource type="Texture2D" uid="uid://birxoua80njso" path="res://Sprites/UI/coffee_stain1.png" id="47_g741f"]
+[ext_resource type="Texture2D" uid="uid://bw6hp41a0rbw7" path="res://Sprites/UI/mission_box_clip.png" id="47_y6ovc"]
 [ext_resource type="Texture2D" uid="uid://45xkkegop3hi" path="res://Sprites/UI/botões/botão p.png" id="48_c8jlg"]
 [ext_resource type="Texture2D" uid="uid://d4hqgxplq340d" path="res://Sprites/UI/botões/botão p (click).png" id="49_3r0gr"]
+[ext_resource type="Texture2D" uid="uid://cp8s8c4ai1ir0" path="res://Sprites/UI/failed_stamp2.png" id="49_y6ovc"]
 [ext_resource type="Texture2D" uid="uid://ddv8vabldyt0p" path="res://Sprites/UI/botões/botão p (selecionado).png" id="50_anmmj"]
 [ext_resource type="Texture2D" uid="uid://stoabsnlb387" path="res://Sprites/UI/botões/ícones/voltar.png" id="51_4dujp"]
 [ext_resource type="Texture2D" uid="uid://b8w151n0j563v" path="res://Sprites/UI/botões/botão g.png" id="52_oqjk0"]
@@ -78,6 +83,24 @@ shader_parameter/shake_rate = 1.0
 shader_parameter/shake_speed = 1.822
 shader_parameter/shake_block_size = 60.0
 shader_parameter/shake_color_rate = 0.003
+
+[sub_resource type="SystemFont" id="SystemFont_g741f"]
+font_names = PackedStringArray("JetBrains Mono")
+oversampling = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_y6ovc"]
+font = SubResource("SystemFont_g741f")
+font_size = 24
+font_color = Color(0.109206, 0.126766, 0.15846, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_y6ovc"]
+font_names = PackedStringArray("JetBrains Mono")
+oversampling = 1.5
+
+[sub_resource type="LabelSettings" id="LabelSettings_4ceeg"]
+font = SubResource("SystemFont_y6ovc")
+font_size = 18
+font_color = Color(0.178557, 0.176961, 0.203307, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uva3u"]
 bg_color = Color(0.0823529, 0.0313726, 0.0705882, 0.996078)
@@ -495,12 +518,8 @@ position = Vector2(-12, 236)
 weapon_name = "Pistol"
 max_ammo = 8
 
-[node name="Pistol2" parent="Weapons" instance=ExtResource("38_nfhqo")]
-position = Vector2(-933, 545)
-weapon_name = "Pistol"
-
 [node name="Player" parent="." instance=ExtResource("39_vfrrn")]
-position = Vector2(-1189, 512)
+position = Vector2(760, 444)
 
 [node name="Enemies" type="Node" parent="."]
 
@@ -604,6 +623,7 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Button" type="Button" parent="CanvasLayer3/UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -675,56 +695,151 @@ texture = ExtResource("44_65i8a")
 
 [node name="WinMenu" type="Control" parent="CanvasLayer3/UI"]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Label" type="Label" parent="CanvasLayer3/UI/WinMenu"]
+[node name="Panel" type="Panel" parent="CanvasLayer3/UI/WinMenu"]
+self_modulate = Color(1, 1, 1, 0.962)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 480.5
-offset_top = 292.5
-offset_right = 631.5
-offset_bottom = 315.5
+offset_left = -205.0
+offset_top = -251.0
+offset_right = 205.0
+offset_bottom = 216.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Obrigado por jogar!"
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("45_33d2b")
 
-[node name="Button2" type="Button" parent="CanvasLayer3/UI/WinMenu"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer3/UI/WinMenu/Panel"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 498.0
-offset_top = 340.0
-offset_right = 614.0
-offset_bottom = 371.0
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -121.5
+offset_right = 95.0
+offset_bottom = -16.5
 grow_horizontal = 2
-grow_vertical = 0
-text = "Jogar de Novo"
+grow_vertical = 2
+rotation = 0.197037
+texture = ExtResource("46_g741f")
 
-[node name="Button3" type="Button" parent="CanvasLayer3/UI/WinMenu"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer3/UI/WinMenu/Panel"]
+clip_contents = true
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 537.0
-offset_top = 391.0
-offset_right = 575.0
-offset_bottom = 422.0
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -241.5
+offset_right = 90.0
+offset_bottom = -113.5
 grow_horizontal = 2
-grow_vertical = 0
-text = "Sair"
+grow_vertical = 2
+rotation = 1.57079
+texture = ExtResource("47_g741f")
+
+[node name="Label2" type="Label" parent="CanvasLayer3/UI/WinMenu/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -137.0
+offset_top = -154.5
+offset_right = 137.0
+offset_bottom = -49.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "CÓDIGO:   PURPLE
+-------------------
+STATUS: "
+label_settings = SubResource("LabelSettings_y6ovc")
+horizontal_alignment = 3
+
+[node name="Message" type="Label" parent="CanvasLayer3/UI/WinMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = 135.0
+offset_right = 103.0
+offset_bottom = 159.667
+grow_horizontal = 2
+grow_vertical = 2
+text = "--- Obrigado por jogar! ---"
+label_settings = SubResource("LabelSettings_4ceeg")
+horizontal_alignment = 1
+
+[node name="MissionBoxClip" type="Sprite2D" parent="CanvasLayer3/UI/WinMenu"]
+position = Vector2(641, 140)
+scale = Vector2(2, 2)
+texture = ExtResource("47_y6ovc")
+
+[node name="ButtonTryAgain" type="Button" parent="CanvasLayer3/UI/WinMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -5.0
+offset_right = 91.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Tentar de novo"
+
+[node name="ButtonMainMenu" type="Button" parent="CanvasLayer3/UI/WinMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -133.0
+offset_top = 82.0
+offset_right = 1.0
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Menu Principal"
+
+[node name="ButtonQuit" type="Button" parent="CanvasLayer3/UI/WinMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 23.0
+offset_top = 82.0
+offset_right = 130.0
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Sair do Jogo"
 
 [node name="HowTo" type="Label" parent="CanvasLayer3/UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -739,51 +854,120 @@ Espaço (Segurar): Mirar Pulo
 Shift: Ativar/Desativar \"Mescla das Sombras\"
 Clique Equerdo: Atirar/Pular/Atacar
 Clique Direito: Mirar"
+metadata/_edit_lock_ = true
 
 [node name="LoseMenu" type="Control" parent="CanvasLayer3/UI"]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="CanvasLayer3/UI/LoseMenu"]
-layout_mode = 2
-offset_left = 480.0
-offset_top = 300.0
-offset_right = 669.0
-offset_bottom = 323.0
-text = "Você Morreu!"
-horizontal_alignment = 1
-
-[node name="Button2" type="Button" parent="CanvasLayer3/UI/LoseMenu"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 498.0
-offset_top = 340.0
-offset_right = 614.0
-offset_bottom = 371.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+
+[node name="Panel2" type="Panel" parent="CanvasLayer3/UI/LoseMenu"]
+self_modulate = Color(1, 1, 1, 0.962)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -205.0
+offset_top = -253.0
+offset_right = 205.0
+offset_bottom = 139.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("45_33d2b")
+
+[node name="Label2" type="Label" parent="CanvasLayer3/UI/LoseMenu/Panel2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -127.0
+offset_right = 136.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CÓDIGO:   PURPLE
+----------------
+STATUS: "
+label_settings = SubResource("LabelSettings_y6ovc")
+horizontal_alignment = 3
+
+[node name="Stain" type="TextureRect" parent="CanvasLayer3/UI/LoseMenu"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -213.0
+offset_top = -39.0
+offset_right = -85.0
+offset_bottom = 89.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("47_g741f")
+
+[node name="ButtonTryAgain" type="Button" parent="CanvasLayer3/UI/LoseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -15.0
+offset_right = 58.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Jogar de Novo"
 
-[node name="Button3" type="Button" parent="CanvasLayer3/UI/LoseMenu"]
+[node name="ButtonQuit" type="Button" parent="CanvasLayer3/UI/LoseMenu"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 537.0
-offset_top = 391.0
-offset_right = 575.0
-offset_bottom = 422.0
+anchor_bottom = 0.5
+offset_left = -19.0
+offset_top = 35.5
+offset_right = 19.0
+offset_bottom = 66.5
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 text = "Sair"
+
+[node name="MissionBoxClip" type="Sprite2D" parent="CanvasLayer3/UI/LoseMenu"]
+position = Vector2(641, 140)
+scale = Vector2(2, 2)
+texture = ExtResource("47_y6ovc")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer3/UI/LoseMenu"]
+self_modulate = Color(1, 1, 1, 0.962)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 4.99994
+offset_top = -149.0
+offset_right = 115.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.198697
+texture = ExtResource("49_y6ovc")
 
 [node name="PauseMenu" type="Control" parent="CanvasLayer3/UI"]
 visible = false
@@ -1046,10 +1230,11 @@ playback_type = 1
 [connection signal="body_exited" from="Interactables/Desk/InteractArea" to="Interactables/Desk" method="_on_interact_area_body_exited"]
 [connection signal="body_entered" from="MapExitArea" to="." method="_on_map_exit_area_body_entered"]
 [connection signal="pressed" from="CanvasLayer3/UI/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="CanvasLayer3/UI/WinMenu/Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="CanvasLayer3/UI/WinMenu/Button3" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="CanvasLayer3/UI/LoseMenu/Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="CanvasLayer3/UI/LoseMenu/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="CanvasLayer3/UI/WinMenu/ButtonTryAgain" to="." method="_on_button_try_again_pressed"]
+[connection signal="pressed" from="CanvasLayer3/UI/WinMenu/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer3/UI/WinMenu/ButtonQuit" to="." method="_on_button_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer3/UI/LoseMenu/ButtonTryAgain" to="." method="_on_button_try_again_pressed"]
+[connection signal="pressed" from="CanvasLayer3/UI/LoseMenu/ButtonQuit" to="." method="_on_button_quit_pressed"]
 [connection signal="value_changed" from="CanvasLayer3/UI/PauseMenu/VolumeMaster/Slider" to="CanvasLayer3/UI/PauseMenu/VolumeMaster/Slider" method="_on_value_changed"]
 [connection signal="value_changed" from="CanvasLayer3/UI/PauseMenu/VolumeMusic/Slider" to="CanvasLayer3/UI/PauseMenu/VolumeMusic/Slider" method="_on_value_changed"]
 [connection signal="value_changed" from="CanvasLayer3/UI/PauseMenu/VolumeSFX/Slider" to="CanvasLayer3/UI/PauseMenu/VolumeSFX/Slider" method="_on_value_changed"]

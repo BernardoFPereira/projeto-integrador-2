@@ -2,6 +2,7 @@ extends RigidBody2D
 class_name Weapon
 
 @export var weapon_name: String
+@export var weapon_icon: Texture2D
 @export var default_sprite: Texture2D
 @export var held_sprite: Texture2D
 @export var used_sprite: Texture2D

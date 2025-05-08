@@ -47,6 +47,8 @@ class_name Enemy
 
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
+signal decrement_counter
+
 enum States {
 	IDLE,
 	SUSPICIOUS,
@@ -148,6 +150,7 @@ func set_state(new_state: States) -> void:
 	#if new_state != state:
 	match new_state:
 		States.DEAD:
+			emit_signal("decrement_counter")
 			velocity.x = 0
 			set_collision_mask_value(5, 0)
 			body_collision_shape.disabled = true
@@ -256,6 +259,9 @@ func set_state(new_state: States) -> void:
 			
 			target_position = look_for_stairs()
 			
+			if target_position == self.global_position:
+				set_state(States.ROAMING)
+				
 			search_location_timer.stop()
 			search_timer.stop()
 			roaming_timer.stop()
@@ -268,6 +274,10 @@ func set_state(new_state: States) -> void:
 			state_sprite.play("search")
 			
 			target_position = look_for_stairs()
+			
+			if target_position == self.global_position:
+				set_state(States.ROAMING)
+			
 			print(target_position)
 			print(global_position)
 			search_location_timer.stop()
@@ -491,7 +501,7 @@ func detected_obstacle() -> bool:
 
 func look_for_stairs() -> Vector2:
 	var all_stairs = get_tree().get_nodes_in_group("Stair")
-	var target_stairs: Node2D
+	var target_stairs: Array[Node]
 	print("looking for stairs")
 	match y_diff():
 		"below":
@@ -499,33 +509,38 @@ func look_for_stairs() -> Vector2:
 			var down_stairs = all_stairs.filter(
 				func(stairs): return stairs.direction == stairs.Direction.DOWN
 				)
+			
 			target_stairs = down_stairs.filter(
 					func(stairs): return ((global_position.y - stairs.global_position.y) < 130) and ((global_position.y - stairs.global_position.y) > -200) 
-				)[0]
+				)
 		"above":
 			var up_stairs = all_stairs.filter(
 				func(stairs): return stairs.direction == stairs.Direction.UP
 				)
+			
 			target_stairs = up_stairs.filter(
-					func(stairs): return ((global_position.y - stairs.global_position.y) < 130) and ((global_position.y - stairs.global_position.y) > -200) 
-				)[0]
-	return target_stairs.global_position
+					func(stairs): return ((global_position.y - stairs.global_position.y) < 130) and ((global_position.y - stairs.global_position.y) > -200)
+				)
+	if target_stairs.is_empty():
+		return PlayerManager.player.global_position
+	
+	return target_stairs[0].global_position
 
 
 func y_diff() -> String:
 	var y_diff = player_last_pos.y - global_position.y
 	
 	if y_diff > 130:
-		print(y_diff)
+		#print(y_diff)
 		#print("%s: player is BELOW me!" % self.name)
 		return "below"
 	elif y_diff < -200:
-		print(y_diff)
+		#print(y_diff)
 		#print("%s: player is ABOVE me!" % self.name)
 		return "above"
 	#elif y_diff < 130 and y_diff > -200:
 		#print("%s: player is on the SAME FLOOR as me!" % self.name)
-	print(y_diff)
+	#print(y_diff)
 	return "same"
 		
 func _on_sight_area_body_entered(body: Node2D) -> void:

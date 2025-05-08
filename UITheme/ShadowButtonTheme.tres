@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://d0ucl4amesmh6"]
+
+[ext_resource type="StyleBox" uid="uid://bl13b4wg78eox" path="res://Resources/shadow_button_hover_style.tres" id="1_frkve"]
+[ext_resource type="StyleBox" uid="uid://7dwaceabn1hp" path="res://Resources/shadow_button_clicked_style.tres" id="2_g8btu"]
+[ext_resource type="StyleBox" uid="uid://dgf1uan065i0s" path="res://Resources/shadow_button_style.tres" id="2_hm4hk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g8btu"]
+
+[resource]
+Button/styles/focus = SubResource("StyleBoxEmpty_g8btu")
+Button/styles/hover = ExtResource("1_frkve")
+Button/styles/hover_mirrored = ExtResource("1_frkve")
+Button/styles/hover_pressed = ExtResource("2_g8btu")
+Button/styles/hover_pressed_mirrored = ExtResource("2_g8btu")
+Button/styles/normal = ExtResource("2_hm4hk")
+Button/styles/normal_mirrored = ExtResource("2_hm4hk")
+Button/styles/pressed = ExtResource("2_g8btu")
+Button/styles/pressed_mirrored = ExtResource("2_g8btu")
