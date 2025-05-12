@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://uj3skqknvjp7"]
+
+[ext_resource type="Texture2D" uid="uid://diwb2wgn2aoqa" path="res://Sprites/asset pack 03/antena 01.png" id="1_gk85a"]
+
+[node name="Antena" type="Node2D"]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+offset_right = 71.0
+offset_bottom = 149.0
+texture = ExtResource("1_gk85a")
+patch_margin_top = 31
+patch_margin_bottom = 6
+axis_stretch_vertical = 2

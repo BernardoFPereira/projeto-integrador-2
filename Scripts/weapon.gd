@@ -2,6 +2,7 @@ extends RigidBody2D
 class_name Weapon
 
 @export var weapon_name: String
+@export var weapon_icon: Texture2D
 @export var default_sprite: Texture2D
 @export var held_sprite: Texture2D
 @export var used_sprite: Texture2D
@@ -79,7 +80,7 @@ func drop_weapon() -> void:
 	var weapon = player.carried_weapon
 	weapon.sprite.texture = weapon.default_sprite
 	weapon.freeze = false
-	weapon.reparent(get_tree().root)
+	weapon.reparent(get_tree().get_first_node_in_group("Main"))
 	weapon.interact_area.monitoring = true
 	weapon.interact_area.set_collision_layer_value(11, 1)
 	weapon.highlight.visible = true
@@ -93,11 +94,13 @@ func melee(targets_to_hit: Array) -> void:
 	match weapon_type:
 		"melee":
 			for target: Enemy in targets_to_hit:
-				var blood_spatter = preload("res://Scenes/FX/blood_spatter.tscn").instantiate()
-				PlayerManager.deal_damage(target, 2)
-				blood_spatter.global_position = global_position
-				Audio.play("res://Audio/FX/knife_hit.ogg", 0)
-				back_wall.add_child(blood_spatter)
+				var inside_area = get_tree().get_first_node_in_group("Indoors").get_child(0)
+				if Geometry2D.is_point_in_polygon(global_position, inside_area.polygon):
+					var blood_spatter = preload("res://Scenes/FX/blood_spatter.tscn").instantiate()
+					PlayerManager.deal_damage(target, 2)
+					blood_spatter.global_position = global_position
+					Audio.play("res://Audio/FX/knife_hit.ogg", 0)
+					back_wall.add_child(blood_spatter)
 				target.set_state(target.States.DAMAGE)
 			
 		_:
@@ -120,8 +123,8 @@ func throw() -> void:
 	set_collision_mask_value(13, 1)
 
 func shoot() -> void:
-	broadcast_noise()
 	if current_ammo > 0:
+		broadcast_noise()
 		var muzzle_flash_fx = preload("res://Scenes/FX/muzzle_flash_fx.tscn").instantiate()
 		var muzzle_flash = preload("res://Scenes/FX/muzzle_flash.tscn").instantiate()
 		var projectile = preload("res://Scenes/Weapons/bullet.tscn").instantiate()

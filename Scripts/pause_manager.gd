@@ -25,4 +25,3 @@ func _on_button_quit_pressed() -> void:
 	game_paused = false
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Scenes/Menus/MainMenu.tscn")
-	pass # Replace with function body.

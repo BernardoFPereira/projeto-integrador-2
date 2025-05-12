@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Deadshade"
-run/main_scene="res://Scenes/tutorial_level.tscn"
+run/main_scene="uid://f4rtc2d71bi8"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -21,9 +21,10 @@ buses/default_bus_layout="uid://dciaydrrlwtt8"
 
 [autoload]
 
+Audio="*res://audio.gd"
+SceneManager="*res://scene_manager.gd"
 PlayerManager="*res://player_manager.gd"
 VentManager="*res://vent_manager.gd"
-Audio="*res://audio.gd"
 
 [display]
 
@@ -31,6 +32,7 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/resizable=false
 window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_width"
 mouse_cursor/custom_image="res://Sprites/UI/reticulo.png"
 mouse_cursor/custom_image_hotspot=Vector2(16, 16)
 
@@ -45,6 +47,7 @@ Player=""
 Indoors=""
 BackWall=""
 Stair=""
+Main=""
 
 [input]
 

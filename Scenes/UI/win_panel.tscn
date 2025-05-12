@@ -1,0 +1,247 @@
+[gd_scene load_steps=20 format=3 uid="uid://dap5da4fi7b67"]
+
+[ext_resource type="StyleBox" uid="uid://cwimapaxwo1vb" path="res://Resources/clipboard_style.tres" id="1_t6ew4"]
+[ext_resource type="Texture2D" uid="uid://dwh3yfn4467k7" path="res://Sprites/UI/complete_stamp.png" id="2_x5t0c"]
+[ext_resource type="Texture2D" uid="uid://birxoua80njso" path="res://Sprites/UI/coffee_stain1.png" id="3_sheg2"]
+[ext_resource type="Texture2D" uid="uid://bw6hp41a0rbw7" path="res://Sprites/UI/mission_box_clip.png" id="4_qg8ts"]
+[ext_resource type="Texture2D" uid="uid://b45qv3oiiosqk" path="res://Sprites/UI/botões/paper_button_clipped1.png" id="5_q5pww"]
+[ext_resource type="Texture2D" uid="uid://b1ubupaeq8orj" path="res://Sprites/UI/botões/paper_button_clipped3.png" id="6_yadmn"]
+[ext_resource type="Texture2D" uid="uid://dobmsndwf64kl" path="res://Sprites/UI/botões/paper_button_clipped2.png" id="7_4f8ro"]
+[ext_resource type="Script" uid="uid://bppf0q1iw8ubb" path="res://Scripts/UI/paper_button.gd" id="8_0axs6"]
+[ext_resource type="Texture2D" uid="uid://clcpb3k7rounb" path="res://Sprites/UI/botões/red-paper_button_clipped1.png" id="9_6plvt"]
+[ext_resource type="Texture2D" uid="uid://cwsypkm2yirsf" path="res://Sprites/UI/botões/red-paper_button_clipped3.png" id="10_q7d3n"]
+[ext_resource type="Texture2D" uid="uid://8hub1wsjxft8" path="res://Sprites/UI/botões/red-paper_button_clipped2.png" id="11_dg1wo"]
+
+[sub_resource type="SystemFont" id="SystemFont_g741f"]
+font_names = PackedStringArray("JetBrains Mono")
+oversampling = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_y6ovc"]
+font = SubResource("SystemFont_g741f")
+font_size = 24
+font_color = Color(0.109206, 0.126766, 0.15846, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_y6ovc"]
+font_names = PackedStringArray("JetBrains Mono")
+oversampling = 1.5
+
+[sub_resource type="LabelSettings" id="LabelSettings_4ceeg"]
+font = SubResource("SystemFont_y6ovc")
+font_size = 18
+font_color = Color(0.178557, 0.176961, 0.203307, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_ksn2b"]
+font_names = PackedStringArray("JetBrains Mono")
+oversampling = 2.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_nvfwx"]
+font = SubResource("SystemFont_ksn2b")
+font_size = 12
+font_color = Color(0.0631358, 0.121228, 0.257728, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_rih6b"]
+font_names = PackedStringArray("JetBrains Mono")
+oversampling = 1.5
+
+[sub_resource type="LabelSettings" id="LabelSettings_wrsp3"]
+line_spacing = -7.43
+font = SubResource("SystemFont_rih6b")
+font_size = 17
+font_color = Color(0.831373, 0.603922, 0.184314, 1)
+shadow_size = 0
+
+[node name="WinMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0.962)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -205.0
+offset_top = -251.0
+offset_right = 205.0
+offset_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("1_t6ew4")
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -121.5
+offset_right = 95.0
+offset_bottom = -16.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.197037
+texture = ExtResource("2_x5t0c")
+
+[node name="TextureRect2" type="TextureRect" parent="Panel"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -241.5
+offset_right = 90.0
+offset_bottom = -113.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.57079
+texture = ExtResource("3_sheg2")
+
+[node name="Label2" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -137.0
+offset_top = -154.5
+offset_right = 137.0
+offset_bottom = -49.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "CÓDIGO:   PURPLE
+-------------------
+STATUS: "
+label_settings = SubResource("LabelSettings_y6ovc")
+horizontal_alignment = 3
+
+[node name="Message" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = 135.0
+offset_right = 103.0
+offset_bottom = 159.667
+grow_horizontal = 2
+grow_vertical = 2
+text = "--- Obrigado por jogar! ---"
+label_settings = SubResource("LabelSettings_4ceeg")
+horizontal_alignment = 1
+
+[node name="MissionBoxClip" type="Sprite2D" parent="."]
+position = Vector2(641, 140)
+scale = Vector2(2, 2)
+texture = ExtResource("4_qg8ts")
+
+[node name="ButtonTryAgain" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 460.0
+offset_top = 319.0
+offset_right = 620.0
+offset_bottom = 415.0
+texture_normal = ExtResource("5_q5pww")
+texture_pressed = ExtResource("6_yadmn")
+texture_hover = ExtResource("7_4f8ro")
+script = ExtResource("8_0axs6")
+
+[node name="Label" type="Label" parent="ButtonTryAgain"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -21.0
+offset_right = 58.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PROTOCOLO
+FÊNIX"
+label_settings = SubResource("LabelSettings_nvfwx")
+horizontal_alignment = 1
+
+[node name="Marker2D" type="Marker2D" parent="ButtonTryAgain"]
+position = Vector2(50, 29)
+rotation = -0.0719995
+
+[node name="ButtonMainMenu" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 2.00006
+offset_top = -5.0
+offset_right = 162.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.16661, 1.16661)
+texture_normal = ExtResource("9_6plvt")
+texture_pressed = ExtResource("10_q7d3n")
+texture_hover = ExtResource("11_dg1wo")
+script = ExtResource("8_0axs6")
+
+[node name="Label" type="Label" parent="ButtonMainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.1408
+offset_top = -18.8558
+offset_right = 46.8592
+offset_bottom = 27.4776
+grow_horizontal = 2
+grow_vertical = 2
+text = "ABORTAR
+MISSÃO"
+label_settings = SubResource("LabelSettings_wrsp3")
+horizontal_alignment = 1
+
+[node name="Marker2D" type="Marker2D" parent="ButtonMainMenu"]
+position = Vector2(34.2873, 29.1443)
+rotation = 0.0451542
+
+[node name="ButtonQuit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = 81.0
+offset_right = 2.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Sair do Jogo"
+
+[connection signal="focus_entered" from="ButtonTryAgain" to="ButtonTryAgain" method="_on_focus_entered"]
+[connection signal="mouse_exited" from="ButtonTryAgain" to="ButtonTryAgain" method="_on_mouse_exited"]
+[connection signal="pressed" from="ButtonTryAgain" to="ButtonTryAgain" method="_on_pressed"]
+[connection signal="focus_entered" from="ButtonMainMenu" to="ButtonMainMenu" method="_on_focus_entered"]
+[connection signal="focus_exited" from="ButtonMainMenu" to="ButtonMainMenu" method="_on_focus_exited"]
+[connection signal="mouse_exited" from="ButtonMainMenu" to="ButtonMainMenu" method="_on_mouse_exited"]
+[connection signal="pressed" from="ButtonMainMenu" to="ButtonMainMenu" method="_on_pressed"]

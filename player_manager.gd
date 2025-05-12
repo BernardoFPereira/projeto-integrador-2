@@ -30,6 +30,9 @@ var game_complete := false
 
 var in_dialogue := false
 
+func _ready() -> void:
+	SceneManager.scene_changed.connect(_on_scene_changed)
+	
 func restart() -> void:
 	scanning_light = false
 	is_in_shadow = true
@@ -63,3 +66,8 @@ func deal_damage(target, value):
 	#var spatter_offset = Vector2(randf_range(-0.5,0.5), randf_range(-0.5,-0.5))
 	#blood_spatter.global_position = target.global_position + spatter_offset
 	#get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
+
+func _on_scene_changed() -> void:
+	print("signal triggered")
+	player = get_tree().get_first_node_in_group("Player")
+	

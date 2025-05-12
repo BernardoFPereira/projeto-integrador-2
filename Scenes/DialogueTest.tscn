@@ -7,7 +7,7 @@
 [ext_resource type="Shader" uid="uid://ljw3o5pbf52q" path="res://Shaders/noise.gdshader" id="5_fe3hs"]
 [ext_resource type="Shader" uid="uid://rcn5fpdxiksk" path="res://Shaders/glitch.gdshader" id="6_v0tp6"]
 [ext_resource type="Texture2D" uid="uid://bvk837m3k5ka3" path="res://Sprites/suitcase2.png" id="7_7u1wn"]
-[ext_resource type="StyleBox" uid="uid://d0wmlyg3u2wx3" path="res://Tilesets/dialogue_box_texture.tres" id="8_fe3hs"]
+[ext_resource type="StyleBox" uid="uid://d0wmlyg3u2wx3" path="res://Resources/dialogue_box_texture.tres" id="8_fe3hs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h2yy0"]
 shader = ExtResource("5_fe3hs")

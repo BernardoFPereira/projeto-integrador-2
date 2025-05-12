@@ -458,6 +458,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			PlayerManager.target_stairs.interaction()
 	
 	if event.is_action_pressed("activate_shadow_meld"):
+		if state in [States.PREP_SHADOW_SHOT, States.MELEE, States.SHADOW_SHOT]:
+			return
 		match state:
 			States.SHADOW_MELD:
 				set_state(States.EXIT_SHADOW_MELD)
@@ -514,6 +516,8 @@ func _unhandled_input(event: InputEvent) -> void:
 					_:
 						print("no weapon type!")
 				return
+		if state == States.GRAB:
+			return
 		set_state(States.MELEE)
 	
 	if event.is_action_pressed("shoot") and (state == States.PREP_SHADOW_SHOT) and PlayerManager.is_in_shadow:
