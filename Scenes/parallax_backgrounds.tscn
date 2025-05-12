@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://p2orj5bpvqwo"]
+[gd_scene load_steps=7 format=3 uid="uid://p2orj5bpvqwo"]
 
 [ext_resource type="Texture2D" uid="uid://dhp5j7laldm5w" path="res://Sprites/ParallaxBGs/bg_parallax1.png" id="1_75u4d"]
 [ext_resource type="Texture2D" uid="uid://cyl281fgttgvs" path="res://Sprites/ParallaxBGs/bg_parallax2.png" id="2_tf1vx"]
 [ext_resource type="Texture2D" uid="uid://d23d51oicvv2u" path="res://Sprites/ParallaxBGs/bg_parallax3.png" id="3_ncupq"]
+[ext_resource type="Texture2D" uid="uid://d2b464qo63cn3" path="res://Sprites/ParallaxBGs/bg_parallaxmoon.png" id="3_tf1vx"]
 [ext_resource type="Texture2D" uid="uid://cy32wfbrxtj0x" path="res://Sprites/ParallaxBGs/bg_parallax6.png" id="4_pnndx"]
+[ext_resource type="Texture2D" uid="uid://b1mwdfnyghbus" path="res://Sprites/ParallaxBGs/bg_parallax4.png" id="5_75u4d"]
 
 [node name="ParallaxBackgrounds" type="Node2D"]
 z_index = -1
@@ -30,6 +32,10 @@ screen_offset = Vector2(0, 1)
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBG2"]
 position = Vector2(638, 354)
 texture = ExtResource("2_tf1vx")
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBG2"]
+position = Vector2(638, 360)
+texture = ExtResource("3_tf1vx")
 
 [node name="ParallaxBG3" type="Parallax2D" parent="."]
 z_index = -3
@@ -59,14 +65,14 @@ screen_offset = Vector2(5, 0)
 
 [node name="Sprite2D3" type="Sprite2D" parent="Parallax2D6"]
 texture_repeat = 2
-position = Vector2(1920, 245)
+position = Vector2(1920, 248)
 texture = ExtResource("4_pnndx")
 region_enabled = true
 region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
 
 [node name="Sprite2D4" type="Sprite2D" parent="Parallax2D6"]
 texture_repeat = 2
-position = Vector2(-1932, 239)
+position = Vector2(-1932, 246)
 texture = ExtResource("4_pnndx")
 region_enabled = true
 region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
@@ -80,7 +86,24 @@ region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D6"]
 texture_repeat = 2
-position = Vector2(642, 238)
+position = Vector2(640, 247)
 texture = ExtResource("4_pnndx")
 region_enabled = true
 region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
+
+[node name="ParallaxBG4" type="Parallax2D" parent="."]
+z_index = -4
+repeat_size = Vector2(3, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBG4"]
+position = Vector2(638, 360)
+texture = ExtResource("5_75u4d")
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBG4"]
+position = Vector2(-639, 360)
+texture = ExtResource("5_75u4d")
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBG4"]
+position = Vector2(1922, 360)
+texture = ExtResource("5_75u4d")
