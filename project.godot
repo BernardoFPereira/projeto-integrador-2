@@ -47,6 +47,7 @@ Player=""
 Indoors=""
 BackWall=""
 Stair=""
+Main=""
 
 [input]
 

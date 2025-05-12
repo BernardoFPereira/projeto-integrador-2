@@ -80,7 +80,7 @@ func drop_weapon() -> void:
 	var weapon = player.carried_weapon
 	weapon.sprite.texture = weapon.default_sprite
 	weapon.freeze = false
-	weapon.reparent(get_tree().root)
+	weapon.reparent(get_tree().get_first_node_in_group("Main"))
 	weapon.interact_area.monitoring = true
 	weapon.interact_area.set_collision_layer_value(11, 1)
 	weapon.highlight.visible = true
@@ -94,11 +94,13 @@ func melee(targets_to_hit: Array) -> void:
 	match weapon_type:
 		"melee":
 			for target: Enemy in targets_to_hit:
-				var blood_spatter = preload("res://Scenes/FX/blood_spatter.tscn").instantiate()
-				PlayerManager.deal_damage(target, 2)
-				blood_spatter.global_position = global_position
-				Audio.play("res://Audio/FX/knife_hit.ogg", 0)
-				back_wall.add_child(blood_spatter)
+				var inside_area = get_tree().get_first_node_in_group("Indoors").get_child(0)
+				if Geometry2D.is_point_in_polygon(global_position, inside_area.polygon):
+					var blood_spatter = preload("res://Scenes/FX/blood_spatter.tscn").instantiate()
+					PlayerManager.deal_damage(target, 2)
+					blood_spatter.global_position = global_position
+					Audio.play("res://Audio/FX/knife_hit.ogg", 0)
+					back_wall.add_child(blood_spatter)
 				target.set_state(target.States.DAMAGE)
 			
 		_:

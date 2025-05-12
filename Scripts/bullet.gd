@@ -14,6 +14,7 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide((BULLET_SPEED * targ_dir) * delta)
 	
 	if collision:
+		var inside_area = get_tree().get_first_node_in_group("Indoors").get_child(0)
 		var collision_fx = preload("res://Scenes/FX/bullet_impact.tscn").instantiate()
 		
 		var spawn_pos = collision.get_position()
@@ -26,7 +27,7 @@ func _physics_process(delta: float) -> void:
 		
 		var collider = collision.get_collider()
 		if collider.is_in_group("Enemy"):#.is_class("CharacterBody2D"):
-			var blood_spatter = preload("res://Scenes/FX/blood_spatter.tscn").instantiate()
+			var collision_position = collision.get_position()
 			var blood_spray = preload("res://Scenes/FX/blood_fx.tscn").instantiate()
 			
 			var shape = collision.get_collider_shape()
@@ -39,12 +40,15 @@ func _physics_process(delta: float) -> void:
 				Audio.play("res://Audio/FX/qubodupPunch02.ogg", 0)
 				PlayerManager.deal_damage(collider, 1)
 			
-			# Spawn blood spatter
-			blood_spray.global_position = collision.get_position()
-			blood_spatter.global_position = collision.get_position()
 			
+			blood_spray.global_position = collision.get_position()
 			get_tree().root.add_child(blood_spray)
-			get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
+			
+			if Geometry2D.is_point_in_polygon(collision_position, inside_area.polygon):
+				var blood_spatter = preload("res://Scenes/FX/blood_spatter.tscn").instantiate()
+				# Spawn blood spatter
+				blood_spatter.global_position = collision.get_position()
+				get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
 		
 		elif collider.is_in_group("Player"):
 			var blood_spatter = preload("res://Scenes/FX/black_blood_spatter.tscn").instantiate()

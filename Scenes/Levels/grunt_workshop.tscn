@@ -132,10 +132,6 @@ collision_mask = 536870912
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InsideArea"]
 polygon = PackedVector2Array(-160, 280, 424, 280, 424, -992, 1176, -992, 1176, -680, 1752, -680, 1752, 592, -160, 592)
 
-[node name="Poste" type="Sprite2D" parent="."]
-position = Vector2(1836, 453)
-texture = ExtResource("4_uix1t")
-
 [node name="Poste2" parent="." instance=ExtResource("5_1u7t7")]
 position = Vector2(-1434, 451)
 
@@ -503,7 +499,7 @@ position = Vector2(1353, 548)
 position = Vector2(1431, 548)
 
 [node name="Player" parent="." instance=ExtResource("39_q60k3")]
-position = Vector2(-43, 504)
+position = Vector2(69, -170)
 
 [node name="Enemies" type="Node" parent="."]
 
@@ -511,7 +507,7 @@ position = Vector2(-43, 504)
 position = Vector2(880, -108)
 
 [node name="MapExitArea" type="Area2D" parent="."]
-position = Vector2(1838, 441)
+position = Vector2(1852, 450)
 collision_layer = 3
 collision_mask = 3
 
@@ -519,6 +515,10 @@ collision_mask = 3
 position = Vector2(3.5, -12.5)
 shape = SubResource("RectangleShape2D_7fqlb")
 debug_color = Color(0.676968, 1, 0.58729, 0.42)
+
+[node name="Poste" type="Sprite2D" parent="MapExitArea"]
+position = Vector2(0, 9)
+texture = ExtResource("4_uix1t")
 
 [node name="MapBoundary" type="StaticBody2D" parent="."]
 position = Vector2(-1779, 371)
@@ -621,6 +621,13 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Pressione 'E' para interagir"
 horizontal_alignment = 1
+
+[node name="CarriedWeapon" type="TextureRect" parent="CanvasLayer3/UI"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 46.0
+offset_right = 90.0
+offset_bottom = 86.0
 
 [node name="AmmoLabel" type="Label" parent="CanvasLayer3/UI"]
 layout_mode = 1

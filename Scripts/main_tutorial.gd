@@ -10,6 +10,8 @@ extends Node
 @onready var lose_menu: Control = $CanvasLayer3/UI/LoseMenu
 @onready var pause_menu: Control = $CanvasLayer3/UI/PauseMenu
 
+@onready var mission_box_player: AnimationPlayer = $CanvasLayer3/UI/MissionBox/MissionBoxPlayer
+
 var objective_complete := false
 var enemy_counter := 0
 
@@ -27,8 +29,8 @@ func _process(delta: float) -> void:
 		var max_ammo = PlayerManager.player.carried_weapon.max_ammo
 		var current_ammo = PlayerManager.player.carried_weapon.current_ammo
 		
-		ammo_label.text = "%\n%/%".format(
-			[PlayerManager.player.carried_weapon.name, max_ammo, current_ammo], "%"
+		ammo_label.text = "%/%".format(
+			[max_ammo, current_ammo], "%"
 			) if max_ammo > 0 else ""
 	else:
 		ammo_label.visible = false
@@ -40,6 +42,7 @@ func _process(delta: float) -> void:
 		interaction_label.visible = false
 	
 	if enemy_counter <= 0:
+		mission_box_player.play("tutorial_complete")
 		objective_complete = true
 		
 	if objective_complete:
@@ -93,3 +96,9 @@ func _on_button_main_menu_pressed() -> void:
 
 func _on_button_quit_pressed() -> void:
 	get_tree().quit()
+
+func play_mission_complete_audio() -> void:
+	Audio.play("res://Audio/FX/mission_win.ogg", 0)
+
+func _on_mission_box_player_animation_finished(anim_name: StringName) -> void:
+	mission_box_player.play("idle")

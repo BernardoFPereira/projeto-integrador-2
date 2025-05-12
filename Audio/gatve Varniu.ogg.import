@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://d3tjaivpaxsy3"
+path="res://.godot/imported/gatve Varniu.ogg-42a2df9578b04e485fddab2e046d6a91.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/gatve Varniu.ogg"
+dest_files=["res://.godot/imported/gatve Varniu.ogg-42a2df9578b04e485fddab2e046d6a91.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
