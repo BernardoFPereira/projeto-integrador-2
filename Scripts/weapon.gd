@@ -117,7 +117,7 @@ func throw() -> void:
 	player.carried_weapon = null
 	freeze = false
 	was_thrown = true
-	reparent(get_tree().root)
+	reparent(get_tree().get_first_node_in_group("Main"))
 	apply_impulse(impulse)
 	apply_torque(35000.0)
 	set_collision_mask_value(13, 1)

@@ -74,21 +74,21 @@ region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
 
 [node name="Sprite2D4" type="Sprite2D" parent="Parallax2D6"]
 texture_repeat = 2
-position = Vector2(-1932, 239)
+position = Vector2(-1927, 238)
 texture = ExtResource("4_pnndx")
 region_enabled = true
 region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
 
 [node name="Sprite2D2" type="Sprite2D" parent="Parallax2D6"]
 texture_repeat = 2
-position = Vector2(-655, 247)
+position = Vector2(-643, 238)
 texture = ExtResource("4_pnndx")
 region_enabled = true
 region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D6"]
 texture_repeat = 2
-position = Vector2(642, 238)
+position = Vector2(641, 238)
 texture = ExtResource("4_pnndx")
 region_enabled = true
 region_rect = Rect2(-3.97845, 7.04513, 1283.98, 712.955)

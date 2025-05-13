@@ -183,11 +183,13 @@ label_settings = SubResource("LabelSettings_uv623")
 stream = ExtResource("4_tfrft")
 volume_db = 10.0
 autoplay = true
+bus = &"Music"
 
 [node name="Ambience" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_mc63j")
 volume_db = -20.0
 autoplay = true
+bus = &"SoundFX"
 
 [connection signal="pressed" from="ButtonStartGame" to="." method="_on_button_start_game_pressed"]
 [connection signal="pressed" from="ButtonOptions" to="." method="_on_button_options_pressed"]
