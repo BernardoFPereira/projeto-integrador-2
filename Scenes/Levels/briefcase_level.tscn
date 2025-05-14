@@ -1,8 +1,9 @@
-[gd_scene load_steps=104 format=4 uid="uid://duj3s4w2q8fx1"]
+[gd_scene load_steps=105 format=4 uid="uid://duj3s4w2q8fx1"]
 
 [ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://Scripts/main.gd" id="1_mq1ud"]
 [ext_resource type="Script" uid="uid://ctuy0d1nxcxf1" path="res://Scripts/pause_manager.gd" id="2_a30fu"]
 [ext_resource type="Script" uid="uid://bnx4g7k2bwjk7" path="res://Scripts/camera.gd" id="3_6ukmb"]
+[ext_resource type="PackedScene" uid="uid://byrom8vbjgcxo" path="res://Scenes/parallax_backgrounds.tscn" id="3_a30fu"]
 [ext_resource type="PackedScene" uid="uid://bljkigdqi5ipq" path="res://Scenes/Scenery/poste.tscn" id="4_p41nf"]
 [ext_resource type="TileSet" uid="uid://bh52f06wo7gfn" path="res://Tilesets/hotel_walls2.tres" id="5_5q5va"]
 [ext_resource type="TileSet" uid="uid://bieyd4sdceavt" path="res://Tilesets/wallpapers.tres" id="6_3r6lb"]
@@ -250,6 +251,9 @@ tracks/4/keys = {
 "values": ["Elimine todos os alvos."]
 }
 
+[sub_resource type="Animation" id="Animation_wepse"]
+resource_name = "idle"
+
 [sub_resource type="Animation" id="Animation_rno6r"]
 resource_name = "mission_complete"
 length = 4.0
@@ -406,9 +410,6 @@ tracks/5/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_wepse"]
-resource_name = "idle"
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dpq0n"]
 _data = {
 &"RESET": SubResource("Animation_wwmlk"),
@@ -423,6 +424,42 @@ script = ExtResource("1_mq1ud")
 [node name="PauseManager" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("2_a30fu")
+
+[node name="ParallaxBackgrounds" parent="." instance=ExtResource("3_a30fu")]
+
+[node name="PurpleBuilding9P2" parent="ParallaxBackgrounds/Parallax Buildings/Purple node 9pbg" index="1"]
+offset_left = -2119.0
+offset_top = -1077.0
+offset_right = -1217.0
+
+[node name="PurpleBuilding9P3" parent="ParallaxBackgrounds/Parallax Buildings/Purple node 9pbg" index="2"]
+offset_top = -1599.0
+
+[node name="PurpleBuilding9P4" parent="ParallaxBackgrounds/Parallax Buildings/Purple node 9pbg" index="3"]
+offset_top = -89.0
+
+[node name="PurpleBuilding9P5" parent="ParallaxBackgrounds/Parallax Buildings/Purple node 9pbg" index="4"]
+offset_left = 1991.0
+offset_top = -70.0
+
+[node name="RedBuilding9P1" parent="ParallaxBackgrounds/Parallax Buildings/Red node 9Pbg" index="0"]
+offset_left = -195.0
+offset_top = -1055.0
+offset_right = 654.0
+
+[node name="RedBuilding9P3" parent="ParallaxBackgrounds/Parallax Buildings/Red node 9Pbg" index="2"]
+offset_left = -2880.0
+offset_right = -2099.0
+
+[node name="RedBuilding9P4" parent="ParallaxBackgrounds/Parallax Buildings/Red node 9Pbg" index="3"]
+offset_left = -182.0
+offset_top = -737.0
+offset_right = 1221.0
+
+[node name="RedBuilding9P5" parent="ParallaxBackgrounds/Parallax Buildings/Red node 9Pbg" index="4"]
+visible = true
+offset_left = 2197.0
+offset_top = -371.0
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 position = Vector2(-944, 471)
@@ -1766,7 +1803,6 @@ pitch_scale = 0.85
 autoplay = true
 mix_target = 1
 max_polyphony = 2
-bus = &"Music"
 playback_type = 1
 
 [node name="AmbiencePlayer" type="AudioStreamPlayer" parent="."]
@@ -1777,7 +1813,6 @@ pitch_scale = 0.85
 autoplay = true
 mix_target = 1
 max_polyphony = 2
-bus = &"Music"
 playback_type = 1
 
 [connection signal="body_exited" from="InsideArea" to="." method="_on_inside_area_body_exited"]
@@ -1810,4 +1845,5 @@ playback_type = 1
 [connection signal="pressed" from="CanvasLayer3/UI/PauseMenu/Panel/ButtonQuit" to="PauseManager" method="_on_button_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer3/UI/PauseMenu/Panel/ButtonContinue" to="PauseManager" method="_on_button_continue_pressed"]
 
+[editable path="ParallaxBackgrounds"]
 [editable path="Doors/SpriteDoor4"]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=120 format=4 uid="uid://kdw08n7ui3mv"]
+[gd_scene load_steps=121 format=4 uid="uid://kdw08n7ui3mv"]
 
 [ext_resource type="Script" uid="uid://b1wfitbjyhv6j" path="res://Scripts/main_tutorial.gd" id="1_625k2"]
 [ext_resource type="Script" uid="uid://ctuy0d1nxcxf1" path="res://Scripts/pause_manager.gd" id="2_8t34m"]
 [ext_resource type="Script" uid="uid://bnx4g7k2bwjk7" path="res://Scripts/camera.gd" id="3_v8lox"]
 [ext_resource type="TileSet" uid="uid://bh52f06wo7gfn" path="res://Tilesets/hotel_walls2.tres" id="4_go6pc"]
+[ext_resource type="PackedScene" uid="uid://byrom8vbjgcxo" path="res://Scenes/parallax_backgrounds.tscn" id="4_n01ts"]
 [ext_resource type="TileSet" uid="uid://bieyd4sdceavt" path="res://Tilesets/wallpapers.tres" id="5_dpq0n"]
 [ext_resource type="PackedScene" uid="uid://brxjw7a8jp5n3" path="res://Scenes/door.tscn" id="5_l4a6n"]
 [ext_resource type="PackedScene" uid="uid://cm5psujfwcom2" path="res://Scenes/stairs.tscn" id="6_ivhh6"]
@@ -257,6 +258,9 @@ tracks/4/keys = {
 "values": ["Elimine todos os alvos."]
 }
 
+[sub_resource type="Animation" id="Animation_wepse"]
+resource_name = "idle"
+
 [sub_resource type="Animation" id="Animation_rno6r"]
 resource_name = "mission_complete"
 length = 4.0
@@ -413,9 +417,6 @@ tracks/5/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_wepse"]
-resource_name = "idle"
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dpq0n"]
 _data = {
 &"RESET": SubResource("Animation_wwmlk"),
@@ -436,6 +437,8 @@ position = Vector2(-284, 471)
 offset = Vector2(0, -125)
 script = ExtResource("3_v8lox")
 target = NodePath("../Player")
+
+[node name="ParallaxBackgrounds" parent="." instance=ExtResource("4_n01ts")]
 
 [node name="InsideArea" type="Area2D" parent="." groups=["Indoors"]]
 collision_layer = 0
@@ -1557,6 +1560,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="WinMenu" type="Control" parent="CanvasLayer3/UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1820,3 +1824,5 @@ playback_type = 1
 [connection signal="mouse_exited" from="CanvasLayer3/UI/WinMenu/ButtonNext" to="CanvasLayer3/UI/WinMenu/ButtonNext" method="_on_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer3/UI/WinMenu/ButtonNext" to="." method="_on_button_next_pressed"]
 [connection signal="pressed" from="CanvasLayer3/UI/WinMenu/ButtonNext" to="CanvasLayer3/UI/WinMenu/ButtonNext" method="_on_pressed"]
+
+[editable path="ParallaxBackgrounds"]
