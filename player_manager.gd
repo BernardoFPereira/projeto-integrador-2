@@ -68,6 +68,6 @@ func deal_damage(target, value):
 	#get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
 
 func _on_scene_changed() -> void:
-	print("signal triggered")
+	#print("signal triggered")
 	player = get_tree().get_first_node_in_group("Player")
 	

@@ -12,17 +12,17 @@ func _on_focus_entered() -> void:
 	label.global_position = position_marker.global_position
 
 func _on_pressed() -> void:
-	label.global_position = original_label_position
+	label.global_position = position_marker.global_position
 	#release_focus()
 
-func _on_try_again_mouse_entered() -> void:
-	label.text = "Tentar de\nnovo."
-
-func _on_try_again_mouse_exited() -> void:
-	label.global_position = original_label_position
-	label.text = "PROTOCOLO\nFÊNIX"
-	release_focus()
-
-func _on_main_menu_mouse_exited() -> void:
+func _on_mouse_exited() -> void:
 	label.global_position = original_label_position
 	release_focus()
+
+#func _on_try_again_mouse_exited() -> void:
+	#label.global_position = original_label_position
+	#release_focus()
+
+#func _on_main_menu_mouse_exited() -> void:
+	#label.global_position = original_label_position
+	#release_focus()

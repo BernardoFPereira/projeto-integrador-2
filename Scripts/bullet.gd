@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 			var shape = collision.get_collider_shape()
 			
 			if shape.is_in_group("HeadCollider"):
-				Audio.play("res://Audio/FX/ImpactMeat02.ogg", 0)
+				Audio.play("res://Audio/FX/ImpactMeat02.ogg", -5)
 				PlayerManager.deal_damage(collider, 2)
 			
 			if shape.is_in_group("BodyCollider"):
