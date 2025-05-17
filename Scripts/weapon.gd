@@ -99,14 +99,14 @@ func melee(targets_to_hit: Array) -> void:
 					var blood_spatter = preload("res://Scenes/FX/blood_spatter.tscn").instantiate()
 					PlayerManager.deal_damage(target, 2)
 					blood_spatter.global_position = global_position
-					Audio.play("res://Audio/FX/knife_hit.ogg", 0)
+					Audio.play("res://Audio/FX/knife_hit.ogg", -15)
 					back_wall.add_child(blood_spatter)
 				target.set_state(target.States.DAMAGE)
 			
 		_:
 			for target: Enemy in targets_to_hit:
 				PlayerManager.deal_damage(target, 1)
-				Audio.play("res://Audio/FX/qubodupPunch02.ogg", 0)
+				Audio.play("res://Audio/FX/qubodupPunch02.ogg", -5)
 				target.set_state(target.States.DAMAGE)
 	#print(target_to_hit)
 
@@ -117,7 +117,7 @@ func throw() -> void:
 	player.carried_weapon = null
 	freeze = false
 	was_thrown = true
-	reparent(get_tree().root)
+	reparent(get_tree().get_first_node_in_group("Main"))
 	apply_impulse(impulse)
 	apply_torque(35000.0)
 	set_collision_mask_value(13, 1)
@@ -194,7 +194,7 @@ func _on_body_entered(body: Node) -> void:
 			var blood_spatter = preload("res://Scenes/FX/blood_spatter.tscn").instantiate()
 			blood_spatter.global_position = global_position
 			get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
-			Audio.play("res://Audio/FX/ImpactMeat01.ogg", 0)
+			Audio.play("res://Audio/FX/ImpactMeat01.ogg", -15)
 			interact_area.set_collision_layer_value(11,0)
 			sprite.texture = used_sprite
 			return

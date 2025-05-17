@@ -56,6 +56,7 @@ enum States {
 	GOING_UP,
 	GOING_DOWN,
 	CHASE,
+	SEARCH_ROAM,
 	ROAMING,
 	ATTACK,
 	COOLDOWN,
@@ -190,6 +191,8 @@ func set_state(new_state: States) -> void:
 			search_timer.stop()
 			
 			animated_sprite.play("walk")
+		States.SEARCH_ROAM:
+			pass
 		States.SUSPICIOUS:
 			state_sprite.self_modulate = Color.WHITE
 			state_sprite.visible = true
@@ -221,16 +224,16 @@ func set_state(new_state: States) -> void:
 			match y_diff():
 				"below":
 					#print("Player still below me")
-					print("Player on the below floor. Entering GOING_DOWN")
+					#print("Player on the below floor. Entering GOING_DOWN")
 					set_state(States.GOING_DOWN)
 					return
 				"above":
 					#print("Player still above me")
-					print("Player on the above floor. Entering GOING_UP")
+					#print("Player on the above floor. Entering GOING_UP")
 					set_state(States.GOING_UP)
 					return
 				_:
-					print("Player on the same floor. Entering SEARCH")
+					#print("Player on the same floor. Entering SEARCH")
 					pass
 			
 			state_sprite.visible = true
@@ -278,8 +281,8 @@ func set_state(new_state: States) -> void:
 			if target_position == self.global_position:
 				set_state(States.ROAMING)
 			
-			print(target_position)
-			print(global_position)
+			#print(target_position)
+			#print(global_position)
 			search_location_timer.stop()
 			search_timer.stop()
 			roaming_timer.stop()
@@ -419,8 +422,10 @@ func handle_states(delta) -> void:
 				can_interact = false
 		States.SEARCH:
 			#var search_offset = Vector2(randf_range(-350, 350), 0)
-			if !(global_position.distance_to(target_position) < 10):
-				velocity.x = global_position.direction_to(player_last_pos).x * roam_speed
+			if !(global_position.distance_to(target_position) < 50):
+				velocity.x = global_position.direction_to(target_position).x * roam_speed
+			#else:
+				#set_state(States.ROAMING)
 			#velocity.x = lerpf(velocity.x, global_position.direction_to(player_last_pos + search_offset).x * roam_speed, delta * 2)
 			
 			if velocity.x == 0:
@@ -434,6 +439,8 @@ func handle_states(delta) -> void:
 			if !(global_position.distance_to(target_position) < 100):
 				velocity.x = global_position.direction_to(target_position).x * roam_speed
 			#velocity.x = lerpf(velocity.x, global_position.direction_to(target_position).x * roam_speed, delta * 2)
+			elif is_on_wall():
+				velocity.x = 0
 			#if is_on_wall():
 				#roaming_timer.stop()
 				#roaming_timer.wait_time = 0.5
@@ -449,7 +456,7 @@ func handle_states(delta) -> void:
 					set_state(States.ROAMING)
 				else:
 					set_state(States.SUSPICIOUS)
-			
+		
 	move_and_slide()
 
 func shoot() -> void:
@@ -502,7 +509,7 @@ func detected_obstacle() -> bool:
 func look_for_stairs() -> Vector2:
 	var all_stairs = get_tree().get_nodes_in_group("Stair")
 	var target_stairs: Array[Node]
-	print("looking for stairs")
+	#print("looking for stairs")
 	match y_diff():
 		"below":
 		#	look for nearest stairs that lead down
@@ -594,12 +601,12 @@ func _on_search_timer_timeout() -> void:
 	set_state(States.ROAMING)
 
 func _on_search_location_timer_timeout() -> void:
-	print("changing search location")
+	#print("changing search location")
 	var search_offset = Vector2(randf_range(-400, 400), 0)
 	target_position = player_last_pos + search_offset
-	print("target_position: %s" % target_position)
+	#print("target_position: %s" % target_position)
 	if global_position.distance_to(target_position) < 50 or is_on_wall():
-		print("target_position zeroed on my position: %s" % target_position)
+		#print("target_position zeroed on my position: %s" % target_position)
 		target_position = global_position
 		velocity = Vector2.ZERO
 	

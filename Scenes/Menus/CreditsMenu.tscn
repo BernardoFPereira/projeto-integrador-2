@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=4 uid="uid://djwj25g3yxu8i"]
+[gd_scene load_steps=16 format=4 uid="uid://djwj25g3yxu8i"]
 
+[ext_resource type="PackedScene" uid="uid://byrom8vbjgcxo" path="res://Scenes/parallax_backgrounds.tscn" id="1_mgg0m"]
 [ext_resource type="TileSet" uid="uid://bh52f06wo7gfn" path="res://Tilesets/hotel_walls2.tres" id="1_n4b4j"]
 [ext_resource type="Texture2D" uid="uid://d1o6onyxgjk6n" path="res://Sprites/Misc/Área Externa/cone.png" id="2_mgg0m"]
 [ext_resource type="Texture2D" uid="uid://u4srlvvfjxb5" path="res://Sprites/Misc/Área Externa/lixeira 01.png" id="3_rp1lj"]
@@ -12,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bxk7ds5nfuhwj" path="res://Sprites/Misc/Área Externa/poste.png" id="10_u8o63"]
 [ext_resource type="Script" uid="uid://ct2yyxdj2a8cy" path="res://Scripts/credits_menu.gd" id="11_rp1lj"]
 [ext_resource type="Theme" uid="uid://7eltmng1er5f" path="res://UITheme/ButtonTheme.tres" id="12_smomg"]
+[ext_resource type="Texture2D" uid="uid://d3sgf3m0rc3cm" path="res://Sprites/asset pack 03/janela B1.png" id="14_rp1lj"]
 
 [sub_resource type="SystemFont" id="SystemFont_et25s"]
 font_names = PackedStringArray("Monospace")
@@ -19,12 +21,115 @@ font_weight = 999
 
 [node name="Node" type="Node"]
 
+[node name="ParallaxBackgrounds" parent="." instance=ExtResource("1_mgg0m")]
+position = Vector2(6, -18)
+
 [node name="TileMaps" type="Node" parent="."]
 
+[node name="TileMapLayer2" type="TileMapLayer" parent="TileMaps"]
+tile_map_data = PackedByteArray("AAAHAAQAAQADAAsAAAAHAAUAAQADAAsAAAAHAAYAAQADAAwAAAAHAAcAAQADAA0AAAAFAAQAAQACAAsAAAAFAAUAAQABAAsAAAAFAAYAAQABAAwAAAAFAAcAAQABAA0AAAAGAAQAAQACAAsAAAAGAAUAAQACAAsAAAAGAAYAAQACAAwAAAAGAAcAAQACAA0AAAADAAQAAQACAAsAAAADAAUAAQABAAsAAAADAAYAAQABAAwAAAADAAcAAQABAA0AAAAEAAQAAQABAAsAAAAEAAUAAQACAAsAAAAEAAYAAQACAAwAAAAEAAcAAQACAA0AAAABAAQAAQABAAsAAAABAAUAAQACAAsAAAABAAYAAQACAAwAAAABAAcAAQACAA0AAAACAAQAAQABAAsAAAACAAUAAQACAAsAAAACAAYAAQACAAwAAAACAAcAAQACAA0AAAAAAAQAAQABAAsAAAAAAAUAAQABAAsAAAAAAAYAAQABAAwAAAAAAAcAAQABAA0AAAAEAAMAAQABAAoAAAAFAAMAAQACAAoAAAAGAAMAAQACAAoAAAAHAAMAAQADAAoAAAABAAMAAQABAAoAAAACAAMAAQABAAoAAAADAAMAAQACAAoAAAAAAAMAAQABAAoAAAANAAYAAQAAAAwAAAANAAcAAQAAAA0AAAANAAQAAQAAAAsAAAANAAUAAQAAAAwAAAANAAIAAQAAAAoAAAANAAMAAQAAAAwAAAAOAAAAAQABAAsAAAAOAAEAAQABAAwAAAANAAAAAQAAAAsAAAANAAEAAQAAAAwAAAANAP7/AQAAAAsAAAANAP//AQAAAAwAAAAPAAAAAQACAAsAAAAPAAEAAQACAAwAAAAQAAAAAQABAAwAAAAQAAEAAQABAAwAAAARAAAAAQACAAwAAAARAAEAAQACAAwAAAAQAAIAAQACAAoAAAAQAAMAAQACAAsAAAARAAIAAQABAAoAAAARAAMAAQABAAsAAAAQAAQAAQABAAsAAAAQAAUAAQABAAsAAAARAAQAAQACAAsAAAARAAUAAQACAAsAAAAOAAIAAQABAAoAAAAOAAMAAQABAAwAAAAPAAIAAQABAAoAAAAPAAMAAQABAAsAAAAOAAQAAQABAAsAAAAOAAUAAQABAAsAAAAPAAQAAQACAAsAAAAPAAUAAQACAAsAAAAOAAYAAQABAAwAAAAPAAYAAQACAAwAAAAQAAYAAQABAAwAAAARAAYAAQACAAwAAAASAAUAAQABAAsAAAASAAYAAQABAAwAAAATAAUAAQACAAsAAAATAAYAAQACAAwAAAASAAMAAQACAAsAAAASAAQAAQABAAwAAAATAAMAAQABAAsAAAATAAQAAQACAAwAAAAQAP//AQABAAsAAAASAAAAAQABAAwAAAASAAEAAQABAAwAAAATAAAAAQACAAwAAAATAAEAAQACAAwAAAASAP//AQABAAsAAAATAP//AQACAAsAAAASAAIAAQACAAoAAAATAAIAAQABAAoAAAAOAP7/AQABAAsAAAAOAP//AQABAAwAAAAPAP7/AQACAAsAAAAPAP//AQACAAwAAAAOAAcAAQABAA0AAAAPAAcAAQACAA0AAAAQAAcAAQABAA0AAAARAAcAAQACAA0AAAASAAcAAQABAA0AAAATAAcAAQACAA0AAAARAP//AQACAAsAAAAQAP7/AQABAAwAAAARAP7/AQACAAwAAAASAP7/AQABAAwAAAATAP7/AQACAAwAAAA=")
+tile_set = ExtResource("1_n4b4j")
+
 [node name="TileMapLayer" type="TileMapLayer" parent="TileMaps"]
-tile_map_data = PackedByteArray("AAD//wsAAQALAAoAAAAAAAsAAQALAAoAAAAAAAoAAQALAAoAAAAAAAgAAQAKAAkAAAD//wgAAQAKAAkAAAD//woAAQALAAoAAAABAAgAAQAKAAkAAAACAAgAAQAKAAkAAAADAAgAAQAKAAkAAAAEAAgAAQAKAAkAAAAFAAgAAQAKAAkAAAAGAAgAAQAKAAkAAAAHAAgAAQAKAAkAAAAIAAgAAQAKAAkAAAAJAAgAAQAKAAkAAAAKAAgAAQAKAAkAAAALAAgAAQAKAAkAAAAMAAgAAQAKAAkAAAANAAgAAQAKAAkAAAAOAAgAAQAKAAkAAAAPAAgAAQAKAAkAAAAQAAgAAQAKAAkAAAARAAgAAQAKAAkAAAASAAgAAQAKAAkAAAATAAgAAQAKAAkAAAATAAkAAQALAAkAAAATAAoAAQALAAoAAAATAAsAAQALAAoAAAASAAsAAQALAAoAAAARAAsAAQALAAoAAAAQAAsAAQALAAoAAAAPAAsAAQALAAoAAAAOAAsAAQALAAoAAAANAAsAAQALAAoAAAAMAAsAAQALAAoAAAALAAsAAQALAAoAAAAKAAsAAQALAAoAAAAJAAsAAQALAAoAAAAIAAsAAQALAAoAAAAHAAsAAQALAAoAAAAGAAsAAQALAAoAAAAFAAsAAQALAAoAAAAEAAsAAQALAAoAAAADAAsAAQALAAoAAAACAAsAAQALAAoAAAABAAsAAQALAAoAAAABAAoAAQALAAoAAAACAAoAAQALAAoAAAADAAoAAQALAAoAAAAEAAoAAQALAAoAAAAFAAoAAQALAAoAAAAGAAoAAQALAAoAAAAHAAoAAQALAAoAAAAIAAoAAQALAAoAAAAJAAoAAQALAAoAAAAKAAoAAQALAAoAAAALAAoAAQALAAoAAAAMAAoAAQALAAoAAAANAAoAAQALAAoAAAAOAAoAAQALAAoAAAAPAAoAAQALAAoAAAAQAAoAAQALAAoAAAARAAoAAQALAAoAAAASAAoAAQALAAoAAAAUAAoAAQALAAoAAAAUAAgAAQAKAAkAAAAUAAkAAQALAAkAAAAUAAsAAQALAAoAAAASAAkAAQALAAkAAAARAAkAAQALAAkAAAAQAAkAAQALAAkAAAAPAAkAAQALAAkAAAAOAAkAAQALAAkAAAAMAAkAAQALAAkAAAALAAkAAQALAAkAAAAKAAkAAQALAAkAAAAJAAkAAQALAAkAAAAIAAkAAQALAAkAAAAHAAkAAQALAAkAAAAGAAkAAQALAAkAAAAFAAkAAQALAAkAAAAEAAkAAQALAAkAAAD//wkAAQALAAkAAAAAAAkAAQALAAkAAAABAAkAAQALAAkAAAACAAkAAQALAAkAAAADAAkAAQALAAkAAAANAAkAAQALAAkAAAA=")
+tile_map_data = PackedByteArray("AAD//wsAAQALAAoAAAAAAAsAAQALAAoAAAAAAAoAAQALAAoAAAAAAAgAAQAKAAkAAAD//wgAAQAKAAkAAAD//woAAQALAAoAAAABAAgAAQAKAAkAAAACAAgAAQAKAAkAAAADAAgAAQAKAAkAAAAEAAgAAQAKAAkAAAAFAAgAAQAKAAkAAAAGAAgAAQAKAAkAAAAHAAgAAQAKAAkAAAAIAAgAAQAKAAkAAAAJAAgAAQAKAAkAAAAKAAgAAQAKAAkAAAALAAgAAQAKAAkAAAAMAAgAAQAKAAkAAAANAAgAAQAKAAkAAAAOAAgAAQAKAAkAAAAPAAgAAQAKAAkAAAAQAAgAAQAKAAkAAAARAAgAAQAKAAkAAAASAAgAAQAKAAkAAAATAAgAAQAKAAkAAAATAAkAAQALAAkAAAATAAoAAQALAAoAAAATAAsAAQALAAoAAAASAAsAAQALAAoAAAARAAsAAQALAAoAAAAQAAsAAQALAAoAAAAPAAsAAQALAAoAAAAOAAsAAQALAAoAAAANAAsAAQALAAoAAAAMAAsAAQALAAoAAAALAAsAAQALAAoAAAAKAAsAAQALAAoAAAAJAAsAAQALAAoAAAAIAAsAAQALAAoAAAAHAAsAAQALAAoAAAAGAAsAAQALAAoAAAAFAAsAAQALAAoAAAAEAAsAAQALAAoAAAADAAsAAQALAAoAAAACAAsAAQALAAoAAAABAAsAAQALAAoAAAABAAoAAQALAAoAAAACAAoAAQALAAoAAAADAAoAAQALAAoAAAAEAAoAAQALAAoAAAAFAAoAAQALAAoAAAAGAAoAAQALAAoAAAAHAAoAAQALAAoAAAAIAAoAAQALAAoAAAAJAAoAAQALAAoAAAAKAAoAAQALAAoAAAALAAoAAQALAAoAAAAMAAoAAQALAAoAAAANAAoAAQALAAoAAAAOAAoAAQALAAoAAAAPAAoAAQALAAoAAAAQAAoAAQALAAoAAAARAAoAAQALAAoAAAASAAoAAQALAAoAAAAUAAoAAQALAAoAAAAUAAgAAQAKAAkAAAAUAAkAAQALAAkAAAAUAAsAAQALAAoAAAASAAkAAQALAAkAAAARAAkAAQALAAkAAAAQAAkAAQALAAkAAAAPAAkAAQALAAkAAAAOAAkAAQALAAkAAAAMAAkAAQALAAkAAAALAAkAAQALAAkAAAAKAAkAAQALAAkAAAAJAAkAAQALAAkAAAAIAAkAAQALAAkAAAAHAAkAAQALAAkAAAAGAAkAAQALAAkAAAAFAAkAAQALAAkAAAAEAAkAAQALAAkAAAD//wkAAQALAAkAAAAAAAkAAQALAAkAAAABAAkAAQALAAkAAAACAAkAAQALAAkAAAADAAkAAQALAAkAAAANAAkAAQALAAkAAAAVAAgAAQAKAAkAAAAVAAkAAQALAAkAAAAVAAoAAQALAAoAAAAVAAsAAQALAAoAAAAWAAgAAQAKAAkAAAAWAAkAAQALAAkAAAAWAAoAAQALAAoAAAAWAAsAAQALAAoAAAAXAAgAAQAKAAkAAAAXAAkAAQALAAkAAAAXAAoAAQALAAoAAAAXAAsAAQALAAoAAAAYAAgAAQAKAAkAAAAYAAkAAQALAAkAAAAYAAoAAQALAAoAAAAYAAsAAQALAAoAAAAZAAgAAQAKAAkAAAAZAAkAAQALAAkAAAAZAAoAAQALAAoAAAAZAAsAAQALAAoAAAAaAAgAAQAKAAkAAAAaAAkAAQALAAkAAAAaAAoAAQALAAoAAAAaAAsAAQALAAoAAAD9/wgAAQAKAAkAAAD9/wkAAQALAAkAAAD9/woAAQALAAoAAAD9/wsAAQALAAoAAAD+/wgAAQAKAAkAAAD+/wkAAQALAAkAAAD+/woAAQALAAoAAAD+/wsAAQALAAoAAAD6/wgAAQAKAAkAAAD6/wkAAQALAAkAAAD6/woAAQALAAoAAAD6/wsAAQALAAoAAAD7/wgAAQAKAAkAAAD7/wkAAQALAAkAAAD7/woAAQALAAoAAAD7/wsAAQALAAoAAAD8/wgAAQAKAAkAAAD8/wkAAQALAAkAAAD8/woAAQALAAoAAAD8/wsAAQALAAoAAAD3/wgAAQAKAAkAAAD3/wkAAQALAAkAAAD3/woAAQALAAoAAAD3/wsAAQALAAoAAAD4/wgAAQAKAAkAAAD4/wkAAQALAAkAAAD4/woAAQALAAoAAAD4/wsAAQALAAoAAAD5/wgAAQAKAAkAAAD5/wkAAQALAAkAAAD5/woAAQALAAoAAAD5/wsAAQALAAoAAAA=")
 tile_set = ExtResource("1_n4b4j")
 metadata/_edit_lock_ = true
+
+[node name="CreditsMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_rp1lj")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CreditsMenu"]
+layout_mode = 2
+offset_left = 27.0
+offset_top = 261.0
+offset_right = 485.0
+offset_bottom = 432.0
+theme_override_colors/default_color = Color(0.662815, 0.635881, 0.783334, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_et25s")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Jogo produzido por:
+
+Bernardo F. Pereira (Programador e VFX)
+Ingrid Miranda (Artista 2D - Cenários)
+Lauro Rosa (Artista e Animador 2D - Sprites e Tilesets)
+Igor Leal (Game e Level Design)
+"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="CreditsMenu"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -98.0
+offset_right = 534.0
+offset_bottom = -15.0
+grow_vertical = 0
+theme_override_colors/default_color = Color(0.662815, 0.635881, 0.783334, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_et25s")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Playtesters:
+Márcio Rosendo, Victor Ricco Vracc
+Sofia \"Moony\" Corrêa, João Pedro Sundfeld"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="CreditsMenu"]
+layout_mode = 2
+offset_left = 866.0
+offset_top = 198.0
+offset_right = 1273.0
+offset_bottom = 416.0
+theme_override_colors/default_color = Color(0.662815, 0.635881, 0.783334, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_et25s")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Audio utilizado:
+Kenney RPG Sound Pack
+https://kenney.nl/assets
+Impact  e Punch de Iwan 'qubodup' Gabovitch
+http://opengameart.org/users/qubodup
+Air Pump Short 2 de LHermanns
+https://freesound.org/s/417217/
+Annulet of Absortion de CosmicD
+https://freesound.org/people/CosmicD/"
+
+[node name="ButtonMainMenu" type="Button" parent="CreditsMenu"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -142.0
+offset_top = -86.0
+offset_right = -65.0
+offset_bottom = -46.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("12_smomg")
+
+[node name="Label" type="Label" parent="CreditsMenu/ButtonMainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -9.5
+offset_right = 20.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Voltar"
 
 [node name="Detail" type="Node" parent="."]
 
@@ -98,83 +203,22 @@ texture_filter = 3
 position = Vector2(1096, 387)
 texture = ExtResource("10_u8o63")
 
-[node name="CreditsMenu" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("11_rp1lj")
+[node name="JanelaB1" type="Sprite2D" parent="Detail"]
+position = Vector2(958, -6)
+texture = ExtResource("14_rp1lj")
 
-[node name="MarginContainer" type="MarginContainer" parent="CreditsMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 525.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 20
+[node name="JanelaB2" type="Sprite2D" parent="Detail"]
+position = Vector2(1129, -6)
+texture = ExtResource("14_rp1lj")
 
-[node name="HSplitContainer" type="HSplitContainer" parent="CreditsMenu/MarginContainer"]
-layout_mode = 2
-split_offset = 740
+[node name="JanelaB3" type="Sprite2D" parent="Detail"]
+position = Vector2(1289, -6)
+texture = ExtResource("14_rp1lj")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CreditsMenu/MarginContainer/HSplitContainer"]
-layout_mode = 2
-theme_override_colors/default_color = Color(0.662815, 0.635881, 0.783334, 1)
-theme_override_fonts/normal_font = SubResource("SystemFont_et25s")
-theme_override_font_sizes/normal_font_size = 18
-bbcode_enabled = true
-text = "Jogo produzido por:
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(1403, 454)
 
-Bernardo F. Pereira (Programador e VFX)
-Ingrid Miranda (Artista 2D - Cenários)
-Lauro Rosa (Artista e Animador 2D - Sprites e Tilesets)
-Igor Leal (Game e Level Design)
-"
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="CreditsMenu/MarginContainer/HSplitContainer"]
-layout_mode = 2
-theme_override_colors/default_color = Color(0.662815, 0.635881, 0.783334, 1)
-theme_override_fonts/normal_font = SubResource("SystemFont_et25s")
-theme_override_font_sizes/normal_font_size = 18
-bbcode_enabled = true
-text = "Audio utilizado:
-Kenney RPG Sound Pack
-https://kenney.nl/assets
-Impact  e Punch de Iwan 'qubodup' Gabovitch
-http://opengameart.org/users/qubodup
-Air Pump Short 2 de LHermanns https://freesound.org/s/417217/
-Annulet of Absortion de CosmicD
-https://freesound.org/people/CosmicD/"
-
-[node name="ButtonMainMenu" type="Button" parent="CreditsMenu"]
-texture_filter = 3
-layout_mode = 1
-offset_left = 42.0
-offset_top = 38.0
-offset_right = 119.0
-offset_bottom = 78.0
-theme = ExtResource("12_smomg")
-
-[node name="Label" type="Label" parent="CreditsMenu/ButtonMainMenu"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -9.5
-offset_right = 20.0
-offset_bottom = 9.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Voltar"
+[node name="Marker2D2" type="Marker2D" parent="."]
+position = Vector2(-189, 454)
 
 [connection signal="pressed" from="CreditsMenu/ButtonMainMenu" to="CreditsMenu" method="_on_button_main_menu_pressed"]

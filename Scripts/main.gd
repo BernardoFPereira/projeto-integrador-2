@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 		mission_box_player.play("mission_1_complete")
 		objective_complete = true
 		objective_image.visible = true
-		objective_label.text = "Você encontrou a maleta!\nVá até o poste para completar a missão."
+		objective_label.text = "Você encontrou a maleta!\nVá até o orelhão para completar a missão."
 	
 	if PlayerManager.is_player_dead:
 		lose_menu.visible = true
@@ -70,10 +70,11 @@ func _on_button_continue_pressed() -> void:
 	pause_menu.visible = false
 
 func _on_button_main_menu_pressed() -> void:
+	PlayerManager.restart()
 	get_tree().change_scene_to_file("res://Scenes/Menus/MainMenu.tscn")
 
 func play_mission_complete_audio() -> void:
-	Audio.play("res://Audio/FX/mission_win.ogg", 0)
+	Audio.play("res://Audio/FX/mission_win.ogg", -15)
 
 #func _on_mission_box_player_animation_finished(anim_name: StringName) -> void:
 	#mission_box_player.play("idle")

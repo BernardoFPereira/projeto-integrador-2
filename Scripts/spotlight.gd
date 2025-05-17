@@ -31,8 +31,8 @@ func _on_light_detect_area_body_entered(body: Node2D) -> void:
 			#looking_for_player = true
 			PlayerManager.scanning_light = true
 			PlayerManager.light_target = self
-			print("scanning light area")
-			print(PlayerManager.is_in_shadow)
+			#print("scanning light area")
+			#print(PlayerManager.is_in_shadow)
 		_:
 			pass
 
@@ -43,8 +43,8 @@ func _on_light_detect_area_body_exited(body: Node2D) -> void:
 			PlayerManager.scanning_light = false
 			PlayerManager.light_target = null
 			PlayerManager.set_in_shadow(true)
-			print("not scanning anymore")
-			print(PlayerManager.is_in_shadow)
+			#print("not scanning anymore")
+			#print(PlayerManager.is_in_shadow)
 		_:
 			pass
 
@@ -53,8 +53,8 @@ func _on_light_detect_area_area_entered(area: Area2D) -> void:
 		#looking_for_player = true
 		PlayerManager.scanning_light = true
 		PlayerManager.light_target = self
-		print("scanning light area")
-		print(PlayerManager.is_in_shadow)
+		#print("scanning light area")
+		#print(PlayerManager.is_in_shadow)
 
 func _on_light_detect_area_area_exited(area: Area2D) -> void:
 	if area.is_in_group("ShadowShape"):
@@ -62,5 +62,5 @@ func _on_light_detect_area_area_exited(area: Area2D) -> void:
 		PlayerManager.scanning_light = false
 		PlayerManager.light_target = null
 		PlayerManager.set_in_shadow(true)
-		print("not scanning anymore")
-		print(PlayerManager.is_in_shadow)
+		#print("not scanning anymore")
+		#print(PlayerManager.is_in_shadow)

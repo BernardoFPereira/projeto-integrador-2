@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://drvympnds4gds"]
+
+[ext_resource type="Texture2D" uid="uid://bxaoymebtne3n" path="res://Sprites/Misc/Área Externa/phone.png" id="1_g3a2u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qaypg"]
+size = Vector2(213, 293)
+
+[node name="MapExitArea" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, -12)
+shape = SubResource("RectangleShape2D_qaypg")
+debug_color = Color(0.676968, 1, 0.58729, 0.42)
+
+[node name="Phone" type="Sprite2D" parent="."]
+position = Vector2(-1, 63)
+texture = ExtResource("1_g3a2u")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Phone"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://csbqq51s1bf14"]
+[gd_scene load_steps=22 format=3 uid="uid://csbqq51s1bf14"]
 
 [ext_resource type="Script" uid="uid://burr4kixdupuq" path="res://Scripts/UI/fullscreen_toggle.gd" id="1_4r2l2"]
 [ext_resource type="Script" uid="uid://b13iffimqj3yk" path="res://Scripts/options_menu.gd" id="1_uk1om"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://tqic7m8q2dab" path="res://Sprites/UI/botões/ícones/configuração.png" id="4_uk1om"]
 [ext_resource type="Texture2D" uid="uid://b71jk8ppmact0" path="res://Sprites/UI/botões/botão g (selecionado).png" id="4_xvass"]
 [ext_resource type="Texture2D" uid="uid://c5pvargarmrif" path="res://Sprites/UI/botões/ícones/volume efeitos sonoros.png" id="5_ls0ev"]
+[ext_resource type="AudioStream" uid="uid://tal14v0jmg7t" path="res://Audio/Echoes in the Fog.mp3" id="12_wbxsw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mtov2"]
 bg_color = Color(0.0823529, 0.0313726, 0.0705882, 0.996078)
@@ -332,6 +333,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_wbxsw")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"
 
 [connection signal="toggled" from="FullScreen/FullscreenToggle" to="FullScreen/FullscreenToggle" method="_on_toggled"]
 [connection signal="drag_ended" from="VolumeMaster/Slider" to="VolumeMaster/Slider" method="_on_drag_ended"]

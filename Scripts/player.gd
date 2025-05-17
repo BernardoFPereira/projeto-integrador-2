@@ -63,6 +63,8 @@ var facing : Facing
 var idle_hand_rotation: float
 
 func _ready():
+	PlayerManager.player = self
+	
 	set_state(States.IDLE)
 	set_facing(Facing.RIGHT)
 
@@ -156,8 +158,8 @@ func set_state(new_state: States):
 		ground_check()
 		#grab_cast_down.enabled = false
 	
-	if state in [States.SHADOW_SHOT]:
-		if new_state in [States.IDLE]:
+	if state in [States.SHADOW_SHOT, States.SHADOW_MELD]:
+		if new_state in [States.IDLE, States.EXIT_SHADOW_MELD]:
 			ceiling_check()
 			
 	if new_state in [States.IDLE, States.WALK]:
@@ -238,7 +240,7 @@ func set_state(new_state: States):
 			
 			States.SHADOW_SHOT:
 				#print("SHOT!")
-				Audio.play("res://Audio/FX/cloth3.ogg", +5)
+				Audio.play("res://Audio/FX/cloth3.ogg", -10)
 				if !PlayerManager.is_in_shadow:
 					set_state(States.EXIT_SHADOW_MELD)
 					
@@ -347,6 +349,16 @@ func handle_states(delta) -> void:
 				
 			if mouse_dir.x < 0:
 				set_facing(Facing.LEFT)
+				
+			#match facing:
+				#Facing.RIGHT:
+					#grab_cast_right.enabled = true
+					#grab_cast_left.enabled = false
+					#pass
+				#Facing.LEFT:
+					#grab_cast_left.enabled = true
+					#grab_cast_right.enabled = false
+					#pass
 		
 		States.SHADOW_SHOT:
 			if !PlayerManager.is_in_shadow:
@@ -358,15 +370,17 @@ func handle_states(delta) -> void:
 				if ray.is_colliding():
 					var collider = ray.get_collider()
 					if collider.is_in_group("Grabable") and !just_jumped:
+						Audio.play("res://Audio/thwack-05.ogg", -20)
 						velocity = Vector2.ZERO
 						set_state(States.GRAB)
-					else:
-						set_state(States.IDLE)
+					#else:
+						#set_state(States.IDLE)
 			
 			if is_on_floor() and !just_jumped:
 				set_state(States.IDLE)
 			
 			if shadow_shot_ground_cast.is_colliding():
+				Audio.play("res://Audio/thwack-05.ogg", -20)
 				set_state(States.IDLE)
 				
 			var ground_ray = grab_cast_down
@@ -418,10 +432,8 @@ func ceiling_check() -> void:
 	top_ray.force_raycast_update()
 	if top_ray.is_colliding():
 		var collision_point = top_ray.get_collision_point()
-		#print("Global Pos: ", global_position)
-		#print("Collision Pos: ", collision_point)
-		
 		var diff = collision_point.y - global_position.y
+		
 		if diff < -25:
 			diff = 0
 			
@@ -591,10 +603,10 @@ func handle_interactions() -> void:
 
 func _on_interaction_area_area_entered(area: Area2D) -> void:
 	PlayerManager.possible_interactions.append(area.get_parent())
-	print(PlayerManager.possible_interactions)
+	#print(PlayerManager.possible_interactions)
 
 func _on_interaction_area_area_exited(area: Area2D) -> void:
 	PlayerManager.possible_interactions = PlayerManager.possible_interactions.filter(
 		func(interaction): return interaction != area.get_parent()
 	)
-	print(PlayerManager.possible_interactions)
+	#print(PlayerManager.possible_interactions)

@@ -37,14 +37,14 @@ func interaction():
 			open_door()
 
 func open_door():
-	Audio.play("res://Audio/FX/doorOpen_1.ogg", -15)
+	Audio.play("res://Audio/FX/doorOpen_1.ogg", -25)
 	state = DoorState.OPEN
 	animation_highlight.play("open")
 	animated_sprite.play("opening")
 	collision.disabled = true
 
 func close_door():
-	Audio.play("res://Audio/FX/doorClose_4.ogg", -15)
+	Audio.play("res://Audio/FX/doorClose_4.ogg", -25)
 	state = DoorState.CLOSED
 	animated_sprite.play("closing")
 	animation_highlight.play("closed")
