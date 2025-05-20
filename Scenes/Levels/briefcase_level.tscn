@@ -1035,7 +1035,7 @@ max_ammo = 8
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("40_5wv4y")]
-position = Vector2(-1130, 513)
+position = Vector2(-1145, 512)
 
 [node name="Enemies" type="Node" parent="."]
 
@@ -1919,10 +1919,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 70.0
-offset_top = 19.0
-offset_right = 141.0
-offset_bottom = 90.0
+offset_left = 63.0
+offset_top = 21.0
+offset_right = 134.0
+offset_bottom = 92.0
 grow_horizontal = 2
 texture = ExtResource("47_0tjj1")
 
