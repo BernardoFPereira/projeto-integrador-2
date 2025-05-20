@@ -105,8 +105,8 @@
 [ext_resource type="Texture2D" uid="uid://f3lkx4me8nbx" path="res://Sprites/Misc/Misc/peixe emoldurado.png" id="98_hysq5"]
 [ext_resource type="Texture2D" uid="uid://mqirx3by5f1x" path="res://Sprites/Misc/Misc/fliperama 02 (JOÃO PAVIO).png" id="99_5wv4y"]
 [ext_resource type="Texture2D" uid="uid://l4pq8jkkymsp" path="res://Sprites/Misc/Misc/fliperama 03 (DEADBAIT).png" id="100_ygric"]
-[ext_resource type="Script" uid="uid://cdi4but64qpde" path="res://Scripts/mission_complete_area.gd" id="105_xdgft"]
-[ext_resource type="AudioStream" uid="uid://brrhytt45kg0c" path="res://Audio/doorbell-old-tring.ogg" id="107_jadc8"]
+[ext_resource type="Script" path="res://Scripts/mission_complete_area.gd" id="105_xdgft"]
+[ext_resource type="AudioStream" uid="uid://buu51cqmxl442" path="res://Audio/doorbell-old-tring.ogg" id="107_jadc8"]
 
 [sub_resource type="Gradient" id="Gradient_fivbj"]
 offsets = PackedFloat32Array(0, 0.562753, 1)
@@ -470,9 +470,6 @@ process_mode = 3
 script = ExtResource("2_a30fu")
 
 [node name="ParallaxBackgrounds" parent="." instance=ExtResource("3_a30fu")]
-
-[node name="Parallax2D6" parent="ParallaxBackgrounds" index="3"]
-visible = false
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 position = Vector2(-944, 471)

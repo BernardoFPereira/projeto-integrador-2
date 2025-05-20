@@ -17,8 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://bc4n7doiqfx6r" path="res://Sprites/Misc/Neon Signs/neon sign 03.png" id="13_0dfbt"]
 [ext_resource type="Texture2D" uid="uid://cj8ng0f8godfa" path="res://Sprites/Misc/Área Externa/lixo 01.png" id="14_jjpbn"]
 [ext_resource type="Texture2D" uid="uid://05dsa302qmfh" path="res://Sprites/Misc/Área Externa/lixo 02.png" id="15_pk122"]
-[ext_resource type="Texture2D" uid="uid://bbe2563er45lv" path="res://Sprites/plus.png" id="16_b1mlu"]
-[ext_resource type="Texture2D" uid="uid://b2e60ekoj20vm" path="res://Sprites/graffiti_hang.png" id="17_n01ts"]
+[ext_resource type="Texture2D" uid="uid://b8jc0oi13eegg" path="res://Sprites/plus.png" id="16_b1mlu"]
+[ext_resource type="Texture2D" uid="uid://bo00bfxijoduu" path="res://Sprites/graffiti_hang.png" id="17_n01ts"]
 [ext_resource type="Texture2D" uid="uid://d0nyasm2l71r0" path="res://Sprites/graffiti_vacilao-pe.png" id="17_vsg7v"]
 [ext_resource type="Texture2D" uid="uid://b182r6iu07mxv" path="res://Sprites/graffiti_peidin.png" id="18_8n2m2"]
 [ext_resource type="Texture2D" uid="uid://cc8fa627m6twu" path="res://Sprites/Misc/discoball.png" id="18_i6ft4"]
@@ -67,10 +67,10 @@
 [ext_resource type="StyleBox" uid="uid://cwimapaxwo1vb" path="res://Resources/clipboard_style.tres" id="53_ldj6i"]
 [ext_resource type="Texture2D" uid="uid://bxaoymebtne3n" path="res://Sprites/Misc/Área Externa/phone.png" id="59_n01ts"]
 [ext_resource type="Texture2D" uid="uid://cp8s8c4ai1ir0" path="res://Sprites/UI/failed_stamp2.png" id="60_eohqw"]
-[ext_resource type="Script" uid="uid://cdi4but64qpde" path="res://Scripts/mission_complete_area.gd" id="60_k43rd"]
+[ext_resource type="Script" path="res://Scripts/mission_complete_area.gd" id="60_k43rd"]
 [ext_resource type="Texture2D" uid="uid://kxsnb131u8v6" path="res://Tilesets/mission_box.png" id="61_idb8x"]
 [ext_resource type="Texture2D" uid="uid://dwh3yfn4467k7" path="res://Sprites/UI/complete_stamp.png" id="62_688p4"]
-[ext_resource type="AudioStream" uid="uid://brrhytt45kg0c" path="res://Audio/doorbell-old-tring.ogg" id="62_hnt8y"]
+[ext_resource type="AudioStream" uid="uid://buu51cqmxl442" path="res://Audio/doorbell-old-tring.ogg" id="62_hnt8y"]
 [ext_resource type="Texture2D" uid="uid://bw6hp41a0rbw7" path="res://Sprites/UI/mission_box_clip.png" id="63_688p4"]
 [ext_resource type="Texture2D" uid="uid://vl63vxqqlti3" path="res://Sprites/Misc/Área Externa/escada de incêndio (quebrada) 01.png" id="68_047bk"]
 [ext_resource type="StyleBox" uid="uid://d0wmlyg3u2wx3" path="res://Resources/dialogue_box_texture.tres" id="70_76j1n"]
@@ -95,8 +95,8 @@
 [ext_resource type="Texture2D" uid="uid://sv071gd4dybj" path="res://Sprites/UI/botões/green-paper_button_clipped2.png" id="80_sivld"]
 [ext_resource type="Texture2D" uid="uid://c8ter8mgts3qo" path="res://Sprites/UI/botões/ícones/resolução.png" id="81_n01ts"]
 [ext_resource type="Texture2D" uid="uid://c0wpq2yygdkvd" path="res://Sprites/UI/botões/ícones/recusar.png" id="82_wwmlk"]
-[ext_resource type="Texture2D" uid="uid://56xd0rou7it2" path="res://Sprites/Misc/tutorial_wire.png" id="94_b1mlu"]
-[ext_resource type="AudioStream" uid="uid://04rt6fjwa4jf" path="res://Audio/Under Neon Skies.mp3" id="97_k43rd"]
+[ext_resource type="Texture2D" uid="uid://csdq4y8ufyi5" path="res://Sprites/Misc/tutorial_wire.png" id="94_b1mlu"]
+[ext_resource type="AudioStream" uid="uid://xipwx3b0vnao" path="res://Audio/Under Neon Skies.mp3" id="97_k43rd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uvhf6"]
 size = Vector2(201, 4)
@@ -469,8 +469,30 @@ script = ExtResource("2_8t34m")
 
 [node name="ParallaxBackgrounds" parent="." instance=ExtResource("3_n01ts")]
 
-[node name="Parallax2D6" parent="ParallaxBackgrounds" index="3"]
-visible = false
+[node name="PurpleBuilding9P1" parent="ParallaxBackgrounds/Parallax Buildings/Purple node 9pbg" index="0"]
+offset_left = -904.0
+offset_top = -284.0
+offset_right = -123.0
+offset_bottom = 615.0
+
+[node name="PurpleBuilding9P4" parent="ParallaxBackgrounds/Parallax Buildings/Purple node 9pbg" index="3"]
+offset_left = 795.0
+offset_top = -212.0
+offset_right = 1576.0
+offset_bottom = 687.0
+
+[node name="PurpleBuilding9P5" parent="ParallaxBackgrounds/Parallax Buildings/Purple node 9pbg" index="4"]
+offset_left = 2734.0
+offset_top = -41.0
+offset_right = 3378.0
+offset_bottom = 862.0
+
+[node name="RedBuilding9P4" parent="ParallaxBackgrounds/Parallax Buildings/Red node 9Pbg" index="3"]
+visible = true
+offset_left = 1146.0
+offset_top = -141.0
+offset_right = 1927.0
+offset_bottom = 758.0
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 position = Vector2(-284, 471)
