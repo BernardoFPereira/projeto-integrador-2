@@ -26,6 +26,7 @@ func _process(delta: float) -> void:
 		interact_highlight.visible = false
 
 func interaction() -> void:
+	Audio.play("res://Audio/FX/metalLatch.ogg", -20)
 	switch_power()
 
 func switch_power() -> void:

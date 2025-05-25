@@ -1,4 +1,5 @@
 extends StaticBody2D
+class_name Door
 
 #@export var animated_sprite: AnimationPlayer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -6,12 +7,19 @@ extends StaticBody2D
 @onready var collision: CollisionShape2D = $Collision
 @onready var interact_highlight: Line2D = $InteractHighlight
 @onready var animation_highlight: AnimationPlayer = $InteractHighlight/AnimationPlayer
+@onready var interact_area: Area2D = $InteractArea
+
+@export var is_interactable := true
 
 enum DoorState { OPEN, CLOSED }
 
 var state := DoorState.CLOSED
 var enemy_near := false
 var enemy: Enemy
+
+func _ready() -> void:
+	if !is_interactable:
+		set_interactability(false)
 
 func _process(delta: float) -> void:
 	if PlayerManager.interact_target == self and PlayerManager.can_interact:
@@ -28,6 +36,14 @@ func _process(delta: float) -> void:
 				open_door()
 			else:
 				return
+
+func set_interactability(value: bool) -> void:
+	is_interactable = value
+	match is_interactable:
+		true:
+			interact_area.set_collision_layer_value(11, 1)
+		false:
+			interact_area.set_collision_layer_value(11, 0)
 
 func interaction():
 	match state:

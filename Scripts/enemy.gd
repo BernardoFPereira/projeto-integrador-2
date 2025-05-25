@@ -3,6 +3,7 @@ class_name Enemy
 
 @export_enum("MELEE", "RANGED") var enemy_type := "MELEE"
 
+@export var health := 2
 @export var facing: Facing
 @export var start_state := States.IDLE
 @export_range(200.0, 800.0, 1.0) var speed := 150.0
@@ -12,6 +13,7 @@ class_name Enemy
 @export_range(80.0, 300.0, 1.0) var roam_speed := 100.0
 @export var min_wait := 2.0
 @export var max_wait := 6.0
+@export var is_deaf := false
 
 @onready var muzzle: Marker2D = $Muzzle
 @onready var sound_range: Area2D = $SoundRange
@@ -47,6 +49,8 @@ class_name Enemy
 
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
+var heard_noise := false
+
 signal decrement_counter
 
 enum States {
@@ -76,7 +80,6 @@ var is_player_on_sight := false
 var target_position := Vector2.ZERO
 var ammo := 8
 var cooldown_counter := 0.0
-var health := 2
 var roam_timer
 
 var can_interact := false
@@ -93,6 +96,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if health <= 0:
 		set_state(States.DEAD)
+		
+	if heard_noise:
+		heard_noise = false
+		set_state(States.SEARCH)
 		
 	if velocity.x > 0:
 		set_facing(Facing.RIGHT)
@@ -363,19 +370,6 @@ func handle_states(delta) -> void:
 		States.ATTACK:
 			match enemy_type:
 				"MELEE":
-					
-					var slash_fx = preload("res://Scenes/FX/enemy_slash.tscn").instantiate()
-					var offset = Vector2(25, 0)
-					
-					match facing:
-						Facing.RIGHT:
-							slash_fx.flip_h = true
-							slash_fx.global_position = global_position + offset
-						
-						Facing.LEFT:
-							slash_fx.global_position = global_position - offset
-					get_tree().root.add_child(slash_fx)
-					
 					var possible_targets = enemy_hit_box.get_overlapping_bodies()
 					if possible_targets != null and !possible_targets.is_empty():
 						PlayerManager.deal_damage(PlayerManager.player, 1)
@@ -391,7 +385,7 @@ func handle_states(delta) -> void:
 					shoot()
 					
 					set_state(States.COOLDOWN)
-					pass
+			
 		States.COOLDOWN:
 			cooldown_counter += delta
 			if cooldown_counter >= attack_cooldown:

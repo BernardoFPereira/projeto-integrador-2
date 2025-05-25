@@ -1,10 +1,15 @@
 extends Node
 
-@onready var objective_label: Label = $CanvasLayer3/UI/ObjectiveLabel
-@onready var interaction_label: Label = $CanvasLayer3/UI/InteractionLabel
-@onready var ammo_label: Label = $CanvasLayer3/UI/AmmoLabel
-@onready var carried_weapon: TextureRect = $CanvasLayer3/UI/CarriedWeapon
-@onready var objective_image: TextureRect = $CanvasLayer3/UI/ObjectiveImage
+@onready var objective_box: Control = $CanvasLayer3/UI/ObjectiveBox
+@onready var objective_label: RichTextLabel = $CanvasLayer3/UI/ObjectiveBox/ObjectiveLabel
+@onready var objective_image: TextureRect = $CanvasLayer3/UI/ObjectiveBox/ObjectiveImage
+
+@onready var interaction_box: Control = $CanvasLayer3/UI/InteractionBox
+@onready var interaction_label: RichTextLabel = $CanvasLayer3/UI/InteractionBox/InteractionLabel
+
+@onready var carried_weapon_box: Control = $CanvasLayer3/UI/CarriedWeaponBox
+@onready var carried_weapon: TextureRect = $CanvasLayer3/UI/CarriedWeaponBox/CarriedWeaponSprite
+@onready var ammo_label: Label = $CanvasLayer3/UI/CarriedWeaponBox/AmmoLabel
 
 @onready var win_menu: Control = $CanvasLayer3/UI/WinMenu
 @onready var lose_menu: Control = $CanvasLayer3/UI/LoseMenu
@@ -20,27 +25,27 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if PlayerManager.player.carried_weapon:
 		carried_weapon.texture = PlayerManager.player.carried_weapon.weapon_icon
-		ammo_label.visible = true
+		carried_weapon_box.visible = true
 		var max_ammo = PlayerManager.player.carried_weapon.max_ammo
 		var current_ammo = PlayerManager.player.carried_weapon.current_ammo
 		
 		ammo_label.text = "%/%".format(
-			[max_ammo, current_ammo], "%"
+			[current_ammo, max_ammo], "%"
 			) if max_ammo > 0 else ""
 	else:
-		ammo_label.visible = false
+		carried_weapon_box.visible = false
 		carried_weapon.texture = null
 		
 	if PlayerManager.can_interact:
-		interaction_label.visible = true
+		interaction_box.visible = true
 	else:
-		interaction_label.visible = false
+		interaction_box.visible = false
 	
 	if PlayerManager.briefcase_found and !objective_complete:
 		mission_box_player.play("mission_1_complete")
 		objective_complete = true
-		objective_image.visible = true
-		objective_label.text = "Você encontrou a maleta!\nVá até o orelhão para completar a missão."
+		objective_box.visible = true
+		objective_label.text = "Você encontrou a maleta!"
 	
 	if PlayerManager.is_player_dead:
 		lose_menu.visible = true

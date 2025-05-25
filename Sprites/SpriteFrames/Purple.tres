@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://csb22ca21racy" path="res://Sprites/Mr Purple/Purple_stabanim Sheet-sheet.png" id="7_itjfw"]
 [ext_resource type="Texture2D" uid="uid://bgjd0v7tu464t" path="res://Sprites/Mr Purple/Purple_ShadowJump_Idle sheet.png" id="8_itjfw"]
 [ext_resource type="Texture2D" uid="uid://bomcrkpuatxx0" path="res://Sprites/Mr Purple/walkcycle_sheet.png" id="8_xjylf"]
-[ext_resource type="Texture2D" uid="uid://dlwv047qu1xkk" path="res://Sprites/Mr Purple/Purple_ShadowIdle.png" id="11_1u772"]
+[ext_resource type="Texture2D" uid="uid://bo6s5ogwsgtpc" path="res://Sprites/Mr Purple/Purple_ShadowIdle.png" id="11_1u772"]
 [ext_resource type="Texture2D" uid="uid://dp8jlaiuc85e1" path="res://Sprites/Mr Purple/Purple_SmokeIdle.png" id="12_oume6"]
 [ext_resource type="Texture2D" uid="uid://ca1blij7c8mia" path="res://Sprites/Mr Purple/Purple_SmokeFlick.png" id="13_xjylf"]
 

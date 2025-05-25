@@ -15,10 +15,10 @@ func _process(delta: float) -> void:
 	match is_window:
 		false:
 			set_pressed_no_signal(true)
-			text = "on"
+			#text = "on"
 		true:
 			set_pressed_no_signal(false)
-			text = "off"
+			#text = "off"
 
 func _on_toggled(toggled_on: bool) -> void:
 	var mode := DisplayServer.window_get_mode()

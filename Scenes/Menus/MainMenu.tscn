@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://q67d5llac072" path="res://Scripts/main_menu.gd" id="1_tfrft"]
 [ext_resource type="Texture2D" uid="uid://cyrvqjm4gbii6" path="res://Sprites/main_menu.png" id="3_hqtmt"]
-[ext_resource type="FontFile" uid="uid://di4euix3ybpjy" path="res://TravelingTypewriter.ttf" id="4_mc63j"]
+[ext_resource type="FontFile" uid="uid://di4euix3ybpjy" path="res://Fonts/TravelingTypewriter.ttf" id="4_mc63j"]
 [ext_resource type="AudioStream" uid="uid://bnm2k1oy5rwqa" path="res://Audio/Pause guitar.ogg" id="4_tfrft"]
 [ext_resource type="AudioStream" uid="uid://d3tjaivpaxsy3" path="res://Audio/gatve Varniu.ogg" id="5_mc63j"]
 [ext_resource type="Theme" uid="uid://7eltmng1er5f" path="res://UITheme/ButtonTheme.tres" id="5_uv623"]

@@ -469,6 +469,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			#print(PlayerManager.target_stairs)
 			PlayerManager.target_stairs.interaction()
 	
+	if event.is_action_pressed("smoke_cigarette") and state == States.IDLE:
+		animated_sprite.play("smoke")
+		pass
+	
 	if event.is_action_pressed("activate_shadow_meld"):
 		if state in [States.PREP_SHADOW_SHOT, States.MELEE, States.SHADOW_SHOT]:
 			return
@@ -558,6 +562,10 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 			animated_sprite.play("shadow_shape")
 		"exit_shadow_meld":
 			set_state(States.IDLE)
+		"smoke":
+			animated_sprite.play("smoke_flick")
+		"smoke_flick":
+			animated_sprite.play("idle")
 
 func _on_animated_sprite_2d_frame_changed() -> void:
 	if animated_sprite.animation in ["melee", "melee_knife"]:

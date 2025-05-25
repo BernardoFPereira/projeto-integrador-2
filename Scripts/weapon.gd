@@ -9,6 +9,7 @@ class_name Weapon
 
 @export_enum("melee", "ranged") var weapon_type: String
 @export var max_ammo: int = 0
+@export var current_ammo: int
 
 @onready var interact_area: Area2D = $InteractArea
 @onready var highlight: Sprite2D = $Highlight
@@ -24,14 +25,13 @@ class_name Weapon
 
 var player: Player
 var muzzle: Marker2D
-var current_ammo: int
 
 var was_thrown := false
 
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
-	current_ammo = max_ammo
+	#current_ammo = max_ammo
 	default_sprite = sprite.texture
 	
 	var muz = get_node("Muzzle")
@@ -39,7 +39,6 @@ func _ready() -> void:
 		muzzle = muz
 	else:
 		muzzle = null
-	
 
 #func _process(delta) -> void:
 	#if PlayerManager.player.carried_weapon != self:
@@ -154,8 +153,9 @@ func broadcast_noise() -> void:
 	if bodies_in_range:
 		for body in bodies_in_range:
 			if body.state != body.States.DEAD:
-				body.player_last_pos = player.global_position
-				body.set_state(body.States.SEARCH)
+				if !body.is_deaf:
+					body.heard_noise = true
+					body.player_last_pos = player.global_position
 
 func flip_weapon() -> void:
 	match player.facing:

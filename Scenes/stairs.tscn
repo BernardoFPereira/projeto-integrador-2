@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c3w7fu4ilnt" path="res://Scripts/stairs.gd" id="1_eb2qj"]
 [ext_resource type="SpriteFrames" uid="uid://bntauhofrtv7p" path="res://Sprites/SpriteFrames/AnimatedArrow.tres" id="2_qbift"]
-[ext_resource type="Texture2D" uid="uid://buu7f7ubtsi8d" path="res://Sprites/doorstairs004.png" id="2_tl8cb"]
+[ext_resource type="Texture2D" uid="uid://d00d883sojn3y" path="res://Sprites/doorstairs004.png" id="2_tl8cb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yo2mt"]
 size = Vector2(64, 128)

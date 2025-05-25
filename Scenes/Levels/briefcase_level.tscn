@@ -1,4 +1,4 @@
-[gd_scene load_steps=138 format=4 uid="uid://duj3s4w2q8fx1"]
+[gd_scene load_steps=144 format=4 uid="uid://duj3s4w2q8fx1"]
 
 [ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://Scripts/main.gd" id="1_mq1ud"]
 [ext_resource type="Script" uid="uid://ctuy0d1nxcxf1" path="res://Scripts/pause_manager.gd" id="2_a30fu"]
@@ -28,12 +28,12 @@
 [ext_resource type="Texture2D" uid="uid://d1yunscnrqfk6" path="res://Sprites/Misc/Misc/dinheiro emoldurado.png" id="25_s16bl"]
 [ext_resource type="Texture2D" uid="uid://drfevqaggv7kc" path="res://Sprites/Misc/Área Externa/ar condicionado 01 .png" id="26_4k7e3"]
 [ext_resource type="Texture2D" uid="uid://3be0c7xq2d7h" path="res://Sprites/Misc/Misc/ventilação 01.png" id="27_gd2m3"]
-[ext_resource type="Texture2D" uid="uid://dwk5epph4upj3" path="res://Sprites/Misc/Misc/ventilação 02.png" id="28_ebovh"]
 [ext_resource type="PackedScene" uid="uid://cxpsecdw7nn0e" path="res://Scenes/Scenery/dumpster.tscn" id="29_6c82m"]
 [ext_resource type="Texture2D" uid="uid://bxaoymebtne3n" path="res://Sprites/Misc/Área Externa/phone.png" id="30_xdgft"]
 [ext_resource type="PackedScene" uid="uid://brxjw7a8jp5n3" path="res://Scenes/door.tscn" id="31_jadc8"]
 [ext_resource type="Texture2D" uid="uid://d3sgf3m0rc3cm" path="res://Sprites/asset pack 03/janela B1.png" id="32_6ukmb"]
 [ext_resource type="PackedScene" uid="uid://cm5psujfwcom2" path="res://Scenes/stairs.tscn" id="32_fhi2v"]
+[ext_resource type="Texture2D" uid="uid://cjjfsuju5cwjq" path="res://Sprites/Misc/Misc/exhaust-sheet.png" id="32_xdgft"]
 [ext_resource type="Script" uid="uid://cwnxio8qjx6at" path="res://Scripts/desk.gd" id="33_hg524"]
 [ext_resource type="Texture2D" uid="uid://by87p84d3wghk" path="res://Sprites/Misc/Móveis/estante de livros.png" id="33_p41nf"]
 [ext_resource type="Texture2D" uid="uid://bdxxb83e4sn33" path="res://Sprites/Misc/Bar/taça 01.png" id="34_l7adm"]
@@ -58,14 +58,13 @@
 [ext_resource type="Shader" uid="uid://ljw3o5pbf52q" path="res://Shaders/noise.gdshader" id="43_wwepo"]
 [ext_resource type="Texture2D" uid="uid://b6n8jjrqicqn4" path="res://Sprites/Misc/Neon Signs/neon sign 04.png" id="44_hg524"]
 [ext_resource type="Shader" uid="uid://rcn5fpdxiksk" path="res://Shaders/glitch.gdshader" id="44_vb5dn"]
-[ext_resource type="Texture2D" uid="uid://bvk837m3k5ka3" path="res://Sprites/suitcase2.png" id="45_af5km"]
 [ext_resource type="Texture2D" uid="uid://dwl3ffotfbfes" path="res://Sprites/Misc/Neon Signs/neon sign 08.png" id="45_t51wr"]
 [ext_resource type="StyleBox" uid="uid://cwimapaxwo1vb" path="res://Resources/clipboard_style.tres" id="46_dkdbt"]
 [ext_resource type="Texture2D" uid="uid://dwh3yfn4467k7" path="res://Sprites/UI/complete_stamp.png" id="47_0tjj1"]
 [ext_resource type="Texture2D" uid="uid://birxoua80njso" path="res://Sprites/UI/coffee_stain1.png" id="48_1b2i8"]
 [ext_resource type="Texture2D" uid="uid://dxrw2hyx7tuey" path="res://Sprites/Misc/Móveis/mesa 01 (com cadeiras).png" id="48_m26tg"]
 [ext_resource type="Texture2D" uid="uid://b4p4007p7paux" path="res://Sprites/Misc/Móveis/mesa de cabeceira.png" id="49_knigu"]
-[ext_resource type="FontFile" uid="uid://di4euix3ybpjy" path="res://TravelingTypewriter.ttf" id="49_rloli"]
+[ext_resource type="FontFile" uid="uid://di4euix3ybpjy" path="res://Fonts/TravelingTypewriter.ttf" id="49_rloli"]
 [ext_resource type="Texture2D" uid="uid://bw6hp41a0rbw7" path="res://Sprites/UI/mission_box_clip.png" id="50_qc6wd"]
 [ext_resource type="Texture2D" uid="uid://b45qv3oiiosqk" path="res://Sprites/UI/botões/paper_button_clipped1.png" id="51_bqp4a"]
 [ext_resource type="Texture2D" uid="uid://t7her8gkawjj" path="res://Sprites/Misc/Misc/quadro 01.png" id="51_l7adm"]
@@ -101,12 +100,46 @@
 [ext_resource type="Texture2D" uid="uid://stoabsnlb387" path="res://Sprites/UI/botões/ícones/voltar.png" id="72_xxfe3"]
 [ext_resource type="Texture2D" uid="uid://kxsnb131u8v6" path="res://Tilesets/mission_box.png" id="76_ug3ro"]
 [ext_resource type="AudioStream" uid="uid://bybpwfuxkyajc" path="res://Audio/Night Soaked Smoke.mp3" id="77_4vy5v"]
+[ext_resource type="Texture2D" uid="uid://bqjs6u8espmua" path="res://Tilesets/dialogue_box_nine-patch.png" id="77_xdgft"]
 [ext_resource type="AudioStream" uid="uid://d3tjaivpaxsy3" path="res://Audio/gatve Varniu.ogg" id="78_gu42v"]
+[ext_resource type="Texture2D" uid="uid://bvk837m3k5ka3" path="res://Sprites/suitcase2.png" id="79_jadc8"]
 [ext_resource type="Texture2D" uid="uid://f3lkx4me8nbx" path="res://Sprites/Misc/Misc/peixe emoldurado.png" id="98_hysq5"]
 [ext_resource type="Texture2D" uid="uid://mqirx3by5f1x" path="res://Sprites/Misc/Misc/fliperama 02 (JOÃO PAVIO).png" id="99_5wv4y"]
 [ext_resource type="Texture2D" uid="uid://l4pq8jkkymsp" path="res://Sprites/Misc/Misc/fliperama 03 (DEADBAIT).png" id="100_ygric"]
-[ext_resource type="Script" path="res://Scripts/mission_complete_area.gd" id="105_xdgft"]
+[ext_resource type="Script" uid="uid://cdi4but64qpde" path="res://Scripts/mission_complete_area.gd" id="105_xdgft"]
 [ext_resource type="AudioStream" uid="uid://buu51cqmxl442" path="res://Audio/doorbell-old-tring.ogg" id="107_jadc8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhi2v"]
+size = Vector2(213, 293)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jadc8"]
+atlas = ExtResource("32_xdgft")
+region = Rect2(0, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhi2v"]
+atlas = ExtResource("32_xdgft")
+region = Rect2(44, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hg524"]
+atlas = ExtResource("32_xdgft")
+region = Rect2(88, 0, 44, 44)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t51wr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jadc8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fhi2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hg524")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
 
 [sub_resource type="Gradient" id="Gradient_fivbj"]
 offsets = PackedFloat32Array(0, 0.562753, 1)
@@ -137,6 +170,10 @@ shader_parameter/shake_rate = 1.0
 shader_parameter/shake_speed = 1.822
 shader_parameter/shake_block_size = 60.0
 shader_parameter/shake_color_rate = 0.003
+
+[sub_resource type="LabelSettings" id="LabelSettings_xdgft"]
+font = ExtResource("49_rloli")
+font_size = 18
 
 [sub_resource type="LabelSettings" id="LabelSettings_y6ovc"]
 font = ExtResource("49_rloli")
@@ -459,9 +496,6 @@ _data = {
 &"tutorial_complete": SubResource("Animation_6vv1j")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhi2v"]
-size = Vector2(213, 293)
-
 [node name="LevelBriefcase" type="Node" groups=["Main"]]
 script = ExtResource("1_mq1ud")
 
@@ -470,6 +504,23 @@ process_mode = 3
 script = ExtResource("2_a30fu")
 
 [node name="ParallaxBackgrounds" parent="." instance=ExtResource("3_a30fu")]
+
+[node name="PurpleBuilding9P1" parent="ParallaxBackgrounds/Parallax Buildings/Purple node 9pbg" index="0"]
+visible = false
+
+[node name="PurpleBuilding9P2" parent="ParallaxBackgrounds/Parallax Buildings/Purple node 9pbg" index="1"]
+visible = false
+
+[node name="PurpleBuilding9P3" parent="ParallaxBackgrounds/Parallax Buildings/Purple node 9pbg" index="2"]
+offset_left = -2228.0
+offset_right = -1447.0
+
+[node name="PurpleBuilding9P4" parent="ParallaxBackgrounds/Parallax Buildings/Purple node 9pbg" index="3"]
+visible = false
+
+[node name="PurpleBuilding9P5" parent="ParallaxBackgrounds/Parallax Buildings/Purple node 9pbg" index="4"]
+offset_left = 1988.0
+offset_right = 2769.0
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 position = Vector2(-944, 471)
@@ -485,6 +536,27 @@ metadata/_edit_lock_ = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InsideArea"]
 polygon = PackedVector2Array(-736, 280, -161, 280, -159, -992, 609, -993, 609, -680, 1185, -680, 1186, 593, -736, 592)
 metadata/_edit_lock_ = true
+
+[node name="MapExitArea" type="Area2D" parent="."]
+position = Vector2(1767, 441)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("105_xdgft")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapExitArea"]
+position = Vector2(-4, -12)
+shape = SubResource("RectangleShape2D_fhi2v")
+debug_color = Color(0.676968, 1, 0.58729, 0.42)
+
+[node name="Phone" type="Sprite2D" parent="MapExitArea"]
+position = Vector2(-1, 63)
+texture = ExtResource("30_xdgft")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="MapExitArea"]
+position = Vector2(-1, 63)
+stream = ExtResource("107_jadc8")
+volume_db = -20.0
+bus = &"SoundFX"
 
 [node name="Poste2" parent="." instance=ExtResource("4_p41nf")]
 position = Vector2(-1434, 451)
@@ -582,12 +654,12 @@ texture = ExtResource("15_ihavg")
 
 [node name="Mesa01" type="Sprite2D" parent="Misc"]
 texture_filter = 1
-position = Vector2(124, 542)
+position = Vector2(153, 542)
 texture = ExtResource("16_ujxbb")
 
 [node name="Mesa02(cadeiraSeparada)" type="Sprite2D" parent="Misc"]
 texture_filter = 1
-position = Vector2(74, 540)
+position = Vector2(103, 540)
 texture = ExtResource("17_02qxv")
 
 [node name="Poltrona01" type="Sprite2D" parent="Misc"]
@@ -662,9 +734,11 @@ texture_filter = 3
 position = Vector2(756, 356)
 texture = ExtResource("27_gd2m3")
 
-[node name="Ventilação02" type="Sprite2D" parent="Misc"]
+[node name="Ventilação02" type="AnimatedSprite2D" parent="Misc"]
 position = Vector2(-91, 33)
-texture = ExtResource("28_ebovh")
+sprite_frames = SubResource("SpriteFrames_t51wr")
+autoplay = "default"
+frame_progress = 0.213335
 
 [node name="Ventilação03" type="Sprite2D" parent="Misc"]
 texture_filter = 3
@@ -684,6 +758,30 @@ texture = ExtResource("32_6ukmb")
 
 [node name="JanelaB3" type="Sprite2D" parent="Misc"]
 position = Vector2(-1692, 101)
+texture = ExtResource("32_6ukmb")
+
+[node name="JanelaB5" type="Sprite2D" parent="Misc"]
+position = Vector2(2464, 406)
+texture = ExtResource("32_6ukmb")
+
+[node name="JanelaB6" type="Sprite2D" parent="Misc"]
+position = Vector2(2464, 105)
+texture = ExtResource("32_6ukmb")
+
+[node name="JanelaB7" type="Sprite2D" parent="Misc"]
+position = Vector2(2738, 406)
+texture = ExtResource("32_6ukmb")
+
+[node name="JanelaB8" type="Sprite2D" parent="Misc"]
+position = Vector2(2738, 105)
+texture = ExtResource("32_6ukmb")
+
+[node name="JanelaB9" type="Sprite2D" parent="Misc"]
+position = Vector2(2464, -223)
+texture = ExtResource("32_6ukmb")
+
+[node name="JanelaB10" type="Sprite2D" parent="Misc"]
+position = Vector2(2738, -223)
 texture = ExtResource("32_6ukmb")
 
 [node name="JanelaB4" type="Sprite2D" parent="Misc"]
@@ -724,7 +822,7 @@ position = Vector2(206, 450)
 texture = ExtResource("38_gd2m3")
 
 [node name="Garrafa02" type="Sprite2D" parent="Misc"]
-position = Vector2(105, 494)
+position = Vector2(134, 494)
 texture = ExtResource("39_ebovh")
 
 [node name="Garrafa01" type="Sprite2D" parent="Misc"]
@@ -732,7 +830,7 @@ position = Vector2(337, 482)
 texture = ExtResource("40_6c82m")
 
 [node name="Lata" type="Sprite2D" parent="Misc"]
-position = Vector2(142, 500)
+position = Vector2(171, 500)
 texture = ExtResource("41_xdgft")
 
 [node name="Lata2" type="Sprite2D" parent="Misc"]
@@ -741,7 +839,7 @@ texture = ExtResource("41_xdgft")
 flip_h = true
 
 [node name="Engradado03" type="Sprite2D" parent="Misc"]
-position = Vector2(250, 558)
+position = Vector2(258, 558)
 texture = ExtResource("42_jadc8")
 
 [node name="NeonSign02" type="Sprite2D" parent="Misc"]
@@ -768,7 +866,7 @@ position = Vector2(278, -107)
 texture = ExtResource("48_m26tg")
 
 [node name="Mesa02(cadeiraSeparada)2" type="Sprite2D" parent="Misc"]
-position = Vector2(182, 541)
+position = Vector2(211, 541)
 texture = ExtResource("17_02qxv")
 flip_h = true
 
@@ -781,7 +879,7 @@ position = Vector2(101, 397)
 texture = ExtResource("98_hysq5")
 
 [node name="Fliperama02(joãoPavio)" type="Sprite2D" parent="Misc"]
-position = Vector2(-1, 515)
+position = Vector2(4, 515)
 texture = ExtResource("99_5wv4y")
 
 [node name="Fliperama03(deadbait)" type="Sprite2D" parent="Misc"]
@@ -938,9 +1036,8 @@ position = Vector2(833, 308)
 metadata/_edit_lock_ = true
 
 [node name="LightSwitch" parent="Lights" node_paths=PackedStringArray("connected_lights") instance=ExtResource("35_0nuqm")]
-position = Vector2(610, 510)
+position = Vector2(638, 510)
 connected_lights = [NodePath("../GroundLight1")]
-metadata/_edit_lock_ = true
 
 [node name="GroundLight2" parent="Lights" instance=ExtResource("36_oxmew")]
 position = Vector2(1500, 308)
@@ -1028,47 +1125,57 @@ metadata/_edit_lock_ = true
 [node name="Pistol" parent="Weapons" instance=ExtResource("39_hysq5")]
 position = Vector2(-13, 232)
 weapon_name = "Pistol"
-max_ammo = 8
+current_ammo = 6
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("40_5wv4y")]
-position = Vector2(-1145, 512)
+position = Vector2(-1054, 512)
 
 [node name="Enemies" type="Node" parent="."]
 
 [node name="RangedEnemy" parent="Enemies" instance=ExtResource("41_ygric")]
 position = Vector2(436, 536)
+metadata/_edit_lock_ = true
 
 [node name="RangedEnemy2" parent="Enemies" instance=ExtResource("41_ygric")]
 position = Vector2(126, -109)
 start_state = 7
+metadata/_edit_lock_ = true
 
 [node name="RangedEnemy3" parent="Enemies" instance=ExtResource("41_ygric")]
 position = Vector2(801, -108)
 start_state = 7
+metadata/_edit_lock_ = true
 
 [node name="Grunt2" parent="Enemies" instance=ExtResource("42_fivbj")]
 position = Vector2(588, 213)
+metadata/_edit_lock_ = true
 
 [node name="Grunt3" parent="Enemies" instance=ExtResource("42_fivbj")]
 position = Vector2(-106, 215)
 facing = 1
+metadata/_edit_lock_ = true
 
 [node name="Grunt4" parent="Enemies" instance=ExtResource("42_fivbj")]
 position = Vector2(342, 213)
 start_state = 7
+metadata/_edit_lock_ = true
 
 [node name="Grunt5" parent="Enemies" instance=ExtResource("42_fivbj")]
 position = Vector2(417, -432)
+metadata/_edit_lock_ = true
 
 [node name="Grunt6" parent="Enemies" instance=ExtResource("42_fivbj")]
 position = Vector2(648, -426)
+metadata/_edit_lock_ = true
 
 [node name="RangedEnemy4" parent="Enemies" instance=ExtResource("41_ygric")]
 position = Vector2(841, -430)
+facing = 1
+metadata/_edit_lock_ = true
 
 [node name="RangedEnemy5" parent="Enemies" instance=ExtResource("41_ygric")]
-position = Vector2(6, -426)
+position = Vector2(50, -426)
 facing = 1
 
 [node name="MapBoundary" type="StaticBody2D" parent="."]
@@ -1081,7 +1188,7 @@ position = Vector2(-80, -794.5)
 shape = SubResource("RectangleShape2D_e8hb2")
 
 [node name="MapBoundary2" type="StaticBody2D" parent="."]
-position = Vector2(2728, 362)
+position = Vector2(3020, 362)
 collision_layer = 3
 collision_mask = 3
 
@@ -1126,6 +1233,154 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
+[node name="ObjectiveBox" type="Control" parent="CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ObjectivePatch" type="NinePatchRect" parent="CanvasLayer3/UI/ObjectiveBox"]
+self_modulate = Color(0.605274, 0.605274, 0.605275, 0.939)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.5
+offset_top = 15.0
+offset_right = 160.5
+offset_bottom = 145.0
+grow_horizontal = 2
+texture = ExtResource("77_xdgft")
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 1
+
+[node name="ObjectiveLabel" type="RichTextLabel" parent="CanvasLayer3/UI/ObjectiveBox"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -117.0
+offset_top = 64.0
+offset_right = 117.0
+offset_bottom = 93.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("49_rloli")
+bbcode_enabled = true
+text = "Encontre a maleta."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ObjectiveImage" type="TextureRect" parent="CanvasLayer3/UI/ObjectiveBox"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = 139.0
+offset_right = 32.0
+offset_bottom = 203.0
+grow_horizontal = 2
+texture = ExtResource("79_jadc8")
+
+[node name="InteractionBox" type="Control" parent="CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="InteractionPatch" type="NinePatchRect" parent="CanvasLayer3/UI/InteractionBox"]
+self_modulate = Color(0.605274, 0.605274, 0.605275, 0.939)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.5
+offset_top = -160.0
+offset_right = 180.5
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("77_xdgft")
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 1
+
+[node name="InteractionLabel" type="RichTextLabel" parent="CanvasLayer3/UI/InteractionBox"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -131.0
+offset_top = -115.0
+offset_right = 133.0
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("49_rloli")
+theme_override_fonts/bold_font = ExtResource("49_rloli")
+theme_override_font_sizes/bold_font_size = 26
+bbcode_enabled = true
+text = "Pressione [b]'E'[/b] para interagir"
+horizontal_alignment = 1
+
+[node name="CarriedWeaponBox" type="Control" parent="CanvasLayer3/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WeaponPatch" type="NinePatchRect" parent="CanvasLayer3/UI/CarriedWeaponBox"]
+self_modulate = Color(0.605274, 0.605274, 0.605275, 0.939)
+layout_mode = 0
+offset_left = -4.0
+offset_top = 16.0
+offset_right = 236.0
+offset_bottom = 160.0
+texture = ExtResource("77_xdgft")
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 1
+
+[node name="CarriedWeaponSprite" type="TextureRect" parent="CanvasLayer3/UI/CarriedWeaponBox"]
+layout_mode = 0
+offset_left = 62.0
+offset_top = 70.0
+offset_right = 102.0
+offset_bottom = 110.0
+
+[node name="AmmoLabel" type="Label" parent="CanvasLayer3/UI/CarriedWeaponBox"]
+layout_mode = 0
+offset_left = 143.0
+offset_top = 78.0
+offset_right = 199.0
+offset_bottom = 102.0
+text = "99/99"
+label_settings = SubResource("LabelSettings_xdgft")
+
 [node name="Button" type="Button" parent="CanvasLayer3/UI"]
 visible = false
 layout_mode = 1
@@ -1142,72 +1397,6 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "RESTART"
 metadata/_edit_use_anchors_ = true
-
-[node name="ObjectiveLabel" type="Label" parent="CanvasLayer3/UI"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -70.5
-offset_top = 50.0
-offset_right = 70.5
-offset_bottom = 73.0
-grow_horizontal = 2
-text = "Encontre a maleta"
-horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="InteractionLabel" type="Label" parent="CanvasLayer3/UI"]
-visible = false
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -103.5
-offset_top = -105.0
-offset_right = 103.5
-offset_bottom = -82.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Pressione 'E' para interagir"
-horizontal_alignment = 1
-
-[node name="CarriedWeapon" type="TextureRect" parent="CanvasLayer3/UI"]
-layout_mode = 0
-offset_left = 81.0
-offset_top = 79.0
-offset_right = 121.0
-offset_bottom = 119.0
-
-[node name="AmmoLabel" type="Label" parent="CanvasLayer3/UI"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.04375
-anchor_top = 0.00833333
-anchor_right = 0.04375
-anchor_bottom = 0.00833333
-offset_left = 89.0
-offset_top = 82.0
-offset_right = 145.0
-offset_bottom = 105.0
-text = "9/9"
-metadata/_edit_use_anchors_ = true
-
-[node name="ObjectiveImage" type="TextureRect" parent="CanvasLayer3/UI"]
-visible = false
-texture_filter = 3
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -28.0
-offset_top = 115.0
-offset_right = 36.0
-offset_bottom = 179.0
-grow_horizontal = 2
-texture = ExtResource("45_af5km")
 
 [node name="WinMenu" type="Control" parent="CanvasLayer3/UI"]
 visible = false
@@ -1957,34 +2146,14 @@ process_mode = 3
 stream = ExtResource("78_gu42v")
 volume_db = -28.0
 pitch_scale = 0.85
-autoplay = true
 mix_target = 1
 max_polyphony = 2
 bus = &"Music"
 playback_type = 1
 
-[node name="MapExitArea" type="Area2D" parent="."]
-position = Vector2(1767, 441)
-collision_layer = 3
-collision_mask = 3
-script = ExtResource("105_xdgft")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MapExitArea"]
-position = Vector2(-4, -12)
-shape = SubResource("RectangleShape2D_fhi2v")
-debug_color = Color(0.676968, 1, 0.58729, 0.42)
-
-[node name="Phone" type="Sprite2D" parent="MapExitArea"]
-position = Vector2(-1, 63)
-texture = ExtResource("30_xdgft")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="MapExitArea"]
-position = Vector2(-1, 63)
-stream = ExtResource("107_jadc8")
-volume_db = -20.0
-bus = &"SoundFX"
-
 [connection signal="body_exited" from="InsideArea" to="." method="_on_inside_area_body_exited"]
+[connection signal="body_entered" from="MapExitArea" to="." method="_on_map_exit_area_body_entered"]
+[connection signal="body_entered" from="MapExitArea" to="MapExitArea" method="_on_body_entered"]
 [connection signal="body_entered" from="Interactables/Desk/InteractArea" to="Interactables/Desk" method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="Interactables/Desk/InteractArea" to="Interactables/Desk" method="_on_interact_area_body_exited"]
 [connection signal="pressed" from="CanvasLayer3/UI/Button" to="." method="_on_button_pressed"]
@@ -2012,8 +2181,6 @@ bus = &"SoundFX"
 [connection signal="toggled" from="CanvasLayer3/UI/PauseMenu/Panel/FullScreen/FullscreenToggle" to="CanvasLayer3/UI/PauseMenu/Panel/FullScreen/FullscreenToggle" method="_on_toggled"]
 [connection signal="pressed" from="CanvasLayer3/UI/PauseMenu/Panel/ButtonQuit" to="PauseManager" method="_on_button_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer3/UI/PauseMenu/Panel/ButtonContinue" to="PauseManager" method="_on_button_continue_pressed"]
-[connection signal="body_entered" from="MapExitArea" to="." method="_on_map_exit_area_body_entered"]
-[connection signal="body_entered" from="MapExitArea" to="MapExitArea" method="_on_body_entered"]
 
 [editable path="ParallaxBackgrounds"]
 [editable path="Doors/SpriteDoor4"]
