@@ -22,10 +22,10 @@ texture = ExtResource("1_75u4d")
 
 [node name="ParallaxBG2" type="Parallax2D" parent="."]
 z_index = -4
-scroll_scale = Vector2(0.7, 1)
-scroll_offset = Vector2(0, 1)
-repeat_size = Vector2(2, 1)
-autoscroll = Vector2(1, 1)
+scroll_scale = Vector2(0.7, 0.8)
+scroll_offset = Vector2(2, 1)
+repeat_size = Vector2(0, 1)
+autoscroll = Vector2(2, 0)
 repeat_times = 3
 screen_offset = Vector2(0, 1)
 
@@ -33,15 +33,30 @@ screen_offset = Vector2(0, 1)
 position = Vector2(638, 354)
 texture = ExtResource("2_tf1vx")
 
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBG2"]
+position = Vector2(1918, 359)
+texture = ExtResource("2_tf1vx")
+
 [node name="Sprite2D2" type="Sprite2D" parent="ParallaxBG2"]
+position = Vector2(-642, 359)
+texture = ExtResource("2_tf1vx")
+
+[node name="ParallaxBG3" type="Parallax2D" parent="."]
+z_index = -4
+scroll_scale = Vector2(0.7, 1)
+scroll_offset = Vector2(2, 1)
+repeat_size = Vector2(0, 1)
+repeat_times = 3
+screen_offset = Vector2(0, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBG3"]
 position = Vector2(638, 360)
 texture = ExtResource("3_tf1vx")
 
 [node name="Parallax City view" type="Parallax2D" parent="."]
 z_index = -3
-scroll_scale = Vector2(1, 0)
-repeat_size = Vector2(1, 1)
-autoscroll = Vector2(1, 0)
+scroll_scale = Vector2(0.3, 0)
+scroll_offset = Vector2(0.2, 0)
 repeat_times = 3
 follow_viewport = false
 
@@ -58,6 +73,7 @@ position = Vector2(-644, 335)
 texture = ExtResource("3_ncupq")
 
 [node name="Parallax Buildings" type="Parallax2D" parent="."]
+visible = false
 z_index = -1
 texture_repeat = 2
 scroll_scale = Vector2(0, 5)
