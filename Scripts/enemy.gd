@@ -66,7 +66,8 @@ enum States {
 	COOLDOWN,
 	DAMAGE,
 	AIM,
-	DEAD
+	DEAD,
+	MOVE_TO_TARGET,
 }
 
 enum Facing { LEFT, RIGHT }
@@ -296,6 +297,8 @@ func set_state(new_state: States) -> void:
 			suspicion_timer.stop()
 			
 			animated_sprite.play("walk")
+		States.MOVE_TO_TARGET:
+			animated_sprite.play("walk")
 		#_:
 			#print(state)
 			#state_sprite.visible = false
@@ -385,7 +388,6 @@ func handle_states(delta) -> void:
 					shoot()
 					
 					set_state(States.COOLDOWN)
-			
 		States.COOLDOWN:
 			cooldown_counter += delta
 			if cooldown_counter >= attack_cooldown:
@@ -450,7 +452,8 @@ func handle_states(delta) -> void:
 					set_state(States.ROAMING)
 				else:
 					set_state(States.SUSPICIOUS)
-		
+		States.MOVE_TO_TARGET:
+			velocity.x = global_position.direction_to(target_position).x * roam_speed
 	move_and_slide()
 
 func shoot() -> void:

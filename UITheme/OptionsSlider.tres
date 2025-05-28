@@ -1,0 +1,19 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bji81fmrhfpqf"]
+
+[ext_resource type="Texture2D" uid="uid://bo4uplbs83v55" path="res://Sprites/UI/pause_config_grabber1.png" id="1_8508f"]
+[ext_resource type="Texture2D" uid="uid://0sk8en6atm7a" path="res://Sprites/UI/pause_config_chekbox_checked.png" id="1_lrekv"]
+[ext_resource type="Texture2D" uid="uid://dvajxq2144483" path="res://Sprites/UI/pause_config_chekbox.png" id="2_6062x"]
+[ext_resource type="StyleBox" uid="uid://b522obrqapdcw" path="res://Resources/pause_config_slider_fill.tres" id="2_q27ai"]
+[ext_resource type="StyleBox" uid="uid://c6ncchgyoq5wy" path="res://Resources/pause_config_slider_highlight.tres" id="3_lrekv"]
+[ext_resource type="StyleBox" uid="uid://di2ovf7c8nvyh" path="res://Resources/pause_config_slider_base.tres" id="4_6062x"]
+
+[resource]
+CheckButton/icons/checked = ExtResource("1_lrekv")
+CheckButton/icons/unchecked = ExtResource("2_6062x")
+HSlider/icons/grabber = ExtResource("1_8508f")
+HSlider/icons/grabber_disabled = ExtResource("1_8508f")
+HSlider/icons/grabber_highlight = ExtResource("1_8508f")
+HSlider/icons/tick = null
+HSlider/styles/grabber_area = ExtResource("2_q27ai")
+HSlider/styles/grabber_area_highlight = ExtResource("3_lrekv")
+HSlider/styles/slider = ExtResource("4_6062x")

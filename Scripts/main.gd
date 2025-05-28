@@ -17,6 +17,9 @@ extends Node
 @onready var mission_box: Control = $CanvasLayer3/UI/MissionBox
 @onready var mission_box_player: AnimationPlayer = $CanvasLayer3/UI/MissionBox/MissionBoxPlayer
 
+@onready var death_timer: Timer = $DeathTimer
+@onready var win_timer: Timer = $WinTimer
+
 var objective_complete := false
 
 func _ready() -> void:
@@ -44,11 +47,13 @@ func _process(delta: float) -> void:
 	if PlayerManager.briefcase_found and !objective_complete:
 		mission_box_player.play("mission_1_complete")
 		objective_complete = true
-		objective_box.visible = true
+		objective_image.visible = true
 		objective_label.text = "Você encontrou a maleta!"
 	
 	if PlayerManager.is_player_dead:
-		lose_menu.visible = true
+		if death_timer.is_stopped():
+			death_timer.start()
+		#lose_menu.visible = true
 
 # debug mode restart
 func _on_button_pressed() -> void:
@@ -58,7 +63,9 @@ func _on_button_pressed() -> void:
 func _on_map_exit_area_body_entered(body: Node2D) -> void:
 	if objective_complete:
 		PlayerManager.game_complete = true
-		win_menu.visible = true
+		
+		if win_timer.is_stopped():
+			win_timer.start()
 
 func _on_button_quit_pressed() -> void:
 	get_tree().quit()
@@ -79,7 +86,19 @@ func _on_button_main_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Menus/MainMenu.tscn")
 
 func play_mission_complete_audio() -> void:
-	Audio.play("res://Audio/FX/mission_win.ogg", -15)
+	Audio.play("res://Audio/FX/mission_win.ogg", -5)
 
+func _on_button_restart_pressed() -> void:
+	PlayerManager.restart()
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+func _on_death_timer_timeout() -> void:
+	#print("death timer time out!")
+	lose_menu.visible = true
+	
 #func _on_mission_box_player_animation_finished(anim_name: StringName) -> void:
 	#mission_box_player.play("idle")
+
+func _on_win_timer_timeout() -> void:
+	win_menu.visible = true

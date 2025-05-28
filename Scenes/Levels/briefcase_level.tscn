@@ -1,7 +1,8 @@
-[gd_scene load_steps=144 format=4 uid="uid://duj3s4w2q8fx1"]
+[gd_scene load_steps=150 format=4 uid="uid://duj3s4w2q8fx1"]
 
 [ext_resource type="Script" uid="uid://c8qdpmg0ccqd" path="res://Scripts/main.gd" id="1_mq1ud"]
 [ext_resource type="Script" uid="uid://ctuy0d1nxcxf1" path="res://Scripts/pause_manager.gd" id="2_a30fu"]
+[ext_resource type="Script" uid="uid://dn6lcco5d00tp" path="res://Scripts/scene_transition.gd" id="2_fhi2v"]
 [ext_resource type="Script" uid="uid://bnx4g7k2bwjk7" path="res://Scripts/camera.gd" id="3_6ukmb"]
 [ext_resource type="PackedScene" uid="uid://byrom8vbjgcxo" path="res://Scenes/parallax_backgrounds.tscn" id="3_a30fu"]
 [ext_resource type="PackedScene" uid="uid://bljkigdqi5ipq" path="res://Scenes/Scenery/poste.tscn" id="4_p41nf"]
@@ -103,14 +104,75 @@
 [ext_resource type="Texture2D" uid="uid://bqjs6u8espmua" path="res://Tilesets/dialogue_box_nine-patch.png" id="77_xdgft"]
 [ext_resource type="AudioStream" uid="uid://d3tjaivpaxsy3" path="res://Audio/gatve Varniu.ogg" id="78_gu42v"]
 [ext_resource type="Texture2D" uid="uid://bvk837m3k5ka3" path="res://Sprites/suitcase2.png" id="79_jadc8"]
+[ext_resource type="Theme" uid="uid://bji81fmrhfpqf" path="res://UITheme/OptionsSlider.tres" id="96_t51wr"]
 [ext_resource type="Texture2D" uid="uid://f3lkx4me8nbx" path="res://Sprites/Misc/Misc/peixe emoldurado.png" id="98_hysq5"]
 [ext_resource type="Texture2D" uid="uid://mqirx3by5f1x" path="res://Sprites/Misc/Misc/fliperama 02 (JOÃO PAVIO).png" id="99_5wv4y"]
 [ext_resource type="Texture2D" uid="uid://l4pq8jkkymsp" path="res://Sprites/Misc/Misc/fliperama 03 (DEADBAIT).png" id="100_ygric"]
 [ext_resource type="Script" uid="uid://cdi4but64qpde" path="res://Scripts/mission_complete_area.gd" id="105_xdgft"]
+[ext_resource type="Texture2D" uid="uid://cc0dlfsjhrcr0" path="res://Sprites/UI/botões/ícones/restart.png" id="107_hg524"]
 [ext_resource type="AudioStream" uid="uid://buu51cqmxl442" path="res://Audio/doorbell-old-tring.ogg" id="107_jadc8"]
 
+[sub_resource type="Gradient" id="Gradient_fhi2v"]
+colors = PackedColorArray(0.0389141, 0.0216585, 0.0563496, 1, 0.153372, 0.0585795, 0.171883, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t51wr"]
+gradient = SubResource("Gradient_fhi2v")
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_m26tg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0nuqm"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_oxmew"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:self_modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_knigu"]
+_data = {
+&"RESET": SubResource("Animation_m26tg"),
+&"fade_in": SubResource("Animation_0nuqm"),
+&"fade_out": SubResource("Animation_oxmew")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fhi2v"]
-size = Vector2(213, 293)
+size = Vector2(38, 293)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jadc8"]
 atlas = ExtResource("32_xdgft")
@@ -228,26 +290,6 @@ font_size = 48
 [sub_resource type="LabelSettings" id="LabelSettings_3nlul"]
 font = ExtResource("49_rloli")
 font_size = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_67v8e"]
-draw_center = false
-border_width_top = 2
-border_width_bottom = 2
-border_color = Color(0.305649, 0.117356, 0.221923, 1)
-shadow_color = Color(0.870494, 0.000114647, 0.71221, 0.6)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aaquo"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-draw_center = false
-border_width_top = 2
-border_width_bottom = 2
-border_color = Color(0.250675, 0.498702, 0.236734, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqdx3"]
-draw_center = false
-border_width_top = 2
-border_width_bottom = 2
-border_color = Color(0.155504, 0.653868, 0.492289, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_u0tej"]
 font = ExtResource("49_rloli")
@@ -499,6 +541,32 @@ _data = {
 [node name="LevelBriefcase" type="Node" groups=["Main"]]
 script = ExtResource("1_mq1ud")
 
+[node name="WinTimer" type="Timer" parent="."]
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="SceneTransitionLayer" type="CanvasLayer" parent="."]
+layer = 8
+script = ExtResource("2_fhi2v")
+
+[node name="TextureRect" type="TextureRect" parent="SceneTransitionLayer"]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_t51wr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SceneTransitionLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_knigu")
+}
+autoplay = "fade_out"
+
 [node name="PauseManager" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("2_a30fu")
@@ -544,7 +612,7 @@ collision_mask = 3
 script = ExtResource("105_xdgft")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapExitArea"]
-position = Vector2(-4, -12)
+position = Vector2(-1, -12)
 shape = SubResource("RectangleShape2D_fhi2v")
 debug_color = Color(0.676968, 1, 0.58729, 0.42)
 
@@ -1129,7 +1197,7 @@ current_ammo = 6
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("40_5wv4y")]
-position = Vector2(-1054, 512)
+position = Vector2(-947, 513)
 
 [node name="Enemies" type="Node" parent="."]
 
@@ -1799,10 +1867,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 383.0
-offset_top = 92.0
-offset_right = -383.0
-offset_bottom = -92.0
+offset_left = 378.0
+offset_top = 66.0
+offset_right = -378.0
+offset_bottom = -76.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("60_si1l0")
@@ -1813,9 +1881,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -136.0
-offset_top = 53.0
+offset_top = 48.0
 offset_right = 226.0
-offset_bottom = 124.0
+offset_bottom = 119.0
 grow_horizontal = 2
 text = "Jogo Pausado"
 label_settings = SubResource("LabelSettings_aaquo")
@@ -1824,9 +1892,9 @@ horizontal_alignment = 1
 [node name="PauseIcon" type="TextureRect" parent="CanvasLayer3/UI/PauseMenu/Panel"]
 layout_mode = 1
 offset_left = 36.0
-offset_top = 47.0
+offset_top = 42.0
 offset_right = 115.0
-offset_bottom = 126.0
+offset_bottom = 121.0
 texture = ExtResource("61_v7fcb")
 
 [node name="VolumeMaster" type="Label" parent="CanvasLayer3/UI/PauseMenu/Panel"]
@@ -1837,9 +1905,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -166.0
-offset_top = -16.0
+offset_top = -64.0
 offset_right = -41.0
-offset_bottom = 18.0
+offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
@@ -1859,9 +1927,7 @@ offset_right = 306.5
 offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/slider = SubResource("StyleBoxFlat_67v8e")
-theme_override_styles/grabber_area = SubResource("StyleBoxFlat_aaquo")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_aqdx3")
+theme = ExtResource("96_t51wr")
 max_value = 1.0
 step = 0.05
 value = 1.0
@@ -1884,9 +1950,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -166.0
-offset_top = 22.0
+offset_top = -26.0
 offset_right = -41.0
-offset_bottom = 56.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
@@ -1906,9 +1972,7 @@ offset_right = 306.5
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/slider = SubResource("StyleBoxFlat_67v8e")
-theme_override_styles/grabber_area = SubResource("StyleBoxFlat_aaquo")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_aqdx3")
+theme = ExtResource("96_t51wr")
 max_value = 1.0
 step = 0.05
 value = 1.0
@@ -1932,9 +1996,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -166.0
-offset_top = 59.0
+offset_top = 11.0
 offset_right = 20.0
-offset_bottom = 93.0
+offset_bottom = 45.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
@@ -1954,9 +2018,7 @@ offset_right = 276.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/slider = SubResource("StyleBoxFlat_67v8e")
-theme_override_styles/grabber_area = SubResource("StyleBoxFlat_aaquo")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_aqdx3")
+theme = ExtResource("96_t51wr")
 max_value = 1.0
 step = 0.05
 value = 1.0
@@ -1980,12 +2042,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -184.0
-offset_top = -97.0
+offset_top = -140.0
 offset_right = -47.0
-offset_bottom = -63.0
+offset_bottom = -106.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Fullscreen"
+text = "Tela-cheia"
 label_settings = SubResource("LabelSettings_u0tej")
 
 [node name="FullscreenToggle" type="CheckButton" parent="CanvasLayer3/UI/PauseMenu/Panel/FullScreen"]
@@ -1995,18 +2057,24 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 141.5
-offset_top = -45.5
-offset_right = 325.5
-offset_bottom = 50.5
+offset_left = 96.5
+offset_top = -45.0
+offset_right = 336.5
+offset_bottom = 51.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("96_t51wr")
 theme_override_fonts/font = ExtResource("49_rloli")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jadc8")
+theme_override_styles/hover_pressed_mirrored = ExtResource("67_h1wt5")
+theme_override_styles/hover_pressed = ExtResource("67_h1wt5")
+theme_override_styles/hover_mirrored = ExtResource("66_jf6hn")
 theme_override_styles/hover = ExtResource("66_jf6hn")
+theme_override_styles/pressed_mirrored = ExtResource("67_h1wt5")
 theme_override_styles/pressed = ExtResource("67_h1wt5")
+theme_override_styles/normal_mirrored = ExtResource("68_111vl")
 theme_override_styles/normal = ExtResource("68_111vl")
-text = "   off"
+text = "   Desligado"
 icon = ExtResource("69_1qs0u")
 script = ExtResource("70_u5thu")
 
@@ -2017,10 +2085,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -190.0
-offset_top = -150.0
-offset_right = -38.0
-offset_bottom = -54.0
+offset_left = -83.0
+offset_top = -119.0
+offset_right = 69.0
+offset_bottom = -23.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("49_rloli")
@@ -2039,10 +2107,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -12.5
-offset_top = -150.0
-offset_right = 208.5
-offset_bottom = -54.0
+offset_left = 2.0
+offset_top = -224.0
+offset_right = 223.0
+offset_bottom = -128.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("49_rloli")
@@ -2053,6 +2121,28 @@ theme_override_styles/pressed = ExtResource("67_h1wt5")
 theme_override_styles/normal = ExtResource("68_111vl")
 text = "CONTINUAR"
 icon = ExtResource("72_xxfe3")
+
+[node name="ButtonRestart" type="Button" parent="CanvasLayer3/UI/PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -225.0
+offset_top = -223.0
+offset_right = -9.0
+offset_bottom = -127.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("49_rloli")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6c82m")
+theme_override_styles/hover = ExtResource("66_jf6hn")
+theme_override_styles/pressed = ExtResource("67_h1wt5")
+theme_override_styles/normal = ExtResource("68_111vl")
+text = "REINICIAR"
+icon = ExtResource("107_hg524")
 
 [node name="MissionBox" type="Control" parent="CanvasLayer3/UI"]
 layout_mode = 1
@@ -2151,6 +2241,9 @@ max_polyphony = 2
 bus = &"Music"
 playback_type = 1
 
+[connection signal="timeout" from="WinTimer" to="." method="_on_win_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="animation_finished" from="SceneTransitionLayer/AnimationPlayer" to="SceneTransitionLayer" method="_on_animation_player_animation_finished"]
 [connection signal="body_exited" from="InsideArea" to="." method="_on_inside_area_body_exited"]
 [connection signal="body_entered" from="MapExitArea" to="." method="_on_map_exit_area_body_entered"]
 [connection signal="body_entered" from="MapExitArea" to="MapExitArea" method="_on_body_entered"]
@@ -2175,12 +2268,16 @@ playback_type = 1
 [connection signal="mouse_exited" from="CanvasLayer3/UI/LoseMenu/ButtonMainMenu" to="CanvasLayer3/UI/LoseMenu/ButtonMainMenu" method="_on_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer3/UI/LoseMenu/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
 [connection signal="pressed" from="CanvasLayer3/UI/LoseMenu/ButtonMainMenu" to="CanvasLayer3/UI/LoseMenu/ButtonMainMenu" method="_on_pressed"]
+[connection signal="mouse_exited" from="CanvasLayer3/UI/PauseMenu/Panel/VolumeMaster/Slider" to="CanvasLayer3/UI/PauseMenu/Panel/VolumeMaster/Slider" method="_on_mouse_exited"]
 [connection signal="value_changed" from="CanvasLayer3/UI/PauseMenu/Panel/VolumeMaster/Slider" to="CanvasLayer3/UI/PauseMenu/Panel/VolumeMaster/Slider" method="_on_value_changed"]
+[connection signal="mouse_exited" from="CanvasLayer3/UI/PauseMenu/Panel/VolumeMusic/Slider" to="CanvasLayer3/UI/PauseMenu/Panel/VolumeMusic/Slider" method="_on_mouse_exited"]
 [connection signal="value_changed" from="CanvasLayer3/UI/PauseMenu/Panel/VolumeMusic/Slider" to="CanvasLayer3/UI/PauseMenu/Panel/VolumeMusic/Slider" method="_on_value_changed"]
+[connection signal="mouse_exited" from="CanvasLayer3/UI/PauseMenu/Panel/VolumeSFX/Slider" to="CanvasLayer3/UI/PauseMenu/Panel/VolumeSFX/Slider" method="_on_mouse_exited"]
 [connection signal="value_changed" from="CanvasLayer3/UI/PauseMenu/Panel/VolumeSFX/Slider" to="CanvasLayer3/UI/PauseMenu/Panel/VolumeSFX/Slider" method="_on_value_changed"]
 [connection signal="toggled" from="CanvasLayer3/UI/PauseMenu/Panel/FullScreen/FullscreenToggle" to="CanvasLayer3/UI/PauseMenu/Panel/FullScreen/FullscreenToggle" method="_on_toggled"]
 [connection signal="pressed" from="CanvasLayer3/UI/PauseMenu/Panel/ButtonQuit" to="PauseManager" method="_on_button_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer3/UI/PauseMenu/Panel/ButtonContinue" to="PauseManager" method="_on_button_continue_pressed"]
+[connection signal="pressed" from="CanvasLayer3/UI/PauseMenu/Panel/ButtonRestart" to="." method="_on_button_restart_pressed"]
 
 [editable path="ParallaxBackgrounds"]
 [editable path="Doors/SpriteDoor4"]
