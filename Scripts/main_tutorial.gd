@@ -23,12 +23,19 @@ extends Node
 var objective_complete := false
 var enemy_counter := 0
 
+var cursor_arrow = load("res://Sprites/UI/cursors/cursores1.png")
+var cursor_arrow_clicked = load("res://Sprites/UI/cursors/cursores2.png")
+var cursor_aim = load("res://Sprites/UI/reticulo.png")
+
 func _ready() -> void:
 	var enemies_all = get_tree().get_nodes_in_group("Enemy")
+	enemy_counter = 0
+	
 	for enemy in enemies_all:
 		enemy_counter += 1
 	
 	PlayerManager.player = get_tree().get_first_node_in_group("Player")
+	Input.set_custom_mouse_cursor(cursor_aim)
 
 func _process(delta: float) -> void:
 	if PlayerManager.player.carried_weapon:

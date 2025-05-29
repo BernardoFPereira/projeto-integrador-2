@@ -309,6 +309,9 @@ func handle_states(delta) -> void:
 			velocity.x = 0
 		
 		States.WALK:
+			if velocity.y < 0:
+				set_state(States.FALL)
+				
 			if direction.x:
 				velocity.x = direction.x * SPEED
 			else:
