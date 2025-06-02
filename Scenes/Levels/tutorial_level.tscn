@@ -1173,7 +1173,7 @@ max_ammo = 8
 current_ammo = 1
 
 [node name="Player" parent="." instance=ExtResource("28_0q0y7")]
-position = Vector2(1067, -141)
+position = Vector2(-281, 509)
 
 [node name="MapBoundary" type="StaticBody2D" parent="."]
 position = Vector2(-1216, 362)

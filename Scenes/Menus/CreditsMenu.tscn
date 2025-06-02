@@ -57,11 +57,12 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 38.0
-offset_top = -454.0
-offset_right = 478.0
-offset_bottom = -279.0
+offset_left = 27.0
+offset_top = -440.0
+offset_right = 467.0
+offset_bottom = -265.0
 grow_vertical = 0
+rotation = -0.0271586
 theme_override_colors/default_color = Color(7.97166e-08, 0.120936, 0.0756656, 1)
 theme_override_fonts/normal_font = ExtResource("4_t14fh")
 theme_override_font_sizes/normal_font_size = 22
@@ -77,10 +78,11 @@ horizontal_alignment = 1
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="CreditsMenu"]
 layout_mode = 1
-offset_left = 1068.0
-offset_top = 28.0
-offset_right = 1257.0
-offset_bottom = 119.0
+offset_left = 1093.0
+offset_top = 24.0
+offset_right = 1282.0
+offset_bottom = 115.0
+rotation = 0.122765
 theme_override_colors/default_color = Color(0.136594, 0.118441, 0.225987, 1)
 theme_override_fonts/normal_font = ExtResource("4_t14fh")
 theme_override_font_sizes/normal_font_size = 22
@@ -111,15 +113,15 @@ Vinicius Zaniboni"
 [node name="RichTextLabel2" type="RichTextLabel" parent="CreditsMenu"]
 layout_mode = 2
 offset_left = 868.0
-offset_top = 198.0
+offset_top = 194.0
 offset_right = 1271.0
-offset_bottom = 464.0
+offset_bottom = 432.0
 theme_override_colors/default_color = Color(0.0985345, 0.0861971, 0.144795, 1)
 theme_override_fonts/normal_font = ExtResource("4_t14fh")
 theme_override_font_sizes/normal_font_size = 18
 bbcode_enabled = true
 text = "Audio utilizado:
-Kenney RPG Sound Pack
+Kenney RPG Sound Pack + UI Sound Pack
 	kenney.nl/assets
 
 Impact  e Punch de Iwan 'qubodup' Gabovitch
@@ -129,7 +131,13 @@ Air Pump Short 2 de LHermanns
 	freesound.org/s/417217/
 
 Annulet of Absortion de CosmicD
-	freesound.org/people/CosmicD/"
+	freesound.org/people/CosmicD/
+
+High Traffic Road by IgnasD
+	https://opengameart.org/content/high-traffic-road-sounds
+
+Doorbell Tring by Dub
+	opengameart.org/content/doorbell-ring"
 
 [node name="ButtonMainMenu" type="Button" parent="CreditsMenu"]
 texture_filter = 3

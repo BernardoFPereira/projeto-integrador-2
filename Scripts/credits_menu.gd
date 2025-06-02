@@ -8,7 +8,7 @@ extends Control
 @onready var timer: Timer = $"../Timer"
 
 func _on_button_main_menu_pressed() -> void:
-	Audio.play("res://Audio/FX/metalLatch.ogg", -15)
+	Audio.play("res://Audio/FX/ui_button_click.ogg", 0)
 	get_tree().change_scene_to_file("res://Scenes/Menus/MainMenu.tscn")
 
 func _on_left_side_body_entered(body: Node2D) -> void:
