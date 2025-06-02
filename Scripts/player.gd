@@ -572,11 +572,11 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 func _on_animated_sprite_2d_frame_changed() -> void:
 	if animated_sprite.animation in ["melee", "melee_knife"]:
-	#match animated_sprite.animation:
-		#"melee":
 		if animated_sprite.frame == 2:
 			melee_cast.force_raycast_update()
 			if melee_cast.is_colliding():
+				print(melee_cast.get_collider())
+				#if !collider.is_class("CharacterBody2D"):
 				return
 			var targets_to_hit = melee_hit_box.get_overlapping_bodies()
 			

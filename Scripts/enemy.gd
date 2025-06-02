@@ -240,6 +240,9 @@ func set_state(new_state: States) -> void:
 					#print("Player on the above floor. Entering GOING_UP")
 					set_state(States.GOING_UP)
 					return
+				#"same":
+					#set_state(States.SEARCH)
+					#return
 				_:
 					#print("Player on the same floor. Entering SEARCH")
 					pass
@@ -343,7 +346,7 @@ func handle_states(delta) -> void:
 				"RANGED":
 					if is_player_on_sight:
 						set_state(States.AIM)
-			if !(global_position.distance_to(target_position) < 20):
+			if !(global_position.x - target_position.x < 20):
 				velocity.x = direction_to_player.x * speed
 		States.AIM:
 			velocity.x = 0
@@ -423,6 +426,17 @@ func handle_states(delta) -> void:
 			#else:
 				#set_state(States.ROAMING)
 			#velocity.x = lerpf(velocity.x, global_position.direction_to(player_last_pos + search_offset).x * roam_speed, delta * 2)
+			if is_on_wall():
+				var query = PhysicsRayQueryParameters2D.create(global_position, muzzle.global_position, 11)
+				var collision = get_world_2d().direct_space_state.intersect_ray(query)
+				if !collision.is_empty():
+					print("hit wall SEARCHING")
+					match facing:
+						Facing.RIGHT:
+							target_position = global_position - Vector2(randf_range(100, 200), 0)
+						Facing.LEFT:
+							target_position = global_position + Vector2(randf_range(100, 200), 0)
+					#target_position = 
 			
 			if velocity.x == 0:
 				animated_sprite.play("idle")
@@ -435,12 +449,18 @@ func handle_states(delta) -> void:
 			if !(global_position.distance_to(target_position) < 100):
 				velocity.x = global_position.direction_to(target_position).x * roam_speed
 			#velocity.x = lerpf(velocity.x, global_position.direction_to(target_position).x * roam_speed, delta * 2)
-			elif is_on_wall():
-				velocity.x = 0
-			#if is_on_wall():
-				#roaming_timer.stop()
-				#roaming_timer.wait_time = 0.5
-				#roaming_timer.start()
+			if is_on_wall():
+				var query = PhysicsRayQueryParameters2D.create(global_position, muzzle.global_position, 11)
+				var collision = get_world_2d().direct_space_state.intersect_ray(query)
+				if !collision.is_empty():
+					print("hit wall ROAMING")
+					match facing:
+						Facing.RIGHT:
+							target_position = global_position - Vector2(randf_range(100, 200), 0)
+						Facing.LEFT:
+							target_position = global_position + Vector2(randf_range(100, 200), 0)
+					#if global_position.direction_to(muzzle.global_position).x < 0:
+					#if global_position.direction_to(muzzle.global_position).x > 0:
 			
 			if velocity.x == 0:
 				animated_sprite.play("idle")
@@ -525,7 +545,11 @@ func look_for_stairs() -> Vector2:
 			target_stairs = up_stairs.filter(
 					func(stairs): return ((global_position.y - stairs.global_position.y) < 130) and ((global_position.y - stairs.global_position.y) > -200)
 				)
+		_:
+			player_last_pos = PlayerManager.player.global_position
+			
 	if target_stairs.is_empty():
+		player_last_pos = PlayerManager.player.global_position
 		return PlayerManager.player.global_position
 	
 	return target_stairs[0].global_position
@@ -542,11 +566,12 @@ func y_diff() -> String:
 		#print(y_diff)
 		#print("%s: player is ABOVE me!" % self.name)
 		return "above"
-	#elif y_diff < 130 and y_diff > -200:
+	elif y_diff < 130 and y_diff > -200:
+		#print(y_diff)
 		#print("%s: player is on the SAME FLOOR as me!" % self.name)
-	#print(y_diff)
-	return "same"
-		
+		return "same"
+	return "not found"
+
 func _on_sight_area_body_entered(body: Node2D) -> void:
 	#chase_target = body
 	is_player_on_sight = true
@@ -585,31 +610,44 @@ func _on_suspicion_timer_timeout() -> void:
 	set_state(States.CHASE)
 
 func _on_roaming_timer_timeout() -> void:
-	var roaming_offset = Vector2(randf_range(-350, 350), 0)
+	var roaming_offset = Vector2(randf_range(-550, 550), 0)
 	target_position = global_position + roaming_offset
 	
-	if global_position.distance_to(target_position) < 100 or is_on_wall():
+	if global_position.distance_to(target_position) < 100:
+	#if abs(global_position.x) - abs(target_position.x) < 50:
 		target_position = global_position
 		velocity = Vector2.ZERO
 	
 	roaming_timer.wait_time = randf_range(min_wait, max_wait)
+	#roaming_timer.start()
 
 func _on_search_timer_timeout() -> void:
 	set_state(States.ROAMING)
 
 func _on_search_location_timer_timeout() -> void:
 	#print("changing search location")
-	var search_offset = Vector2(randf_range(-400, 400), 0)
-	target_position = player_last_pos + search_offset
+	var search_offset: Vector2
+	
+	search_offset = Vector2(randf_range(-200, 200), 0)
+	target_position = Vector2(player_last_pos.x, global_position.y) + search_offset
+	
 	#print("target_position: %s" % target_position)
-	if global_position.distance_to(target_position) < 50 or is_on_wall():
-		#print("target_position zeroed on my position: %s" % target_position)
+	#if (abs(global_position.x) - abs(target_position.x)) < 20:
+	if global_position.distance_to(target_position) < 100:
 		target_position = global_position
 		velocity = Vector2.ZERO
 	
 	search_location_timer.wait_time = randf_range(min_wait, max_wait)
 	search_location_timer.start()
 
+# Not used (yet) -- is leading to a weird
+func check_wall(target_position: Vector2) -> bool:
+	var query = PhysicsRayQueryParameters2D.create(global_position, target_position, 11)
+	var collision = get_world_2d().direct_space_state.intersect_ray(query)
+	if !collision.is_empty():
+		return false
+	return true
+	
 #func _on_interaction_timer_timeout() -> void:
 	#print("can interact again!")
 	#just_interacted = false

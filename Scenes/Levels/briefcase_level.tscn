@@ -548,6 +548,7 @@ wait_time = 2.5
 one_shot = true
 
 [node name="SceneTransitionLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 layer = 8
 script = ExtResource("2_fhi2v")
 

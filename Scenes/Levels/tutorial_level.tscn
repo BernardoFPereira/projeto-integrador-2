@@ -547,6 +547,7 @@ wait_time = 2.5
 one_shot = true
 
 [node name="SceneTransitionLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 layer = 8
 script = ExtResource("2_0kpk4")
 
@@ -557,6 +558,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("GradientTexture2D_a4e3y")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SceneTransitionLayer"]
@@ -648,11 +650,10 @@ metadata/_edit_lock_ = true
 visible = false
 collision_layer = 0
 collision_mask = 536870912
-metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InsideArea"]
 position = Vector2(68, -7)
-polygon = PackedVector2Array(95, 577, 102, -347, 444, -349, 437, -312, 372, -312, 277, -273, 271, -174, 210, -144, 210, -101, 241, -81, 302, -66, 318, -44, 872, -42, 897.565, -67.1595, 927, -75, 953, -78, 984, -93, 994, -111, 994, -195, 984, -218, 942, -231, 928, -279, 872, -294, 864, -356, 1177, -356, 1179, -41, 2203, -42, 2203, 583)
+polygon = PackedVector2Array(95, 577, 102, -347, 444, -349, 437, -312, 372, -312, 277, -273, 271, -174, 210, -144, 210, -101, 241, -81, 302, -66, 318, -44, 872, -42, 897.565, -67.1595, 927, -75, 953, -78, 984, -93, 994, -111, 994, -195, 984, -218, 942, -231, 928, -279, 872, -294, 864, -356, 1177, -356, 1179, -41, 2215, -42, 2203, 583)
 
 [node name="MapExitArea" type="Area2D" parent="."]
 position = Vector2(2738, 441)
@@ -1158,9 +1159,8 @@ position = Vector2(2055, 532)
 metadata/_edit_lock_ = true
 
 [node name="RangedEnemy2" parent="Enemies" instance=ExtResource("28_l4a6n")]
-position = Vector2(2202, 232)
+position = Vector2(2180, 232)
 is_deaf = true
-metadata/_edit_lock_ = true
 
 [node name="Weapons" type="Node" parent="."]
 
@@ -1173,7 +1173,7 @@ max_ammo = 8
 current_ammo = 1
 
 [node name="Player" parent="." instance=ExtResource("28_0q0y7")]
-position = Vector2(-283, 513)
+position = Vector2(1067, -141)
 
 [node name="MapBoundary" type="StaticBody2D" parent="."]
 position = Vector2(-1216, 362)

@@ -31,11 +31,26 @@ func _process(delta: float) -> void:
 		interact_highlight.visible = false
 	
 	if enemy_near:
+		#if 
+			#if (enemy.global_position.x - global_position.x) > 0:
+			#if (enemy.global_position.x - global_position.x) < 0:
+				
+			#pass
 		if enemy.state in [enemy.States.SEARCH, enemy.States.GOING_UP, enemy.States.GOING_DOWN]:
 			if state == DoorState.CLOSED:
 				open_door()
 			else:
 				return
+		#elif enemy.state in [enemy.States.ROAMING]:
+			#match enemy.facing:
+				#enemy.Facing.RIGHT:
+					#enemy.target_position = enemy.global_position - Vector2(100, 0)
+					#enemy.roaming_timer.start()
+					#pass
+				#enemy.Facing.LEFT:
+					#enemy.target_position = enemy.global_position + Vector2(100, 0)
+					#enemy.roaming_timer.start()
+					#pass
 
 func set_interactability(value: bool) -> void:
 	is_interactable = value
@@ -68,6 +83,21 @@ func close_door():
 
 func _on_interact_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
+		if body.state == body.States.ROAMING:
+			print("Roaming Enemy touched Door")
+			match body.facing:
+				body.Facing.RIGHT:
+					body.target_position = body.global_position - Vector2(100, 0)
+					pass
+				body.Facing.LEFT:
+					body.target_position = body.global_position + Vector2(100, 0)
+					pass
+			#if global_position.direction_to(body.global_position).x < 0:
+				#body.target_position = global_position + Vector2(100, 0)
+			#if global_position.direction_to(body.global_position).x > 0:
+				#body.target_position = global_position - Vector2(100, 0)
+			#body.global_position - global_position.x
+			#body.target_position = body.global_position
 		enemy_near = true
 		enemy = body
 
