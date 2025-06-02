@@ -88,16 +88,8 @@ func _on_interact_area_body_entered(body: Node2D) -> void:
 			match body.facing:
 				body.Facing.RIGHT:
 					body.target_position = body.global_position - Vector2(100, 0)
-					pass
 				body.Facing.LEFT:
 					body.target_position = body.global_position + Vector2(100, 0)
-					pass
-			#if global_position.direction_to(body.global_position).x < 0:
-				#body.target_position = global_position + Vector2(100, 0)
-			#if global_position.direction_to(body.global_position).x > 0:
-				#body.target_position = global_position - Vector2(100, 0)
-			#body.global_position - global_position.x
-			#body.target_position = body.global_position
 		enemy_near = true
 		enemy = body
 
