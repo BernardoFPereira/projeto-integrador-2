@@ -298,6 +298,7 @@ func handle_states(delta) -> void:
 			velocity.x = 0
 		
 		States.FALL:
+			velocity.x = 0
 			if is_on_floor():
 				#print("Landed!")
 				set_state(States.IDLE)
@@ -309,7 +310,7 @@ func handle_states(delta) -> void:
 			velocity.x = 0
 		
 		States.WALK:
-			if velocity.y < 0:
+			if !is_on_floor():
 				set_state(States.FALL)
 				
 			if direction.x:
