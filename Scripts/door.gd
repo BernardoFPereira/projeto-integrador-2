@@ -1,4 +1,5 @@
 extends StaticBody2D
+class_name Door
 
 #@export var animated_sprite: AnimationPlayer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -6,12 +7,19 @@ extends StaticBody2D
 @onready var collision: CollisionShape2D = $Collision
 @onready var interact_highlight: Line2D = $InteractHighlight
 @onready var animation_highlight: AnimationPlayer = $InteractHighlight/AnimationPlayer
+@onready var interact_area: Area2D = $InteractArea
+
+@export var is_interactable := true
 
 enum DoorState { OPEN, CLOSED }
 
 var state := DoorState.CLOSED
 var enemy_near := false
 var enemy: Enemy
+
+func _ready() -> void:
+	if !is_interactable:
+		set_interactability(false)
 
 func _process(delta: float) -> void:
 	if PlayerManager.interact_target == self and PlayerManager.can_interact:
@@ -23,11 +31,34 @@ func _process(delta: float) -> void:
 		interact_highlight.visible = false
 	
 	if enemy_near:
+		#if 
+			#if (enemy.global_position.x - global_position.x) > 0:
+			#if (enemy.global_position.x - global_position.x) < 0:
+				
+			#pass
 		if enemy.state in [enemy.States.SEARCH, enemy.States.GOING_UP, enemy.States.GOING_DOWN]:
 			if state == DoorState.CLOSED:
 				open_door()
 			else:
 				return
+		#elif enemy.state in [enemy.States.ROAMING]:
+			#match enemy.facing:
+				#enemy.Facing.RIGHT:
+					#enemy.target_position = enemy.global_position - Vector2(100, 0)
+					#enemy.roaming_timer.start()
+					#pass
+				#enemy.Facing.LEFT:
+					#enemy.target_position = enemy.global_position + Vector2(100, 0)
+					#enemy.roaming_timer.start()
+					#pass
+
+func set_interactability(value: bool) -> void:
+	is_interactable = value
+	match is_interactable:
+		true:
+			interact_area.set_collision_layer_value(11, 1)
+		false:
+			interact_area.set_collision_layer_value(11, 0)
 
 func interaction():
 	match state:
@@ -52,6 +83,13 @@ func close_door():
 
 func _on_interact_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
+		if body.state == body.States.ROAMING:
+			print("Roaming Enemy touched Door")
+			match body.facing:
+				body.Facing.RIGHT:
+					body.target_position = body.global_position - Vector2(100, 0)
+				body.Facing.LEFT:
+					body.target_position = body.global_position + Vector2(100, 0)
 		enemy_near = true
 		enemy = body
 

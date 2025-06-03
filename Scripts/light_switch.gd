@@ -39,7 +39,7 @@ func interaction():
 		States.ON:
 			pass
 		States.OFF:
-			if switch_condition != "BROKEN":
+			if switch_condition != "WORKING":
 				Audio.play("res://Audio/FX/buzz.ogg", -10)
 			pass
 	

@@ -3,6 +3,7 @@ class_name Enemy
 
 @export_enum("MELEE", "RANGED") var enemy_type := "MELEE"
 
+@export var health := 2
 @export var facing: Facing
 @export var start_state := States.IDLE
 @export_range(200.0, 800.0, 1.0) var speed := 150.0
@@ -12,6 +13,7 @@ class_name Enemy
 @export_range(80.0, 300.0, 1.0) var roam_speed := 100.0
 @export var min_wait := 2.0
 @export var max_wait := 6.0
+@export var is_deaf := false
 
 @onready var muzzle: Marker2D = $Muzzle
 @onready var sound_range: Area2D = $SoundRange
@@ -47,6 +49,8 @@ class_name Enemy
 
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
+var heard_noise := false
+
 signal decrement_counter
 
 enum States {
@@ -62,7 +66,8 @@ enum States {
 	COOLDOWN,
 	DAMAGE,
 	AIM,
-	DEAD
+	DEAD,
+	MOVE_TO_TARGET,
 }
 
 enum Facing { LEFT, RIGHT }
@@ -76,7 +81,6 @@ var is_player_on_sight := false
 var target_position := Vector2.ZERO
 var ammo := 8
 var cooldown_counter := 0.0
-var health := 2
 var roam_timer
 
 var can_interact := false
@@ -93,6 +97,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if health <= 0:
 		set_state(States.DEAD)
+		
+	if heard_noise:
+		heard_noise = false
+		set_state(States.SEARCH)
 		
 	if velocity.x > 0:
 		set_facing(Facing.RIGHT)
@@ -175,7 +183,15 @@ func set_state(new_state: States) -> void:
 		States.DAMAGE:
 			if health >= 0:
 				animated_sprite.play("damage")
+			velocity.x = 0
 		States.IDLE:
+			suspicion_timer.stop()
+			roaming_timer.stop()
+			search_location_timer.stop()
+			search_timer.stop()
+			interaction_timer.stop()
+			aim_timer.stop()
+			
 			state_sprite.visible = false
 			state_sprite.stop()
 			state_sprite.self_modulate = Color.WHITE
@@ -206,6 +222,9 @@ func set_state(new_state: States) -> void:
 			
 			#animated_sprite.play("idle")
 		States.CHASE:
+			#chase_target = get_tree().get_first_node_in_group("Player")
+			target_position = chase_target.global_position
+			
 			state_sprite.visible = true
 			state_sprite.self_modulate = Color.RED
 			state_sprite.play("detected")
@@ -232,6 +251,9 @@ func set_state(new_state: States) -> void:
 					#print("Player on the above floor. Entering GOING_UP")
 					set_state(States.GOING_UP)
 					return
+				#"same":
+					#set_state(States.SEARCH)
+					#return
 				_:
 					#print("Player on the same floor. Entering SEARCH")
 					pass
@@ -289,6 +311,8 @@ func set_state(new_state: States) -> void:
 			suspicion_timer.stop()
 			
 			animated_sprite.play("walk")
+		States.MOVE_TO_TARGET:
+			animated_sprite.play("walk")
 		#_:
 			#print(state)
 			#state_sprite.visible = false
@@ -318,13 +342,16 @@ func handle_states(delta) -> void:
 			# wait to see if player stays in sight
 			pass
 		States.CHASE:
-			target_position = chase_target.global_position
+			target_position = PlayerManager.player.global_position
 			
 			if detected_obstacle() or !is_player_on_sight:
 				set_state(States.SEARCH)
 			
 			var distance_to_player = global_position.distance_to(target_position)
-			var direction_to_player = global_position.direction_to(chase_target.global_position).normalized()
+			var direction_to_player = global_position.direction_to(target_position).normalized()
+			
+			if !distance_to_player < 50:
+				velocity.x = direction_to_player.x * speed
 			
 			match enemy_type:
 				"MELEE":
@@ -333,8 +360,6 @@ func handle_states(delta) -> void:
 				"RANGED":
 					if is_player_on_sight:
 						set_state(States.AIM)
-			if !(global_position.distance_to(target_position) < 20):
-				velocity.x = direction_to_player.x * speed
 		States.AIM:
 			velocity.x = 0
 			#if player_last_pos.x > 0:
@@ -363,19 +388,6 @@ func handle_states(delta) -> void:
 		States.ATTACK:
 			match enemy_type:
 				"MELEE":
-					
-					var slash_fx = preload("res://Scenes/FX/enemy_slash.tscn").instantiate()
-					var offset = Vector2(25, 0)
-					
-					match facing:
-						Facing.RIGHT:
-							slash_fx.flip_h = true
-							slash_fx.global_position = global_position + offset
-						
-						Facing.LEFT:
-							slash_fx.global_position = global_position - offset
-					get_tree().root.add_child(slash_fx)
-					
 					var possible_targets = enemy_hit_box.get_overlapping_bodies()
 					if possible_targets != null and !possible_targets.is_empty():
 						PlayerManager.deal_damage(PlayerManager.player, 1)
@@ -391,7 +403,6 @@ func handle_states(delta) -> void:
 					shoot()
 					
 					set_state(States.COOLDOWN)
-					pass
 		States.COOLDOWN:
 			cooldown_counter += delta
 			if cooldown_counter >= attack_cooldown:
@@ -403,11 +414,11 @@ func handle_states(delta) -> void:
 		States.GOING_UP:
 			if !(global_position.distance_to(target_position) < 20):
 				velocity.x = global_position.direction_to(target_position).x * (roam_speed * 2)
-			
 			if can_interact:# and !just_interacted:
 				#interaction_timer.start()
 				#just_interacted = true
 				interaction_target.interaction("ENEMY")
+				can_interact = false
 				set_state(States.SEARCH)
 		States.GOING_DOWN:
 			if !(global_position.distance_to(target_position) < 20):
@@ -418,8 +429,8 @@ func handle_states(delta) -> void:
 				#interaction_timer.start()
 				#just_interacted = true
 				interaction_target.interaction("ENEMY")
-				set_state(States.SEARCH)
 				can_interact = false
+				set_state(States.SEARCH)
 		States.SEARCH:
 			#var search_offset = Vector2(randf_range(-350, 350), 0)
 			if !(global_position.distance_to(target_position) < 50):
@@ -427,6 +438,17 @@ func handle_states(delta) -> void:
 			#else:
 				#set_state(States.ROAMING)
 			#velocity.x = lerpf(velocity.x, global_position.direction_to(player_last_pos + search_offset).x * roam_speed, delta * 2)
+			if is_on_wall():
+				var query = PhysicsRayQueryParameters2D.create(global_position, muzzle.global_position, 11)
+				var collision = get_world_2d().direct_space_state.intersect_ray(query)
+				if !collision.is_empty():
+					print("hit wall SEARCHING")
+					match facing:
+						Facing.RIGHT:
+							target_position = global_position - Vector2(randf_range(100, 200), 0)
+						Facing.LEFT:
+							target_position = global_position + Vector2(randf_range(100, 200), 0)
+					#target_position = 
 			
 			if velocity.x == 0:
 				animated_sprite.play("idle")
@@ -439,12 +461,18 @@ func handle_states(delta) -> void:
 			if !(global_position.distance_to(target_position) < 100):
 				velocity.x = global_position.direction_to(target_position).x * roam_speed
 			#velocity.x = lerpf(velocity.x, global_position.direction_to(target_position).x * roam_speed, delta * 2)
-			elif is_on_wall():
-				velocity.x = 0
-			#if is_on_wall():
-				#roaming_timer.stop()
-				#roaming_timer.wait_time = 0.5
-				#roaming_timer.start()
+			if is_on_wall():
+				var query = PhysicsRayQueryParameters2D.create(global_position, muzzle.global_position, 11)
+				var collision = get_world_2d().direct_space_state.intersect_ray(query)
+				if !collision.is_empty():
+					print("hit wall ROAMING")
+					match facing:
+						Facing.RIGHT:
+							target_position = global_position - Vector2(randf_range(100, 200), 0)
+						Facing.LEFT:
+							target_position = global_position + Vector2(randf_range(100, 200), 0)
+					#if global_position.direction_to(muzzle.global_position).x < 0:
+					#if global_position.direction_to(muzzle.global_position).x > 0:
 			
 			if velocity.x == 0:
 				animated_sprite.play("idle")
@@ -456,7 +484,8 @@ func handle_states(delta) -> void:
 					set_state(States.ROAMING)
 				else:
 					set_state(States.SUSPICIOUS)
-		
+		States.MOVE_TO_TARGET:
+			velocity.x = global_position.direction_to(target_position).x * roam_speed
 	move_and_slide()
 
 func shoot() -> void:
@@ -514,21 +543,25 @@ func look_for_stairs() -> Vector2:
 		"below":
 		#	look for nearest stairs that lead down
 			var down_stairs = all_stairs.filter(
-				func(stairs): return stairs.direction == stairs.Direction.DOWN
+				func(allstairs): return allstairs.direction == allstairs.Direction.DOWN
 				)
 			
 			target_stairs = down_stairs.filter(
-					func(stairs): return ((global_position.y - stairs.global_position.y) < 130) and ((global_position.y - stairs.global_position.y) > -200) 
+					func(downstairs): return ((global_position.y - downstairs.global_position.y) < 130) and ((global_position.y - downstairs.global_position.y) > -200) 
 				)
 		"above":
 			var up_stairs = all_stairs.filter(
-				func(stairs): return stairs.direction == stairs.Direction.UP
+				func(allstairs): return allstairs.direction == allstairs.Direction.UP
 				)
 			
 			target_stairs = up_stairs.filter(
-					func(stairs): return ((global_position.y - stairs.global_position.y) < 130) and ((global_position.y - stairs.global_position.y) > -200)
+					func(upstair): return ((global_position.y - upstair.global_position.y) < 130) and ((global_position.y - upstair.global_position.y) > -200)
 				)
+		_:
+			player_last_pos = PlayerManager.player.global_position
+			
 	if target_stairs.is_empty():
+		player_last_pos = PlayerManager.player.global_position
 		return PlayerManager.player.global_position
 	
 	return target_stairs[0].global_position
@@ -545,11 +578,12 @@ func y_diff() -> String:
 		#print(y_diff)
 		#print("%s: player is ABOVE me!" % self.name)
 		return "above"
-	#elif y_diff < 130 and y_diff > -200:
+	elif y_diff < 130 and y_diff > -200:
+		#print(y_diff)
 		#print("%s: player is on the SAME FLOOR as me!" % self.name)
-	#print(y_diff)
-	return "same"
-		
+		return "same"
+	return "not found"
+
 func _on_sight_area_body_entered(body: Node2D) -> void:
 	#chase_target = body
 	is_player_on_sight = true
@@ -588,31 +622,36 @@ func _on_suspicion_timer_timeout() -> void:
 	set_state(States.CHASE)
 
 func _on_roaming_timer_timeout() -> void:
-	var roaming_offset = Vector2(randf_range(-350, 350), 0)
+	var roaming_offset = Vector2(randf_range(-550, 550), 0)
 	target_position = global_position + roaming_offset
 	
-	if global_position.distance_to(target_position) < 100 or is_on_wall():
+	if global_position.distance_to(target_position) < 50:
+	#if abs(global_position.x) - abs(target_position.x) < 50:
 		target_position = global_position
 		velocity = Vector2.ZERO
 	
 	roaming_timer.wait_time = randf_range(min_wait, max_wait)
+	#roaming_timer.start()
 
 func _on_search_timer_timeout() -> void:
 	set_state(States.ROAMING)
 
 func _on_search_location_timer_timeout() -> void:
 	#print("changing search location")
-	var search_offset = Vector2(randf_range(-400, 400), 0)
-	target_position = player_last_pos + search_offset
+	var search_offset: Vector2
+	
+	search_offset = Vector2(randf_range(-200, 200), 0)
+	target_position = Vector2(player_last_pos.x, global_position.y) + search_offset
+	
 	#print("target_position: %s" % target_position)
-	if global_position.distance_to(target_position) < 50 or is_on_wall():
-		#print("target_position zeroed on my position: %s" % target_position)
+	#if (abs(global_position.x) - abs(target_position.x)) < 20:
+	if global_position.distance_to(target_position) < 50:
 		target_position = global_position
 		velocity = Vector2.ZERO
 	
 	search_location_timer.wait_time = randf_range(min_wait, max_wait)
 	search_location_timer.start()
-
+	
 #func _on_interaction_timer_timeout() -> void:
 	#print("can interact again!")
 	#just_interacted = false
@@ -621,7 +660,7 @@ func _on_search_location_timer_timeout() -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	match animated_sprite.animation:
 		"damage":
-			set_state(States.SEARCH)
+			set_state(States.COOLDOWN)
 		_:
 			pass
 

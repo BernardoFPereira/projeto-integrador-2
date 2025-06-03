@@ -26,8 +26,8 @@ func _physics_process(delta: float) -> void:
 		get_tree().root.add_child(collision_fx)
 		
 		var collider = collision.get_collider()
+		var collision_position = collision.get_position()
 		if collider.is_in_group("Enemy"):#.is_class("CharacterBody2D"):
-			var collision_position = collision.get_position()
 			var blood_spray = preload("res://Scenes/FX/blood_fx.tscn").instantiate()
 			
 			var shape = collision.get_collider_shape()
@@ -51,11 +51,12 @@ func _physics_process(delta: float) -> void:
 				get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
 		
 		elif collider.is_in_group("Player"):
-			var blood_spatter = preload("res://Scenes/FX/black_blood_spatter.tscn").instantiate()
+			if Geometry2D.is_point_in_polygon(collision_position, inside_area.polygon):
+				var blood_spatter = preload("res://Scenes/FX/black_blood_spatter.tscn").instantiate()
 			
-			# Spawn blood spatter
-			blood_spatter.global_position = collision.get_position()
-			get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
+				# Spawn blood spatter
+				blood_spatter.global_position = collision.get_position()
+				get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
 			PlayerManager.deal_damage(collider, 1)
 		else:
 			Audio.play("res://Audio/FX/ImpactStone.ogg", -5)

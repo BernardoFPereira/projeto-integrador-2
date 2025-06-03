@@ -31,6 +31,7 @@ func interaction(mode: String = "PLAYER"):
 		"ENEMY":
 			if enemy_to_move != null:
 				enemy_to_move.global_position = destination.spawn_marker.global_position
+				enemy_to_move.velocity = Vector2.ZERO
 				enemy_to_move = null
 
 func _on_interact_area_body_entered(body: Node2D) -> void:

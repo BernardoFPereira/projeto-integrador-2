@@ -15,10 +15,12 @@ func _process(delta: float) -> void:
 	match is_window:
 		false:
 			set_pressed_no_signal(true)
-			text = "on"
+			if !get_parent().name == "OptionsMenu":
+				text = "Ligado"
 		true:
 			set_pressed_no_signal(false)
-			text = "off"
+			if !get_parent().name == "OptionsMenu":
+				text = "Desligado"
 
 func _on_toggled(toggled_on: bool) -> void:
 	var mode := DisplayServer.window_get_mode()

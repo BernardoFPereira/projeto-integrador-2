@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://q67d5llac072" path="res://Scripts/main_menu.gd" id="1_tfrft"]
 [ext_resource type="Texture2D" uid="uid://cyrvqjm4gbii6" path="res://Sprites/main_menu.png" id="3_hqtmt"]
-[ext_resource type="FontFile" uid="uid://di4euix3ybpjy" path="res://TravelingTypewriter.ttf" id="4_mc63j"]
+[ext_resource type="FontFile" uid="uid://di4euix3ybpjy" path="res://Fonts/TravelingTypewriter.ttf" id="4_mc63j"]
 [ext_resource type="AudioStream" uid="uid://bnm2k1oy5rwqa" path="res://Audio/Pause guitar.ogg" id="4_tfrft"]
 [ext_resource type="AudioStream" uid="uid://d3tjaivpaxsy3" path="res://Audio/gatve Varniu.ogg" id="5_mc63j"]
 [ext_resource type="Theme" uid="uid://7eltmng1er5f" path="res://UITheme/ButtonTheme.tres" id="5_uv623"]
@@ -65,15 +65,9 @@ theme = ExtResource("5_uv623")
 
 [node name="Label" type="Label" parent="ButtonStartGame"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -11.5
-offset_right = 24.0
-offset_bottom = 11.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Jogar"
@@ -99,15 +93,9 @@ theme = ExtResource("5_uv623")
 
 [node name="Label" type="Label" parent="ButtonOptions"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -29.0
-offset_top = -11.5
-offset_right = 29.0
-offset_bottom = 11.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Opções"
@@ -133,15 +121,9 @@ theme = ExtResource("5_uv623")
 
 [node name="Label" type="Label" parent="ButtonCredits"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -38.5
-offset_top = -11.5
-offset_right = 38.5
-offset_bottom = 11.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Créditos"
@@ -168,15 +150,9 @@ theme = ExtResource("5_uv623")
 
 [node name="Label" type="Label" parent="ButtonQuit"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -29.0
-offset_top = -11.5
-offset_right = 29.0
-offset_bottom = 11.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Fechar"
@@ -184,19 +160,21 @@ label_settings = SubResource("LabelSettings_uv623")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." groups=["Audio"]]
 stream = ExtResource("4_tfrft")
 volume_db = 10.0
-autoplay = true
 bus = &"Music"
 
-[node name="Ambience" type="AudioStreamPlayer" parent="."]
+[node name="Ambience" type="AudioStreamPlayer" parent="." groups=["Audio"]]
 stream = ExtResource("5_mc63j")
 volume_db = -20.0
-autoplay = true
 bus = &"SoundFX"
 
+[connection signal="button_down" from="ButtonStartGame" to="." method="_on_button_start_game_button_down"]
 [connection signal="pressed" from="ButtonStartGame" to="." method="_on_button_start_game_pressed"]
+[connection signal="button_down" from="ButtonOptions" to="." method="_on_button_options_button_down"]
 [connection signal="pressed" from="ButtonOptions" to="." method="_on_button_options_pressed"]
+[connection signal="button_down" from="ButtonCredits" to="." method="_on_button_credits_button_down"]
 [connection signal="pressed" from="ButtonCredits" to="." method="_on_button_credits_pressed"]
+[connection signal="button_down" from="ButtonQuit" to="." method="_on_button_quit_button_down"]
 [connection signal="pressed" from="ButtonQuit" to="." method="_on_button_quit_pressed"]

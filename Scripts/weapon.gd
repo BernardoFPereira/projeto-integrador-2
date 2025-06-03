@@ -9,6 +9,7 @@ class_name Weapon
 
 @export_enum("melee", "ranged") var weapon_type: String
 @export var max_ammo: int = 0
+@export var current_ammo: int
 
 @onready var interact_area: Area2D = $InteractArea
 @onready var highlight: Sprite2D = $Highlight
@@ -24,14 +25,13 @@ class_name Weapon
 
 var player: Player
 var muzzle: Marker2D
-var current_ammo: int
 
 var was_thrown := false
 
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
-	current_ammo = max_ammo
+	#current_ammo = max_ammo
 	default_sprite = sprite.texture
 	
 	var muz = get_node("Muzzle")
@@ -39,7 +39,6 @@ func _ready() -> void:
 		muzzle = muz
 	else:
 		muzzle = null
-	
 
 #func _process(delta) -> void:
 	#if PlayerManager.player.carried_weapon != self:
@@ -89,19 +88,20 @@ func drop_weapon() -> void:
 	sleeping = false
 
 func melee(targets_to_hit: Array) -> void:
-	var back_wall = get_tree().get_first_node_in_group("BackWall")
-	
 	match weapon_type:
 		"melee":
 			for target: Enemy in targets_to_hit:
 				var inside_area = get_tree().get_first_node_in_group("Indoors").get_child(0)
-				if Geometry2D.is_point_in_polygon(global_position, inside_area.polygon):
+				var back_wall = get_tree().get_first_node_in_group("BackWall")
+				
+				if Geometry2D.is_point_in_polygon(target.global_position, inside_area.polygon):
 					var blood_spatter = preload("res://Scenes/FX/blood_spatter.tscn").instantiate()
-					PlayerManager.deal_damage(target, 2)
 					blood_spatter.global_position = global_position
-					Audio.play("res://Audio/FX/knife_hit.ogg", -15)
 					back_wall.add_child(blood_spatter)
+					
+				PlayerManager.deal_damage(target, 2)
 				target.set_state(target.States.DAMAGE)
+				Audio.play("res://Audio/FX/knife_hit.ogg", -15)
 			
 		_:
 			for target: Enemy in targets_to_hit:
@@ -154,8 +154,9 @@ func broadcast_noise() -> void:
 	if bodies_in_range:
 		for body in bodies_in_range:
 			if body.state != body.States.DEAD:
-				body.player_last_pos = player.global_position
-				body.set_state(body.States.SEARCH)
+				if !body.is_deaf:
+					body.heard_noise = true
+					body.player_last_pos = player.global_position
 
 func flip_weapon() -> void:
 	match player.facing:
@@ -191,9 +192,14 @@ func _on_body_entered(body: Node) -> void:
 		
 		if body.is_in_group("Enemy"):
 			PlayerManager.deal_damage(body, 2)
-			var blood_spatter = preload("res://Scenes/FX/blood_spatter.tscn").instantiate()
-			blood_spatter.global_position = global_position
-			get_tree().get_first_node_in_group("BackWall").add_child(blood_spatter)
+			var inside_area = get_tree().get_first_node_in_group("Indoors").get_child(0)
+			
+			if Geometry2D.is_point_in_polygon(global_position, inside_area.polygon):
+				var blood_spatter = preload("res://Scenes/FX/blood_spatter.tscn").instantiate()
+				var back_wall = get_tree().get_first_node_in_group("BackWall")
+				blood_spatter.global_position = global_position
+				back_wall.add_child(blood_spatter)
+				
 			Audio.play("res://Audio/FX/ImpactMeat01.ogg", -15)
 			interact_area.set_collision_layer_value(11,0)
 			sprite.texture = used_sprite

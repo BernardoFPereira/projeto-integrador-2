@@ -298,6 +298,7 @@ func handle_states(delta) -> void:
 			velocity.x = 0
 		
 		States.FALL:
+			velocity.x = 0
 			if is_on_floor():
 				#print("Landed!")
 				set_state(States.IDLE)
@@ -309,6 +310,9 @@ func handle_states(delta) -> void:
 			velocity.x = 0
 		
 		States.WALK:
+			if !is_on_floor():
+				set_state(States.FALL)
+				
 			if direction.x:
 				velocity.x = direction.x * SPEED
 			else:
@@ -469,6 +473,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			#print(PlayerManager.target_stairs)
 			PlayerManager.target_stairs.interaction()
 	
+	if event.is_action_pressed("smoke_cigarette") and state == States.IDLE:
+		animated_sprite.play("smoke")
+		pass
+	
 	if event.is_action_pressed("activate_shadow_meld"):
 		if state in [States.PREP_SHADOW_SHOT, States.MELEE, States.SHADOW_SHOT]:
 			return
@@ -496,10 +504,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		set_state(States.IDLE)
 		
 	if event.is_action_pressed("aim"):
-		if state in [States.SHADOW_MELD, States.PREP_SHADOW_SHOT, States.MELEE, States.SHADOW_SHOT]:
+		if state in [
+			States.SHADOW_MELD,
+			States.PREP_SHADOW_SHOT,
+			States.MELEE,
+			States.SHADOW_SHOT,
+			States.EXIT_SHADOW_MELD,
+			States.FALL,
+			]:
 			return
 		if melee_cast.is_colliding():
 			return
+		#if state in [States.IDLE] and !is_on_floor():
+			#set_state(States.FALL)
 		
 		PlayerManager.switch_aim(true)
 		set_state(States.AIM)
@@ -558,14 +575,19 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 			animated_sprite.play("shadow_shape")
 		"exit_shadow_meld":
 			set_state(States.IDLE)
+		"smoke":
+			animated_sprite.play("smoke_flick")
+		"smoke_flick":
+			animated_sprite.play("idle")
 
 func _on_animated_sprite_2d_frame_changed() -> void:
 	if animated_sprite.animation in ["melee", "melee_knife"]:
-	#match animated_sprite.animation:
-		#"melee":
 		if animated_sprite.frame == 2:
+			Audio.play("res://Audio/FX/lhermanns__air-pump-short-2.ogg", 0)
 			melee_cast.force_raycast_update()
 			if melee_cast.is_colliding():
+				print(melee_cast.get_collider())
+				#if !collider.is_class("CharacterBody2D"):
 				return
 			var targets_to_hit = melee_hit_box.get_overlapping_bodies()
 			
