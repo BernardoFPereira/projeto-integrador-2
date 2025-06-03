@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://djwj25g3yxu8i"]
+[gd_scene load_steps=17 format=4 uid="uid://djwj25g3yxu8i"]
 
 [ext_resource type="PackedScene" uid="uid://byrom8vbjgcxo" path="res://Scenes/parallax_backgrounds.tscn" id="1_mgg0m"]
 [ext_resource type="TileSet" uid="uid://bh52f06wo7gfn" path="res://Tilesets/hotel_walls2.tres" id="1_n4b4j"]
@@ -16,14 +16,13 @@
 [ext_resource type="Texture2D" uid="uid://d3sgf3m0rc3cm" path="res://Sprites/asset pack 03/janela B1.png" id="14_rp1lj"]
 [ext_resource type="PackedScene" uid="uid://bljkigdqi5ipq" path="res://Scenes/Scenery/poste.tscn" id="15_fs1sj"]
 
-[sub_resource type="SystemFont" id="SystemFont_et25s"]
-font_names = PackedStringArray("Monospace")
-font_weight = 999
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fs1sj"]
 size = Vector2(258, 78)
 
 [node name="CreditsLevel" type="Node"]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
 
 [node name="ParallaxBackgrounds" parent="." instance=ExtResource("1_mgg0m")]
 position = Vector2(6, -18)
@@ -97,13 +96,13 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 27.0
-offset_top = -117.0
-offset_right = 546.0
-offset_bottom = -25.0
+offset_top = -124.0
+offset_right = 639.0
+offset_bottom = -4.0
 grow_vertical = 0
 theme_override_colors/default_color = Color(0.695503, 0.695503, 0.695503, 1)
-theme_override_fonts/normal_font = SubResource("SystemFont_et25s")
-theme_override_font_sizes/normal_font_size = 18
+theme_override_fonts/normal_font = ExtResource("4_t14fh")
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "Playtesters:
 Márcio Rosendo, Victor Ricco Vracc
@@ -112,13 +111,14 @@ Vinicius Zaniboni"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="CreditsMenu"]
 layout_mode = 2
-offset_left = 868.0
-offset_top = 194.0
-offset_right = 1271.0
-offset_bottom = 432.0
+offset_left = 873.0
+offset_top = 192.0
+offset_right = 1273.0
+offset_bottom = 439.0
+rotation = 0.0104391
 theme_override_colors/default_color = Color(0.0985345, 0.0861971, 0.144795, 1)
 theme_override_fonts/normal_font = ExtResource("4_t14fh")
-theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/normal_font_size = 19
 bbcode_enabled = true
 text = "Audio utilizado:
 Kenney RPG Sound Pack + UI Sound Pack
@@ -137,7 +137,10 @@ High Traffic Road by IgnasD
 	https://opengameart.org/content/high-traffic-road-sounds
 
 Doorbell Tring by Dub
-	opengameart.org/content/doorbell-ring"
+	opengameart.org/content/doorbell-ring
+
+phone3.wav de rwm28
+	freesound.org/s/48192/"
 
 [node name="ButtonMainMenu" type="Button" parent="CreditsMenu"]
 texture_filter = 3
@@ -251,6 +254,8 @@ metadata/_edit_lock_ = true
 position = Vector2(25, 387)
 metadata/_edit_lock_ = true
 
+[node name="Grunts" type="Node" parent="."]
+
 [node name="RightSpawn" type="Marker2D" parent="."]
 position = Vector2(1403, 454)
 
@@ -279,10 +284,8 @@ position = Vector2(1597, 465)
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_fs1sj")
 
-[node name="Timer" type="Timer" parent="."]
-autostart = true
-
+[connection signal="timeout" from="Timer" to="CreditsMenu" method="_on_timer_timeout"]
+[connection signal="button_down" from="CreditsMenu/ButtonMainMenu" to="CreditsMenu" method="_on_button_main_menu_button_down"]
 [connection signal="pressed" from="CreditsMenu/ButtonMainMenu" to="CreditsMenu" method="_on_button_main_menu_pressed"]
 [connection signal="body_entered" from="DeathAreas/LeftSide" to="CreditsMenu" method="_on_left_side_body_entered"]
 [connection signal="body_entered" from="DeathAreas/RightSide" to="CreditsMenu" method="_on_screen_size_body_entered"]
-[connection signal="timeout" from="Timer" to="CreditsMenu" method="_on_timer_timeout"]

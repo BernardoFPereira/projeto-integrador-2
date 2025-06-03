@@ -27,7 +27,7 @@ var cursor_arrow_clicked = load("res://Sprites/UI/cursors/cursores2.png")
 var cursor_aim = load("res://Sprites/UI/reticulo.png")
 
 func _ready() -> void:
-	Input.set_custom_mouse_cursor(cursor_aim)
+	Input.set_custom_mouse_cursor(cursor_aim, Input.CURSOR_ARROW, Vector2(16,16))
 	PlayerManager.player = get_tree().get_first_node_in_group("Player")
 
 func _process(delta: float) -> void:

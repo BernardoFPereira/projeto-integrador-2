@@ -5,11 +5,14 @@ extends Control
 @export var left_target: Marker2D
 @export var right_target: Marker2D
 
+@onready var grunts: Node = $"../Grunts"
 @onready var timer: Timer = $"../Timer"
 
 func _on_button_main_menu_pressed() -> void:
+	SceneManager.change_scene("res://Scenes/Menus/MainMenu.tscn")
+
+func _on_button_main_menu_button_down() -> void:
 	Audio.play("res://Audio/FX/ui_button_click.ogg", 0)
-	get_tree().change_scene_to_file("res://Scenes/Menus/MainMenu.tscn")
 
 func _on_left_side_body_entered(body: Node2D) -> void:
 	body.queue_free()
@@ -41,4 +44,4 @@ func _on_timer_timeout() -> void:
 		
 	enemy_instance.start_state = enemy_instance.States.MOVE_TO_TARGET
 	timer.wait_time = randf_range(1.5, 4.0)
-	get_tree().root.add_child(enemy_instance)
+	grunts.add_child(enemy_instance)

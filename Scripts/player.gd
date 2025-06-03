@@ -503,10 +503,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		set_state(States.IDLE)
 		
 	if event.is_action_pressed("aim"):
-		if state in [States.SHADOW_MELD, States.PREP_SHADOW_SHOT, States.MELEE, States.SHADOW_SHOT]:
+		if state in [
+			States.SHADOW_MELD,
+			States.PREP_SHADOW_SHOT,
+			States.MELEE,
+			States.SHADOW_SHOT,
+			States.EXIT_SHADOW_MELD,
+			States.FALL,
+			]:
 			return
 		if melee_cast.is_colliding():
 			return
+		#if state in [States.IDLE] and !is_on_floor():
+			#set_state(States.FALL)
 		
 		PlayerManager.switch_aim(true)
 		set_state(States.AIM)
@@ -573,6 +582,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 func _on_animated_sprite_2d_frame_changed() -> void:
 	if animated_sprite.animation in ["melee", "melee_knife"]:
 		if animated_sprite.frame == 2:
+			Audio.play("res://Audio/FX/lhermanns__air-pump-short-2.ogg", 0)
 			melee_cast.force_raycast_update()
 			if melee_cast.is_colliding():
 				print(melee_cast.get_collider())

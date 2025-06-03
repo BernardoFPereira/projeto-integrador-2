@@ -11,7 +11,7 @@ var cursor_aim = load("res://Sprites/UI/reticulo.png")
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause_game"):
 		if game_paused:
-			Input.set_custom_mouse_cursor(cursor_aim)
+			Input.set_custom_mouse_cursor(cursor_aim, 0, Vector2(16,16))
 			get_viewport().set_input_as_handled()
 			game_paused = false
 			pause_menu.visible = false
@@ -23,6 +23,7 @@ func _input(event: InputEvent) -> void:
 			get_tree().paused = true
 
 func _on_button_continue_pressed() -> void:
+			Input.set_custom_mouse_cursor(cursor_aim, Input.CURSOR_ARROW, Vector2(16,16))
 			game_paused = false
 			pause_menu.visible = false
 			get_tree().paused = false
@@ -30,4 +31,5 @@ func _on_button_continue_pressed() -> void:
 func _on_button_quit_pressed() -> void:
 	game_paused = false
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://Scenes/Menus/MainMenu.tscn")
+	SceneManager.change_scene("res://Scenes/Menus/MainMenu.tscn")
+	#get_tree().change_scene_to_file("res://Scenes/Menus/MainMenu.tscn")

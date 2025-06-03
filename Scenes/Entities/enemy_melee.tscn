@@ -224,6 +224,7 @@ process_callback = 0
 wait_time = 3.0
 
 [node name="SuspicionTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="SearchLocationTimer" type="Timer" parent="."]
 

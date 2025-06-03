@@ -26,6 +26,7 @@ Audio="*res://audio.gd"
 SceneManager="*res://scene_manager.gd"
 PlayerManager="*res://player_manager.gd"
 VentManager="*res://vent_manager.gd"
+MusicManager="*res://music_manager.gd"
 
 [display]
 
@@ -49,6 +50,7 @@ Indoors=""
 BackWall=""
 Stair=""
 Main=""
+Audio=""
 
 [input]
 

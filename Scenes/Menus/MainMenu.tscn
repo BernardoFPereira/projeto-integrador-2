@@ -160,19 +160,21 @@ label_settings = SubResource("LabelSettings_uv623")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." groups=["Audio"]]
 stream = ExtResource("4_tfrft")
 volume_db = 10.0
-autoplay = true
 bus = &"Music"
 
-[node name="Ambience" type="AudioStreamPlayer" parent="."]
+[node name="Ambience" type="AudioStreamPlayer" parent="." groups=["Audio"]]
 stream = ExtResource("5_mc63j")
 volume_db = -20.0
-autoplay = true
 bus = &"SoundFX"
 
+[connection signal="button_down" from="ButtonStartGame" to="." method="_on_button_start_game_button_down"]
 [connection signal="pressed" from="ButtonStartGame" to="." method="_on_button_start_game_pressed"]
+[connection signal="button_down" from="ButtonOptions" to="." method="_on_button_options_button_down"]
 [connection signal="pressed" from="ButtonOptions" to="." method="_on_button_options_pressed"]
+[connection signal="button_down" from="ButtonCredits" to="." method="_on_button_credits_button_down"]
 [connection signal="pressed" from="ButtonCredits" to="." method="_on_button_credits_pressed"]
+[connection signal="button_down" from="ButtonQuit" to="." method="_on_button_quit_button_down"]
 [connection signal="pressed" from="ButtonQuit" to="." method="_on_button_quit_pressed"]

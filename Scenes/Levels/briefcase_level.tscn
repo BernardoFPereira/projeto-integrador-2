@@ -1198,7 +1198,7 @@ current_ammo = 6
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("40_5wv4y")]
-position = Vector2(-947, 513)
+position = Vector2(-1079, 513)
 
 [node name="Enemies" type="Node" parent="."]
 
@@ -1221,7 +1221,7 @@ position = Vector2(588, 213)
 metadata/_edit_lock_ = true
 
 [node name="Grunt3" parent="Enemies" instance=ExtResource("42_fivbj")]
-position = Vector2(-106, 215)
+position = Vector2(-97, 217)
 facing = 1
 metadata/_edit_lock_ = true
 
